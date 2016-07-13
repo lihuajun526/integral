@@ -8,6 +8,7 @@ package com.vip.integral.spider;
 import com.vip.integral.util.cookie.IgnoreCookieStore;
 import com.vip.integral.util.cookie.IgnoreRedirect;
 import com.vip.integral.util.cookie.PerfMonitor;
+import org.apache.http.HttpHost;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.RedirectStrategy;
 import org.apache.http.client.config.CookieSpecs;
@@ -92,7 +93,7 @@ public class HttpAsyncClient {
                     .setConnectionManager(cm)
                     .setDefaultRequestConfig(requestConfig)
                     .setSSLStrategy(sslSessionStrategy)
-                    //                        .setProxy(new HttpHost("localhost", 8888))
+                     .setProxy(new HttpHost("172.17.148.57", 8888))
                     .setDefaultCookieStore(ignoreCookieStore)
                     .build();
             httpAsyncClient.start();
