@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://wap.koudaitong.com/v2/common/prefetching -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="dns-prefetch" href="https://dn-kdt-img.qbox.me/">
+    <link rel="dns-prefetch" href="https://b.yzcdn.cn/">
+    <link rel="dns-prefetch" href="https://dn-kdt-img-test.qbox.me/">
+    <link rel="dns-prefetch" href="https://img.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://img.yzcdn.cn/">
+    <link rel="dns-prefetch" href="https://imgqn.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://imgqntest.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://su.yzcdn.cn/">
+    <link rel="dns-prefetch" href="https://static.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://yz.cloud.hoge.cn/">
+    <link rel="dns-prefetch" href="https://open.weixin.qq.com/">
+    <link rel="dns-prefetch" href="https://mp.weixin.qq.com/">
+    <link rel="dns-prefetch" href="https://api.map.baidu.com/">
+    <link rel="dns-prefetch" href="https://kdt-static.qiniucdn.com/">
+    <link rel="dns-prefetch" href="https://b.yzcdn.cn/">
+    <link rel="dns-prefetch" href="https://koudaitong.com/">
+    <link rel="dns-prefetch" href="https://youzan.com/">
+    <link rel="dns-prefetch" href="https://trade.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://wap.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://tj.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://1111.youzan.com/">
+    <link rel="dns-prefetch" href="https://im.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://pin.koudaitong.com/">
+    <link rel="dns-prefetch" href="https://maijia.koudaitong.com/">
+
+    <link rel="stylesheet" href="./base_965b6d3f4a.css" onerror="_cdnFallback(this)" media="screen">    <link rel="stylesheet" href="./goods_0c81994559.css" onerror="_cdnFallback(this)" media="screen">    <link rel="stylesheet" href="./buyer_8ad7e4bfb7.css" onerror="_cdnFallback(this)" media="screen">    <link rel="stylesheet" href="./trade_1cfcdcd6fc.css" onerror="_cdnFallback(this)" media="screen"></head>
+<body>
+    <script>
+    	function loadCss (key, url) {
+    		var image = new Image();
+    		var date = new Date();
+
+    		date.setTime(+date + 1 * 86400000);
+            // 因为下载的不是图片，实际触发的是onerror事件
+    		image.onload = image.onerror = function () {
+    			document.cookie = key + '=' + url.slice(url.indexOf('build_css')) + ';path=/;domain=.koudaitong.com;expires=' + date.toGMTString();
+    		};
+    		image.src = url;
+    	}
+
+        (function(){
+            'use strict';
+            window.onload = function () {
+                var i = 0,
+                    max = 0,
+                    preloadCss = {
+                    	css_showcase: 'https://b.yzcdn.cn/v2/build_css/stylesheets/wap/projects/showcase_e872cc66b7.css',
+                    	css_showcase_admin: 'https://b.yzcdn.cn/v2/build_css/stylesheets/wap/projects/showcase_admin_a3fd1aa3c5.css',
+                    },
+                    preloadJs = [
+                        'https://b.yzcdn.cn/v2/build/wap/base_8d577ac5e1.js',
+                        'https://b.yzcdn.cn/v2/vendor/u_b.js',
+                        'https://b.yzcdn.cn/v2/build/wap/showcase/base_680b3e406b.js',
+                        'https://b.yzcdn.cn/v2/build/wap/showcase/sku_66bfcf35f4.js',
+                        'https://b.yzcdn.cn/v2/build/wap/showcase/goods_a4663bde1c.js',
+                    ];
+
+                for (var key in preloadCss) {
+                	loadCss(key, preloadCss[key]);
+                }
+
+                for (i = 0, max = preloadJs.length; i < max; i += 1) {
+                    new Image().src = preloadJs[i];
+                }
+
+            };
+        })();
+    </script>
+
+    <iframe src="./addressPrefetching.html" style="display: none;"></iframe>
+
+
+</body></html>
