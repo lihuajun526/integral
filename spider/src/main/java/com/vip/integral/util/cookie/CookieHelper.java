@@ -1,6 +1,6 @@
 package com.vip.integral.util.cookie;
 
-import com.sun.deploy.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpMessage;
 import org.apache.http.HttpResponse;

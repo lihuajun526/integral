@@ -15,6 +15,7 @@
         <module>dbservice</module>
         <module>spider</module>
         <module>vipservice</module>
+        <module>config</module>
     </modules>
 
 
