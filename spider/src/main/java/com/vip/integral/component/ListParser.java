@@ -1,7 +1,7 @@
 package com.vip.integral.component;
 
 import com.alibaba.fastjson.JSONObject;
-import com.vip.integral.bean.CrawlPoint;
+import com.vip.integral.bean.CrawlPointAttr;
 import com.vip.integral.bean.ParseResult;
 import com.vip.integral.component.analyzer.JsonAnalyzer;
 import com.vip.integral.constant.ExceptionTypeEnum;
@@ -41,7 +41,7 @@ public class ListParser {
     @Autowired
     private JsonAnalyzerFactory jsonAnalyzerFactory;
 
-    protected CrawlPoint crawlPoint;
+    protected CrawlPointAttr crawlPointAttr;
     private String posRule;
     private String favourUrlRule;
     private String jsonAnalyzerPath;
@@ -161,18 +161,18 @@ public class ListParser {
      */
     private List<ParseResult> parseJson(String content) {
         JsonAnalyzer jsonAnalyzer = jsonAnalyzerFactory.getJsonAnalyzer(jsonAnalyzerPath);
-        jsonAnalyzer.crawlPoint = crawlPoint;
+        jsonAnalyzer.crawlPointAttr = crawlPointAttr;
         return jsonAnalyzer.parse(content);
     }
 
     // 初始化
-    public void init(CrawlPoint crawlPoint) {
-        this.crawlPoint = crawlPoint;
-        this.posRule = crawlPoint.getListPosRule();
-        this.favourUrlRule = crawlPoint.getUrlRule();
-        this.jsonAnalyzerPath = crawlPoint.getJsonAnalyzePath();
-        this.listRuleJson = crawlPoint.getListRule();
-        this.selfRule = crawlPoint.getUrlScript();
+    public void init(CrawlPointAttr crawlPointAttr) {
+        this.crawlPointAttr = crawlPointAttr;
+        this.posRule = crawlPointAttr.getListPosRule();
+        this.favourUrlRule = crawlPointAttr.getUrlRule();
+        this.jsonAnalyzerPath = crawlPointAttr.getJsonAnalyzePath();
+        this.listRuleJson = crawlPointAttr.getListRule();
+        this.selfRule = crawlPointAttr.getUrlScript();
     }
 
     // 正则表达式过滤字符串

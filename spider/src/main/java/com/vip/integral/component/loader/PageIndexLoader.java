@@ -1,6 +1,6 @@
 package com.vip.integral.component.loader;
 
-import com.vip.integral.bean.CrawlPoint;
+import com.vip.integral.bean.CrawlPointAttr;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.util.StrUtil;
 import com.vip.integral.util.XHttpClient;
@@ -25,7 +25,7 @@ public abstract class PageIndexLoader {
 
     protected Integer pageCount = 1;// 总页数
     protected Integer curCount = 0;// 当前页
-    protected CrawlPoint crawlPoint;
+    protected CrawlPointAttr crawlPointAttr;
     public HttpUriRequest httpUriRequest;
     private List<NameValuePair> postParams = new ArrayList<NameValuePair>();
     protected String url;
@@ -41,8 +41,8 @@ public abstract class PageIndexLoader {
      * @param crawlPoint
      * @throws UnsupportedEncodingException
      */
-    public void init(CrawlPoint crawlPoint) throws UnsupportedEncodingException {
-        this.crawlPoint = crawlPoint;
+    public void init(CrawlPointAttr crawlPoint) throws UnsupportedEncodingException {
+        this.crawlPointAttr = crawlPointAttr;
         if ("POST".equalsIgnoreCase(crawlPoint.getRequestMethod())) {
             httpPost = new HttpPost(crawlPoint.getUrl());
             httpUriRequest = httpPost;
@@ -74,7 +74,7 @@ public abstract class PageIndexLoader {
      */
     public String next() throws URISyntaxException, RequestException {
 
-        if ("POST".equalsIgnoreCase(crawlPoint.getRequestMethod())) {// POST请求
+        if ("POST".equalsIgnoreCase(crawlPointAttr.getRequestMethod())) {// POST请求
 
         } else if ("GET".equalsIgnoreCase(httpUriRequest.getMethod())) {// GET请求
 
@@ -100,7 +100,7 @@ public abstract class PageIndexLoader {
                 httpGet.setURI(new URI(reqUri));
             }
         }
-        String response = XHttpClient.doRequest(httpUriRequest, crawlPoint.getUrlencoded());
+        String response = XHttpClient.doRequest(httpUriRequest, crawlPointAttr.getUrlencoded());
         // 更新总页数
         updatePageCount(response);
         // 返回

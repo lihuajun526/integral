@@ -5,7 +5,7 @@ package com.vip.integral.bean;
  *
  * @author lihuajun
  */
-public class CrawlPoint {
+public class CrawlPointAttr {
 
     /*****
      * 采集点属性
