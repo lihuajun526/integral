@@ -17,6 +17,8 @@ public class CrawlPoint {
 
     private String jsonAnalyzePath;
 
+    private Integer status;
+
     //请求属性
     private String method;
 
@@ -217,5 +219,13 @@ public class CrawlPoint {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -24,7 +24,7 @@ public class CrawlTask implements Runnable {
     private PageLoader pageLoader;// 页面加载器
     private CrawlPointAttr crawlPointAttr;
 
-    public CrawlTask(CrawlPointAttr crawlPoint) {
+    public CrawlTask(CrawlPointAttr crawlPointAttr) {
         this.crawlPointAttr = crawlPointAttr;
     }
 
