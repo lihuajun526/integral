@@ -11,6 +11,8 @@ public class CrawlPoint {
 
     private String url;
 
+    private String urlCrClassPath;
+
     private Boolean isCrawlDetail;
 
     private String jsonAnalyzePath;
@@ -49,4 +51,171 @@ public class CrawlPoint {
 
     private Date updateTime;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrlCrClassPath() {
+        return urlCrClassPath;
+    }
+
+    public void setUrlCrClassPath(String urlCrClassPath) {
+        this.urlCrClassPath = urlCrClassPath;
+    }
+
+    public Boolean getCrawlDetail() {
+        return isCrawlDetail;
+    }
+
+    public void setCrawlDetail(Boolean crawlDetail) {
+        isCrawlDetail = crawlDetail;
+    }
+
+    public String getJsonAnalyzePath() {
+        return jsonAnalyzePath;
+    }
+
+    public void setJsonAnalyzePath(String jsonAnalyzePath) {
+        this.jsonAnalyzePath = jsonAnalyzePath;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(String cookies) {
+        this.cookies = cookies;
+    }
+
+    public String getReferer() {
+        return referer;
+    }
+
+    public void setReferer(String referer) {
+        this.referer = referer;
+    }
+
+    public String getAccept() {
+        return accept;
+    }
+
+    public void setAccept(String accept) {
+        this.accept = accept;
+    }
+
+    public String getResponseEncode() {
+        return responseEncode;
+    }
+
+    public void setResponseEncode(String responseEncode) {
+        this.responseEncode = responseEncode;
+    }
+
+    public String getResponseType() {
+        return responseType;
+    }
+
+    public void setResponseType(String responseType) {
+        this.responseType = responseType;
+    }
+
+    public String getListPosRule() {
+        return listPosRule;
+    }
+
+    public void setListPosRule(String listPosRule) {
+        this.listPosRule = listPosRule;
+    }
+
+    public String getListAttrRule() {
+        return listAttrRule;
+    }
+
+    public void setListAttrRule(String listAttrRule) {
+        this.listAttrRule = listAttrRule;
+    }
+
+    public String getLinkRule() {
+        return linkRule;
+    }
+
+    public void setLinkRule(String linkRule) {
+        this.linkRule = linkRule;
+    }
+
+    public String getLinkSelfRule() {
+        return linkSelfRule;
+    }
+
+    public void setLinkSelfRule(String linkSelfRule) {
+        this.linkSelfRule = linkSelfRule;
+    }
+
+    public String getRuleJson() {
+        return ruleJson;
+    }
+
+    public void setRuleJson(String ruleJson) {
+        this.ruleJson = ruleJson;
+    }
+
+    public String getPageIndexRule() {
+        return pageIndexRule;
+    }
+
+    public void setPageIndexRule(String pageIndexRule) {
+        this.pageIndexRule = pageIndexRule;
+    }
+
+    public String getPageIndexClassPath() {
+        return pageIndexClassPath;
+    }
+
+    public void setPageIndexClassPath(String pageIndexClassPath) {
+        this.pageIndexClassPath = pageIndexClassPath;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 }

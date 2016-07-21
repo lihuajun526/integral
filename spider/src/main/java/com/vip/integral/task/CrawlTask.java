@@ -8,7 +8,6 @@ import com.vip.integral.component.ComponentBuilder;
 import com.vip.integral.component.ListParser;
 import com.vip.integral.component.loader.PageIndexLoader;
 import com.vip.integral.component.loader.PageLoader;
-import com.vip.integral.exception.SpiderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -65,13 +64,7 @@ public class CrawlTask implements Runnable {
                         }
                         // 加载详细页
                         if (crawlPointAttr.isCrawlDetail()) {
-                            try {
-                                pageLoader.load(parseResult);
-                            } catch (Exception e) {
-                                LOGGER.error("爬取优惠信息{}错误:", parseResult.getLink(), e);
-                                // TODO: 16-7-7 异常信息入库
-                                continue;
-                            }
+                            pageLoader.load(parseResult);
                         }
                         parseResult.setCategory(crawlPointAttr.getCategory());
                         // 追加数据
@@ -81,17 +74,12 @@ public class CrawlTask implements Runnable {
                         break;
                     }
                     pageNum++;
-                } catch (SpiderException e) {
-                    LOGGER.error("请求{}失败或解析该列表失败:", pageIndexLoader.httpUriRequest.getURI(), e);
-                    //// TODO: 16-7-7 异常信息入库
                 } catch (Exception e) {
                     LOGGER.error("", e);
                 }
             }
 
             String jsonResult = JSONArray.toJSONString(allParseResultList);
-
-            LOGGER.debug("爬取结果：" + jsonResult);
 
             // 结果入库
             //spiderResultService.save(allParseResultList, task.getTaskId(), task.getCrawlPointId());
@@ -120,10 +108,6 @@ public class CrawlTask implements Runnable {
     private boolean isNeedSpider(List<ParseResult> parseResultList) {
 
         return false;
-    }
-
-    public static void main(String[] args) {
-
     }
 
 }
