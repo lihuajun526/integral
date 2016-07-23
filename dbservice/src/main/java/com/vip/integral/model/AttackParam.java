@@ -3,7 +3,7 @@ package com.vip.integral.model;
 import java.util.Date;
 
 /**
- * 攻击者
+ * 攻击参数
  * Created by lihuajun on 16-7-21.
  */
 public class AttackParam {
@@ -21,6 +21,8 @@ public class AttackParam {
     private String requestMethod;//get/post
 
     private String data;
+
+    private String charset;
 
     /**
      * 用户行为json
@@ -110,5 +112,13 @@ public class AttackParam {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getCharset() {
+        return charset;
+    }
+
+    public void setCharset(String charset) {
+        this.charset = charset;
     }
 }

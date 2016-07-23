@@ -23,7 +23,7 @@ public class Task1 {
 
     public void exe() {
         // 获得所有的评论水军
-        List<AqyCommenter> commenters = allObserver();
+        List<AqyCommenter> commenters = allCommenter();
         // 获得评论详细页
         List<AqyCommentPage> commentPages = allCommentPage();
 
@@ -67,20 +67,20 @@ public class Task1 {
      *
      * @return
      */
-    private List<AqyCommenter> allObserver() {
+    private List<AqyCommenter> allCommenter() {
 
-        List<AqyCommenter> observerList = new ArrayList<>();
+        List<AqyCommenter> commenters = new ArrayList<>();
 
         AttackParamService attackParamService = (AttackParamService) SpringContext.getContext().getBean("attackerService");
         List<AttackParam> list = attackParamService.listByBelong("aqy");
 
         for (AttackParam attackParam : list) {
-            AqyCommenter aqyObserver = new AqyCommenter();
-            aqyObserver.setAttackParam(attackParam);
-            observerList.add(aqyObserver);
+            AqyCommenter aqyCommenter = new AqyCommenter();
+            aqyCommenter.setAttackParam(attackParam);
+            commenters.add(aqyCommenter);
         }
 
-        return observerList;
+        return commenters;
     }
 
     /**

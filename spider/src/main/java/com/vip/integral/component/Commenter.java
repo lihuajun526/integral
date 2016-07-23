@@ -1,6 +1,10 @@
 package com.vip.integral.component;
 
 import com.vip.integral.bean.Comment;
+import com.vip.integral.exception.RequestException;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 
 /**
  * Created by lihuajun on 16-7-16.
@@ -11,7 +15,7 @@ public abstract class Commenter extends Attacker{
     /**
      * 评论
      */
-    public abstract Comment comment();
+    public abstract Comment comment() throws URISyntaxException, UnsupportedEncodingException, RequestException;
 
     /**
      * 回复

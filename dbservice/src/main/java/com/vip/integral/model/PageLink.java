@@ -17,8 +17,6 @@ public class PageLink {
 
     private int count;//攻击次数
 
-    private String charset;
-
     private Date createTime;
 
     private Date modifyTime;
@@ -79,11 +77,4 @@ public class PageLink {
         this.count = count;
     }
 
-    public String getCharset() {
-        return charset;
-    }
-
-    public void setCharset(String charset) {
-        this.charset = charset;
-    }
 }

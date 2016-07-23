@@ -8,7 +8,9 @@ import java.util.Map;
  */
 public class Comment {
 
+    private String id;
     private Map<String,String> attr = new HashMap<>();
+
 
     public Map<String, String> getAttr() {
         return attr;
@@ -16,5 +18,13 @@ public class Comment {
 
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
