@@ -16,21 +16,8 @@ import java.util.List;
  */
 public abstract class Attacker {
 
-    //攻击参数
-    protected AttackParam attackParam;
-    //攻击的页面
-    protected AttackPage attackPage;
-    //response
-    private String response;
     //攻击者行为
     protected String action;
-
-    //初始化
-    public void init() throws RequestException {
-        HttpGet httpGet = new HttpGet(attackPage.getPageLink().getLink());
-        response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
-        action = attackParam.getAction();
-    }
 
     /**
      * 初始化表单
@@ -53,14 +40,6 @@ public abstract class Attacker {
         }
 
         return params;
-    }
-
-    public void setAttackParam(AttackParam attackParam) {
-        this.attackParam = attackParam;
-    }
-
-    public void setAttackPage(AttackPage attackPage) {
-        this.attackPage = attackPage;
     }
 
 }

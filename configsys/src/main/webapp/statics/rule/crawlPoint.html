@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id="tt" class="easyui-tabs" style="width:850px;height:930px;">
+    <div title="HTML" style="padding:20px;display:none;">
+        <form id="crawlPointHtml" method="post">
+            <table cellpadding="5">
+                <tr>
+                    <input id="crawlPointIdHtml" name="crawlPointIdHtml" type="text" style="display: none"/>
+                </tr>
+                <tr>
+                    <td>银行名称</td>
+                    <td>
+                        <select id="bankNameHtml" name="bankName" style="width:153px;">
+                            <option></option>
+                            <option value="ZGYH_01040000">中国银行</option>
+                            <option value="GFYH_03060000">广发银行</option>
+                            <option value="NYYH_01030000">农业银行</option>
+                            <option value="MSYH_03050000">民生银行</option>
+                            <option value="HXYH_03040001">华夏银行</option>
+                            <option value="ZXYH_03020000">中信银行</option>
+                            <option value="PAYH_04100000">平安银行</option>
+                            <option value="GDYH_03030000">光大银行</option>
+                            <option value="SHYH_04010000">上海银行</option>
+                            <option value="BJYH_04031000">北京银行</option>
+                            <option value="HQYH_03190000">花旗银行</option>
+                            <option value="JSYH_01050000">建设银行</option>
+                            <option value="GSYH_01020000">工商银行</option>
+                            <option value="JTYH_03010000">交通银行</option>
+                            <option value="PFYH_03100000">浦发银行</option>
+                            <option value="ZSYH_03080000">招商银行</option>
+                            <option value="XYYH_03090000">兴业银行</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tag名称</td>
+                    <td><input id="tagHtml" name="tag" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>TagEn名称</td>
+                    <td><input id="tagEnHtml" name="tagEn" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>类别</td>
+                    <td>
+                        <select id="categoryHtml" name="category" style="width:153px;">
+                            <option></option>
+                            <option value="MS">美食</option>
+                            <option value="XXYL">休闲娱乐</option>
+                            <option value="JD">酒店</option>
+                            <option value="DYY">电影院</option>
+                            <option value="GW">购物</option>
+                            <option value="YD">运动</option>
+                            <option value="LR">丽人</option>
+                            <option value="SHFW">生活服务</option>
+                            <option value="WHYS">文化艺术</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td><input style="width: 500px;" id="urlHtml" name="url" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>列表位置</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>规则:</td>
+                                <td><input style="width: 500px;" id="listPositionRuleHtml" name="listPositionRule" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>规则类型:</td>
+                                <td>
+                                    <select id="listPositionRuleTypeHtml" name="listPositionRuleType">
+                                        <option></option>
+                                        <option value="JSOUP">JSOUP</option>
+                                        <option value="XPATH">XPATH</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否爬取细览</td>
+                    <td>
+                        <input id="crawlDetailYesHtml" type="radio" name="crawlDetail" value="yes" checked/>是
+                        <input id="crawlDetailNoHtml" type="radio" name="crawlDetail" value="no"/>否
+                    </td>
+                </tr>
+                <tr>
+                    <td>优惠项详情链接</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>规则:</td>
+                                <td><input id="favourUrlHtml" name="favourUrl" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>规则类型:</td>
+                                <td>
+                                    <select id="favourUrlRuleTypeHtml" name="favourUrlRuleType">
+                                        <option></option>
+                                        <option value="JSOUP">JSOUP</option>
+                                        <option value="XPATH">XPATH</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>自定义:</td>
+                                <td><input style="width: 500px;" id="favourUrlAnalyzeHtml" name="favourUrlAnalyze" type="text"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        列表属性提取<br/>
+                        示例：<br/>
+                        [<br/>
+                        {<br/>
+                        &nbsp;&nbsp;"key":"title",<br/>
+                        &nbsp;&nbsp;"jsoup":"...",<br/>
+                        &nbsp;&nbsp;"regex":"..."<br/>
+                        }<br/>
+                        ]
+                    </td>
+                    <td><input style="width: 500px;" id="listParamsRule" name="listParamsRule" type="text"/>
+                        <!--<table>-->
+                        <!--<tr>-->
+                        <!--<td></td>-->
+                        <!--<td>规则</td>-->
+                        <!--<td>规则类型</td>-->
+                        <!--<td>正则</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>标题</td>-->
+                        <!--<td><input id="listTitleRuleHtml" name="listTitleRule" type="text"/></td>-->
+                        <!--<td>-->
+                        <!--<select id="listTitleRuleTypeHtml" name="listTitleRuleType">-->
+                        <!--<option></option>-->
+                        <!--<option value="JSOUP">JSOUP</option>-->
+                        <!--<option value="XPATH">XPATH</option>-->
+                        <!--</select>-->
+                        <!--</td>-->
+                        <!--<td><input id="listTitleRegexHtml" name="listTitleRegex" type="text"/></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>有效期</td>-->
+                        <!--<td><input id="listExpiryDateRuleHtml" name="listExpiryDateRule" type="text"/></td>-->
+                        <!--<td>-->
+                        <!--<select id="listExpiryDateRuleTypeHtml" name="listExpiryDateRuleType">-->
+                        <!--<option></option>-->
+                        <!--<option value="JSOUP">JSOUP</option>-->
+                        <!--<option value="XPATH">XPATH</option>-->
+                        <!--</select>-->
+                        <!--</td>-->
+                        <!--<td><input id="listExpiryDateRegexHtml" name="listExpiryDateRegex" type="text"/></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td>创建时间</td>-->
+                        <!--<td><input id="listItemCreateTimeRuleHtml" name="listItemCreateTimeRule" type="text"/>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                        <!--<select id="listItemCreateTimeRuleTypeHtml" name="listItemCreateTimeRuleType">-->
+                        <!--<option></option>-->
+                        <!--<option value="JSOUP">JSOUP</option>-->
+                        <!--<option value="XPATH">XPATH</option>-->
+                        <!--</select>-->
+                        <!--</td>-->
+                        <!--<td><input id="listItemCreateTimeRegexHtml" name="listItemCreateTimeRegex" type="text"/>-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <!--</table>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>请求方式</td>
+                    <td>
+                        <input id="requestMethodPostHtml" type="radio" name="requestMethod" value="POST"/>POST
+                        <input id="requestMethodGetHtml" type="radio" name="requestMethod" value="GET" checked>GET
+                        <br>
+                        <table>
+                            <tr>
+                                <td>Cookies</td>
+                                <td><input id="cookiesHtml" name="cookies" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Referer</td>
+                                <td><input id="refererHtml" name="referer" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Accept</td>
+                                <td><input id="acceptHtml" name="accept" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Keys</td>
+                                <td><input id="keysHtml" name="keys" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Values</td>
+                                <td><input id="valuesHtml" name="values" type="text"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>URL请求编码</td>
+                    <td>
+                        <input id="urlEncodedUtfHtml" type="radio" name="urlEncoded" value="UTF-8" checked/>UTF-8
+                        <input id="urlEncodedGbkHtml" type="radio" name="urlEncoded" value="GBK"/>GBK
+                    </td>
+                </tr>
+                <tr>
+                    <td>分页导航</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <!--规则:<br/>
+                                    {"by":"id","value":"xxx"}<br/>
+                                    {"by":"attr","value":{"key":"xxx","value":"xxx"}}<br/>
+                                    {"by":"path","value":"xxx"}（jsoup路径方式）-->
+                                </td>
+                                <td><input style="width: 500px;" id="pageIndexRuleHtml" name="pageIndexRule" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>规则类型:</td>
+                                <td>
+                                    <select id="pageIndexRuleTypeHtml" name="pageIndexRuleType">
+                                        <option></option>
+                                        <option value="JSOUP">JSOUP</option>
+                                        <option value="XPATH">XPATH</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>解析器:</td>
+                                <td><input style="width: 500px;" id="pageIndexAnalyzeHtml" name="pageIndexAnalyze" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td><input id="parentIdHtml" name="parentId" type="text" style="display: none"></td>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="submitHtml" type="button" class="easyui-linkbutton" onclick="saveHTML()">提交</button>
+                        <button id="updateHtml" type="button" class="easyui-linkbutton" style="display: none"
+                                onclick="updateHTML()">
+                            更新
+                        </button>
+                    </td>
+
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div title="JSON" style="overflow:auto;padding:20px;display:none;">
+        <form id="crawlPointJson" method="post">
+            <table cellpadding="5">
+                <tr>
+                    <input id="crawlPointIdJson" name="crawlPointIdJson" type="text" style="display: none"/>
+                </tr>
+                <tr>
+                    <td>银行名称</td>
+                    <td>
+                        <select id="bankNameJson" name="bankName" style="width:153px;">
+                            <option></option>
+                            <option value="ZGYH_01040000">中国银行</option>
+                            <option value="GFYH_03060000">广发银行</option>
+                            <option value="NYYH_01030000">农业银行</option>
+                            <option value="MSYH_03050000">民生银行</option>
+                            <option value="HXYH_03040001">华夏银行</option>
+                            <option value="ZXYH_03020000">中信银行</option>
+                            <option value="PAYH_04100000">平安银行</option>
+                            <option value="GDYH_03030000">光大银行</option>
+                            <option value="SHYH_04010000">上海银行</option>
+                            <option value="BJYH_04031000">北京银行</option>
+                            <option value="HQYH_03190000">花旗银行</option>
+                            <option value="JSYH_01050000">建设银行</option>
+                            <option value="GSYH_01020000">工商银行</option>
+                            <option value="JTYH_03010000">交通银行</option>
+                            <option value="PFYH_03100000">浦发银行</option>
+                            <option value="ZSYH_03080000">招商银行</option>
+                            <option value="XYYH_03090000">兴业银行</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tag名称</td>
+                    <td><input id="tagJson" name="tag" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>TagEn名称</td>
+                    <td><input id="tagEnJson" name="tagEn" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>类别</td>
+                    <td>
+                        <select id="categoryJson" name="category" style="width:153px;">
+                            <option></option>
+                            <option></option>
+                            <option value="MS">美食</option>
+                            <option value="XXYL">休闲娱乐</option>
+                            <option value="JD">酒店</option>
+                            <option value="DYY">电影院</option>
+                            <option value="GW">购物</option>
+                            <option value="YD">运动</option>
+                            <option value="LR">丽人</option>
+                            <option value="SHFW">生活服务</option>
+                            <option value="WHYS">文化艺术</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td><input id="urlJson" name="url" type="text" data-options="required:true"/></td>
+                </tr>
+                <tr>
+                    <td>JSON解析器</td>
+                    <td><input id="jsonAnalyze" name="jsonAnalyze" type="text" data-options="required:true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否爬取细览</td>
+                    <td>
+                        <input id="crawlDetailYesJson" type="radio" name="crawlDetail" value="yes" checked/>是
+                        <input id="crawlDetailNoJson" type="radio" name="crawlDetail" value="no"/>否
+                    </td>
+                </tr>
+                <tr>
+                    <td>请求方式</td>
+                    <td>
+                        <input id="requestMethodPostJson" type="radio" name="requestMethod" value="POST"/>POST
+                        <input id="requestMethodGetJson" type="radio" name="requestMethod" value="GET" checked>GET
+                        <br>
+                        <table>
+                            <tr>
+                                <td>Cookies</td>
+                                <td><input id="cookiesJson" name="cookies" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Referer</td>
+                                <td><input id="refererJson" name="referer" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Accept</td>
+                                <td><input id="acceptJson" name="accept" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Keys</td>
+                                <td><input id="keysJson" name="keys" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>Values</td>
+                                <td><input id="valuesJson" name="values" type="text"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>URL请求编码</td>
+                    <td>
+                        <input id="urlEncodedUtfJson" type="radio" name="urlEncoded" value="UTF-8" checked/>UTF-8
+                        <input id="urlEncodedGbkJson" type="radio" name="urlEncoded" value="GBK"/>GBK
+                    </td>
+                </tr>
+                <tr>
+                    <td>分页导航</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>规则:</td>
+                                <td><input id="pageIndexRuleJson" name="pageIndexRule" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td>规则类型:</td>
+                                <td>
+                                    <select id="pageIndexRuleTypeJson" name="pageIndexRuleType">
+                                        <option></option>
+                                        <option value="JSOUP">JSOUP</option>
+                                        <option value="XPATH">XPATH</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>解析器:</td>
+                                <td><input id="pageIndexAnalyzeJson" name="pageIndexAnalyze" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td><input id="parentIdJson" name="parentId" type="text" style="display: none"></td>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="submitJson" type="button" class="easyui-linkbutton" onclick="saveJSON()">提交</button>
+                        <button id="updateJson" type="button" class="easyui-linkbutton" style="display: none"
+                                onclick="updateJSON()">
+                            更新
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div title="详细页" style="padding:20px;display:none;" onclick="_refresh();">
+        <div id="pp" class="easyui-panel" title="层列表" style="width:700px;height:600px;padding:10px;" data-options="
+            tools:[{iconCls:'icon-reload',handler:function(){$('#pp').panel('refresh','statics/rule/detail_list.html')}}]
+        "></div>
+    </div>
+</div>
+<script>
+    if (crawlId != 0 && crawlId.toString().indexOf("tree") < 0) {
+        $.ajax({
+            url: 'crawl/get',
+            type: 'get',
+            data: 'id=' + crawlId,
+            dataType: 'json',
+            success: function (result) {
+                if (result.crawlPoint.responseType == 'HTML') {
+                    $('#submitHtml').hide();
+                    $('#updateHtml').show();
+                    $('#crawlPointIdHtml').val(result.crawlPoint.id);
+
+                    $('#bankNameHtml').val(result.crawlPoint.bankName);
+                    $('#tagHtml').val(result.crawlPoint.tag);
+                    $('#tagEnHtml').val(result.crawlPoint.tagEn);
+                    $('#categoryHtml').val(result.crawlPoint.category);
+                    $('#urlHtml').val(result.crawlPoint.url);
+                    $('#listPositionRuleHtml').val(result.list.listRule);
+                    if (result.list.listRuleType == 'JSOUP') {
+                        $('#listPositionRuleTypeHtml').val('JSOUP');
+                    } else {
+                        $('#listPositionRuleTypeHtml').val('XPATH');
+                    }
+                    if (result.crawlPoint.crawlDetail == false) {
+                        $('#crawlDetailYesHtml').removeAttr('checked');
+                        $('#crawlDetailNoHtml').attr('checked', 'checked');
+                    }
+                    $('#favourUrlHtml').val(result.favour.favourUrlRule);
+                    if (result.favour.favourUrlRuleType == 'JSOUP') {
+                        $('#favourUrlRuleTypeHtml').val('JSOUP');
+                    } else {
+                        $('#favourUrlRuleTypeHtml').val('XPATH');
+                    }
+                    $('#favourUrlAnalyzeHtml').val(result.favour.favourUrlClassPath);
+                    $('#listParamsRule').val(result.listParams.ruleJson)
+                    if (result.request.method == 'GET') {
+                        $('#requestMethodPostHtml').removeAttr("checked");
+                        $('#requestMethodGetHtml').attr("checked", "checked");
+                    }
+                    $('#cookiesHtml').val(result.request.cookies);
+                    $('#refererHtml').val(result.request.referfer);
+                    $('#acceptHtml').val(result.request.accept);
+                    $('#keysHtml').val(result.request.paramKey);
+                    $('#valuesHtml').val(result.request.paramValue);
+                    if (result.crawlPoint.urlEncoded == "GBK") {
+                        $('#urlEncodedUtfHtml').removeAttr("checked");
+                        $('#urlEncodedGbkHtml').attr("checked", "checked");
+                    }
+                    $('#pageIndexRuleHtml').val(result.page.pageIndexRule);
+                    if (result.page.pageIndexRuleType == 'JSOUP') {
+                        $('#pageIndexRuleTypeHtml').val('JSOUP');
+                    } else {
+                        $('#pageIndexRuleTypeHtml').val('XPATH');
+                    }
+                    $('#pageIndexAnalyzeHtml').val(result.page.pageIndexClassPath);
+                    $('#parentIdHtml').val(result.crawlPoint.treeId);
+                } else {
+                    $('#submitJson').hide();
+                    $('#updateJson').show();
+                    $('#crawlPointIdJson').val(result.crawlPoint.id);
+
+                    $('#bankNameJson').val(result.crawlPoint.bankName);
+                    $('#tagJson').val(result.crawlPoint.tag);
+                    $('#tagEnJson').val(result.crawlPoint.tagEn);
+                    $('#categoryJson').val(result.crawlPoint.category);
+                    $('#urlJson').val(result.crawlPoint.url);
+                    $('#jsonAnalyze').val(result.crawlPoint.jsonAnalyzePath);
+                    if (result.crawlPoint.crawlDetail == false) {
+                        $('#crawlDetailYesJson').removeAttr("checked");
+                        $('#crawlDetailNoJson').attr("checked", "checked");
+                    }
+                    if (result.request.method == 'GET') {
+                        $('#requestMethodPostJson').removeAttr("checked");
+                        $('#requestMethodGetJson').attr("checked", "checked");
+                    }
+                    $('#cookiesJson').val(result.request.cookies);
+                    $('#refererJson').val(result.request.referfer);
+                    $('#acceptJson').val(result.request.accept);
+                    $('#keysJson').val(result.request.paramKey);
+                    $('#valuesJson').val(result.request.paramValue);
+                    if (result.crawlPoint.urlEncoded == "GBK") {
+                        $('#urlEncodedUtfJson').removeAttr("checked");
+                        $('#urlEncodedGbkJson').attr("checked", "checked");
+                    }
+                    $('#pageIndexRuleJson').val(result.page.pageIndexRule);
+                    if (result.page.pageIndexRuleType == 'JSOUP') {
+                        $('#pageIndexRuleTypeJson').val('JSOUP');
+                    } else {
+                        $('#pageIndexRuleTypeJson').val('XPATH');
+                    }
+                    $('#pageIndexAnalyzeJson').val(result.page.pageIndexClassPath);
+                    $('#parentIdHtml').val(result.crawlPoint.treeId);
+                }
+            }
+        });
+    } else if (crawlId.toString().indexOf("tree") >= 0) {
+        $('#parentIdHtml').val(crawlId);
+        $('#parentIdJson').val(crawlId);
+    }
+
+    function saveHTML() {
+        $('#crawlPointHtml').form('submit', {
+            url: 'crawl/html/save',
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function () {
+                $.messager.alert('Info', "成功", 'info');
+            }
+        });
+    }
+
+    function saveJSON() {
+        $('#crawlPointJson').form('submit', {
+            url: 'crawl/json/save',
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function () {
+                $.messager.alert('Info', "成功", 'info');
+            }
+        });
+    }
+
+    function updateHTML() {
+        $('#crawlPointHtml').form('submit', {
+            url: 'crawl/html/update',
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function () {
+                $.messager.alert('Info', "更新成功", 'info');
+            }
+        });
+    }
+
+    function updateJSON() {
+        $('#crawlPointJson').form('submit', {
+            url: 'crawl/json/update',
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function () {
+                $.messager.alert('Info', "更新成功", 'info');
+            }
+        });
+    }
+</script>
+</body>
+</html>

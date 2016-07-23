@@ -1,7 +1,9 @@
 package com.vip.integral.component;
 
+import com.vip.integral.bean.AttackPage;
 import com.vip.integral.bean.Comment;
 import com.vip.integral.exception.RequestException;
+import com.vip.integral.model.AttackParam;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -10,7 +12,20 @@ import java.net.URISyntaxException;
  * Created by lihuajun on 16-7-16.
  * 评论者
  */
-public abstract class Commenter extends Attacker{
+public abstract class Commenter extends Attacker {
+
+    //评论攻击参数/页面
+    protected AttackParam commentAttackParam;
+    protected AttackPage commentAttackPage;
+    //点赞攻击参数/页面
+    protected AttackParam praiseAttackParam;
+    protected AttackPage praiseAttackPage;
+    //回复攻击参数/页面
+    protected AttackParam replyAttackParam;
+    protected AttackPage replyAttackPage;
+    //附和攻击参数/页面
+    protected AttackParam echoAttackParam;
+    protected AttackPage echoAttackPage;
 
     /**
      * 评论

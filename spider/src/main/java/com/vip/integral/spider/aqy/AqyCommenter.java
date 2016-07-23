@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 爱奇艺评论者
  * Created by lihuajun on 16-7-16.
  */
 public class AqyCommenter extends Commenter {
@@ -46,11 +47,12 @@ public class AqyCommenter extends Commenter {
         httpPost.setHeader("Accept", accept);
         httpPost.setHeader("Origin", origin);
         httpPost.setHeader("User-Agent", userAgent);
-        httpPost.setHeader("Referer", attackPage.getPageLink().getLink());
+        httpPost.setHeader("Referer", commentAttackPage.getPageLink().getLink());
 
         //设置表单参数
-        List<NameValuePair> params = initForm(attackParam.getData());
-        String response = XHttpClient.doRequest(new HttpGet(attackPage.getPageLink().getLink()), attackParam.getCharset());
+        List<NameValuePair> params = initForm(commentAttackParam.getData());
+        String response = XHttpClient
+                .doRequest(new HttpGet(commentAttackPage.getPageLink().getLink()), commentAttackParam.getCharset());
         Document doc = Jsoup.parse(response);
         Element element = null;
         //设置albumid
@@ -67,9 +69,9 @@ public class AqyCommenter extends Commenter {
         //设置sync_src
         params.add(new BasicNameValuePair("sync_src", title));
         //设置playurl
-        params.add(new BasicNameValuePair("playurl", attackPage.getPageLink().getLink()));
+        params.add(new BasicNameValuePair("playurl", commentAttackPage.getPageLink().getLink()));
         //设置current_url
-        params.add(new BasicNameValuePair("current_url", attackPage.getPageLink().getLink()));
+        params.add(new BasicNameValuePair("current_url", commentAttackPage.getPageLink().getLink()));
         //设置qitanid
         String qitanid = element.attr("data-qitancomment-qitanid");
         params.add(new BasicNameValuePair("qitanid", qitanid));
@@ -78,20 +80,23 @@ public class AqyCommenter extends Commenter {
         //设置tv_year
         String tv_year = element.attr("data-qitancomment-tvyear");
         params.add(new BasicNameValuePair("tv_year", tv_year));
-        httpPost.setEntity(new UrlEncodedFormEntity(params, attackParam.getCharset()));
+        httpPost.setEntity(new UrlEncodedFormEntity(params, commentAttackParam.getCharset()));
         //设置cookie
         List<HttpCookieEx> cookieList = new ArrayList<>();
-        cookieList.addAll(FilterCookies.filter(attackParam.getCookie()));
+        cookieList.addAll(FilterCookies.filter(commentAttackParam.getCookie()));
         CookieHelper.setCookies2(requestUrl, httpPost, cookieList);
 
         //攻击
-        String result = XHttpClient.doRequest(httpPost, attackParam.getCharset());
+        String result = XHttpClient.doRequest(httpPost, commentAttackParam.getCharset());
         JSONObject jsonObject = JSON.parseObject(result);
         String code = jsonObject.getString("code");
         Comment comment = null;
         if ("A00000".equals(code)) {
             comment = new Comment();
             comment.setId(jsonObject.getJSONObject("data").getString("contentId"));
+        } else {
+            LOGGER.error("评论失败[" + commentAttackPage.getPageLink().getLink() + "]");
+            //// TODO: 16-7-23 记录日志到DB
         }
         return comment;
     }

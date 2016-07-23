@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div class="easyui-panel" style="width:500px;height:250px;padding:10px 30px;"
+     title="代理设置" buttons="#dlg-buttons">
+    <form id="proxyForm" method="post">
+        <input type="hidden" id="id" name="id"/>
+        <table>
+            <tr>
+                <td>代理主机:</td>
+                <td><input id="proxyIp" name="proxyIp" type="text"/></td>
+            </tr>
+            <tr>
+                <td>代理端口:</td>
+                <td><input id="proxyPort" name="proxyPort" type="text"/>
+                </td>
+            </tr>
+            <tr>
+                <td>用户名:</td>
+                <td><input id="username" name="username" type="text"/></td>
+            </tr>
+            <tr>
+                <td>密码:</td>
+                <td><input id="password" name="password" type="password"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="button" class="easyui-linkbutton" onclick="saveProxy()">提交</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+
+    $.ajax({
+        url: '/config/proxy/get',
+        type: 'get',
+        dataType: 'json',
+        success: function (result) {
+            if(1 == result.code){
+                $('#id').val(result.data.id);
+                $('#proxyIp').val(result.data.proxyIp);
+                $('#proxyPort').val(result.data.proxyPort);
+                $('#username').val(result.data.username);
+                $('#password').val(result.data.password);
+            }
+        }
+    });
+
+    function saveProxy() {
+        $('#proxyForm').form('submit', {
+            url: 'config/proxy/save',
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function (data) {
+                var result = eval("(" + data + ")");// 将JSON字符串转换成对象
+                $.messager.alert('Info', result.message, 'info');
+            }
+        });
+    }
+</script>
+</body>
+</html>
