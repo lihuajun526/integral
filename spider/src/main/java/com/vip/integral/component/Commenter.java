@@ -1,12 +1,11 @@
 package com.vip.integral.component;
 
-import com.vip.integral.bean.AttackPage;
 import com.vip.integral.bean.Comment;
 import com.vip.integral.exception.RequestException;
-import com.vip.integral.model.AttackParam;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by lihuajun on 16-7-16.
@@ -14,37 +13,30 @@ import java.net.URISyntaxException;
  */
 public abstract class Commenter extends Attacker {
 
-    //评论攻击参数/页面
-    protected AttackParam commentAttackParam;
-    protected AttackPage commentAttackPage;
-    //点赞攻击参数/页面
-    protected AttackParam praiseAttackParam;
-    protected AttackPage praiseAttackPage;
-    //回复攻击参数/页面
-    protected AttackParam replyAttackParam;
-    protected AttackPage replyAttackPage;
-    //附和攻击参数/页面
-    protected AttackParam echoAttackParam;
-    protected AttackPage echoAttackPage;
-
     /**
      * 评论
      */
-    public abstract Comment comment() throws URISyntaxException, UnsupportedEncodingException, RequestException;
+    protected abstract Comment comment() throws URISyntaxException, UnsupportedEncodingException, RequestException;
 
     /**
      * 回复
      */
-    public abstract void reply();
+    protected abstract void reply();
 
     /**
      * 点赞
      */
-    public abstract void praise();
+    protected abstract void praise(Comment comment);
 
     /**
      * 附和
      */
-    public abstract void echo();
+    protected abstract void echo();
+
+    /**
+     * 获取热门评论
+     * @return
+     */
+    protected abstract List<Comment> listHotComment(int maxComment,int maxReply) throws RequestException;
 
 }

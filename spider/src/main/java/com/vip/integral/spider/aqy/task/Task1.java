@@ -1,5 +1,6 @@
 package com.vip.integral.spider.aqy.task;
 
+import com.vip.integral.bean.Comment;
 import com.vip.integral.bean.SpringContext;
 import com.vip.integral.model.AttackParam;
 import com.vip.integral.model.PageLink;
@@ -33,22 +34,20 @@ public class Task1 {
                 // TODO: 16-7-16 主角对影片进行评论，所有配角对该评论进行点赞/回复
                 //选一个主角
                 AqyCommenter major = commenters.get(i % commenters.size());
-                major.setAttackPage(commentPage);
-                major.init();
-                major.comment();
+                Comment comment = major.comment();
                 //配角点赞/回复
                 for (AqyCommenter support : commenters) {
-                    support.praise();
+                    support.praise(comment);
                     support.reply();
                 }
                 // TODO: 16-7-16 主角对最热的前N条评论进行点赞/回复，所有配角对该回复点赞，每次再选两个配角进行附和
                 for (int j = 0; j < commentPage.hotComments(maxHotCount).size(); j++) {
                     //主角点赞/回复
-                    major.praise();
+                    major.praise(null);
                     major.reply();
                     //所有配角点赞
                     for (AqyCommenter support : commenters) {
-                        support.praise();
+                        support.praise(null);
                     }
                     //选N个配角附和
                     for (int m = 1; m <= echoCount; m++) {
@@ -76,7 +75,7 @@ public class Task1 {
 
         for (AttackParam attackParam : list) {
             AqyCommenter aqyCommenter = new AqyCommenter();
-            aqyCommenter.setAttackParam(attackParam);
+            //aqyCommenter.setAttackParam(attackParam);
             commenters.add(aqyCommenter);
         }
 

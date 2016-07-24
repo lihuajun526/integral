@@ -12,11 +12,7 @@ public class AttackParam {
 
     private String account;
 
-    private String password;
-
     private String belong;
-
-    private String cookie;
 
     private String requestMethod;//get/post
 
@@ -50,28 +46,12 @@ public class AttackParam {
         this.account = account;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getBelong() {
         return belong;
     }
 
     public void setBelong(String belong) {
         this.belong = belong;
-    }
-
-    public String getCookie() {
-        return cookie;
-    }
-
-    public void setCookie(String cookie) {
-        this.cookie = cookie;
     }
 
     public String getRequestMethod() {
@@ -88,6 +68,14 @@ public class AttackParam {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getCharset() {
+        return charset;
+    }
+
+    public void setCharset(String charset) {
+        this.charset = charset;
     }
 
     public String getAction() {
@@ -112,13 +100,5 @@ public class AttackParam {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getCharset() {
-        return charset;
-    }
-
-    public void setCharset(String charset) {
-        this.charset = charset;
     }
 }

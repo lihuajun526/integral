@@ -1,6 +1,8 @@
 package com.vip.integral.bean;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,8 +11,8 @@ import java.util.Map;
 public class Comment {
 
     private String id;
-    private Map<String,String> attr = new HashMap<>();
-
+    private Map<String, String> attr = new HashMap<>();
+    private List<Comment> replys = new ArrayList<>();
 
     public Map<String, String> getAttr() {
         return attr;
@@ -26,5 +28,13 @@ public class Comment {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public List<Comment> getReplys() {
+        return replys;
+    }
+
+    public void setReplys(List<Comment> replys) {
+        this.replys = replys;
     }
 }
