@@ -21,12 +21,12 @@ public abstract class Commenter extends Attacker {
     /**
      * 回复
      */
-    protected abstract void reply();
+    protected abstract Comment reply(Comment comment);
 
     /**
      * 点赞
      */
-    protected abstract void praise(Comment comment);
+    protected abstract void praise(Comment comment) throws RequestException;
 
     /**
      * 附和

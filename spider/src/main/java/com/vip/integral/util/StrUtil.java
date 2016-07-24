@@ -141,8 +141,8 @@ public class StrUtil {
     public static void main(String[] args) {
 
         //评论
-        String str1 = "aid=12736347&albumid=510267500&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=12736347&qypid=01010011010000000000&reply_sort=hot&sort=hot&t=0.7812826506068475&tvid=510267500";
-        String str2 = "aid=11741438&albumid=281718700&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=11741438&qypid=01010011010000000000&reply_sort=hot&sort=hot&t=0.22156078186678108&tvid=281718700";
+        String str1 = "albumid=496447100&antiCsrf=805092735ddfe431fba7700cbe938a51&cb=fnsucc&contentid=6369697948&is_video_page=true&qitancallback=fnsucc&qitanid=12488029&qypid=01010011010000000000&t=0.7257644792499902&tvid=496447100&uid=1266687801";
+        String str2 = "albumid=503325200&antiCsrf=0a6c572e0b6d101791a4ddd549857d3c&cb=fnsucc&contentid=6285529048&is_video_page=true&qitancallback=fnsucc&qitanid=11075642&qypid=01010011010000000000&t=0.8853676982141423&tvid=503325200&uid=85840559";
 
         try {
             showDif(str1, str2, "&");

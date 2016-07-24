@@ -18,16 +18,6 @@
         <ul id="tt"></ul>
     </div>
     <br/>
-    <div class="easyui-panel" title="系统设置" style="width:150px;">
-        <div id="mm" data-options="inline:true" style="width:100%">
-            <!--<div class="easyui-panel" onclick="loadPage('rule/crawlPoint.html')">
-                <ul class="easyui-tree" data-options="url:'statics/tree_data1.json',method:'get',animate:true,lines:true"></ul>
-
-            </div>-->
-
-            <div onclick="loadPage('sys/setting.html')">代理设置</div>
-        </div>
-    </div>
 </div>
 <div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region
 </div>
@@ -57,7 +47,7 @@
         $('#p').panel('refresh', 'statics/' + path);
     }
 
-    $('#tt').tree({
+    /*$('#tt').tree({
         url: 'tree/load',
         method: 'get',
         dataType: 'json',
@@ -68,7 +58,7 @@
                 loadPage('rule/crawlPoint.html');
             }
         }
-    });
+    });*/
 </script>
 </body>
 </html>

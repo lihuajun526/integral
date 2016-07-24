@@ -105,19 +105,32 @@ public class AqyCommenter extends Commenter {
         return comment;
     }
 
-    @Override public void reply() {
-
+    @Override public Comment reply(Comment comment) {
+        return null;
     }
 
-    @Override public void praise(Comment comment) {
+    @Override public void praise(Comment comment) throws RequestException {
 
+        String requestUrl =
+                "http://api.t.iqiyi.com/qx_api/comment/like?$albumid=503325200&$antiCsrf=0a6c572e0b6d101791a4ddd549857d3c&cb=fnsucc&contentid="
+                        + comment.getId()
+                        + "&is_video_page=true&qitancallback=fnsucc&$qitanid=11075642&qypid=01010011010000000000&t=0.8853676982141423&$tvid=503325200&$uid=85840559";
+
+        HttpGet httpGet = new HttpGet(requestUrl);
+        String result = XHttpClient.doRequest(httpGet, attackParam.getCharset());
+        result = result.replace("var fnsucc=", "");
+        JSONObject jsonObject = JSON.parseObject(result);
+        String code = jsonObject.getString("code");
+        if (!"A00000".equals(code)) {
+            LOGGER.error("点赞失败，返回码：{}", code);
+        }
     }
 
     @Override public void echo() {
 
     }
 
-    @Override protected List<Comment> listHotComment(int maxComment, int maxReply) throws RequestException {
+    @Override public List<Comment> listHotComment(int maxComment, int maxReply) throws RequestException {
 
         List<Comment> list = new ArrayList<>();
 

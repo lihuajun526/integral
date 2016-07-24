@@ -6,7 +6,6 @@ import com.vip.integral.model.AttackParam;
 import com.vip.integral.model.PageLink;
 import com.vip.integral.service.AttackParamService;
 import com.vip.integral.service.PageLinkService;
-import com.vip.integral.spider.aqy.AqyCommentPage;
 import com.vip.integral.spider.aqy.AqyCommenter;
 
 import java.util.ArrayList;
@@ -19,35 +18,44 @@ public class Task1 {
 
     //热评最大数
     private int maxHotCount = 3;
+    //最大回复数
+    private int maxReply = 3;
     //附和的配角数
     private int echoCount = 2;
 
+    /**
+     * uid,antiCsrf
+     * 这些参数要初始化
+     */
     public void exe() {
         // 获得所有的评论水军
         List<AqyCommenter> commenters = allCommenter();
         // 获得评论详细页
-        List<AqyCommentPage> commentPages = allCommentPage();
+        List<PageLink> pageLinkList = listPageLink();
 
         try {
-            for (int i = 0; i < commentPages.size(); i++) {
-                AqyCommentPage commentPage = commentPages.get(i);
-                // TODO: 16-7-16 主角对影片进行评论，所有配角对该评论进行点赞/回复
+            for (int i = 0; i < pageLinkList.size(); i++) {
+                // 主角对影片进行评论，所有配角对该评论进行点赞/回复
                 //选一个主角
                 AqyCommenter major = commenters.get(i % commenters.size());
                 Comment comment = major.comment();
                 //配角点赞/回复
                 for (AqyCommenter support : commenters) {
                     support.praise(comment);
-                    support.reply();
+                    if (support == major)
+                        continue;
+                    support.reply(comment);
                 }
                 // TODO: 16-7-16 主角对最热的前N条评论进行点赞/回复，所有配角对该回复点赞，每次再选两个配角进行附和
-                for (int j = 0; j < commentPage.hotComments(maxHotCount).size(); j++) {
+                List<Comment> hotComments = major.listHotComment(maxHotCount, maxReply);
+                for (int j = 0; j < hotComments.size(); j++) {
+                    Comment hot = hotComments.get(j);
                     //主角点赞/回复
-                    major.praise(null);
-                    major.reply();
+                    major.praise(hot);
+                    Comment hotReply = major.reply(hot);
                     //所有配角点赞
                     for (AqyCommenter support : commenters) {
-                        support.praise(null);
+                        support.praise(hotReply);
                     }
                     //选N个配角附和
                     for (int m = 1; m <= echoCount; m++) {
@@ -87,20 +95,24 @@ public class Task1 {
      *
      * @return
      */
-    private List<AqyCommentPage> allCommentPage() {
-
-        List<AqyCommentPage> commentTargetList = new ArrayList<>();
+    private List<PageLink> listPageLink() {
 
         PageLinkService pageLinkService = (PageLinkService) SpringContext.getContext().getBean("pageLinkService");
         List<PageLink> list = pageLinkService.listByBelong("aqy");
+        return list;
+    }
 
-        for (PageLink pageLink : list) {
-            AqyCommentPage aqyCommentTarget = new AqyCommentPage();
-            aqyCommentTarget.setPageLink(pageLink);
-            commentTargetList.add(aqyCommentTarget);
-        }
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("123");
+        list.add("abc");
 
-        return commentTargetList;
+        String str1 = list.get(0);
+
+        String str2 = list.get(0);
+
+        System.out.println(str1 == str2);
+
     }
 
 }
