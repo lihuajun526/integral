@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>规则管理系统</title>
+    <title>配置管理系统</title>
     <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/demo/demo.css">
@@ -12,10 +12,10 @@
 <body class="easyui-layout">
 <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">爬虫规则管理系统</div>
 <div data-options="region:'west',split:true,title:'导航'" style="width:200px;padding:10px;">
-    <button onclick="loadPage('rule/crawlPoint.html')">添加</button>
+    <button onclick="loadPage('rule/crawl_point.html')">添加</button>
     <div class="easyui-panel" style="padding:5px" title="采集点">
-        <!--<ul class="easyui-tree" data-options="url:'statics/tree_data1.json',method:'get',animate:true,lines:true"></ul>-->
-        <ul id="tt"></ul>
+        <ul id="tree" class="easyui-tree" data-options="url:'statics/tree_data.json',method:'get',animate:true,lines:true"></ul>
+        <%--<ul id="tt"></ul>--%>
     </div>
     <br/>
 </div>
@@ -32,33 +32,42 @@
 			">
     </div>
 </div>
-<script type="text/javascript">
-    var crawlId = 0;
-    $(function () {
-        $('#mm').menu().menu('enableNav');
-        $(document).keydown(function (e) {
-            if (e.altKey && e.keyCode == 87) {
-                $('#mm').focus();
-            }
-        })
-    });
+<div id="mm" class="easyui-menu" style="width:120px;">
+    <div onclick="append()" data-options="iconCls:'icon-add'">添加子节点</div>
+</div>
 
+<script type="text/javascript">
+    //加载页面
     function loadPage(path) {
         $('#p').panel('refresh', 'statics/' + path);
     }
-
-    /*$('#tt').tree({
-        url: 'tree/load',
-        method: 'get',
-        dataType: 'json',
-        state: "closed",
+    //添加节点
+    function append() {
+        loadPage('rule/node_add.html');
+    }
+    $('#tree').tree({
         onClick: function (node) {
-            crawlId = node.id;
-            if (crawlId.toString().indexOf("tree") < 0) {
-                loadPage('rule/crawlPoint.html');
+            if (node.attributes == null)
+                return;
+            if (node.attributes.pageType == "crawlPoint") {
+                loadPage('rule/crawl_point.html');
+            } else if (node.attributes.pageType == "attacker") {
+                loadPage('rule/attacker.html');
             }
+        },
+        onContextMenu: function (e, node) {
+            e.preventDefault();
+            // 查找节点
+            $('#tree').tree('select', node.target);
+            // 显示快捷菜单
+            $('#mm').menu('show', {
+                left: e.pageX,
+                top: e.pageY
+            });
         }
-    });*/
+    });
+
+
 </script>
 </body>
 </html>
