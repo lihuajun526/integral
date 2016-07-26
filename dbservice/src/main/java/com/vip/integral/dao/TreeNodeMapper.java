@@ -2,6 +2,8 @@ package com.vip.integral.dao;
 
 import com.vip.integral.model.TreeNode;
 
+import java.util.List;
+
 public interface TreeNodeMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface TreeNodeMapper {
     int updateByPrimaryKeySelective(TreeNode record);
 
     int updateByPrimaryKey(TreeNode record);
+
+    List<TreeNode> listByParent(Integer parentid);
 }

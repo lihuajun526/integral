@@ -14,7 +14,10 @@
 <div data-options="region:'west',split:true,title:'导航'" style="width:200px;padding:10px;">
     <button onclick="loadPage('rule/crawl_point.html')">添加</button>
     <div class="easyui-panel" style="padding:5px" title="采集点">
-        <ul id="tree" class="easyui-tree" data-options="url:'statics/tree_data.json',method:'get',animate:true,lines:true"></ul>
+        <%--<ul id="tree" class="easyui-tree" data-options="url:'statics/tree_data.json',method:'get',animate:true,lines:true"></ul>
+        --%><%--<ul id="tree" class="easyui-tree" data-options="url:'/tree/tree',animate:true"></ul>--%>
+        <ul id="tree" class="easyui-tree"></ul>
+
         <%--<ul id="tt"></ul>--%>
     </div>
     <br/>
@@ -33,17 +36,32 @@
     </div>
 </div>
 <div id="mm" class="easyui-menu" style="width:120px;">
+    <div onclick="edit()" data-options="iconCls:'icon-add'">编辑</div>
     <div onclick="append()" data-options="iconCls:'icon-add'">添加子节点</div>
 </div>
 
 <script type="text/javascript">
+    //选中的节点
+    var checkNode = null;
+    //父节点
+    var pNode = null;
+    //当前节点
+    var curNode = null;
     //加载页面
     function loadPage(path) {
         $('#p').panel('refresh', 'statics/' + path);
     }
     //添加节点
     function append() {
-        loadPage('rule/node_add.html');
+        pNode = checkNode;
+        curNode = null;
+        loadPage('rule/node_add_edit.html');
+    }
+    //编辑节点
+    function edit() {
+        pNode = null;
+        curNode = checkNode;
+        loadPage('rule/node_add_edit.html');
     }
     $('#tree').tree({
         onClick: function (node) {
@@ -59,14 +77,61 @@
             e.preventDefault();
             // 查找节点
             $('#tree').tree('select', node.target);
+            checkNode = node;
             // 显示快捷菜单
             $('#mm').menu('show', {
                 left: e.pageX,
                 top: e.pageY
             });
+        },
+        onExpand: function (node) {alert("oko");
+            $.get("./tree/tree?id=" + node.id,
+                    function (data) {
+                        var childrenNodes = $('#tree').tree('getChildren', node.target);
+                        for (var i = 0; i < childrenNodes.length; i++) {
+                            var childrenNode = childrenNodes[i];
+                            $('#tree').treegrid('remove', childrenNode.id);//移除
+                        }
+                        $('#tree').tree('append', {
+                            parent: node.target,
+                            data: data
+                        });
+                    }, "json");
         }
     });
 
+    //构造树
+    /*$.ajax({
+     url: '/tree/tree',
+     type: 'get',
+     dataType: 'json',
+     success: function (data) {
+     alert("okok");
+     var root = $('#tree').tree('find', 0);
+
+     $('#tree').tree('append', {
+     parent: root.target,
+     data: [{"children": [], "id": 1, "state": "closed", "text": "爱奇艺"}, {
+     "children": [],
+     "id": 2,
+     "state": "closed",
+     "text": "爱奇艺"
+     }]
+     });
+
+     }
+     });*/
+
+    $(function () {
+        $(document).ready(function () {
+            $.get("./tree/tree?id=0", function (data) {
+                $("#tree").tree({
+                    data: data
+
+                });
+            }, "json");
+        });
+    });
 
 </script>
 </body>

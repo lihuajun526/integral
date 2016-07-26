@@ -11,6 +11,8 @@ public class TreeNode {
 
     private String attributes;
 
+    private Integer pid;
+
     private Date createTime;
 
     private Date updateTime;
@@ -45,6 +47,14 @@ public class TreeNode {
 
     public void setAttributes(String attributes) {
         this.attributes = attributes == null ? null : attributes.trim();
+    }
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public Date getCreateTime() {

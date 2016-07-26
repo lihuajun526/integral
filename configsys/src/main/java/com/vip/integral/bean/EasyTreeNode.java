@@ -2,10 +2,13 @@ package com.vip.integral.bean;
 
 import com.alibaba.fastjson.JSONArray;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by lihuajun on 16-7-25.
  */
-public class TreeNode {
+public class EasyTreeNode {
 
     private Integer id;
 
@@ -46,4 +49,5 @@ public class TreeNode {
     public void setAttributes(JSONArray attributes) {
         this.attributes = attributes;
     }
+
 }
