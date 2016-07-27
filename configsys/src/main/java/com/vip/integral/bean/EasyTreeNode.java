@@ -1,9 +1,6 @@
 package com.vip.integral.bean;
 
-import com.alibaba.fastjson.JSONArray;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * Created by lihuajun on 16-7-25.
@@ -16,7 +13,7 @@ public class EasyTreeNode {
 
     private String state;
 
-    JSONArray attributes;
+    private JSONObject attributes;
 
     public Integer getId() {
         return id;
@@ -42,12 +39,11 @@ public class EasyTreeNode {
         this.state = state;
     }
 
-    public JSONArray getAttributes() {
+    public JSONObject getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(JSONArray attributes) {
+    public void setAttributes(JSONObject attributes) {
         this.attributes = attributes;
     }
-
 }

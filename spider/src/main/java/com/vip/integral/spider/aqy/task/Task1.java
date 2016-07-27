@@ -3,7 +3,7 @@ package com.vip.integral.spider.aqy.task;
 import com.vip.integral.bean.Comment;
 import com.vip.integral.bean.SpringContext;
 import com.vip.integral.model.AttackParam;
-import com.vip.integral.model.PageLink;
+import com.vip.integral.model.AttackPage;
 import com.vip.integral.service.AttackParamService;
 import com.vip.integral.service.PageLinkService;
 import com.vip.integral.spider.aqy.AqyCommenter;
@@ -31,10 +31,10 @@ public class Task1 {
         // 获得所有的评论水军
         List<AqyCommenter> commenters = allCommenter();
         // 获得评论详细页
-        List<PageLink> pageLinkList = listPageLink();
+        List<AttackPage> attackPageList = listPageLink();
 
         try {
-            for (int i = 0; i < pageLinkList.size(); i++) {
+            for (int i = 0; i < attackPageList.size(); i++) {
                 // 主角对影片进行评论，所有配角对该评论进行点赞/回复
                 //选一个主角
                 AqyCommenter major = commenters.get(i % commenters.size());
@@ -95,10 +95,10 @@ public class Task1 {
      *
      * @return
      */
-    private List<PageLink> listPageLink() {
+    private List<AttackPage> listPageLink() {
 
         PageLinkService pageLinkService = (PageLinkService) SpringContext.getContext().getBean("pageLinkService");
-        List<PageLink> list = pageLinkService.listByBelong("aqy");
+        List<AttackPage> list = pageLinkService.listByBelong("aqy");
         return list;
     }
 

@@ -2,6 +2,7 @@ package com.vip.integral.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.vip.integral.base.BaseController;
 import com.vip.integral.base.Result;
 import com.vip.integral.bean.EasyTreeNode;
 import com.vip.integral.model.TreeNode;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/tree")
-public class TreeNodeController {
+public class TreeNodeController extends BaseController{
 
     @Autowired
     private TreeNodeService treeNodeService;
@@ -76,7 +77,7 @@ public class TreeNodeController {
             EasyTreeNode easyTreeNode = new EasyTreeNode();
             easyTreeNode.setId(treeNode.getId());
             easyTreeNode.setText(treeNode.getText());
-            easyTreeNode.setAttributes(JSON.parseArray(treeNode.getAttributes()));
+            easyTreeNode.setAttributes(JSON.parseObject(treeNode.getAttributes()));
 
             if (isLeaf(treeNode))
                 easyTreeNode.setState("open");

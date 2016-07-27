@@ -63,7 +63,7 @@ public class AqyCommenter extends Commenter {
         httpPost.setHeader("Accept", accept);
         httpPost.setHeader("Origin", origin);
         httpPost.setHeader("User-Agent", userAgent);
-        httpPost.setHeader("Referer", attackPage.getPageLink().getLink());
+        httpPost.setHeader("Referer", attackPage.getAttackPage().getLink());
 
         //设置表单参数
         String commentData = "";
@@ -74,9 +74,9 @@ public class AqyCommenter extends Commenter {
         //设置sync_src
         params.add(new BasicNameValuePair("sync_src", title));
         //设置playurl
-        params.add(new BasicNameValuePair("playurl", attackPage.getPageLink().getLink()));
+        params.add(new BasicNameValuePair("playurl", attackPage.getAttackPage().getLink()));
         //设置current_url
-        params.add(new BasicNameValuePair("current_url", attackPage.getPageLink().getLink()));
+        params.add(new BasicNameValuePair("current_url", attackPage.getAttackPage().getLink()));
 
         //设置text
         params.add(new BasicNameValuePair("text", JSON.parseObject(action).getString("comment")));
@@ -99,7 +99,7 @@ public class AqyCommenter extends Commenter {
             comment = new Comment();
             comment.setId(jsonObject.getJSONObject("data").getString("contentId"));
         } else {
-            LOGGER.error("评论失败[" + attackPage.getPageLink().getLink() + "]");
+            LOGGER.error("评论失败[" + attackPage.getAttackPage().getLink() + "]");
             //// TODO: 16-7-23 记录日志到DB
         }
         return comment;

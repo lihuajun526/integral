@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div id="tt" class="easyui-tabs" style="width:850px;height:930px;">
+<div id="tt" class="easyui-tabs" style="width:850px;height:450px;">
     <div title="添加节点" style="padding:20px;display:none;">
         <form id="treeNodeForm" method="post">
             <input id="pid" name="pid" type="hidden" value="0"/>
@@ -12,22 +12,22 @@
             <table cellpadding="5">
                 <tr>
                     <td>节点名称</td>
-                    <td><input type="text" id="name" name="text"/></td>
+                    <td><input type="text" id="text" name="text"/></td>
                 </tr>
                 <tr>
                     <td>节点属性</td>
                     <td><input type="text" id="attributes" name="attributes"/></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td>节点状态</td>
                     <td>
                         <input type="radio" name="state" checked value="closed"/>关闭
                         <input type="radio" name="state" value="open"/>打开
                     </td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td colspan="2">
-                        <input type="button" class="easyui-linkbutton" onclick="saveTreeNode()" value="确定"/>
+                        <input type="button" class="easyui-linkbutton" onclick="saveOrEditTreeNode()" value="确定"/>
                     </td>
                 </tr>
             </table>
@@ -36,9 +36,17 @@
 </div>
 <script>
     //保存节点
-    function saveTreeNode() {
+    function saveOrEditTreeNode() {
+
+        var url;
+        var id = $("#id").val();
+        if (id > 0) {
+            url = "tree/modify";
+        } else {
+            url = "tree/add";
+        }
         $('#treeNodeForm').form('submit', {
-            url: 'tree/add',
+            url: url,
             onSubmit: function () {
                 return $(this).form("validate");
             },

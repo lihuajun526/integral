@@ -7,6 +7,8 @@ public class CrawlPoint {
     //采集点属性
     private Integer id;
 
+    private Integer nodeid;
+
     private String category;
 
     private String url;
@@ -18,6 +20,8 @@ public class CrawlPoint {
     private String jsonAnalyzePath;
 
     private Integer status;
+
+    private String belong;//所属源
 
     //请求属性
     private String method;
@@ -41,8 +45,6 @@ public class CrawlPoint {
     private String linkRule;
 
     private String linkSelfRule;
-
-    private String ruleJson;
 
     //分页属性
     private String pageIndexRule;
@@ -181,14 +183,6 @@ public class CrawlPoint {
         this.linkSelfRule = linkSelfRule;
     }
 
-    public String getRuleJson() {
-        return ruleJson;
-    }
-
-    public void setRuleJson(String ruleJson) {
-        this.ruleJson = ruleJson;
-    }
-
     public String getPageIndexRule() {
         return pageIndexRule;
     }
@@ -227,5 +221,21 @@ public class CrawlPoint {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getNodeid() {
+        return nodeid;
+    }
+
+    public void setNodeid(Integer nodeid) {
+        this.nodeid = nodeid;
+    }
+
+    public String getBelong() {
+        return belong;
+    }
+
+    public void setBelong(String belong) {
+        this.belong = belong;
     }
 }

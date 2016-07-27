@@ -1,6 +1,6 @@
 package com.vip.integral.service;
 
-import com.vip.integral.model.PageLink;
+import com.vip.integral.model.AttackPage;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface PageLinkService {
 
-    List<PageLink> listByBelong(String belong);
+    List<AttackPage> listByBelong(String belong);
 
 }

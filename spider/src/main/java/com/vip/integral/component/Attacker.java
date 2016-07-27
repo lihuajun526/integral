@@ -39,7 +39,7 @@ public abstract class Attacker {
 
     //初始化
     protected void init() throws RequestException {
-        HttpGet httpGet = new HttpGet(attackPage.getPageLink().getLink());
+        HttpGet httpGet = new HttpGet(attackPage.getAttackPage().getLink());
         response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
         action = attackParam.getAction();
         initPubParam(attackParam.getData());

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by lihuajun on 16-7-21.
  */
-public class PageLink {
+public class AttackPage {
 
     private Integer id;
 

@@ -1,20 +1,18 @@
 package com.vip.integral.bean;
 
-import com.vip.integral.model.PageLink;
-
 /**
  * Created by lihuajun on 16-7-16.
  * 攻击目标
  */
 public abstract class AttackPage {
 
-    private PageLink pageLink;
+    private com.vip.integral.model.AttackPage attackPage;
 
-    public PageLink getPageLink() {
-        return pageLink;
+    public com.vip.integral.model.AttackPage getAttackPage() {
+        return attackPage;
     }
 
-    public void setPageLink(PageLink pageLink) {
-        this.pageLink = pageLink;
+    public void setAttackPage(com.vip.integral.model.AttackPage attackPage) {
+        this.attackPage = attackPage;
     }
 }
