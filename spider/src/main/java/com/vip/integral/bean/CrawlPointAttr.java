@@ -7,42 +7,67 @@ package com.vip.integral.bean;
  */
 public class CrawlPointAttr {
 
-    /*****
-     * 采集点属性
-     *****/
-    private String url;// 采集点url
-    private String category;// 分类
-    private String tag;
-    private boolean isCrawlDetail;// 是否爬取详细页
-    private String urlencoded;// url编码
-    private String responseType;// 返回类型，JSON/HTML
-    private String jsonAnalyzePath;// json解析器路径
-    /*****
-     * 列表属性
-     *****/
-    private String listPosRule;// 列表位置规则
-    private String listRule;// 列表规则（json）
-    private String urlRule;// 链接提取规则
-    private String urlScript;// 链接提取脚本，{'by':'js','method':'xxx','code':''}
-    /*****
-     * 请求属性
-     *****/
-    private String requestMethod;// 请求类型，GET/POST
-    private String cookies;
-    private String referer;
-    private String accept;
-    /*****
-     * 分页属性
-     *****/
-    private String pageIndexPosRule;// 分页位置规则
-    private String pageIndexClasspath;// 分页加载器路径
+    //采集点属性
+    private Integer id;
 
-    public String getUrl() {
-        return url;
+    private String category;
+
+    private String url;
+
+    private String urlCrClassPath;
+
+    private Boolean isCrawlDetail;
+
+    private String jsonAnalyzePath;
+
+    private Integer status;
+
+    private String belong;//所属源
+
+    private Integer maxPage;
+
+    public Integer getMaxPage() {
+        return maxPage;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setMaxPage(Integer maxPage) {
+        this.maxPage = maxPage;
+    }
+
+    //请求属性
+    private String method;
+
+    private String cookies;
+
+    private String referer;
+
+    private String accept;
+
+    private String responseEncode;//返回结果编码
+
+    private String responseType;//返回类型：html/json
+
+    //列表属性
+    private String listPosRule;//{"jsoup":""}
+
+    private String listAttrRule;//{"jsoup":"","attr":"",}
+
+    //链接属性
+    private String linkRule;
+
+    private String linkSelfRule;
+
+    //分页属性
+    private String pageIndexRule;
+
+    private String pageIndexClassPath;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCategory() {
@@ -53,36 +78,28 @@ public class CrawlPointAttr {
         this.category = category;
     }
 
-    public String getTag() {
-        return tag;
+    public String getUrl() {
+        return url;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public boolean isCrawlDetail() {
+    public String getUrlCrClassPath() {
+        return urlCrClassPath;
+    }
+
+    public void setUrlCrClassPath(String urlCrClassPath) {
+        this.urlCrClassPath = urlCrClassPath;
+    }
+
+    public Boolean getCrawlDetail() {
         return isCrawlDetail;
     }
 
-    public void setCrawlDetail(boolean crawlDetail) {
+    public void setCrawlDetail(Boolean crawlDetail) {
         isCrawlDetail = crawlDetail;
-    }
-
-    public String getUrlencoded() {
-        return urlencoded;
-    }
-
-    public void setUrlencoded(String urlencoded) {
-        this.urlencoded = urlencoded;
-    }
-
-    public String getResponseType() {
-        return responseType;
-    }
-
-    public void setResponseType(String responseType) {
-        this.responseType = responseType;
     }
 
     public String getJsonAnalyzePath() {
@@ -93,44 +110,28 @@ public class CrawlPointAttr {
         this.jsonAnalyzePath = jsonAnalyzePath;
     }
 
-    public String getListPosRule() {
-        return listPosRule;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setListPosRule(String listPosRule) {
-        this.listPosRule = listPosRule;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public String getListRule() {
-        return listRule;
+    public String getBelong() {
+        return belong;
     }
 
-    public void setListRule(String listRule) {
-        this.listRule = listRule;
+    public void setBelong(String belong) {
+        this.belong = belong;
     }
 
-    public String getUrlRule() {
-        return urlRule;
+    public String getMethod() {
+        return method;
     }
 
-    public void setUrlRule(String urlRule) {
-        this.urlRule = urlRule;
-    }
-
-    public String getUrlScript() {
-        return urlScript;
-    }
-
-    public void setUrlScript(String urlScript) {
-        this.urlScript = urlScript;
-    }
-
-    public String getRequestMethod() {
-        return requestMethod;
-    }
-
-    public void setRequestMethod(String requestMethod) {
-        this.requestMethod = requestMethod;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public String getCookies() {
@@ -157,19 +158,67 @@ public class CrawlPointAttr {
         this.accept = accept;
     }
 
-    public String getPageIndexPosRule() {
-        return pageIndexPosRule;
+    public String getResponseEncode() {
+        return responseEncode;
     }
 
-    public void setPageIndexPosRule(String pageIndexPosRule) {
-        this.pageIndexPosRule = pageIndexPosRule;
+    public void setResponseEncode(String responseEncode) {
+        this.responseEncode = responseEncode;
     }
 
-    public String getPageIndexClasspath() {
-        return pageIndexClasspath;
+    public String getResponseType() {
+        return responseType;
     }
 
-    public void setPageIndexClasspath(String pageIndexClasspath) {
-        this.pageIndexClasspath = pageIndexClasspath;
+    public void setResponseType(String responseType) {
+        this.responseType = responseType;
+    }
+
+    public String getListPosRule() {
+        return listPosRule;
+    }
+
+    public void setListPosRule(String listPosRule) {
+        this.listPosRule = listPosRule;
+    }
+
+    public String getListAttrRule() {
+        return listAttrRule;
+    }
+
+    public void setListAttrRule(String listAttrRule) {
+        this.listAttrRule = listAttrRule;
+    }
+
+    public String getLinkRule() {
+        return linkRule;
+    }
+
+    public void setLinkRule(String linkRule) {
+        this.linkRule = linkRule;
+    }
+
+    public String getLinkSelfRule() {
+        return linkSelfRule;
+    }
+
+    public void setLinkSelfRule(String linkSelfRule) {
+        this.linkSelfRule = linkSelfRule;
+    }
+
+    public String getPageIndexRule() {
+        return pageIndexRule;
+    }
+
+    public void setPageIndexRule(String pageIndexRule) {
+        this.pageIndexRule = pageIndexRule;
+    }
+
+    public String getPageIndexClassPath() {
+        return pageIndexClassPath;
+    }
+
+    public void setPageIndexClassPath(String pageIndexClassPath) {
+        this.pageIndexClassPath = pageIndexClassPath;
     }
 }

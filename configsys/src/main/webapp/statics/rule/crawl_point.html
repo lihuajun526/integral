@@ -17,8 +17,21 @@
                     <td><input style="width: 500px;" id="urlCrClassPath" name="urlCrClassPath" type="text"/></td>
                 </tr>
                 <tr>
+                    <td>最大采集页数</td>
+                    <td><input style="width: 500px;" id="maxPage" name="maxPage" type="text"/></td>
+                </tr>
+                <tr>
                     <td>分类</td>
                     <td><input id="category" name="category" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>所属源</td>
+                    <td>
+                        <select id="belong" name="belong">
+                            <option value="aqy">爱奇艺</option>
+                            <option value="youku">优酷</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>是否爬取详细页</td>
@@ -108,15 +121,15 @@
             }
             $.get("/crawl/point/get?nodeid=" + curNode.id, function (data) {
                 $("#url").val(data.data.url);
-                $("#urlCrClassPath").val(data.data.urlCrClassPath);
+                $("#urlCrClassPath").val(data.data.urlCrClasspath);
                 $("#category").val(data.data.category);
-                $("#jsonAnalyzePath").val(data.data.jsonAnalyzePath);
+                $("#jsonAnalyzePath").val(data.data.jsonAnalyzepath);
                 $("#listPosRule").val(data.data.listPosRule);
                 $("#listAttrRule").val(data.data.listAttrRule);
                 $("#linkRule").val(data.data.linkRule);
                 $("#linkSelfRule").val(data.data.linkSelfRule);
                 $("#pageIndexRule").val(data.data.pageIndexRule);
-                $("#pageIndexClassPath").val(data.data.pageIndexClassPath);
+                $("#pageIndexClassPath").val(data.data.pageIndexClasspath);
             }, "json");
         });
     });

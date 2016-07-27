@@ -2,14 +2,16 @@ package com.vip.integral.spider.aqy.task;
 
 import com.vip.integral.bean.Comment;
 import com.vip.integral.bean.SpringContext;
-import com.vip.integral.model.AttackParam;
 import com.vip.integral.model.AttackPage;
+import com.vip.integral.model.AttackParam;
 import com.vip.integral.service.AttackParamService;
 import com.vip.integral.service.PageLinkService;
 import com.vip.integral.spider.aqy.AqyCommenter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.vip.integral.common.Belong.AQY;
 
 /**
  * Created by lihuajun on 16-7-16.
@@ -79,7 +81,7 @@ public class Task1 {
         List<AqyCommenter> commenters = new ArrayList<>();
 
         AttackParamService attackParamService = (AttackParamService) SpringContext.getContext().getBean("attackerService");
-        List<AttackParam> list = attackParamService.listByBelong("aqy");
+        List<AttackParam> list = attackParamService.listByBelong(AQY.value());
 
         for (AttackParam attackParam : list) {
             AqyCommenter aqyCommenter = new AqyCommenter();

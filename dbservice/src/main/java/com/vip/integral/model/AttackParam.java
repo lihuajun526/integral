@@ -10,6 +10,8 @@ public class AttackParam {
 
     private Integer id;
 
+    private Integer nodeid;
+
     private String account;
 
     private String belong;
@@ -100,5 +102,13 @@ public class AttackParam {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getNodeid() {
+        return nodeid;
+    }
+
+    public void setNodeid(Integer nodeid) {
+        this.nodeid = nodeid;
     }
 }

@@ -28,7 +28,10 @@ public class CrawlApp {
         SpringContext.init("classpath:spring/spring.xml");
 
         //构建采集点规则集合
-        List<CrawlPointAttr> list = listCrawlPointAttr();
+        //设置查询条件
+        CrawlPointAttr queryAttr = new CrawlPointAttr();
+
+        List<CrawlPointAttr> list = listCrawlPointAttr(queryAttr);
 
         //采集
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
@@ -39,10 +42,18 @@ public class CrawlApp {
     }
 
     //获取采集点属性集合
-    private static List<CrawlPointAttr> listCrawlPointAttr() {
+    private static List<CrawlPointAttr> listCrawlPointAttr(CrawlPointAttr queryAttr) {
+
         List<CrawlPointAttr> list = new ArrayList<>();
         CrawlPointService CrawlPointService = (CrawlPointService) SpringContext.getContext().getBean("crawlPointService");
-        List<CrawlPoint> crawlPointList = CrawlPointService.list();
+
+        //设置查询条件
+        CrawlPoint query = new CrawlPoint();
+        query.setId(queryAttr.getId());
+        query.setBelong(queryAttr.getBelong());
+        query.setCategory(queryAttr.getCategory());
+
+        List<CrawlPoint> crawlPointList = CrawlPointService.list(query);
         for (CrawlPoint crawlPoint : crawlPointList) {
 
             List<String> linkList = new ArrayList<>();
@@ -50,7 +61,7 @@ public class CrawlApp {
                 try {
                     PointLinkCreater pointLinkCreater = (PointLinkCreater) Class.forName(crawlPoint.getUrlCrClassPath())
                             .newInstance();
-                    linkList.addAll(pointLinkCreater.get());
+                    linkList.addAll(pointLinkCreater.get(crawlPoint.getCategory()));
                 } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
                     Logger.error("加载类[" + crawlPoint.getUrlCrClassPath() + "]失败", e);
                 }

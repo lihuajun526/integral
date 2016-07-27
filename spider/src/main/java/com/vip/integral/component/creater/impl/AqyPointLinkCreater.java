@@ -88,16 +88,24 @@ public class AqyPointLinkCreater implements PointLinkCreater {
 
     public static void main(String[] args) {
         AqyPointLinkCreater aqyCrawlPoint = new AqyPointLinkCreater();
-        aqyCrawlPoint.get();
+        aqyCrawlPoint.get("电影");
     }
 
-    public List<String> get() {
+    /**
+     * 查找目标栏目的采集点集合
+     *
+     * @param targetChannel
+     * @return
+     */
+    public List<String> get(String targetChannel) {
 
         List<String> linkList = new ArrayList<>();
 
         List<Classinfo> list = JSONArray.parseArray(data, Classinfo.class);
         for (Classinfo classinfo : list) {
             String channel = classinfo.getChannel();
+            if (!targetChannel.equals(channel))
+                continue;
             String channelPath = classinfo.getPath();
             for (Attrs attrs : classinfo.getCategory()) {
                 String category = attrs.getName();

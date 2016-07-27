@@ -7,6 +7,6 @@ import java.util.List;
  */
 public interface PointLinkCreater {
 
-    List<String> get();
+    List<String> get(String channel);
 
 }
