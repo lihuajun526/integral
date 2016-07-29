@@ -38,6 +38,9 @@ public class CrawlPointController extends BaseController {
 
         Result<Boolean> result = new Result<>();
 
+        if (crawlPoint.getMaxPage() == null)
+            crawlPoint.setMaxPage(Integer.MAX_VALUE);
+
         crawlPointService.save(crawlPoint);
         result.setData(true);
         result.setMessage("添加成功");
@@ -50,6 +53,9 @@ public class CrawlPointController extends BaseController {
     public String update(CrawlPoint crawlPoint) {
 
         Result<Boolean> result = new Result<>();
+
+        if (crawlPoint.getMaxPage() == null)
+            crawlPoint.setMaxPage(Integer.MAX_VALUE);
 
         crawlPointService.update(crawlPoint);
         result.setData(true);

@@ -1,13 +1,13 @@
 package com.vip.integral.component;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.bean.CrawlPointAttr;
 import com.vip.integral.bean.ParseResult;
-import com.vip.integral.component.analyzer.JsonAnalyzer;
 import com.vip.integral.constant.ExceptionTypeEnum;
 import com.vip.integral.exception.FavourUrlParseException;
 import com.vip.integral.exception.ListParamsParseException;
-import com.vip.integral.exception.ListPositionParseException;
+import com.vip.integral.exception.ListRecordParseException;
 import com.vip.integral.util.JsHelper;
 import com.vip.integral.util.StrUtil;
 import org.jsoup.Jsoup;
@@ -16,9 +16,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -32,36 +31,39 @@ import java.util.regex.Pattern;
  * @author: Zhou Xuanang
  * @Date: 9:40 16/6/24.
  */
-@Service
+@Component
 @Scope("prototype")
 public class ListParser {
 
     protected final static Logger LOGGER = LoggerFactory.getLogger(ListParser.class);
 
-    @Autowired
-    private JsonAnalyzerFactory jsonAnalyzerFactory;
-
     protected CrawlPointAttr crawlPointAttr;
-    private String posRule;
-    private String favourUrlRule;
-    private String jsonAnalyzerPath;
-    private String listRuleJson;
-    private String selfRule;// 自定义方式提取链接的规则
+    private String listAttrRule;
+    private String listRecordRule;
+    private String linkRule;
+    private String linkSelfRule;
 
     /**
-     * 列表解析器入口
-     *
      * @param content
-     * @param responseType
      * @return
+     * @throws ListRecordParseException
+     * @throws ListParamsParseException
+     * @throws FavourUrlParseException
      */
-    public List<ParseResult> parse(String content, String responseType)
-            throws ListPositionParseException, ListParamsParseException, FavourUrlParseException {
+    public List<ParseResult> parse(String content)
+            throws ListRecordParseException, ListParamsParseException, FavourUrlParseException {
+
+        String responseType = crawlPointAttr.getResponseType();
+
         if (responseType.equals("HTML")) {
             return parseHtml(content);
-        } else {
+        } else if (responseType.equals("JSON")) {
             return parseJson(content);
+        } else if (responseType.equals("XML")) {
+            LOGGER.info("http请求返回xml数据");
+            return null;
         }
+        return null;
     }
 
     /**
@@ -71,81 +73,79 @@ public class ListParser {
      * @return
      */
     private List<ParseResult> parseHtml(String content)
-            throws ListPositionParseException, ListParamsParseException, FavourUrlParseException {
+            throws ListRecordParseException, ListParamsParseException, FavourUrlParseException {
+
         List<ParseResult> list = new ArrayList<>();
 
-        if (StringUtils.isEmpty(listRuleJson))
-            listRuleJson = "[]";
-        List<ListParams> listParamsList = JSONObject.parseArray(listRuleJson, ListParams.class);
+        if (StringUtils.isEmpty(listAttrRule)) {
+            LOGGER.warn("id={}的采集点列表属性规则为空", crawlPointAttr.getId());
+            return list;
+        }
 
+        List<ListParam> listParamsList = JSONObject.parseArray(listAttrRule, ListParam.class);
         // 列表位置解析
         Elements elements;
         Document doc = Jsoup.parse(content);
         try {
-            elements = doc.select(posRule);
+            elements = doc.select(listRecordRule);
         } catch (Exception e) {
-            throw new ListPositionParseException(ExceptionTypeEnum.LIST_POSITION_PARSE_ERROR);
+            LOGGER.error("获取列表记录错误[id={},规则={}]:", crawlPointAttr.getId(), listRecordRule, e);
+            throw new ListRecordParseException(ExceptionTypeEnum.LIST_POSITION_PARSE_ERROR);
         }
-
         // 列表参数解析
         for (Element element : elements) {
             ParseResult parseResult = new ParseResult();
-            for (ListParams listParams : listParamsList) {
+            //列表属性解析
+            for (ListParam listParam : listParamsList) {
                 try {
                     String value;
                     Element targetElement;
-
-                    if (".".equals(listParams.getJsoup())) {// 如果规则为 ‘.’ 则代表当前节点
+                    if (".".equals(listParam.getJsoup())) {// 如果规则为 ‘.’ 则代表当前节点
                         targetElement = element;
                     } else {
-                        targetElement = element.select(listParams.getJsoup()).get(0);
+                        targetElement = element.select(listParam.getJsoup()).get(0);
                     }
-
-                    if (StringUtils.isEmpty(listParams.getAttr())) {// 默认取text属性
+                    if (StringUtils.isEmpty(listParam.getAttr())) {// 默认取text属性
                         value = targetElement.text().trim();
-                    } else if ("html".equalsIgnoreCase(listParams.getAttr())) {
+                    } else if ("html".equalsIgnoreCase(listParam.getAttr())) {
                         value = targetElement.outerHtml();
                     } else {
-                        value = targetElement.attr(listParams.getAttr());
+                        value = targetElement.attr(listParam.getAttr());
                     }
-
                     // 正则表达式过滤
-                    if (!StringUtils.isEmpty(listParams.getRegex())) {
-                        value = this.filterStr(value, listParams.getRegex());
+                    if (!StringUtils.isEmpty(listParam.getRegex())) {
+                        value = this.filterStr(value, listParam.getRegex());
                     }
-                    parseResult.getAttr().put(listParams.getKey(), value);
+                    parseResult.getAttr().put(listParam.getKey(), value);
                 } catch (Exception e) {
+                    LOGGER.error("解析列表属性错误[id={},key={}]:", crawlPointAttr.getId(), JSON.toJSONString(listParam), e);
                     throw new ListParamsParseException(ExceptionTypeEnum.LIST_PARAMS_PARSE_ERROR);
                 }
             }
-
-            // 优惠详情URL获取
+            // link解析
             try {
-                String link;
-                if (isJson(favourUrlRule)) {// {'jsoup':'xx','attr':'xx'}
-                    JSONObject jsonObject = JSONObject.parseObject(favourUrlRule);
-                    link = element.select(jsonObject.getString("jsoup")).get(0).attr(jsonObject.getString("attr"));
+                String link = null;
+
+                LinkParam linkParam = JSONObject.parseObject(linkRule, LinkParam.class);
+                if (".".equals(linkParam.getJsoup())) {
+                    link = element.attr("href");
                 } else {
-                    if (".".equals(favourUrlRule))
-                        link = element.attr("href");
-                    else
-                        link = element.select(favourUrlRule).get(0).attr("href");
+                    link = element.select(linkParam.getJsoup()).get(0).attr("href");
                 }
-
                 // 需要自定义方式提取规则
-                if (!StringUtils.isEmpty(selfRule)) {// {'by':'js','method':'xxx','code':''}
-                    JSONObject jsonObject = JSONObject.parseObject(selfRule);
-
+                if (!StringUtils.isEmpty(linkSelfRule)) {// {'by':'js','method':'xxx'}
+                    JSONObject jsonObject = JSONObject.parseObject(linkSelfRule);
                     if ("js".equalsIgnoreCase(jsonObject.getString("by"))) {// js方式
                         link = JsHelper.exe(jsonObject.getString("method"), link);
                     }
                 }
                 parseResult.setLink(StrUtil.cleanUrl(link));
             } catch (Exception e) {
+                LOGGER.error("解析链接错误[id={}]", crawlPointAttr.getId(), e);
                 throw new FavourUrlParseException(ExceptionTypeEnum.FAVOUR_URL_PARSE_ERROR);
             }
 
-            LOGGER.info("ParseResult:" + JSONObject.toJSONString(parseResult));
+            LOGGER.debug("ParseResult:" + JSONObject.toJSONString(parseResult));
 
             list.add(parseResult);
         }
@@ -160,19 +160,16 @@ public class ListParser {
      * @return
      */
     private List<ParseResult> parseJson(String content) {
-        JsonAnalyzer jsonAnalyzer = jsonAnalyzerFactory.getJsonAnalyzer(jsonAnalyzerPath);
-        jsonAnalyzer.crawlPointAttr = crawlPointAttr;
-        return jsonAnalyzer.parse(content);
+        return null;
     }
 
     // 初始化
     public void init(CrawlPointAttr crawlPointAttr) {
         this.crawlPointAttr = crawlPointAttr;
-        this.posRule = crawlPointAttr.getListPosRule();
-        this.favourUrlRule = crawlPointAttr.getUrlRule();
-        this.jsonAnalyzerPath = crawlPointAttr.getJsonAnalyzePath();
-        this.listRuleJson = crawlPointAttr.getListRule();
-        this.selfRule = crawlPointAttr.getUrlScript();
+        this.listRecordRule = crawlPointAttr.getListRecordRule();
+        this.listAttrRule = crawlPointAttr.getListAttrRule();
+        this.linkRule = crawlPointAttr.getLinkRule();
+        this.linkSelfRule = crawlPointAttr.getLinkSelfRule();
     }
 
     // 正则表达式过滤字符串
@@ -186,20 +183,32 @@ public class ListParser {
         return sb.toString();
     }
 
-    // 判断是否是JSON
-    private boolean isJson(String str) {
-        try {
-            // TODO: 16-6-30 有更好的办法吗？
-            JSONObject.parseObject(str);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
 }
 
-class ListParams {
+//link
+class LinkParam {
+    private String jsoup;
+    private String attr;
+
+    public String getJsoup() {
+        return jsoup;
+    }
+
+    public void setJsoup(String jsoup) {
+        this.jsoup = jsoup;
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
+    }
+}
+
+//列表参数
+class ListParam {
     private String key;
     private String jsoup;
     private String regex;

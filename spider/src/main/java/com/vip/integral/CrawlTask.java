@@ -1,22 +1,24 @@
-package com.vip.integral.attack.aqy.task;
+package com.vip.integral;
 
-import com.alibaba.fastjson.JSONArray;
 import com.vip.integral.bean.CrawlPointAttr;
 import com.vip.integral.bean.ParseResult;
+import com.vip.integral.bean.SpringContext;
 import com.vip.integral.component.ComponentBuilder;
 import com.vip.integral.component.ListParser;
 import com.vip.integral.component.loader.PageIndexLoader;
 import com.vip.integral.component.loader.PageLoader;
+import com.vip.integral.model.AttackPage;
+import com.vip.integral.service.AttackPageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CrawlTask implements Runnable {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(CrawlTask.class);
-
     private ListParser listParser;// 列表解析器
     private PageIndexLoader pageIndexLoader;// 分页加载器
     private PageLoader pageLoader;// 页面加载器
@@ -43,7 +45,7 @@ public class CrawlTask implements Runnable {
             while (pageIndexLoader.isNext() && pageNum < crawlPointAttr.getMaxPage()) {
                 try {
                     String response = pageIndexLoader.next();
-                    List<ParseResult> parseResultList = listParser.parse(response, crawlPointAttr.getResponseType());
+                    List<ParseResult> parseResultList = listParser.parse(response);
                     /**
                      * 判断该爬取源是否需要爬取 策略：前N条记录DB中是否已存在
                      */
@@ -64,6 +66,8 @@ public class CrawlTask implements Runnable {
                             pageLoader.load(parseResult);
                         }
                         parseResult.setCategory(crawlPointAttr.getCategory());
+                        parseResult.setBelong(crawlPointAttr.getBelong());
+                        parseResult.setPointLink(crawlPointAttr.getUrl());
                         // 追加数据
                         allParseResultList.add(parseResult);
                     }
@@ -76,15 +80,33 @@ public class CrawlTask implements Runnable {
                 }
             }
 
-            String jsonResult = JSONArray.toJSONString(allParseResultList);
-
             // 结果入库
-            //spiderResultService.save(allParseResultList, task.getTaskId(), task.getCrawlPointId());
+            saveAll(allParseResultList);
 
         } catch (Exception e) {
             LOGGER.error("", e);
         }
 
+    }
+
+    //保存采集结果
+    private void saveAll(List<ParseResult> list) {
+
+        AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
+
+        for (ParseResult parseResult : list) {
+            AttackPage attackPage = new AttackPage();
+            attackPage.setBelong(parseResult.getBelong());
+            attackPage.setCategory(parseResult.getCategory());
+            attackPage.setCount(0);
+            attackPage.setLink(parseResult.getLink());
+            attackPage.setPointLink(parseResult.getPointLink());
+            attackPage.setTitle(parseResult.getAttr().get("title"));
+            attackPage.setCreateTime(new Date());
+            attackPage.setModifyTime(new Date());
+
+            attackPageService.save(attackPage);
+        }
     }
 
     /**

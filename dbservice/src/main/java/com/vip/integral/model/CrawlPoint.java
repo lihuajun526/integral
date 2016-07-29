@@ -37,7 +37,7 @@ public class CrawlPoint {
 
     private String responseType;
 
-    private String listPosRule;
+    private String listRecordRule;
 
     private String listAttrRule;
 
@@ -49,9 +49,9 @@ public class CrawlPoint {
 
     private String pageIndexClasspath;
 
-    private Date createtime;
+    private Date createTime;
 
-    private Date modifytime;
+    private Date modifyTime;
 
     public Integer getId() {
         return id;
@@ -189,12 +189,12 @@ public class CrawlPoint {
         this.responseType = responseType == null ? null : responseType.trim();
     }
 
-    public String getListPosRule() {
-        return listPosRule;
+    public String getListRecordRule() {
+        return listRecordRule;
     }
 
-    public void setListPosRule(String listPosRule) {
-        this.listPosRule = listPosRule == null ? null : listPosRule.trim();
+    public void setListRecordRule(String listRecordRule) {
+        this.listRecordRule = listRecordRule == null ? null : listRecordRule.trim();
     }
 
     public String getListAttrRule() {
@@ -237,19 +237,19 @@ public class CrawlPoint {
         this.pageIndexClasspath = pageIndexClasspath == null ? null : pageIndexClasspath.trim();
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getModifytime() {
-        return modifytime;
+    public Date getModifyTime() {
+        return modifyTime;
     }
 
-    public void setModifytime(Date modifytime) {
-        this.modifytime = modifytime;
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 }

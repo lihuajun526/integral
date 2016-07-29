@@ -1,6 +1,7 @@
 package com.vip.integral.component.loader;
 
 import com.vip.integral.bean.CrawlPointAttr;
+import com.vip.integral.exception.ElementNotExistException;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.util.StrUtil;
 import com.vip.integral.util.XHttpClient;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public abstract class PageIndexLoader {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageIndexLoader.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(PageIndexLoader.class);
 
     protected Integer pageCount = 1;// 总页数
     protected Integer curCount = 0;// 当前页
@@ -37,26 +38,25 @@ public abstract class PageIndexLoader {
 
     /**
      * 初始化
-     *
-     * @param crawlPoint
+     * @param crawlPointAttr
      * @throws UnsupportedEncodingException
      */
-    public void init(CrawlPointAttr crawlPoint) throws UnsupportedEncodingException {
+    public void init(CrawlPointAttr crawlPointAttr) throws UnsupportedEncodingException {
         this.crawlPointAttr = crawlPointAttr;
-        if ("POST".equalsIgnoreCase(crawlPoint.getRequestMethod())) {
-            httpPost = new HttpPost(crawlPoint.getUrl());
+        if ("POST".equalsIgnoreCase(crawlPointAttr.getMethod())) {
+            httpPost = new HttpPost(crawlPointAttr.getUrl());
             httpUriRequest = httpPost;
-        } else if ("GET".equalsIgnoreCase(crawlPoint.getRequestMethod())) {
-            url = URLDecoder.decode(crawlPoint.getUrl(), "utf-8");
+        } else if ("GET".equalsIgnoreCase(crawlPointAttr.getMethod())) {
+            url = URLDecoder.decode(crawlPointAttr.getUrl(), "utf-8");
             url = url.replace("{pagenum}", "%s");
             httpGet = new HttpGet();
             httpUriRequest = httpGet;
         }
         // 设置请求Header
-        if (!StringUtils.isEmpty(crawlPoint.getAccept()))
-            httpUriRequest.setHeader("Accept", crawlPoint.getAccept());
-        if (!StringUtils.isEmpty(crawlPoint.getReferer()))
-            httpUriRequest.setHeader("Referer", crawlPoint.getReferer());
+        if (!StringUtils.isEmpty(crawlPointAttr.getAccept()))
+            httpUriRequest.setHeader("Accept", crawlPointAttr.getAccept());
+        if (!StringUtils.isEmpty(crawlPointAttr.getReferer()))
+            httpUriRequest.setHeader("Referer", crawlPointAttr.getReferer());
     }
 
     public boolean isNext() {
@@ -72,9 +72,9 @@ public abstract class PageIndexLoader {
      * @throws URISyntaxException
      * @throws RequestException
      */
-    public String next() throws URISyntaxException, RequestException {
+    public String next() throws URISyntaxException, RequestException, ElementNotExistException {
 
-        if ("POST".equalsIgnoreCase(crawlPointAttr.getRequestMethod())) {// POST请求
+        if ("POST".equalsIgnoreCase(crawlPointAttr.getMethod())) {// POST请求
 
         } else if ("GET".equalsIgnoreCase(httpUriRequest.getMethod())) {// GET请求
 
@@ -100,7 +100,7 @@ public abstract class PageIndexLoader {
                 httpGet.setURI(new URI(reqUri));
             }
         }
-        String response = XHttpClient.doRequest(httpUriRequest, crawlPointAttr.getUrlencoded());
+        String response = XHttpClient.doRequest(httpUriRequest);
         // 更新总页数
         updatePageCount(response);
         // 返回
@@ -112,6 +112,6 @@ public abstract class PageIndexLoader {
      *
      * @param response
      */
-    public abstract void updatePageCount(String response);
+    public abstract void updatePageCount(String response) throws ElementNotExistException;
 
 }

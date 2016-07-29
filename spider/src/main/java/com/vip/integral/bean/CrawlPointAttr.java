@@ -27,7 +27,10 @@ public class CrawlPointAttr {
     private Integer maxPage;
 
     public Integer getMaxPage() {
-        return maxPage;
+        if (maxPage == null)
+            return Integer.MAX_VALUE;
+        else
+            return maxPage;
     }
 
     public void setMaxPage(Integer maxPage) {
@@ -48,7 +51,7 @@ public class CrawlPointAttr {
     private String responseType;//返回类型：html/json
 
     //列表属性
-    private String listPosRule;//{"jsoup":""}
+    private String listRecordRule;//{"jsoup":""}
 
     private String listAttrRule;//{"jsoup":"","attr":"",}
 
@@ -174,12 +177,12 @@ public class CrawlPointAttr {
         this.responseType = responseType;
     }
 
-    public String getListPosRule() {
-        return listPosRule;
+    public String getListRecordRule() {
+        return listRecordRule;
     }
 
-    public void setListPosRule(String listPosRule) {
-        this.listPosRule = listPosRule;
+    public void setListRecordRule(String listRecordRule) {
+        this.listRecordRule = listRecordRule;
     }
 
     public String getListAttrRule() {

@@ -57,7 +57,7 @@
     <!-- mapper interface -->
     <!-- for user database -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.unionpay.service.dao"/>
+        <property name="basePackage" value="com.vip.integral.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryCommon"/>
     </bean>
 

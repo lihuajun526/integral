@@ -9,15 +9,17 @@ public class AttackPage {
 
     private String link;
 
+    private String pointLink;
+
     private String belong;
 
     private String category;
 
     private Integer count;
 
-    private Date createtime;
+    private Date createTime;
 
-    private Date modifytime;
+    private Date modifyTime;
 
     public Integer getId() {
         return id;
@@ -41,6 +43,14 @@ public class AttackPage {
 
     public void setLink(String link) {
         this.link = link == null ? null : link.trim();
+    }
+
+    public String getPointLink() {
+        return pointLink;
+    }
+
+    public void setPointLink(String pointLink) {
+        this.pointLink = pointLink == null ? null : pointLink.trim();
     }
 
     public String getBelong() {
@@ -67,19 +77,19 @@ public class AttackPage {
         this.count = count;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getModifytime() {
-        return modifytime;
+    public Date getModifyTime() {
+        return modifyTime;
     }
 
-    public void setModifytime(Date modifytime) {
-        this.modifytime = modifytime;
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 }

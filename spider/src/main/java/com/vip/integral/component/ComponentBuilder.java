@@ -43,7 +43,7 @@ public class ComponentBuilder {
      */
     public PageIndexLoader buildPageIndexLoader() throws ClassNotFoundException, IllegalAccessException,
             InstantiationException, UnsupportedEncodingException {
-        PageIndexLoader pageIndexLoader = (PageIndexLoader) Class.forName(crawlPointAttr.getPageIndexClasspath()).newInstance();
+        PageIndexLoader pageIndexLoader = (PageIndexLoader) Class.forName(crawlPointAttr.getPageIndexClassPath()).newInstance();
         pageIndexLoader.init(crawlPointAttr);
         return pageIndexLoader;
     }

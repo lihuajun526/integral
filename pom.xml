@@ -522,5 +522,44 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+                <spider.app.jvm>-server -Xmx512m -Xms512m -verbose:gc -Xloggc:./gc.log
+                    -XX:ErrorFile=./hs_err_pid_att.log -XX:HeapDumpPath=./java_pid_att.hprof
+                    -XX:+HeapDumpOnOutOfMemoryError -XX:+PerfDataSaveToFile -XX:+PrintGC -XX:+PrintGCDetails
+                    -XX:+PrintGCTimeStamps
+                </spider.app.jvm>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>qa</id>
+            <properties>
+                <env>qa</env>
+                <favour.app.jvm>-server -Xmx512m -Xms512m -verbose:gc -Xloggc:./gc.log
+                    -XX:ErrorFile=./hs_err_pid_att.log -XX:HeapDumpPath=./java_pid_att.hprof
+                    -XX:+HeapDumpOnOutOfMemoryError -XX:+PerfDataSaveToFile -XX:+PrintGC -XX:+PrintGCDetails
+                    -XX:+PrintGCTimeStamps
+                </favour.app.jvm>
+            </properties>
+        </profile>
+        <profile>
+            <id>online</id>
+            <properties>
+                <env>online</env>
+                <favour.app.jvm>-server -Xmx512m -Xms512m -verbose:gc -Xloggc:./gc.log
+                    -XX:ErrorFile=./hs_err_pid_att.log -XX:HeapDumpPath=./java_pid_att.hprof
+                    -XX:+HeapDumpOnOutOfMemoryError -XX:+PerfDataSaveToFile -XX:+PrintGC -XX:+PrintGCDetails
+                    -XX:+PrintGCTimeStamps
+                </favour.app.jvm>
+            </properties>
+        </profile>
+    </profiles>
 </project>
 

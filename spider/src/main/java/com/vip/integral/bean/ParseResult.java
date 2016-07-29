@@ -10,6 +10,17 @@ public class ParseResult {
 
     private String category;// 分类
     private String link;
+    private String belong;//所属源
+    private String pointLink;//采集点链接
+
+    public String getBelong() {
+        return belong;
+    }
+
+    public void setBelong(String belong) {
+        this.belong = belong;
+    }
+
     private Map<String, String> attr = new HashMap<>();
 
     public String getCategory() {
@@ -34,5 +45,13 @@ public class ParseResult {
 
     public void setAttr(Map<String, String> attr) {
         this.attr = attr;
+    }
+
+    public String getPointLink() {
+        return pointLink;
+    }
+
+    public void setPointLink(String pointLink) {
+        this.pointLink = pointLink;
     }
 }

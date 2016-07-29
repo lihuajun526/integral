@@ -19,20 +19,20 @@
     <result column="accept" property="accept" jdbcType="VARCHAR" />
     <result column="response_encode" property="responseEncode" jdbcType="VARCHAR" />
     <result column="response_type" property="responseType" jdbcType="VARCHAR" />
-    <result column="list_pos_rule" property="listPosRule" jdbcType="VARCHAR" />
+    <result column="list_record_rule" property="listRecordRule" jdbcType="VARCHAR" />
     <result column="list_attr_rule" property="listAttrRule" jdbcType="VARCHAR" />
     <result column="link_rule" property="linkRule" jdbcType="VARCHAR" />
     <result column="link_self_rule" property="linkSelfRule" jdbcType="VARCHAR" />
     <result column="page_index_rule" property="pageIndexRule" jdbcType="VARCHAR" />
     <result column="page_index_classpath" property="pageIndexClasspath" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="DATE" />
-    <result column="modifyTime" property="modifytime" jdbcType="DATE" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="modify_time" property="modifyTime" jdbcType="DATE" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, nodeid, category, url, url_cr_classpath, is_crawl_detail, json_analyze_path, 
     status, belong, max_page, sleep_time, method, cookies, referer, accept, response_encode, 
-    response_type, list_pos_rule, list_attr_rule, link_rule, link_self_rule, page_index_rule, 
-    page_index_classpath, createTime, modifyTime
+    response_type, list_record_rule, list_attr_rule, link_rule, link_self_rule, page_index_rule, 
+    page_index_classpath, create_time, modify_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -50,19 +50,19 @@
       json_analyze_path, status, belong, 
       max_page, sleep_time, method, 
       cookies, referer, accept, 
-      response_encode, response_type, list_pos_rule, 
+      response_encode, response_type, list_record_rule, 
       list_attr_rule, link_rule, link_self_rule, 
-      page_index_rule, page_index_classpath, createTime, 
-      modifyTime)
+      page_index_rule, page_index_classpath, create_time, 
+      modify_time)
     values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{urlCrClasspath,jdbcType=VARCHAR}, #{isCrawlDetail,jdbcType=INTEGER}, 
       #{jsonAnalyzePath,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{belong,jdbcType=VARCHAR}, 
       #{maxPage,jdbcType=INTEGER}, #{sleepTime,jdbcType=BIGINT}, #{method,jdbcType=VARCHAR}, 
       #{cookies,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, #{accept,jdbcType=VARCHAR}, 
-      #{responseEncode,jdbcType=VARCHAR}, #{responseType,jdbcType=VARCHAR}, #{listPosRule,jdbcType=VARCHAR}, 
+      #{responseEncode,jdbcType=VARCHAR}, #{responseType,jdbcType=VARCHAR}, #{listRecordRule,jdbcType=VARCHAR}, 
       #{listAttrRule,jdbcType=VARCHAR}, #{linkRule,jdbcType=VARCHAR}, #{linkSelfRule,jdbcType=VARCHAR}, 
-      #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, 
-      #{modifytime,jdbcType=DATE})
+      #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{modifyTime,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.vip.integral.model.CrawlPoint" >
     insert into t_crawl_point
@@ -118,8 +118,8 @@
       <if test="responseType != null" >
         response_type,
       </if>
-      <if test="listPosRule != null" >
-        list_pos_rule,
+      <if test="listRecordRule != null" >
+        list_record_rule,
       </if>
       <if test="listAttrRule != null" >
         list_attr_rule,
@@ -136,11 +136,11 @@
       <if test="pageIndexClasspath != null" >
         page_index_classpath,
       </if>
-      <if test="createtime != null" >
-        createTime,
+      <if test="createTime != null" >
+        create_time,
       </if>
-      <if test="modifytime != null" >
-        modifyTime,
+      <if test="modifyTime != null" >
+        modify_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -195,8 +195,8 @@
       <if test="responseType != null" >
         #{responseType,jdbcType=VARCHAR},
       </if>
-      <if test="listPosRule != null" >
-        #{listPosRule,jdbcType=VARCHAR},
+      <if test="listRecordRule != null" >
+        #{listRecordRule,jdbcType=VARCHAR},
       </if>
       <if test="listAttrRule != null" >
         #{listAttrRule,jdbcType=VARCHAR},
@@ -213,11 +213,11 @@
       <if test="pageIndexClasspath != null" >
         #{pageIndexClasspath,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=DATE},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
       </if>
-      <if test="modifytime != null" >
-        #{modifytime,jdbcType=DATE},
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -272,8 +272,8 @@
       <if test="responseType != null" >
         response_type = #{responseType,jdbcType=VARCHAR},
       </if>
-      <if test="listPosRule != null" >
-        list_pos_rule = #{listPosRule,jdbcType=VARCHAR},
+      <if test="listRecordRule != null" >
+        list_record_rule = #{listRecordRule,jdbcType=VARCHAR},
       </if>
       <if test="listAttrRule != null" >
         list_attr_rule = #{listAttrRule,jdbcType=VARCHAR},
@@ -290,11 +290,11 @@
       <if test="pageIndexClasspath != null" >
         page_index_classpath = #{pageIndexClasspath,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        createTime = #{createtime,jdbcType=DATE},
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
       </if>
-      <if test="modifytime != null" >
-        modifyTime = #{modifytime,jdbcType=DATE},
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=DATE},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -317,28 +317,23 @@
       accept = #{accept,jdbcType=VARCHAR},
       response_encode = #{responseEncode,jdbcType=VARCHAR},
       response_type = #{responseType,jdbcType=VARCHAR},
-      list_pos_rule = #{listPosRule,jdbcType=VARCHAR},
+      list_record_rule = #{listRecordRule,jdbcType=VARCHAR},
       list_attr_rule = #{listAttrRule,jdbcType=VARCHAR},
       link_rule = #{linkRule,jdbcType=VARCHAR},
       link_self_rule = #{linkSelfRule,jdbcType=VARCHAR},
       page_index_rule = #{pageIndexRule,jdbcType=VARCHAR},
       page_index_classpath = #{pageIndexClasspath,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=DATE},
-      modifyTime = #{modifytime,jdbcType=DATE}
+      create_time = #{createTime,jdbcType=DATE},
+      modify_time = #{modifyTime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.integral.model.CrawlPoint" >
     select
     <include refid="Base_Column_List" />
     from t_crawl_point
     where
-    <if test="category != null" >
-      category = #{category,jdbcType=VARCHAR},
-    </if>
-    <if test="belong != null" >
-      belong = #{belong,jdbcType=VARCHAR},
-    </if>
+    belong = #{belong,jdbcType=VARCHAR}
+
   </select>
 
   <select id="getByNode" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -347,5 +342,4 @@
     from t_crawl_point
     where nodeid = #{nodeid,jdbcType=INTEGER}
   </select>
-
 </mapper>

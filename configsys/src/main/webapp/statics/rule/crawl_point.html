@@ -16,7 +16,7 @@
                 </tr>
                 <tr>
                     <td>URL生成器路径</td>
-                    <td><input style="width: 500px;" id="urlCrClassPath" name="urlCrClassPath" type="text"/></td>
+                    <td><input style="width: 500px;" id="urlCrClasspath" name="urlCrClasspath" type="text"/></td>
                 </tr>
                 <tr>
                     <td>最大采集页数</td>
@@ -80,8 +80,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>列表位置</td>
-                    <td><input style="width: 500px;" id="listPosRule" name="listPosRule" type="text"/></td>
+                    <td>列表记录规则</td>
+                    <td><input style="width: 500px;" id="listRecordRule" name="listRecordRule" type="text"/></td>
                 </tr>
                 <tr>
                     <td>列表属性json</td>
@@ -101,7 +101,7 @@
                 </tr>
                 <tr>
                     <td>分页解析器</td>
-                    <td><input style="width: 500px;" id="pageIndexClassPath" name="pageIndexClassPath" type="text"/></td>
+                    <td><input style="width: 500px;" id="pageIndexClasspath" name="pageIndexClasspath" type="text"/></td>
                 </tr>
                 <tr>
                     <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
@@ -123,16 +123,18 @@
             }
             $("#nodeid").val(curNode.id);
             $.get("/crawl/point/get?nodeid=" + curNode.id, function (data) {
+                $("#id").val(data.data.id);
                 $("#url").val(data.data.url);
-                $("#urlCrClassPath").val(data.data.urlCrClasspath);
+                $("#urlCrClasspath").val(data.data.urlCrClasspath);
+                $("#maxPage").val(data.data.maxPage);
                 $("#category").val(data.data.category);
                 $("#jsonAnalyzePath").val(data.data.jsonAnalyzepath);
-                $("#listPosRule").val(data.data.listPosRule);
+                $("#listRecordRule").val(data.data.listRecordRule);
                 $("#listAttrRule").val(data.data.listAttrRule);
                 $("#linkRule").val(data.data.linkRule);
                 $("#linkSelfRule").val(data.data.linkSelfRule);
                 $("#pageIndexRule").val(data.data.pageIndexRule);
-                $("#pageIndexClassPath").val(data.data.pageIndexClasspath);
+                $("#pageIndexClasspath").val(data.data.pageIndexClasspath);
             }, "json");
         });
     });

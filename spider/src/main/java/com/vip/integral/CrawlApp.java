@@ -5,7 +5,6 @@ import com.vip.integral.bean.SpringContext;
 import com.vip.integral.component.creater.PointLinkCreater;
 import com.vip.integral.model.CrawlPoint;
 import com.vip.integral.service.CrawlPointService;
-import com.vip.integral.attack.aqy.task.CrawlTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -30,11 +29,12 @@ public class CrawlApp {
         //构建采集点规则集合
         //设置查询条件
         CrawlPointAttr queryAttr = new CrawlPointAttr();
+        queryAttr.setBelong("aqy");
 
         List<CrawlPointAttr> list = listCrawlPointAttr(queryAttr);
 
         //采集
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
         for (CrawlPointAttr crawlPointAttr : list) {
             fixedThreadPool.execute(new CrawlTask(crawlPointAttr));
         }
@@ -71,7 +71,29 @@ public class CrawlApp {
             //组装采集点属性集合
             for (String link : linkList) {
                 CrawlPointAttr crawlPointAttr = new CrawlPointAttr();
-                crawlPointAttr.setUrl(crawlPoint.getUrl());
+
+                crawlPointAttr.setUrl(link);
+                crawlPointAttr.setId(crawlPoint.getId());
+                crawlPointAttr.setCategory(crawlPoint.getCategory());
+                crawlPointAttr.setUrlCrClassPath(crawlPoint.getUrlCrClasspath());
+                crawlPointAttr.setCrawlDetail(crawlPoint.getIsCrawlDetail() == 1 ? true : false);
+                crawlPointAttr.setJsonAnalyzePath(crawlPoint.getJsonAnalyzePath());
+                crawlPointAttr.setStatus(crawlPoint.getStatus());
+                crawlPointAttr.setBelong(crawlPoint.getBelong());
+                crawlPointAttr.setMaxPage(crawlPoint.getMaxPage());
+                crawlPointAttr.setMethod(crawlPoint.getMethod());
+                crawlPointAttr.setCookies(crawlPoint.getCookies());
+                crawlPointAttr.setReferer(crawlPoint.getReferer());
+                crawlPointAttr.setAccept(crawlPoint.getAccept());
+                crawlPointAttr.setResponseEncode(crawlPoint.getResponseEncode());
+                crawlPointAttr.setResponseType(crawlPoint.getResponseType());
+                crawlPointAttr.setListRecordRule(crawlPoint.getListRecordRule());
+                crawlPointAttr.setListAttrRule(crawlPoint.getListAttrRule());
+                crawlPointAttr.setLinkRule(crawlPoint.getLinkRule());
+                crawlPointAttr.setLinkSelfRule(crawlPoint.getLinkSelfRule());
+                crawlPointAttr.setPageIndexClassPath(crawlPoint.getPageIndexClasspath());
+                crawlPointAttr.setPageIndexRule(crawlPoint.getPageIndexRule());
+
                 list.add(crawlPointAttr);
             }
         }

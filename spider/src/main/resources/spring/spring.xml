@@ -10,11 +10,9 @@
 
     <import resource="classpath*:spring/app-config.xml"/>
     <import resource="classpath*:spring/app-datasource.xml"/>
-    <import resource="classpath*:spring/app-rabbitmq.xml"/>
 
     <!-- scan package -->
-    <context:component-scan base-package="com.unionpay.service"/>
-    <context:component-scan base-package="com.unionpay.spider"/>
+    <context:component-scan base-package="com.vip.integral"/>
     <context:annotation-config/>
 
 
