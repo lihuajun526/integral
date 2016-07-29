@@ -6,7 +6,9 @@
 <body>
 <div id="tt" class="easyui-tabs" style="width:850px;height:450px;">
     <div title="HTML" style="padding:20px;display:none;">
-        <form id="crawlPoint" method="post">
+        <form id="crawlPointForm" method="post">
+            <input id="nodeid" name="nodeid" value="0" type="hidden"/>
+            <input id="id" name="id" value="0" type="hidden"/>
             <table cellpadding="5">
                 <tr>
                     <td>URL</td>
@@ -102,7 +104,7 @@
                     <td><input style="width: 500px;" id="pageIndexClassPath" name="pageIndexClassPath" type="text"/></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input value="确定" type="button"/></td>
+                    <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
                 </tr>
             </table>
         </form>
@@ -119,6 +121,7 @@
             if (curNode == null) {
                 return;
             }
+            $("#nodeid").val(curNode.id);
             $.get("/crawl/point/get?nodeid=" + curNode.id, function (data) {
                 $("#url").val(data.data.url);
                 $("#urlCrClassPath").val(data.data.urlCrClasspath);
@@ -133,6 +136,28 @@
             }, "json");
         });
     });
+
+    //保存采集点
+    function saveOrUpdate() {
+
+        var url;
+        var id = $("#id").val();
+        if (id > 0) {
+            url = "crawl/point/update";
+        } else {
+            url = "crawl/point/save";
+        }
+        $('#crawlPointForm').form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function (data) {
+                var result = eval("(" + data + ")");// 将JSON字符串转换成对象
+                $.messager.alert('Info', result.message, 'info');
+            }
+        });
+    }
 </script>
 </body>
 </html>

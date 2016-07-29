@@ -40,6 +40,7 @@ public class CrawlPointController extends BaseController {
 
         crawlPointService.save(crawlPoint);
         result.setData(true);
+        result.setMessage("添加成功");
 
         return result.toString();
     }
@@ -52,6 +53,7 @@ public class CrawlPointController extends BaseController {
 
         crawlPointService.update(crawlPoint);
         result.setData(true);
+        result.setMessage("更新成功");
 
         return result.toString();
     }
