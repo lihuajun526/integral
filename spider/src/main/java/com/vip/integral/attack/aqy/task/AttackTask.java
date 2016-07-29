@@ -1,4 +1,4 @@
-package com.vip.integral.spider.aqy.task;
+package com.vip.integral.attack.aqy.task;
 
 import com.vip.integral.bean.Comment;
 import com.vip.integral.bean.SpringContext;
@@ -6,17 +6,17 @@ import com.vip.integral.model.AttackPage;
 import com.vip.integral.model.AttackParam;
 import com.vip.integral.service.AttackParamService;
 import com.vip.integral.service.PageLinkService;
-import com.vip.integral.spider.aqy.AqyCommenter;
+import com.vip.integral.attack.aqy.AqyCommenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.vip.integral.common.Belong.AQY;
+import static com.vip.integral.constant.Belong.AQY;
 
 /**
  * Created by lihuajun on 16-7-16.
  */
-public class Task1 {
+public class AttackTask {
 
     //热评最大数
     private int maxHotCount = 3;

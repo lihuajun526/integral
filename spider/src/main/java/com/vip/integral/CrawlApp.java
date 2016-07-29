@@ -5,7 +5,7 @@ import com.vip.integral.bean.SpringContext;
 import com.vip.integral.component.creater.PointLinkCreater;
 import com.vip.integral.model.CrawlPoint;
 import com.vip.integral.service.CrawlPointService;
-import com.vip.integral.task.CrawlTask;
+import com.vip.integral.attack.aqy.task.CrawlTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -57,13 +57,13 @@ public class CrawlApp {
         for (CrawlPoint crawlPoint : crawlPointList) {
 
             List<String> linkList = new ArrayList<>();
-            if (!StringUtils.isEmpty(crawlPoint.getUrlCrClassPath())) {//采集点是集合
+            if (!StringUtils.isEmpty(crawlPoint.getUrlCrClasspath())) {//采集点是集合
                 try {
-                    PointLinkCreater pointLinkCreater = (PointLinkCreater) Class.forName(crawlPoint.getUrlCrClassPath())
+                    PointLinkCreater pointLinkCreater = (PointLinkCreater) Class.forName(crawlPoint.getUrlCrClasspath())
                             .newInstance();
                     linkList.addAll(pointLinkCreater.get(crawlPoint.getCategory()));
                 } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                    Logger.error("加载类[" + crawlPoint.getUrlCrClassPath() + "]失败", e);
+                    Logger.error("加载类[" + crawlPoint.getUrlCrClasspath() + "]失败", e);
                 }
             } else {
                 linkList.add(crawlPoint.getUrl());

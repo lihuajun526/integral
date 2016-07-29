@@ -1,4 +1,4 @@
-package com.vip.integral.spider.aqy;
+package com.vip.integral.attack.aqy;
 
 import com.vip.integral.bean.Comment;
 import com.vip.integral.component.CommentPage;

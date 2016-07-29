@@ -1,4 +1,4 @@
-package com.vip.integral.spider;
+package com.vip.integral.attack;
 
 import com.vip.integral.util.cookie.HttpCookieEx;
 import org.springframework.web.context.request.async.DeferredResult;

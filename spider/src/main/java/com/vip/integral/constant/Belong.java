@@ -1,4 +1,4 @@
-package com.vip.integral.common;
+package com.vip.integral.constant;
 
 /**
  * Created by lihuajun on 16-7-27.

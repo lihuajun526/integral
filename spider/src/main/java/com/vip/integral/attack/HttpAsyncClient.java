@@ -2,7 +2,7 @@
  * Copyright (c) 2015-2020 by caitu99
  * All rights reserved.
  */
-package com.vip.integral.spider;
+package com.vip.integral.attack;
 
 
 import com.vip.integral.util.cookie.IgnoreCookieStore;

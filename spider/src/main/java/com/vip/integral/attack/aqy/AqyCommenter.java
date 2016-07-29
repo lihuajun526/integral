@@ -1,4 +1,4 @@
-package com.vip.integral.spider.aqy;
+package com.vip.integral.attack.aqy;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

@@ -1,4 +1,4 @@
-package com.vip.integral.task;
+package com.vip.integral.attack.aqy.task;
 
 import com.alibaba.fastjson.JSONArray;
 import com.vip.integral.bean.CrawlPointAttr;

@@ -1,15 +1,13 @@
-package com.vip.integral.spider.aqy;
+package com.vip.integral.attack.aqy;
 
-import com.vip.integral.spider.HttpAsyncClient;
-import com.vip.integral.spider.QueryEvent;
+import com.vip.integral.attack.HttpAsyncClient;
+import com.vip.integral.attack.QueryEvent;
 import com.vip.integral.util.cookie.HttpCookieEx;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.concurrent.FutureCallback;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -17,7 +15,6 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
