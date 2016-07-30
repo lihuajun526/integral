@@ -15,13 +15,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by lihuajun on 16-7-19.
  */
 public class CrawlApp {
 
-    private static final Logger Logger = LoggerFactory.getLogger(CrawlApp.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrawlApp.class);
 
     public static void main(String[] args) {
 
@@ -36,13 +37,19 @@ public class CrawlApp {
         List<CrawlPointAttr> list = listCrawlPointAttr(queryAttr);
 
         //采集
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(200);
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
         for (int i = 1; i <= list.size(); i++) {
             CrawlPointAttr crawlPointAttr = list.get(list.size() - i);
             crawlPointAttr.setTaskid("Task" + i);
             fixedThreadPool.execute(new CrawlTask(crawlPointAttr));
         }
-
+        fixedThreadPool.shutdown();
+        try {
+            fixedThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        LOGGER.info("所有任务都已完成");
     }
 
     //获取采集点属性集合
@@ -67,7 +74,7 @@ public class CrawlApp {
                             .newInstance();
                     linkAttrList.addAll(pointLinkCreater.get(crawlPoint.getCategory()));
                 } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-                    Logger.error("加载类[" + crawlPoint.getUrlCrClasspath() + "]失败", e);
+                    LOGGER.error("加载类[" + crawlPoint.getUrlCrClasspath() + "]失败", e);
                 }
             } else {
                 Map<String, String> linkAttr = new HashMap<>();

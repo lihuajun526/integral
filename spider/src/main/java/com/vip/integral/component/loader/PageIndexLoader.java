@@ -114,4 +114,7 @@ public abstract class PageIndexLoader {
      */
     public abstract void updatePageCount(String response) throws ElementNotExistException;
 
+    public Integer getCurCount() {
+        return curCount;
+    }
 }

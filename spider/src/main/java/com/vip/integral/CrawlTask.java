@@ -81,9 +81,10 @@ public class CrawlTask implements Runnable {
                     LOGGER.error("", e);
                 }
             }
-            LOGGER.info("任务{}完成{}", crawlPointAttr.getTaskid(), crawlPointAttr.getCategory());
             // 结果入库
             saveAll(allParseResultList);
+            LOGGER.info("任务{}完成{},共采集点{}页{}条数据", crawlPointAttr.getTaskid(), crawlPointAttr.getCategory(),
+                    pageIndexLoader.getCurCount(), allParseResultList.size());
 
         } catch (Exception e) {
             LOGGER.error("", e);
