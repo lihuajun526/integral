@@ -10,6 +10,8 @@ public class CrawlPointAttr {
     //采集点属性
     private Integer id;
 
+    private String taskid;
+
     private String category;
 
     private String url;
@@ -71,6 +73,14 @@ public class CrawlPointAttr {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTaskid() {
+        return taskid;
+    }
+
+    public void setTaskid(String taskid) {
+        this.taskid = taskid;
     }
 
     public String getCategory() {

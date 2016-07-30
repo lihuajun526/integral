@@ -1,5 +1,6 @@
 package com.vip.integral;
 
+import com.alibaba.fastjson.JSON;
 import com.vip.integral.bean.CrawlPointAttr;
 import com.vip.integral.bean.ParseResult;
 import com.vip.integral.bean.SpringContext;
@@ -68,6 +69,7 @@ public class CrawlTask implements Runnable {
                         parseResult.setCategory(crawlPointAttr.getCategory());
                         parseResult.setBelong(crawlPointAttr.getBelong());
                         parseResult.setPointLink(crawlPointAttr.getUrl());
+                        LOGGER.debug(JSON.toJSONString(parseResult));
                         // 追加数据
                         allParseResultList.add(parseResult);
                     }
@@ -79,7 +81,7 @@ public class CrawlTask implements Runnable {
                     LOGGER.error("", e);
                 }
             }
-
+            LOGGER.info("任务{}完成{}", crawlPointAttr.getTaskid(), crawlPointAttr.getCategory());
             // 结果入库
             saveAll(allParseResultList);
 
@@ -100,7 +102,7 @@ public class CrawlTask implements Runnable {
             attackPage.setCategory(parseResult.getCategory());
             attackPage.setCount(0);
             attackPage.setLink(parseResult.getLink());
-            attackPage.setPointLink(parseResult.getPointLink());
+            attackPage.setPointLink(parseResult.getPointLink().replace("{pagenum}", "1"));
             attackPage.setTitle(parseResult.getAttr().get("title"));
             attackPage.setCreateTime(new Date());
             attackPage.setModifyTime(new Date());
@@ -126,7 +128,7 @@ public class CrawlTask implements Runnable {
      */
     private boolean isNeedCrawl(List<ParseResult> parseResultList) {
 
-        return false;
+        return true;
     }
 
 }

@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,8 +36,10 @@ public class CrawlApp {
         List<CrawlPointAttr> list = listCrawlPointAttr(queryAttr);
 
         //采集
-        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
-        for (CrawlPointAttr crawlPointAttr : list) {
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(200);
+        for (int i = 1; i <= list.size(); i++) {
+            CrawlPointAttr crawlPointAttr = list.get(list.size() - i);
+            crawlPointAttr.setTaskid("Task" + i);
             fixedThreadPool.execute(new CrawlTask(crawlPointAttr));
         }
 
@@ -56,25 +60,28 @@ public class CrawlApp {
         List<CrawlPoint> crawlPointList = CrawlPointService.list(query);
         for (CrawlPoint crawlPoint : crawlPointList) {
 
-            List<String> linkList = new ArrayList<>();
+            List<Map<String, String>> linkAttrList = new ArrayList<>();
             if (!StringUtils.isEmpty(crawlPoint.getUrlCrClasspath())) {//采集点是集合
                 try {
                     PointLinkCreater pointLinkCreater = (PointLinkCreater) Class.forName(crawlPoint.getUrlCrClasspath())
                             .newInstance();
-                    linkList.addAll(pointLinkCreater.get(crawlPoint.getCategory()));
+                    linkAttrList.addAll(pointLinkCreater.get(crawlPoint.getCategory()));
                 } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
                     Logger.error("加载类[" + crawlPoint.getUrlCrClasspath() + "]失败", e);
                 }
             } else {
-                linkList.add(crawlPoint.getUrl());
+                Map<String, String> linkAttr = new HashMap<>();
+                linkAttr.put("link", crawlPoint.getUrl());
+                linkAttrList.add(linkAttr);
             }
             //组装采集点属性集合
-            for (String link : linkList) {
+            for (Map<String, String> linkAttr : linkAttrList) {
                 CrawlPointAttr crawlPointAttr = new CrawlPointAttr();
 
-                crawlPointAttr.setUrl(link);
+                crawlPointAttr.setUrl(linkAttr.get("link"));
                 crawlPointAttr.setId(crawlPoint.getId());
-                crawlPointAttr.setCategory(crawlPoint.getCategory());
+                crawlPointAttr.setCategory(
+                        crawlPoint.getCategory() + linkAttr.get("index") == null ? "" : "[" + linkAttr.get("index") + "]");
                 crawlPointAttr.setUrlCrClassPath(crawlPoint.getUrlCrClasspath());
                 crawlPointAttr.setCrawlDetail(crawlPoint.getIsCrawlDetail() == 1 ? true : false);
                 crawlPointAttr.setJsonAnalyzePath(crawlPoint.getJsonAnalyzePath());

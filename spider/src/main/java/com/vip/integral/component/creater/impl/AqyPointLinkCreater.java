@@ -2,9 +2,13 @@ package com.vip.integral.component.creater.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.vip.integral.component.creater.PointLinkCreater;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-7-16.
@@ -84,6 +88,8 @@ import java.util.List;
     */
 public class AqyPointLinkCreater implements PointLinkCreater {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AqyPointLinkCreater.class);
+
     private String data = "[{\"urlTpl\":\"http://list.iqiyi.com/www/%s/-%s---------%s-%s--11-{pagenum}-1-iqiyi--.html\",\"channel\":\"电影\",\"path\":\"1\",\"postage\":[{\"name\":\"免费\",\"path\":\"0\"},{\"name\":\"付费\",\"path\":\"2\"}],\"category\":[{\"name\":\"喜剧\",\"path\":\"8\"},{\"name\":\"悲剧\",\"path\":\"13\"},{\"name\":\"爱情\",\"path\":\"6\"},{\"name\":\"动作\",\"path\":\"11\"},{\"name\":\"枪战\",\"path\":\"131\"},{\"name\":\"犯罪\",\"path\":\"291\"},{\"name\":\"惊悚\",\"path\":\"128\"},{\"name\":\"恐怖\",\"path\":\"10\"},{\"name\":\"悬疑\",\"path\":\"289\"},{\"name\":\"动画\",\"path\":\"12\"},{\"name\":\"家庭\",\"path\":\"27356\"},{\"name\":\"奇幻\",\"path\":\"1284\"},{\"name\":\"魔幻\",\"path\":\"129\"},{\"name\":\"科幻\",\"path\":\"9\"},{\"name\":\"战争\",\"path\":\"7\"},{\"name\":\"青春\",\"path\":\"130\"}],\"years\":[{\"name\":\"2016\",\"path\":\"2016\"},{\"name\":\"2015-2011\",\"path\":\"2011_2015\"},{\"name\":\"2010-2000\",\"path\":\"2000_2010\"},{\"name\":\"90年代\",\"path\":\"1990_1999\"},{\"name\":\"80年代\",\"path\":\"1980_1989\"},{\"name\":\"更早\",\"path\":\"1964_1979\"}]}]";
 
     public static void main(String[] args) {
@@ -97,9 +103,9 @@ public class AqyPointLinkCreater implements PointLinkCreater {
      * @param targetChannel
      * @return
      */
-    public List<String> get(String targetChannel) {
+    public List<Map<String, String>> get(String targetChannel) {
 
-        List<String> linkList = new ArrayList<>();
+        List<Map<String, String>> linkAttrList = new ArrayList<>();
 
         List<Classinfo> list = JSONArray.parseArray(data, Classinfo.class);
         for (Classinfo classinfo : list) {
@@ -116,16 +122,21 @@ public class AqyPointLinkCreater implements PointLinkCreater {
                     for (Attrs attrs2 : classinfo.getYears()) {
                         String years = attrs2.getName();
                         String yearsPath = attrs2.getPath();
-                        System.out.println(channel + "->" + category + "->" + postage + "->" + years);
-                        System.out.println(
+
+                        LOGGER.debug(channel + "->" + category + "->" + postage + "->" + years);
+                        LOGGER.debug(String.format(classinfo.getUrlTpl(), channelPath, categoryPath, postagePath, yearsPath));
+
+                        Map<String, String> linkAttr = new HashMap<>();
+                        linkAttr.put("link",
                                 String.format(classinfo.getUrlTpl(), channelPath, categoryPath, postagePath, yearsPath));
-                        linkList.add(String.format(classinfo.getUrlTpl(), channelPath, categoryPath, postagePath, yearsPath));
+                        linkAttr.put("index", channel + "->" + category + "->" + postage + "->" + years);
+                        linkAttrList.add(linkAttr);
                     }
                 }
             }
         }
 
-        return linkList;
+        return linkAttrList;
     }
 }
 

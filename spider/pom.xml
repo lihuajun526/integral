@@ -123,7 +123,7 @@
                     <programs>
                         <program>
                             <id>spider</id>
-                            <mainClass>com.unionpay.spider.Application</mainClass>
+                            <mainClass>com.vip.integral.CrawlApp</mainClass>
                         </program>
                     </programs>
                 </configuration>
