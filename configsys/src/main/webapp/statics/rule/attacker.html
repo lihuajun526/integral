@@ -1,30 +1,101 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
 </head>
 <body>
-	<h2>Auto Height for Tabs</h2>
-	<p>The tabs height is auto adjusted according to tab panel content.</p>
-	<div style="margin:20px 0;"></div>
-	<div class="easyui-tabs" style="width:700px;height:auto">
-		<div title="列表" style="padding:10px">
-			<p style="font-size:14px">jQuery EasyUI framework helps you build your web pages easily.</p>
-			<ul>
-				<li>easyui is a collection of user-interface plugin based on jQuery.</li>
-				<li>easyui provides essential functionality for building modem, interactive, javascript applications.</li>
-				<li>using easyui you don't need to write many javascript code, you usually defines user-interface by writing some HTML markup.</li>
-				<li>complete framework for HTML5 web page.</li>
-				<li>easyui save your time and scales while developing your products.</li>
-				<li>easyui is very easy but powerful.</li>
-			</ul>
-		</div>
-		<div title="详细页" style="padding:10px">
-			<ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
-		</div>
-		<div title="Help" data-options="iconCls:'icon-help',closable:true" style="padding:10px">
-			This is the help content.
-		</div>
-	</div>
+<div class="easyui-tabs" style="width:700px;height:auto">
+    <div title="攻击者参数" style="padding:20px;display:none;">
+        <form id="attackParamForm" method="post">
+            <input id="nodeid" name="nodeid" value="0" type="hidden"/>
+            <input id="id" name="id" value="0" type="hidden"/>
+            <input id="account" name="account" value="" type="hidden"/>
+            <table cellpadding="5">
+                <tr>
+                    <td>所属源</td>
+                    <td>
+                        <select id="belong" name="belong">
+                            <option value="aqy">爱奇艺</option>
+                            <option value="youku">优酷</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>开关</td>
+                    <td>
+                        <input name="status" type="radio" value="1" checked/>启用
+                        <input name="status" type="radio" value="0"/>停用
+                    </td>
+                </tr>
+                <tr>
+                    <td>请求方式</td>
+                    <td>
+                        <input name="method" type="radio" value="GET" checked/>GET
+                        <input name="method" type="radio" value="POST"/>POST
+                    </td>
+                </tr>
+                <tr>
+                    <td>编码</td>
+                    <td>
+                        <input name="charset" type="radio" value="utf-8" checked/>UTF8
+                        <input name="charset" type="radio" value="gbk"/>GBK
+                    </td>
+                </tr>
+                <tr>
+                    <td>公共参数</td>
+                    <td>
+                        <textarea id="data" name="data" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>行为</td>
+                    <td>
+                        <textarea id="action" name="action" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document).ready(function () {
+            if (curNode == null) {
+                return;
+            }
+            $("#account").val(curNode.account);
+            $("#nodeid").val(curNode.id);
+            $.get("attack/param/get?nodeid=" + curNode.id, function (data) {
+                $("#id").val(data.data.id);
+                $("#data").val(data.data.data);
+                $("#action").val(data.data.action);
+            }, "json");
+        });
+    });
+
+    //保存采集点
+    function saveOrUpdate() {
+        var url;
+        var id = $("#id").val();
+        if (id > 0) {
+            url = "attack/param/update";
+        } else {
+            url = "attack/param/save";
+        }
+        $('#attackParamForm').form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function (data) {
+                var result = eval("(" + data + ")");// 将JSON字符串转换成对象
+                $.messager.alert('Info', result.message, 'info');
+            }
+        });
+    }
+</script>
 </body>
 </html>

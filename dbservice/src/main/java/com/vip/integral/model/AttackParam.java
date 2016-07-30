@@ -2,12 +2,7 @@ package com.vip.integral.model;
 
 import java.util.Date;
 
-/**
- * 攻击参数
- * Created by lihuajun on 16-7-21.
- */
 public class AttackParam {
-
     private Integer id;
 
     private Integer nodeid;
@@ -16,21 +11,19 @@ public class AttackParam {
 
     private String belong;
 
-    private String requestMethod;//get/post
+    private String requestMethod;
 
-    private String data;
+    private Integer status;
 
     private String charset;
 
-    /**
-     * 用户行为json
-     * {"comment":"","reply":"",...}
-     */
     private String action;
 
     private Date createTime;
 
     private Date updateTime;
+
+    private String data;
 
     public Integer getId() {
         return id;
@@ -40,12 +33,20 @@ public class AttackParam {
         this.id = id;
     }
 
+    public Integer getNodeid() {
+        return nodeid;
+    }
+
+    public void setNodeid(Integer nodeid) {
+        this.nodeid = nodeid;
+    }
+
     public String getAccount() {
         return account;
     }
 
     public void setAccount(String account) {
-        this.account = account;
+        this.account = account == null ? null : account.trim();
     }
 
     public String getBelong() {
@@ -53,7 +54,7 @@ public class AttackParam {
     }
 
     public void setBelong(String belong) {
-        this.belong = belong;
+        this.belong = belong == null ? null : belong.trim();
     }
 
     public String getRequestMethod() {
@@ -61,15 +62,15 @@ public class AttackParam {
     }
 
     public void setRequestMethod(String requestMethod) {
-        this.requestMethod = requestMethod;
+        this.requestMethod = requestMethod == null ? null : requestMethod.trim();
     }
 
-    public String getData() {
-        return data;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getCharset() {
@@ -77,7 +78,7 @@ public class AttackParam {
     }
 
     public void setCharset(String charset) {
-        this.charset = charset;
+        this.charset = charset == null ? null : charset.trim();
     }
 
     public String getAction() {
@@ -85,7 +86,7 @@ public class AttackParam {
     }
 
     public void setAction(String action) {
-        this.action = action;
+        this.action = action == null ? null : action.trim();
     }
 
     public Date getCreateTime() {
@@ -104,11 +105,11 @@ public class AttackParam {
         this.updateTime = updateTime;
     }
 
-    public Integer getNodeid() {
-        return nodeid;
+    public String getData() {
+        return data;
     }
 
-    public void setNodeid(Integer nodeid) {
-        this.nodeid = nodeid;
+    public void setData(String data) {
+        this.data = data == null ? null : data.trim();
     }
 }

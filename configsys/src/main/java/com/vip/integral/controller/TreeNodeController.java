@@ -102,7 +102,6 @@ public class TreeNodeController extends BaseController{
         } else {
             return false;
         }
-
     }
 
 }
