@@ -65,8 +65,7 @@ public class XHttpClient {
         httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
     }
 
-
-    public static void main(String[]args){
+    public static void main(String[] args) {
         HttpGet httpGet = new HttpGet("http://cc.cmbchina.com/");
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet);

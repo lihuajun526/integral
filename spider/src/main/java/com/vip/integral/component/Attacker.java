@@ -1,7 +1,7 @@
 package com.vip.integral.component;
 
-import com.vip.integral.bean.AttackPage;
 import com.vip.integral.exception.RequestException;
+import com.vip.integral.model.AttackPage;
 import com.vip.integral.model.AttackParam;
 import com.vip.integral.util.XHttpClient;
 import org.apache.http.NameValuePair;
@@ -39,7 +39,7 @@ public abstract class Attacker {
 
     //初始化
     protected void init() throws RequestException {
-        HttpGet httpGet = new HttpGet(attackPage.getAttackPage().getLink());
+        HttpGet httpGet = new HttpGet(attackPage.getLink());
         response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
         action = attackParam.getAction();
         initPubParam(attackParam.getData());
@@ -50,38 +50,34 @@ public abstract class Attacker {
         String[] strs = data.split("&");
         for (String str : strs) {
             String[] temp = str.split("=");
-            pubParams.put(temp[0].trim(), temp[1].trim());
+            if (temp.length == 1) {
+                pubParams.put(temp[0].trim(), "");
+            } else {
+                pubParams.put(temp[0].trim(), temp[1].trim());
+            }
+
         }
     }
 
     /**
      * 初始化表单数据
      *
-     * @param data
+     * @param skeys
+     * @return
      */
-    protected List<NameValuePair> initForm(String data) {
+    protected List<NameValuePair> initForm(String skeys) {
 
         List<NameValuePair> params = new ArrayList<>();
 
-        String[] strs = data.split("&");
+        String[] keys = skeys.split(",");
 
-        for (String str : strs) {
+        for (String key : keys) {
 
-            String[] temps = str.split("=");
-
-            if (temps[0].startsWith("$")) {//从公共参数中取值
-                String key = temps[0].replaceAll("$", "");
-                if (null != pubParams.get(key))
-                    params.add(new BasicNameValuePair(key.trim(), pubParams.get(key)));
-                else
-                    LOGGER.error("没有在公共参数中找到[" + key + "]的值");
-            } else {
-                if (temps.length == 2) {
-                    params.add(new BasicNameValuePair(temps[0].trim(), temps[1].trim()));
-                } else {
-                    params.add(new BasicNameValuePair(temps[0].trim(), ""));
-                }
-            }
+            //从公共参数中取值
+            if (null != pubParams.get(key))
+                params.add(new BasicNameValuePair(key, pubParams.get(key)));
+            else
+                LOGGER.info("没有在公共参数中找到[" + key + "]的值");
         }
 
         return params;
@@ -106,5 +102,9 @@ public abstract class Attacker {
 
     public void setAttackParam(AttackParam attackParam) {
         this.attackParam = attackParam;
+    }
+
+    public void setAttackPage(AttackPage attackPage) {
+        this.attackPage = attackPage;
     }
 }

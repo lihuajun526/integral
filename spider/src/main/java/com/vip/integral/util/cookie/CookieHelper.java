@@ -137,8 +137,6 @@ public class CookieHelper {
         boolean secureLink = "https".equalsIgnoreCase(uri.getScheme());
 
         for (HttpCookieEx cookie : cookieList) {
-            System.out.println(cookie.getValue());
-            System.out.println(cookie.getName());
             if (!cookie.hasExpired() && (secureLink || !cookie.getSecure())) {
                 if (cookie.isHttpOnly()) {
                     String s = uri.getScheme();

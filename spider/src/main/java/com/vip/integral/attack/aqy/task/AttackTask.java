@@ -4,8 +4,8 @@ import com.vip.integral.bean.Comment;
 import com.vip.integral.bean.SpringContext;
 import com.vip.integral.model.AttackPage;
 import com.vip.integral.model.AttackParam;
+import com.vip.integral.service.AttackPageService;
 import com.vip.integral.service.AttackParamService;
-import com.vip.integral.service.PageLinkService;
 import com.vip.integral.attack.aqy.AqyCommenter;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import static com.vip.integral.constant.Belong.AQY;
 /**
  * Created by lihuajun on 16-7-16.
  */
-public class AttackTask {
+public class AttackTask implements Runnable {
 
     //热评最大数
     private int maxHotCount = 3;
@@ -29,19 +29,23 @@ public class AttackTask {
      * uid,antiCsrf
      * 这些参数要初始化
      */
-    public void exe() {
+    @Override
+    public void run() {
         // 获得所有的评论水军
         List<AqyCommenter> commenters = allCommenter();
         // 获得评论详细页
-        List<AttackPage> attackPageList = listPageLink();
+        List<AttackPage> attackPageList = listAttackPage();
 
         try {
             for (int i = 0; i < attackPageList.size(); i++) {
                 // 主角对影片进行评论，所有配角对该评论进行点赞/回复
                 //选一个主角
                 AqyCommenter major = commenters.get(i % commenters.size());
+                major.setAttackPage(attackPageList.get(i));
+                major.init();
                 Comment comment = major.comment();
-                //配角点赞/回复
+
+                /*//配角点赞/回复
                 for (AqyCommenter support : commenters) {
                     support.praise(comment);
                     if (support == major)
@@ -63,7 +67,7 @@ public class AttackTask {
                     for (int m = 1; m <= echoCount; m++) {
                         commenters.get((i + j * 2 + m) % commenters.size()).echo();
                     }
-                }
+                }*/
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,12 +84,12 @@ public class AttackTask {
 
         List<AqyCommenter> commenters = new ArrayList<>();
 
-        AttackParamService attackParamService = (AttackParamService) SpringContext.getContext().getBean("attackerService");
+        AttackParamService attackParamService = (AttackParamService) SpringContext.getContext().getBean("attackParamService");
         List<AttackParam> list = attackParamService.listByBelong(AQY.value());
 
         for (AttackParam attackParam : list) {
             AqyCommenter aqyCommenter = new AqyCommenter();
-            //aqyCommenter.setAttackParam(attackParam);
+            aqyCommenter.setAttackParam(attackParam);
             commenters.add(aqyCommenter);
         }
 
@@ -97,24 +101,11 @@ public class AttackTask {
      *
      * @return
      */
-    private List<AttackPage> listPageLink() {
+    private List<AttackPage> listAttackPage() {
 
-        PageLinkService pageLinkService = (PageLinkService) SpringContext.getContext().getBean("pageLinkService");
-        List<AttackPage> list = pageLinkService.listByBelong("aqy");
+        AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
+        List<AttackPage> list = attackPageService.listByBelong(AQY.value());
         return list;
-    }
-
-    public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
-        list.add("123");
-        list.add("abc");
-
-        String str1 = list.get(0);
-
-        String str2 = list.get(0);
-
-        System.out.println(str1 == str2);
-
     }
 
 }

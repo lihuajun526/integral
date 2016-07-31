@@ -128,21 +128,59 @@ public class StrUtil {
 
         for (String key : map1.keySet()) {
             if (map2.get(key) == null) {
-                System.out.println("其中一个集合没有[" + key + "]属性");
+                System.out.println("集合2没有[" + key + "]属性");
+            }
+        }
+
+        for (String key : map2.keySet()) {
+            if (map1.get(key) == null) {
+                System.out.println("集合1没有[" + key + "]属性");
+            }
+        }
+
+        List<String> keys = new ArrayList<>();
+        StringBuffer stringBuffer = new StringBuffer();
+        StringBuffer diff = new StringBuffer();
+
+        for (String key : map1.keySet()) {
+            stringBuffer.append(key).append(",");
+            if (map2.get(key) == null) {
+                continue;
             }
             if (!map1.get(key).equals(map2.get(key))) {
                 System.out.println("map1中[" + key + "]值为：" + URLDecoder.decode(map1.get(key), "utf-8"));
                 System.out.println("map2中[" + key + "]值为：" + URLDecoder.decode(map2.get(key), "utf-8"));
                 System.out.println("------------------------------------");
+                diff.append(key).append(",");
+            } else {
+                keys.add(key);
             }
         }
+
+        StringBuffer sb = new StringBuffer();
+        StringBuffer sb1 = new StringBuffer();
+        Boolean isFirst = true;
+        for (String key : keys) {
+            if (isFirst) {
+                sb.append(key).append("=").append(map1.get(key));
+                sb1.append(key);
+                isFirst = false;
+                continue;
+            }
+            sb.append(split).append(key).append("=").append(map1.get(key));
+            sb1.append(",").append(key);
+        }
+        System.out.println(sb.toString());
+        System.out.println("相同key：" + sb1.toString());
+        System.out.println("不同key：" + diff.toString());
+        System.out.println("所有key：" + stringBuffer.toString());
     }
 
     public static void main(String[] args) {
 
         //评论
-        String str1 = "albumid=496447100&antiCsrf=805092735ddfe431fba7700cbe938a51&cb=fnsucc&contentid=6369697948&is_video_page=true&qitancallback=fnsucc&qitanid=12488029&qypid=01010011010000000000&t=0.7257644792499902&tvid=496447100&uid=1266687801";
-        String str2 = "albumid=503325200&antiCsrf=0a6c572e0b6d101791a4ddd549857d3c&cb=fnsucc&contentid=6285529048&is_video_page=true&qitancallback=fnsucc&qitanid=11075642&qypid=01010011010000000000&t=0.8853676982141423&tvid=503325200&uid=85840559";
+        String str1 = "qitanid=1153643&tvid=475451100&categoryid=1&qitan_comment_type=1&title=那年·同学之不作不死不青春&playurl=http:%2F%2Fwww.iqiyi.com%2Fv_19rrloht4g.html%23vfrm%3D2-4-0-1&play_order=1&tv_year=20160520&sync_src=那年·同学之不作不死不青春&current_url=http:%2F%2Fwww.iqiyi.com%2Fv_19rrloht4g.html%23vfrm%3D2-4-0-1&text=青春啊青春&nosync=&picid=&is_video_page=true&qypid=01010011010000000000&albumid=475451100&appid=21&antiCsrf=e9d30acbe98b349b35cb4ca8b3911162";
+        String str2 = "qitanid=13622088&tvid=501250500&categoryid=1&qitan_comment_type=1&title=再见那年&playurl=http:%2F%2Fwww.iqiyi.com%2Fv_19rrlimch4.html%23vfrm%3D3-2-zebra-1&play_order=1&tv_year=20160713&sync_src=再见那年&current_url=http:%2F%2Fwww.iqiyi.com%2Fv_19rrlimch4.html%23vfrm%3D3-2-zebra-1&text=青春啊青春&nosync=weibo,qzone,renren&picid=&is_video_page=true&qypid=01010011010000000000&albumid=501250500&appid=21&antiCsrf=e9d30acbe98b349b35cb4ca8b3911162";
 
         try {
             showDif(str1, str2, "&");

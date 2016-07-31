@@ -42,9 +42,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>公共参数</td>
+                    <td>数据</td>
                     <td>
                         <textarea id="data" name="data" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cookies</td>
+                    <td>
+                        <textarea id="cookies" name="cookies" cols="60" rows="6"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -71,6 +77,7 @@
             $.get("attack/param/get?nodeid=" + curNode.id, function (data) {
                 $("#id").val(data.data.id);
                 $("#data").val(data.data.data);
+                $("#cookies").val(data.data.cookies);
                 $("#action").val(data.data.action);
             }, "json");
         });

@@ -15,13 +15,14 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.vip.integral.model.AttackParam" extends="BaseResultMap" >
     <result column="data" property="data" jdbcType="LONGVARCHAR" />
+    <result column="cookies" property="cookies" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, nodeid, account, belong, request_method, status, charset, action, create_time, 
     update_time
   </sql>
   <sql id="Blob_Column_List" >
-    data
+    data, cookies
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -39,11 +40,13 @@
     insert into t_attack_param (id, nodeid, account, 
       belong, request_method, status, 
       charset, action, create_time, 
-      update_time, data)
+      update_time, data, cookies
+      )
     values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
       #{belong,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{charset,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
-      #{updateTime,jdbcType=DATE}, #{data,jdbcType=LONGVARCHAR})
+      #{updateTime,jdbcType=DATE}, #{data,jdbcType=LONGVARCHAR}, #{cookies,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.vip.integral.model.AttackParam" >
     insert into t_attack_param
@@ -81,6 +84,9 @@
       <if test="data != null" >
         data,
       </if>
+      <if test="cookies != null" >
+        cookies,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -115,6 +121,9 @@
       </if>
       <if test="data != null" >
         #{data,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cookies != null" >
+        #{cookies,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -151,6 +160,9 @@
       <if test="data != null" >
         data = #{data,jdbcType=LONGVARCHAR},
       </if>
+      <if test="cookies != null" >
+        cookies = #{cookies,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -165,7 +177,8 @@
       action = #{action,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=DATE},
       update_time = #{updateTime,jdbcType=DATE},
-      data = #{data,jdbcType=LONGVARCHAR}
+      data = #{data,jdbcType=LONGVARCHAR},
+      cookies = #{cookies,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.vip.integral.model.AttackParam" >
@@ -181,7 +194,6 @@
       update_time = #{updateTime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <!--根据所属源获取攻击者参数-->
   <select id="listByBelong" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select

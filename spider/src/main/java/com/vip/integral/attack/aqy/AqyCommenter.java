@@ -63,21 +63,27 @@ public class AqyCommenter extends Commenter {
         httpPost.setHeader("Accept", accept);
         httpPost.setHeader("Origin", origin);
         httpPost.setHeader("User-Agent", userAgent);
-        httpPost.setHeader("Referer", attackPage.getAttackPage().getLink());
+        httpPost.setHeader("Referer", attackPage.getLink());
 
         //设置表单参数
-        String commentData = "";
-        List<NameValuePair> params = initForm(commentData);
+        /**
+         * 相同key：is_video_page,play_order,qypid,qitan_comment_type,appid,nosync,categoryid,picid,antiCsrf
+         不同key：,,,,,,,tv_year,text,
+         */
+        List<NameValuePair> params = initForm(
+                "is_video_page,play_order,qypid,qitan_comment_type,appid,nosync,categoryid,picid,antiCsrf");
+        params.add(new BasicNameValuePair("albumid", pubParams.get("albumid")));
+        params.add(new BasicNameValuePair("tvid", pubParams.get("tvid")));
+        params.add(new BasicNameValuePair("qitanid", pubParams.get("qitanid")));
         //设置title
         String title = element.attr("data-qitancomment-title");
         params.add(new BasicNameValuePair("title", title));
         //设置sync_src
         params.add(new BasicNameValuePair("sync_src", title));
         //设置playurl
-        params.add(new BasicNameValuePair("playurl", attackPage.getAttackPage().getLink()));
+        params.add(new BasicNameValuePair("playurl", attackPage.getLink()));
         //设置current_url
-        params.add(new BasicNameValuePair("current_url", attackPage.getAttackPage().getLink()));
-
+        params.add(new BasicNameValuePair("current_url", attackPage.getLink()));
         //设置text
         params.add(new BasicNameValuePair("text", JSON.parseObject(action).getString("comment")));
         //设置tv_year
@@ -85,12 +91,17 @@ public class AqyCommenter extends Commenter {
         params.add(new BasicNameValuePair("tv_year", tv_year));
         httpPost.setEntity(new UrlEncodedFormEntity(params, attackParam.getCharset()));
         //设置cookie
-        String commentCookie = "";
+        String commentCookie = attackParam.getCookies();
         List<HttpCookieEx> cookieList = new ArrayList<>();
         cookieList.addAll(FilterCookies.filter(commentCookie));
         CookieHelper.setCookies2(requestUrl, httpPost, cookieList);
 
         //攻击
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            LOGGER.error("", e);
+        }
         String result = XHttpClient.doRequest(httpPost, attackParam.getCharset());
         JSONObject jsonObject = JSON.parseObject(result);
         String code = jsonObject.getString("code");
@@ -98,8 +109,9 @@ public class AqyCommenter extends Commenter {
         if ("A00000".equals(code)) {
             comment = new Comment();
             comment.setId(jsonObject.getJSONObject("data").getString("contentId"));
+            LOGGER.info("评论成功[{}]", attackPage.getLink());
         } else {
-            LOGGER.error("评论失败[" + attackPage.getAttackPage().getLink() + "]");
+            LOGGER.error("由于{},评论失败[{}]", result, attackPage.getLink());
             //// TODO: 16-7-23 记录日志到DB
         }
         return comment;

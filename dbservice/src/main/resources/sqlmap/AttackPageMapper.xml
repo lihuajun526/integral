@@ -138,4 +138,12 @@
       modify_time = #{modifyTime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据所属源查找 -->
+  <select id="listByBelong" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_attack_page
+    where belong = #{belong,jdbcType=VARCHAR}
+  </select>
 </mapper>

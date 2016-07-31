@@ -2,6 +2,8 @@ package com.vip.integral.dao;
 
 import com.vip.integral.model.AttackPage;
 
+import java.util.List;
+
 public interface AttackPageMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface AttackPageMapper {
     int updateByPrimaryKeySelective(AttackPage record);
 
     int updateByPrimaryKey(AttackPage record);
+
+    List<AttackPage> listByBelong(String belong);
 }
