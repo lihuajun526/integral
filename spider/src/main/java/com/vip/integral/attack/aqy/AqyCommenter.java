@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class AqyCommenter extends Commenter {
     private String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36";
     private Element element;
 
-    @Override public void init() throws RequestException {
+    @Override public void init() throws RequestException, UnsupportedEncodingException {
         super.init();
         //收集公共参数
         //设置albumid
@@ -51,6 +52,14 @@ public class AqyCommenter extends Commenter {
         //设置qitanid
         String qitanid = element.attr("data-qitancomment-qitanid");
         pubParams.put("qitanid", qitanid);
+
+        String cookies1 = JSON.parseObject(attackParam.getCookies()).getString("comment");
+        initPubParam(cookies1, ";");
+
+        String uid = JSON.parseObject(URLDecoder.decode(pubParams.get("P00002"), "utf-8")).getString("uid");
+
+        pubParams.put("uid", uid);
+
     }
 
     @Override public Comment comment() throws URISyntaxException, UnsupportedEncodingException, RequestException {
@@ -91,7 +100,7 @@ public class AqyCommenter extends Commenter {
         params.add(new BasicNameValuePair("tv_year", tv_year));
         httpPost.setEntity(new UrlEncodedFormEntity(params, attackParam.getCharset()));
         //设置cookie
-        String commentCookie = attackParam.getCookies();
+        String commentCookie = JSON.parseObject(attackParam.getCookies()).getString("comment");
         List<HttpCookieEx> cookieList = new ArrayList<>();
         cookieList.addAll(FilterCookies.filter(commentCookie));
         CookieHelper.setCookies2(requestUrl, httpPost, cookieList);
@@ -121,14 +130,22 @@ public class AqyCommenter extends Commenter {
         return null;
     }
 
-    @Override public void praise(Comment comment) throws RequestException {
+    @Override public void praise(Comment comment) throws RequestException, URISyntaxException {
 
         String requestUrl =
                 "http://api.t.iqiyi.com/qx_api/comment/like?$albumid=503325200&$antiCsrf=0a6c572e0b6d101791a4ddd549857d3c&cb=fnsucc&contentid="
                         + comment.getId()
                         + "&is_video_page=true&qitancallback=fnsucc&$qitanid=11075642&qypid=01010011010000000000&t=0.8853676982141423&$tvid=503325200&$uid=85840559";
 
+        requestUrl = initUrl(requestUrl);
+
         HttpGet httpGet = new HttpGet(requestUrl);
+        //设置cookies
+        String praiseCookie = JSON.parseObject(attackParam.getCookies()).getString("praise");
+        List<HttpCookieEx> cookieList = new ArrayList<>();
+        cookieList.addAll(FilterCookies.filter(praiseCookie));
+        CookieHelper.setCookies2(requestUrl, httpGet, cookieList);
+        //攻击
         String result = XHttpClient.doRequest(httpGet, attackParam.getCharset());
         result = result.replace("var fnsucc=", "");
         JSONObject jsonObject = JSON.parseObject(result);

@@ -26,7 +26,7 @@ public abstract class Commenter extends Attacker {
     /**
      * 点赞
      */
-    protected abstract void praise(Comment comment) throws RequestException;
+    protected abstract void praise(Comment comment) throws RequestException, URISyntaxException;
 
     /**
      * 附和

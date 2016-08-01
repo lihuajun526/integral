@@ -1,5 +1,6 @@
 package com.vip.integral.component;
 
+import com.alibaba.fastjson.JSON;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.model.AttackPage;
 import com.vip.integral.model.AttackParam;
@@ -12,6 +13,7 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,16 +40,16 @@ public abstract class Attacker {
     protected String action;
 
     //初始化
-    protected void init() throws RequestException {
+    protected void init() throws RequestException, UnsupportedEncodingException {
         HttpGet httpGet = new HttpGet(attackPage.getLink());
         response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
         action = attackParam.getAction();
-        initPubParam(attackParam.getData());
+        initPubParam(attackParam.getData(), "&");
         document = Jsoup.parse(response);
     }
 
-    private void initPubParam(String data) {
-        String[] strs = data.split("&");
+    protected void initPubParam(String data, String split) {
+        String[] strs = data.split(split);
         for (String str : strs) {
             String[] temp = str.split("=");
             if (temp.length == 1) {
@@ -83,6 +85,24 @@ public abstract class Attacker {
         return params;
     }
 
+    public static void main(String[] args) {
+        String url = "http://api.t.iqiyi.com/qx_api/comment/like?$albumid=503325200&$antiCsrf=0a6c572e0b6d101791a4ddd549857d3c&cb=fnsucc&contentid=11&is_video_page=true&qitancallback=fnsucc&$qitanid=11075642&qypid=01010011010000000000&t=0.8853676982141423&$tvid=503325200&$uid=85840559";
+        String[] ss = url.split("\\?");
+        String params = ss[1];
+        StringBuffer sbUrl = new StringBuffer(ss[0]).append("?");
+        String[] strs = params.split("&");
+        for (String str : strs) {
+            if (str.startsWith("$")) {
+                String[] temp = str.split("=");
+                String key = temp[0].replaceAll("\\$", "").trim();
+                sbUrl.append(key).append("=").append("123").append("&");
+            } else {
+                sbUrl.append(str).append("&");
+            }
+        }
+        System.out.println(sbUrl.toString());
+    }
+
     protected String initUrl(String url) {
         String[] ss = url.split("\\?");
         String params = ss[1];
@@ -91,7 +111,7 @@ public abstract class Attacker {
         for (String str : strs) {
             if (str.startsWith("$")) {
                 String[] temp = str.split("=");
-                String key = temp[0].replaceAll("$", "").trim();
+                String key = temp[0].replaceAll("\\$", "").trim();
                 sbUrl.append(key).append("=").append(pubParams.get(key)).append("&");
             } else {
                 sbUrl.append(str).append("&");

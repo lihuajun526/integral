@@ -45,13 +45,14 @@ public class AttackTask implements Runnable {
                 major.init();
                 Comment comment = major.comment();
 
-                /*//配角点赞/回复
+                //配角点赞/回复
                 for (AqyCommenter support : commenters) {
                     support.praise(comment);
                     if (support == major)
                         continue;
-                    support.reply(comment);
+                    //support.reply(comment);
                 }
+                /*
                 // TODO: 16-7-16 主角对最热的前N条评论进行点赞/回复，所有配角对该回复点赞，每次再选两个配角进行附和
                 List<Comment> hotComments = major.listHotComment(maxHotCount, maxReply);
                 for (int j = 0; j < hotComments.size(); j++) {
