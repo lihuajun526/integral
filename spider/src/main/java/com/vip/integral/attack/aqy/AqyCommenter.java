@@ -6,7 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.attack.aqy.bean.AqyComment;
 import com.vip.integral.bean.Comment;
 import com.vip.integral.component.Commenter;
+import com.vip.integral.exception.CommentException;
+import com.vip.integral.exception.GetCommentException;
 import com.vip.integral.exception.RequestException;
+import com.vip.integral.exception.SpiderException;
 import com.vip.integral.util.XHttpClient;
 import com.vip.integral.util.cookie.CookieHelper;
 import com.vip.integral.util.cookie.FilterCookies;
@@ -26,6 +29,9 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.vip.integral.constant.ExceptionTypeEnum.COMMENT_ERROR;
+import static com.vip.integral.constant.ExceptionTypeEnum.GET_COMMENT_ERROR;
+
 /**
  * 爱奇艺评论者
  * Created by lihuajun on 16-7-16.
@@ -41,6 +47,10 @@ public class AqyCommenter extends Commenter {
     private String uid;
 
     @Override public void init() throws RequestException, UnsupportedEncodingException {
+
+        if (pubParams.size() > 0)
+            return;
+
         super.init();
         //收集公共参数
         //设置categoryid
@@ -69,114 +79,161 @@ public class AqyCommenter extends Commenter {
 
     }
 
-    @Override public Comment comment() throws URISyntaxException, UnsupportedEncodingException, RequestException {
+    @Override public Comment comment() throws CommentException {
 
-        //初始化
-        String requestUrl = "http://api.t.iqiyi.com/qx_api/comment/publish";
-        HttpPost httpPost = new HttpPost(requestUrl);
-
-        //设置header
-        httpPost.setHeader("Accept", accept);
-        httpPost.setHeader("Origin", origin);
-        httpPost.setHeader("User-Agent", userAgent);
-        httpPost.setHeader("Referer", attackPage.getLink());
-
-        //设置表单参数
-        /**
-         * 相同key：is_video_page,play_order,qypid,qitan_comment_type,appid,nosync,categoryid,picid,antiCsrf
-         不同key：,,,,,,,tv_year,text,
-         */
-        List<NameValuePair> params = initForm(
-                "is_video_page,play_order,qypid,qitan_comment_type,appid,categoryid,picid,antiCsrf");
-        params.add(new BasicNameValuePair("albumid", pubParams.get("albumid")));
-        params.add(new BasicNameValuePair("tvid", pubParams.get("tvid")));
-        params.add(new BasicNameValuePair("qitanid", pubParams.get("qitanid")));
-        params.add(new BasicNameValuePair("nosync", "weibo,qzone,renren"));
-        //设置title
-        String title = element.attr("data-qitancomment-title");
-        params.add(new BasicNameValuePair("title", title));
-        //设置sync_src
-        params.add(new BasicNameValuePair("sync_src", title));
-        //设置playurl
-        params.add(new BasicNameValuePair("playurl", attackPage.getLink()));
-        //设置current_url
-        params.add(new BasicNameValuePair("current_url", attackPage.getLink()));
-        //设置text
-        params.add(new BasicNameValuePair("text", JSON.parseObject(action).getString("comment")));
-        //设置tv_year
-        String tv_year = element.attr("data-qitancomment-tvyear");
-        params.add(new BasicNameValuePair("tv_year", tv_year));
-        httpPost.setEntity(new UrlEncodedFormEntity(params, attackParam.getCharset()));
-        //设置cookie
-        String commentCookie = JSON.parseObject(attackParam.getCookies()).getString("comment");
-        List<HttpCookieEx> cookieList = new ArrayList<>();
-        cookieList.addAll(FilterCookies.filter(commentCookie));
-        CookieHelper.setCookies2(requestUrl, httpPost, cookieList);
-
-        //攻击
-        try {
-            Thread.sleep(8000);
-        } catch (InterruptedException e) {
-            LOGGER.error("", e);
-        }
-        String result = XHttpClient.doRequest(httpPost, attackParam.getCharset());
-        JSONObject jsonObject = JSON.parseObject(result);
-        String code = jsonObject.getString("code");
         Comment comment = null;
-        if ("A00000".equals(code)) {
-            LOGGER.info("评论成功[{}]", attackPage.getLink());
-            comment = new Comment();
-            String getCommentsUrl =
-                    "http://api.t.iqiyi.com/qx_api/comment/get_video_comments?albumid=" + pubParams.get("albumid")
-                            + "&categoryid=" + pubParams.get("categoryid")
-                            + "&cb=&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=&qitanid="
-                            + pubParams.get("qitanid")
-                            + "&qypid=01010011010000000000&reply_sort=hot&sort=add_time&tvid=" + pubParams.get("tvid");
-            LOGGER.info("获取评论数据[{}]", getCommentsUrl);
-            String commentsResult = XHttpClient.doRequest(new HttpGet(getCommentsUrl), attackParam.getCharset());
-            AqyComment aqyComment = JSONObject.parseObject(commentsResult, AqyComment.class);
-            for (AqyComment.Data.Comment o : aqyComment.getData().getComments()) {
-                if (o.getUserInfo().getUid().equals(uid)) {
-                    comment.setId(o.getContentId());
-                    break;
+
+        try {
+            //初始化
+            this.init();
+            String requestUrl = "http://api.t.iqiyi.com/qx_api/comment/publish";
+            HttpPost httpPost = new HttpPost(requestUrl);
+            //设置header
+            httpPost.setHeader("Accept", accept);
+            httpPost.setHeader("Origin", origin);
+            httpPost.setHeader("User-Agent", userAgent);
+            httpPost.setHeader("Referer", attackPage.getLink());
+
+            //设置表单参数
+            List<NameValuePair> params = initForm(
+                    "is_video_page,play_order,qypid,qitan_comment_type,appid,categoryid,picid,antiCsrf");
+            params.add(new BasicNameValuePair("albumid", pubParams.get("albumid")));
+            params.add(new BasicNameValuePair("tvid", pubParams.get("tvid")));
+            params.add(new BasicNameValuePair("qitanid", pubParams.get("qitanid")));
+            params.add(new BasicNameValuePair("nosync", "weibo,qzone,renren"));
+            //设置title
+            String title = element.attr("data-qitancomment-title");
+            params.add(new BasicNameValuePair("title", title));
+            //设置sync_src
+            params.add(new BasicNameValuePair("sync_src", title));
+            //设置playurl
+            params.add(new BasicNameValuePair("playurl", attackPage.getLink()));
+            //设置current_url
+            params.add(new BasicNameValuePair("current_url", attackPage.getLink()));
+            //设置text
+            params.add(new BasicNameValuePair("text", JSON.parseObject(action).getString("comment")));
+            //设置tv_year
+            String tv_year = element.attr("data-qitancomment-tvyear");
+            params.add(new BasicNameValuePair("tv_year", tv_year));
+            httpPost.setEntity(new UrlEncodedFormEntity(params, attackParam.getCharset()));
+            //设置cookie
+            String commentCookie = JSON.parseObject(attackParam.getCookies()).getString("comment");
+            List<HttpCookieEx> cookieList = new ArrayList<>();
+            cookieList.addAll(FilterCookies.filter(commentCookie));
+            CookieHelper.setCookies2(requestUrl, httpPost, cookieList);
+            //攻击
+            Thread.sleep(6000);
+            String result = XHttpClient.doRequest(httpPost, attackParam.getCharset());
+            JSONObject jsonObject = JSON.parseObject(result);
+            String code = jsonObject.getString("code");
+
+            if ("A00000".equals(code)) {
+                LOGGER.info("评论成功[{}]", attackPage.getLink());
+                try {
+                    String getCommentsUrl =
+                            "http://api.t.iqiyi.com/qx_api/comment/get_video_comments?albumid=" + pubParams.get("albumid")
+                                    + "&categoryid=" + pubParams.get("categoryid")
+                                    + "&cb=&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=&qitanid="
+                                    + pubParams.get("qitanid")
+                                    + "&qypid=01010011010000000000&reply_sort=hot&sort=add_time&tvid=" + pubParams.get("tvid");
+                    LOGGER.info("获取评论数据的链接[{}]", getCommentsUrl);
+                    Thread.sleep(6000);
+                    String commentsResult = XHttpClient.doRequest(new HttpGet(getCommentsUrl), attackParam.getCharset());
+                    AqyComment aqyComment = JSONObject.parseObject(commentsResult, AqyComment.class);
+                    comment = new Comment();
+                    for (AqyComment.Data.Comment o : aqyComment.getData().getComments()) {
+                        if (o.getUserInfo().getUid().equals(uid)) {
+                            comment.setId(o.getContentId());
+                            break;
+                        }
+                    }
+                    if (comment.getId() == null) {
+                        LOGGER.info("没找到评论");
+                        throw new GetCommentException(GET_COMMENT_ERROR);
+                    }
+                } catch (Exception e) {
+                    throw new GetCommentException(GET_COMMENT_ERROR);
                 }
+            } else {
+                LOGGER.info("由于{},评论失败[{}]", result, attackPage.getLink());
+                throw new CommentException(COMMENT_ERROR.code, result);
             }
-            if (comment.getId() == null) {
-                LOGGER.info("没找到评论");
+        } catch (Exception e) {
+            if (e instanceof CommentException)
+                throw (CommentException) e;
+            else {
+                LOGGER.error("评论失败:", e);
+                throw new CommentException(COMMENT_ERROR.code, e.getMessage());
             }
-        } else {
-            LOGGER.error("由于{},评论失败[{}]", result, attackPage.getLink());
-            //// TODO: 16-7-23 记录日志到DB
         }
         return comment;
     }
 
     @Override public Comment reply(Comment comment) {
-        return null;
+
+        Comment reply = null;
+
+        try {
+            this.init();
+            String requestUrl =
+                    "http://api.t.iqiyi.com/qx_api/comment/reply?$albumid=511275500&$antiCsrf=03415e7be8af74727c631dc8c7cb036e&$categoryid=1&cb=&contentid="
+                            + comment.getId()
+                            + "&is_video_page=true&qitan_comment_type=1&qitancallback=&qypid=01010011010000000000&replyid=&t=0.18211309275626575&text="
+                            + JSON.parseObject(action).getString("reply") + "&$tvid=511275500&$uid=1266687801";
+            requestUrl = initUrl(requestUrl);
+            LOGGER.info("回复的url:{}", requestUrl);
+            HttpGet httpGet = new HttpGet(requestUrl);
+            //设置cookie
+            String commentCookie = JSON.parseObject(attackParam.getCookies()).getString("reply");
+            List<HttpCookieEx> cookieList = new ArrayList<>();
+            cookieList.addAll(FilterCookies.filter(commentCookie));
+            CookieHelper.setCookies2(requestUrl, httpGet, cookieList);
+            //攻击
+            String result = XHttpClient.doRequest(httpGet, attackParam.getCharset());
+            JSONObject jsonObject = JSON.parseObject(result);
+            String code = jsonObject.getString("code");
+
+            if ("A00000".equals(code)) {
+                reply.setId(jsonObject.getJSONObject("data").getString("id"));
+                LOGGER.info("回复成功[id={}]", reply.getId());
+            } else {
+                LOGGER.info("回复失败:{}", result);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return reply;
     }
 
     @Override public void praise(Comment comment) throws RequestException, URISyntaxException {
 
-        String requestUrl =
-                "http://api.t.iqiyi.com/qx_api/comment/like?$albumid=503325200&$antiCsrf=0a6c572e0b6d101791a4ddd549857d3c&cb=fnsucc&contentid="
-                        + comment.getId()
-                        + "&is_video_page=true&qitancallback=fnsucc&$qitanid=11075642&qypid=01010011010000000000&t=0.8853676982141423&$tvid=503325200&$uid=85840559";
+        try {
+            this.init();
+            String requestUrl =
+                    "http://api.t.iqiyi.com/qx_api/comment/like?$albumid=503325200&$antiCsrf=0a6c572e0b6d101791a4ddd549857d3c&cb=&contentid="
+                            + comment.getId()
+                            + "&is_video_page=true&qitancallback=&$qitanid=11075642&qypid=01010011010000000000&t=0.8853676982141423&$tvid=503325200&$uid=85840559";
 
-        requestUrl = initUrl(requestUrl);
+            requestUrl = initUrl(requestUrl);
+            LOGGER.info("点赞url[{}]", requestUrl);
 
-        HttpGet httpGet = new HttpGet(requestUrl);
-        //设置cookies
-        String praiseCookie = JSON.parseObject(attackParam.getCookies()).getString("praise");
-        List<HttpCookieEx> cookieList = new ArrayList<>();
-        cookieList.addAll(FilterCookies.filter(praiseCookie));
-        CookieHelper.setCookies2(requestUrl, httpGet, cookieList);
-        //攻击
-        String result = XHttpClient.doRequest(httpGet, attackParam.getCharset());
-        result = result.replace("var fnsucc=", "");
-        JSONObject jsonObject = JSON.parseObject(result);
-        String code = jsonObject.getString("code");
-        if (!"A00000".equals(code)) {
-            LOGGER.error("点赞失败，返回码：{}", code);
+            HttpGet httpGet = new HttpGet(requestUrl);
+            //设置cookies
+            String praiseCookie = JSON.parseObject(attackParam.getCookies()).getString("praise");
+            List<HttpCookieEx> cookieList = new ArrayList<>();
+            cookieList.addAll(FilterCookies.filter(praiseCookie));
+            CookieHelper.setCookies2(requestUrl, httpGet, cookieList);
+            //攻击
+            String result = XHttpClient.doRequest(httpGet, attackParam.getCharset());
+            JSONObject jsonObject = JSON.parseObject(result);
+            String code = jsonObject.getString("code");
+            if (!"A00000".equals(code)) {
+                LOGGER.error("点赞失败，返回码：{}", code);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -186,31 +243,36 @@ public class AqyCommenter extends Commenter {
 
     @Override public List<Comment> listHotComment(int maxComment, int maxReply) throws RequestException {
 
-        List<Comment> list = new ArrayList<>();
+        List<Comment> list = null;
 
-        String requestUrl = "http://api.t.iqiyi.com/qx_api/comment/get_video_comments?$aid=11741438&$albumid=281718700&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&$qitanid=11741438&qypid=01010011010000000000&reply_sort=hot&sort=hot&t=0.22156078186678108&$tvid=281718700";
-        requestUrl = initUrl(requestUrl);
+        try {
+            //初始化
+            this.init();
+            list = new ArrayList<>();
 
-        HttpGet httpGet = new HttpGet(requestUrl);
-        String response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
+            String requestUrl = "http://api.t.iqiyi.com/qx_api/comment/get_video_comments?$aid=11741438&$albumid=281718700&categoryid=1&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&$qitanid=11741438&qypid=01010011010000000000&reply_sort=hot&sort=hot&t=0.22156078186678108&$tvid=281718700";
+            requestUrl = initUrl(requestUrl);
+            LOGGER.info("获取热评的链接[{}]", requestUrl);
 
-        response = response.replace("var fnsucc=", "");
+            HttpGet httpGet = new HttpGet(requestUrl);
+            String response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
 
-        JSONObject jsonObject = JSON.parseObject(response);
-        JSONArray comments = jsonObject.getJSONObject("data").getJSONArray("comments");
+            AqyComment aqyComment = JSONObject.parseObject(response, AqyComment.class);
 
-        for (int i = 0; i < maxComment && i < comments.size(); i++) {
-            JSONObject obj = comments.getJSONObject(i);
-            Comment comment = new Comment();
-            comment.setId(obj.getString("contentId"));
-            JSONArray replys = obj.getJSONArray("replyList");
-            for (int j = 0; j < maxReply && j < replys.size(); j++) {
-                JSONObject obj1 = replys.getJSONObject(j);
-                Comment reply = new Comment();
-                reply.setId(obj1.getString("id"));
-                comment.getReplys().add(reply);
+            for (int i = 0; i < maxComment && i < aqyComment.getData().getComments().size(); i++) {
+                AqyComment.Data.Comment obj = aqyComment.getData().getComments().get(i);
+                Comment comment = new Comment();
+                comment.setId(obj.getContentId());
+                for (int j = 0; j < maxReply && j < obj.getReplyList().size(); j++) {
+                    AqyComment.Data.Comment.Reply obj1 = obj.getReplyList().get(j);
+                    Comment reply = new Comment();
+                    reply.setId(obj1.getId());
+                    comment.getReplys().add(reply);
+                }
+                list.add(comment);
             }
-            list.add(comment);
+        } catch (Exception e) {
+
         }
         return list;
     }

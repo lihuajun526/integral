@@ -1,6 +1,7 @@
 package com.vip.integral.component;
 
 import com.vip.integral.bean.Comment;
+import com.vip.integral.exception.CommentException;
 import com.vip.integral.exception.RequestException;
 
 import java.io.UnsupportedEncodingException;
@@ -16,7 +17,8 @@ public abstract class Commenter extends Attacker {
     /**
      * 评论
      */
-    protected abstract Comment comment() throws URISyntaxException, UnsupportedEncodingException, RequestException;
+    protected abstract Comment comment()
+            throws URISyntaxException, UnsupportedEncodingException, RequestException, CommentException;
 
     /**
      * 回复
@@ -35,8 +37,9 @@ public abstract class Commenter extends Attacker {
 
     /**
      * 获取热门评论
+     *
      * @return
      */
-    protected abstract List<Comment> listHotComment(int maxComment,int maxReply) throws RequestException;
+    protected abstract List<Comment> listHotComment(int maxComment, int maxReply) throws RequestException;
 
 }

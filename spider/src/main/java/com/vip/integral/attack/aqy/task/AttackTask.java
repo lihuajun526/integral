@@ -42,17 +42,16 @@ public class AttackTask implements Runnable {
                 //选一个主角
                 AqyCommenter major = commenters.get(i % commenters.size());
                 major.setAttackPage(attackPageList.get(i));
-                major.init();
                 Comment comment = major.comment();
                 //配角点赞/回复
                 for (AqyCommenter support : commenters) {
-
-                    support.praise(comment);
-
-                    if (support == major)
+                    if (support == major) {
+                        support.praise(comment);
                         continue;
-
-                    //support.reply(comment);
+                    }
+                    support.setAttackPage(attackPageList.get(i));
+                    support.praise(comment);
+                    support.reply(comment);
                 }
                 /*
                 // TODO: 16-7-16 主角对最热的前N条评论进行点赞/回复，所有配角对该回复点赞，每次再选两个配角进行附和

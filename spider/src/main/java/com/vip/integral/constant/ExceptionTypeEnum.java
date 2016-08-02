@@ -18,9 +18,9 @@ public enum ExceptionTypeEnum {
     ATTACHMENTS_DOWNLOAD_ERROR("000008", "附件下载失败!"),
     PROTOCOL_NOT_FIX_ERROR("000009", "无法确定请求协议http/https!"),
     ELEMENT_NOT_EXIST_ERROR("000010", "元素不存在"),
-    HTTP_REQUEST_ERROR("000011", "http请求超时")
-
-    ;
+    HTTP_REQUEST_ERROR("000011", "http请求超时"),
+    COMMENT_ERROR("000012", "评论失败"),
+    GET_COMMENT_ERROR("000013", "获取评论失败");
 
     public final String code;
 

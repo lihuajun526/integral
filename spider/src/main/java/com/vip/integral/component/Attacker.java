@@ -49,6 +49,7 @@ public abstract class Attacker {
     }
 
     protected void initPubParam(String data, String split) {
+
         String[] strs = data.split(split);
         for (String str : strs) {
             String[] temp = str.split("=");
