@@ -179,8 +179,8 @@ public class StrUtil {
     public static void main(String[] args) {
 
         //评论
-        String str1 = "qitanid=1153643&tvid=475451100&categoryid=1&qitan_comment_type=1&title=那年·同学之不作不死不青春&playurl=http:%2F%2Fwww.iqiyi.com%2Fv_19rrloht4g.html%23vfrm%3D2-4-0-1&play_order=1&tv_year=20160520&sync_src=那年·同学之不作不死不青春&current_url=http:%2F%2Fwww.iqiyi.com%2Fv_19rrloht4g.html%23vfrm%3D2-4-0-1&text=青春啊青春&nosync=&picid=&is_video_page=true&qypid=01010011010000000000&albumid=475451100&appid=21&antiCsrf=e9d30acbe98b349b35cb4ca8b3911162";
-        String str2 = "qitanid=13622088&tvid=501250500&categoryid=1&qitan_comment_type=1&title=再见那年&playurl=http:%2F%2Fwww.iqiyi.com%2Fv_19rrlimch4.html%23vfrm%3D3-2-zebra-1&play_order=1&tv_year=20160713&sync_src=再见那年&current_url=http:%2F%2Fwww.iqiyi.com%2Fv_19rrlimch4.html%23vfrm%3D3-2-zebra-1&text=青春啊青春&nosync=weibo,qzone,renren&picid=&is_video_page=true&qypid=01010011010000000000&albumid=501250500&appid=21&antiCsrf=e9d30acbe98b349b35cb4ca8b3911162";
+        String str1 = "aid=10630589&albumid=344891800&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=10630589&qypid=01010011010000000000&reply_sort=hot&sort=hot&t=0.373654650586821&tvid=344891800";
+        String str2 = "aid=10630589&albumid=344891800&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=10630589&qypid=01010011010000000000&reply_sort=hot&sort=add_time&t=0.3868190594192775&tvid=344891800";
 
         try {
             showDif(str1, str2, "&");

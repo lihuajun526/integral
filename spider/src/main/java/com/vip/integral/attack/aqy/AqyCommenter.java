@@ -3,6 +3,7 @@ package com.vip.integral.attack.aqy;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.vip.integral.attack.aqy.bean.AqyComment;
 import com.vip.integral.bean.Comment;
 import com.vip.integral.component.Commenter;
 import com.vip.integral.exception.RequestException;
@@ -37,10 +38,15 @@ public class AqyCommenter extends Commenter {
     private String origin = "http://www.iqiyi.com";
     private String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36";
     private Element element;
+    private String uid;
 
     @Override public void init() throws RequestException, UnsupportedEncodingException {
         super.init();
         //收集公共参数
+        //设置categoryid
+        element = document.getElementById("data-vip-remindbox");
+        String categoryid = element.attr("data-Boss-categoryid");
+        pubParams.put("categoryid", categoryid);
         //设置albumid
         element = document.getElementById("videoShopGuideWrap");
         String albumid = element.attr("data-shop-albumid");
@@ -57,8 +63,9 @@ public class AqyCommenter extends Commenter {
         initPubParam(cookies1, ";");
 
         String uid = JSON.parseObject(URLDecoder.decode(pubParams.get("P00002"), "utf-8")).getString("uid");
-
+        //设置uid
         pubParams.put("uid", uid);
+        this.uid = uid;
 
     }
 
@@ -80,10 +87,11 @@ public class AqyCommenter extends Commenter {
          不同key：,,,,,,,tv_year,text,
          */
         List<NameValuePair> params = initForm(
-                "is_video_page,play_order,qypid,qitan_comment_type,appid,nosync,categoryid,picid,antiCsrf");
+                "is_video_page,play_order,qypid,qitan_comment_type,appid,categoryid,picid,antiCsrf");
         params.add(new BasicNameValuePair("albumid", pubParams.get("albumid")));
         params.add(new BasicNameValuePair("tvid", pubParams.get("tvid")));
         params.add(new BasicNameValuePair("qitanid", pubParams.get("qitanid")));
+        params.add(new BasicNameValuePair("nosync", "weibo,qzone,renren"));
         //设置title
         String title = element.attr("data-qitancomment-title");
         params.add(new BasicNameValuePair("title", title));
@@ -116,9 +124,26 @@ public class AqyCommenter extends Commenter {
         String code = jsonObject.getString("code");
         Comment comment = null;
         if ("A00000".equals(code)) {
-            comment = new Comment();
-            comment.setId(jsonObject.getJSONObject("data").getString("contentId"));
             LOGGER.info("评论成功[{}]", attackPage.getLink());
+            comment = new Comment();
+            String getCommentsUrl =
+                    "http://api.t.iqiyi.com/qx_api/comment/get_video_comments?albumid=" + pubParams.get("albumid")
+                            + "&categoryid=" + pubParams.get("categoryid")
+                            + "&cb=&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=&qitanid="
+                            + pubParams.get("qitanid")
+                            + "&qypid=01010011010000000000&reply_sort=hot&sort=add_time&tvid=" + pubParams.get("tvid");
+            LOGGER.info("获取评论数据[{}]", getCommentsUrl);
+            String commentsResult = XHttpClient.doRequest(new HttpGet(getCommentsUrl), attackParam.getCharset());
+            AqyComment aqyComment = JSONObject.parseObject(commentsResult, AqyComment.class);
+            for (AqyComment.Data.Comment o : aqyComment.getData().getComments()) {
+                if (o.getUserInfo().getUid().equals(uid)) {
+                    comment.setId(o.getContentId());
+                    break;
+                }
+            }
+            if (comment.getId() == null) {
+                LOGGER.info("没找到评论");
+            }
         } else {
             LOGGER.error("由于{},评论失败[{}]", result, attackPage.getLink());
             //// TODO: 16-7-23 记录日志到DB

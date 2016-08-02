@@ -36,20 +36,22 @@ public class AttackTask implements Runnable {
         // 获得评论详细页
         List<AttackPage> attackPageList = listAttackPage();
 
-        try {
-            for (int i = 0; i < attackPageList.size(); i++) {
+        for (int i = 0; i < attackPageList.size(); i++) {
+            try {
                 // 主角对影片进行评论，所有配角对该评论进行点赞/回复
                 //选一个主角
                 AqyCommenter major = commenters.get(i % commenters.size());
                 major.setAttackPage(attackPageList.get(i));
                 major.init();
                 Comment comment = major.comment();
-
                 //配角点赞/回复
                 for (AqyCommenter support : commenters) {
+
                     support.praise(comment);
+
                     if (support == major)
                         continue;
+
                     //support.reply(comment);
                 }
                 /*
@@ -69,9 +71,9 @@ public class AttackTask implements Runnable {
                         commenters.get((i + j * 2 + m) % commenters.size()).echo();
                     }
                 }*/
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }

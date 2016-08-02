@@ -1,7 +1,9 @@
 package com.vip.integral.attack.aqy;
 
+import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.attack.HttpAsyncClient;
 import com.vip.integral.attack.QueryEvent;
+import com.vip.integral.attack.aqy.bean.AqyComment;
 import com.vip.integral.util.cookie.HttpCookieEx;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -14,7 +16,9 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -225,8 +229,12 @@ public class Test {
     }
 
     public static void main(String[]args){
-        Test test = new Test();
-        test.publish();
+//        Test test = new Test();
+//        test.publish();
+
+        Date d = new Date(1470032468);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sdf.format(d));
     }
 
 
