@@ -10,6 +10,7 @@ public class ParseResult {
 
     private String category;// 分类
     private String link;
+    private String title;
     private String belong;//所属源
     private String pointLink;//采集点链接
 
@@ -53,5 +54,13 @@ public class ParseResult {
 
     public void setPointLink(String pointLink) {
         this.pointLink = pointLink;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

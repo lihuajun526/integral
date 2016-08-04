@@ -1,4 +1,4 @@
-package com.vip.integral.component.analyzer;
+package com.vip.integral.component;
 
 
 import com.vip.integral.bean.ParseResult;

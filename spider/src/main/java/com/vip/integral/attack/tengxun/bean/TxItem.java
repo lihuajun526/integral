@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by lihuajun on 16-8-2.
  */
-public class TxComment {
+public class TxItem {
 
     private Response response;
     private List<Data> data;
@@ -59,6 +59,7 @@ public class TxComment {
     public class Data {
         private String id;
         private String title;
+        private String url;
         private String dateline;
         private String site;
         private String art_type;
@@ -80,6 +81,14 @@ public class TxComment {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
 
         public String getDateline() {

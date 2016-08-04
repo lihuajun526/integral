@@ -1,6 +1,5 @@
 package com.vip.integral.component;
 
-import com.vip.integral.component.analyzer.JsonAnalyzer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
