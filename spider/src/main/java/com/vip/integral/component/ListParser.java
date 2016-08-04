@@ -51,7 +51,7 @@ public class ListParser {
      * @throws FavourUrlParseException
      */
     public List<ParseResult> parse(String content)
-            throws ListRecordParseException, ListParamsParseException, FavourUrlParseException {
+            throws ListRecordParseException, ListParamsParseException, FavourUrlParseException, IllegalAccessException, InstantiationException, ClassNotFoundException {
 
         String responseType = crawlPointAttr.getResponseType();
 
@@ -116,7 +116,11 @@ public class ListParser {
                     if (!StringUtils.isEmpty(listParam.getRegex())) {
                         value = this.filterStr(value, listParam.getRegex());
                     }
-                    parseResult.getAttr().put(listParam.getKey(), value);
+                    if ("title".equalsIgnoreCase(listParam.getKey())) {
+                        parseResult.setTitle(value);
+                    } else {
+                        parseResult.getAttr().put(listParam.getKey(), value);
+                    }
                 } catch (Exception e) {
                     LOGGER.error("解析列表属性错误[id={},key={}]:", crawlPointAttr.getId(), JSON.toJSONString(listParam), e);
                     throw new ListParamsParseException(ExceptionTypeEnum.LIST_PARAMS_PARSE_ERROR);
@@ -156,11 +160,14 @@ public class ListParser {
     /**
      * 解析Json返回类型
      *
-     * @param content
+     * @param jsonResponse
      * @return
      */
-    private List<ParseResult> parseJson(String content) {
-        return null;
+    private List<ParseResult> parseJson(String jsonResponse) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+
+        JsonAnalyzer jsonAnalyzer = (JsonAnalyzer) Class.forName(crawlPointAttr.getJsonAnalyzePath())
+                .newInstance();
+        return jsonAnalyzer.parse(jsonResponse);
     }
 
     // 初始化

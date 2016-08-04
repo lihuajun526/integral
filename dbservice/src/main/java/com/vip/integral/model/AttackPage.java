@@ -17,6 +17,8 @@ public class AttackPage {
 
     private Integer count;
 
+    private String attr;
+
     private Date createTime;
 
     private Date modifyTime;
@@ -75,6 +77,14 @@ public class AttackPage {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
     }
 
     public Date getCreateTime() {

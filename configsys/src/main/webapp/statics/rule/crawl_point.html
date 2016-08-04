@@ -32,6 +32,7 @@
                         <select id="belong" name="belong">
                             <option value="aqy">爱奇艺</option>
                             <option value="youku">优酷</option>
+                            <option value="txxw">腾讯新闻</option>
                         </select>
                     </td>
                 </tr>
@@ -60,6 +61,12 @@
                     <td>
                         <input name="method" type="radio" value="GET" checked/>GET
                         <input name="method" type="radio" value="POST"/>POST
+                    </td>
+                </tr>
+                <tr>
+                    <td>referer</td>
+                    <td>
+                        <input style="width: 500px;" id="referer" name="referer" type="text"/>
                     </td>
                 </tr>
                 <tr>
@@ -101,7 +108,8 @@
                 </tr>
                 <tr>
                     <td>分页解析器</td>
-                    <td><input style="width: 500px;" id="pageIndexClasspath" name="pageIndexClasspath" type="text"/></td>
+                    <td><input style="width: 500px;" id="pageIndexClasspath" name="pageIndexClasspath" type="text"/>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
@@ -128,13 +136,20 @@
                 $("#urlCrClasspath").val(data.data.urlCrClasspath);
                 $("#maxPage").val(data.data.maxPage);
                 $("#category").val(data.data.category);
-                $("#jsonAnalyzePath").val(data.data.jsonAnalyzepath);
+                $("#jsonAnalyzePath").val(data.data.jsonAnalyzePath);
+                $("#referer").val(data.data.referer);
                 $("#listRecordRule").val(data.data.listRecordRule);
                 $("#listAttrRule").val(data.data.listAttrRule);
                 $("#linkRule").val(data.data.linkRule);
                 $("#linkSelfRule").val(data.data.linkSelfRule);
                 $("#pageIndexRule").val(data.data.pageIndexRule);
                 $("#pageIndexClasspath").val(data.data.pageIndexClasspath);
+                $("#belong").val(data.data.belong);
+                $("#responseType").val(data.data.responseType);
+                $("input[name='isCrawlDetail'][value='" + data.data.isCrawlDetail + "']").attr("checked", true);
+                $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);
+                $("input[name='method'][value='" + data.data.method + "']").attr("checked", true);
+                $("input[name='responseEncode'][value='" + data.data.responseEncode + "']").attr("checked", true);
             }, "json");
         });
     });

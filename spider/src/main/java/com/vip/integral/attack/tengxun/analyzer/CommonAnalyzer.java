@@ -8,7 +8,9 @@ import com.vip.integral.component.JsonAnalyzer;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 腾讯新闻Json解析类
@@ -28,6 +30,11 @@ public class CommonAnalyzer extends JsonAnalyzer {
             ParseResult parseResult = new ParseResult();
             parseResult.setLink(data.getUrl());
             parseResult.setTitle(data.getTitle());
+
+            Map<String, String> attr = new HashMap<>();
+            attr.put("commentid", String.valueOf(data.getComment_id()));
+
+            parseResult.setAttr(attr);
             list.add(parseResult);
         }
 

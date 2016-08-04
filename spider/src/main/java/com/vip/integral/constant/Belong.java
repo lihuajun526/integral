@@ -5,7 +5,10 @@ package com.vip.integral.constant;
  */
 public enum Belong {
 
-    AQY("aqy"), YouKu("youku");
+    AQY("aqy"),
+    YouKu("youku"),
+    TXXW("txxw"),
+    ;
 
     private String value;
 

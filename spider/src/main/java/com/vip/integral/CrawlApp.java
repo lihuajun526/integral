@@ -3,6 +3,7 @@ package com.vip.integral;
 import com.vip.integral.bean.CrawlPointAttr;
 import com.vip.integral.bean.SpringContext;
 import com.vip.integral.component.creater.PointLinkCreater;
+import com.vip.integral.constant.Belong;
 import com.vip.integral.model.CrawlPoint;
 import com.vip.integral.service.CrawlPointService;
 import org.slf4j.Logger;
@@ -32,14 +33,15 @@ public class CrawlApp {
         //构建采集点规则集合
         //设置查询条件
         CrawlPointAttr queryAttr = new CrawlPointAttr();
-        queryAttr.setBelong("aqy");
+        queryAttr.setBelong(Belong.TXXW.value());
+        queryAttr.setId(5);
 
         List<CrawlPointAttr> list = listCrawlPointAttr(queryAttr);
 
         //采集
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
         for (int i = 1; i <= list.size(); i++) {
-            CrawlPointAttr crawlPointAttr = list.get(list.size() - i);
+            CrawlPointAttr crawlPointAttr = list.get(i - 1);
             crawlPointAttr.setTaskid("Task" + i);
             fixedThreadPool.execute(new CrawlTask(crawlPointAttr));
         }
@@ -88,7 +90,7 @@ public class CrawlApp {
                 crawlPointAttr.setUrl(linkAttr.get("link"));
                 crawlPointAttr.setId(crawlPoint.getId());
                 crawlPointAttr.setCategory(
-                        crawlPoint.getCategory() + linkAttr.get("index") == null ? "" : "[" + linkAttr.get("index") + "]");
+                        crawlPoint.getCategory() + (linkAttr.get("index") == null ? "" : "[" + linkAttr.get("index") + "]"));
                 crawlPointAttr.setUrlCrClassPath(crawlPoint.getUrlCrClasspath());
                 crawlPointAttr.setCrawlDetail(crawlPoint.getIsCrawlDetail() == 1 ? true : false);
                 crawlPointAttr.setJsonAnalyzePath(crawlPoint.getJsonAnalyzePath());

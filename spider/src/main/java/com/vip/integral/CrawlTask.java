@@ -104,7 +104,8 @@ public class CrawlTask implements Runnable {
             attackPage.setCount(0);
             attackPage.setLink(parseResult.getLink());
             attackPage.setPointLink(parseResult.getPointLink().replace("{pagenum}", "1"));
-            attackPage.setTitle(parseResult.getAttr().get("title"));
+            attackPage.setTitle(parseResult.getTitle());
+            attackPage.setAttr(JSON.toJSONString(parseResult.getAttr()));
             attackPage.setCreateTime(new Date());
             attackPage.setModifyTime(new Date());
 
