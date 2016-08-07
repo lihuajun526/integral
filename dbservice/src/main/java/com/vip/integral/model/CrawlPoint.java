@@ -49,9 +49,29 @@ public class CrawlPoint {
 
     private String pageIndexClasspath;
 
+    private String taskClasspath;
+
+    private String attr;
+
     private Date createTime;
 
     private Date modifyTime;
+
+    public String getTaskClasspath() {
+        return taskClasspath;
+    }
+
+    public void setTaskClasspath(String taskClasspath) {
+        this.taskClasspath = taskClasspath;
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
+    }
 
     public Integer getId() {
         return id;

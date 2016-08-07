@@ -33,7 +33,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, 
       #{pointLink,jdbcType=VARCHAR}, #{belong,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
-      #{count,jdbcType=INTEGER},#{attr,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{modifyTime,jdbcType=DATE}
+      #{count,jdbcType=INTEGER},#{attr,jdbcType=VARCHAR}, NOW(), NOW()
       )
   </insert>
     <insert id="insertSelective" parameterType="com.vip.integral.model.AttackPage">

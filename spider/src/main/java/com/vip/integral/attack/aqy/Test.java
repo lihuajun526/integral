@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.attack.HttpAsyncClient;
 import com.vip.integral.attack.QueryEvent;
 import com.vip.integral.attack.aqy.bean.AqyComment;
+import com.vip.integral.util.cookie.CookieHelper;
 import com.vip.integral.util.cookie.HttpCookieEx;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.concurrent.FutureCallback;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
@@ -16,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,68 +95,35 @@ public class Test {
 
     public void publish() {
 
-        HttpPost httpPost = new HttpPost(
-                "http://api.t.iqiyi.com/qx_api/comment/publish");
-        httpPost.setHeader("Accept", "*/*");
-        httpPost.setHeader("User-Agent",
+        //String requestUrl = "https://h5.qzone.qq.com/proxy/domain/base.qzone.qq.com/cgi-bin/user/cgi_userinfo_get_all?uin=515182557&vuin=3198493143&fupdate=1&rd=0.4394825559326032&g_tk=294917838";
+        String requestUrl = "https://www.baidu.com";
+
+        HttpGet httpGet = new HttpGet(requestUrl);
+        httpGet.setHeader("Accept", "*/*");
+        httpGet.setHeader("User-Agent",
                 "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
-        httpPost.setHeader("Referer", "http://www.iqiyi.com/dianying/20121213/3225b6b8f5e8df25.html");
-
-        List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("qitanid", "1145901"));
-        params.add(new BasicNameValuePair("tvid", "329552"));
-        params.add(new BasicNameValuePair("categoryid", "1"));
-        params.add(new BasicNameValuePair("qitan_comment_type", "1"));
-        params.add(new BasicNameValuePair("title", "寒战"));
-        params.add(new BasicNameValuePair("playurl", "http://www.iqiyi.com/dianying/20121213/3225b6b8f5e8df25.html#vfrm=19-9-0-1"));
-        params.add(new BasicNameValuePair("play_order", "1"));
-        params.add(new BasicNameValuePair("tv_year", "20121108"));
-        params.add(new BasicNameValuePair("sync_src", "寒战"));
-        params.add(new BasicNameValuePair("current_url", "http://www.iqiyi.com/dianying/20121213/3225b6b8f5e8df25.html#vfrm=19-9-0-1"));
-        params.add(new BasicNameValuePair("text", "ok啦，不错了。。。"));
-        params.add(new BasicNameValuePair("nosync", "qzone,renren"));
-        params.add(new BasicNameValuePair("picid", ""));
-        params.add(new BasicNameValuePair("is_video_page", "true"));
-        params.add(new BasicNameValuePair("qypid", "01010011010000000000"));
-        params.add(new BasicNameValuePair("albumid", "276601"));
-        params.add(new BasicNameValuePair("appid", "21"));
-        params.add(new BasicNameValuePair("antiCsrf", "aad1a1e03219134d6626ca3131771470"));
-
-
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        //httpGet.setHeader("Referer", "http://ctc.qzs.qq.com/qzone/profile/index.html");
 
         QueryEvent ccbiShopEvent = new QueryEvent();
-        String sCookie1 = "Set-Cookie: c241266687801=1468372463819 ; path=/";
-        String sCookie2 = "Set-Cookie: Hm_lpvt_53b7374a63c37483e5dd97d78d9bb36e=1468383898 ; path=/";
-        String sCookie3 = "Set-Cookie: Hm_lvt_53b7374a63c37483e5dd97d78d9bb36e=1468372386,1468383880 ; path=/";
-        String sCookie4 = "Set-Cookie: P00001=63xnTm30CCewVdm19e9CzSDl0MKZ3zflHLHs2PFm10jk6BW6u6E6k6cvk4EQMjGm3XGyA564 ; path=/";
-        String sCookie5 = "Set-Cookie: P00002=%7B%22uid%22%3A%221266687801%22%2C%22user_name%22%3A%2213738047929%22%2C%22email%22%3A%22%22%2C%22nickname%22%3A%22LeXQ1%22%2C%22pru%22%3A1266687801%2C%22type%22%3A11%2C%22pnickname%22%3A%22LeXQ1%22%7D ; path=/";
-        String sCookie6 = "Set-Cookie: P00003=1266687801 ; path=/";
-        String sCookie7 = "Set-Cookie: P00004=-632241962.1468321680.654ff977ef ; path=/";
-        String sCookie8 = "Set-Cookie: P00007=63xnTm30CCewVdm19e9CzSDl0MKZ3zflHLHs2PFm10jk6BW6u6E6k6cvk4EQMjGm3XGyA564 ; path=/";
-        String sCookie9 = "Set-Cookie: P00010=1266687801 ; path=/";
-        String sCookie10 = "Set-Cookie: P000email=13738047929 ; path=/";
-        String sCookie11 = "Set-Cookie: P00PRU=1266687801 ; path=/";
-        String sCookie12 = "Set-Cookie: P01010=1468425600 ; path=/";
-        String sCookie13 = "Set-Cookie: QC001=1 ; path=/";
-        String sCookie14 = "Set-Cookie: QC005=9ef7afa12ae99ed778c46bc52abcc278 ; path=/";
-        String sCookie15 = "Set-Cookie: QC006=htl2py5qc5k1jk7ftrqdj6il ; path=/";
-        String sCookie16 = "Set-Cookie: QC007=DIRECT ; path=/";
-        String sCookie17 = "Set-Cookie: QC008=1468321688.1468372385.1468383880.3 ; path=/";
-        String sCookie18 = "Set-Cookie: QC010=225354329 ; path=/";
-        String sCookie19 = "Set-Cookie: QC025=1266687801-20160713 ; path=/";
+        String sCookie1 = "Set-Cookie: pgv_pvi=4122858496; path=/";
+        String sCookie2 = "Set-Cookie: RK=2eHvHml2Ty; path=/";
+        String sCookie3 = "Set-Cookie: pgv_pvid=5220037454; path=/";
+        String sCookie4 = "Set-Cookie: cpu_performance_v8=5; path=/";
+        String sCookie5 = "Set-Cookie: __Q_w_s__QZN_TodoMsgCnt=1; path=/";
+        String sCookie6 = "Set-Cookie: pt2gguin=o3198493143; path=/";
+        String sCookie7 = "Set-Cookie: uin=o3198493143; path=/";
+        String sCookie8 = "Set-Cookie: skey=@pYKFBlZYy; path=/";
+        String sCookie9 = "Set-Cookie: ptisp=ctc; path=/";
+        String sCookie10 = "Set-Cookie: qzone_check=3198493143_1470541464; path=/";
+        String sCookie11 = "Set-Cookie: ptcz=74cb5e87e8eca56c823b22c6128198d16ecc659e3bdde0be04a79e72c2e75b23; path=/";
+        String sCookie12 = "Set-Cookie: Loading=Yes; path=/";
+        String sCookie13 = "Set-Cookie: p_skey=b6szCcOUxGJuqvEvYIa2YNfufPmo4e3AaiwA3D0VAbc_; path=/";
+        String sCookie14 = "Set-Cookie: p_uin=o3198493143; path=/";
+        String sCookie15 = "Set-Cookie: pt4_token=Nzmrfbg-1p6oh9MAGlPNigZKW19C-dlbbKd9NKMfyZA_; path=/";
+        String sCookie16 = "Set-Cookie: pgv_info=ssid=s8440759310; path=/";
+        String sCookie17 = "Set-Cookie: QZ_FE_WEBP_SUPPORT=1; path=/";
+        String sCookie18 = "Set-Cookie: qzspeedup=sdch path=/";
 
-        String sCookie20 = "Set-Cookie: QC116= ; path=/";
-        String sCookie21 = "Set-Cookie: QC118=%7B%22isFilterImage%22%3A0%2C%22hadTip%22%3A1%2C%22isOpen%22%3A0%7D ; path=/";
-        String sCookie22 = "Set-Cookie: QILINPUSH=1 ; path=/";
-        String sCookie23 = "Set-Cookie: QIYUECK=qy_pc_7bdd1f0dd8f2458d9b8012d0582c74e5 ; path=/";
-        String sCookie24 = "Set-Cookie: QY00001=1266687801 ; path=/";
-        String sCookie25 = "Set-Cookie: T00404=d23a6a63905024576bb5afbea9253e3a ; path=/";
-        String sCookie26 = "Set-Cookie: T00700=EgcI0b-tIRAD ; path=/";
 
         ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie1));
         ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie2));
@@ -173,23 +143,19 @@ public class Test {
         ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie16));
         ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie17));
         ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie18));
-        ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie19));
-        ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie20));
-        ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie21));
-        ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie22));
-        ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie23));
-        ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie24));
-        ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie25));
-        ccbiShopEvent.getCookieList().addAll(HttpCookieEx.parse(sCookie26));
 
 
 //        StringEntity entity = new StringEntity("","utf-8");//解决中文乱码问题
 //        entity.setContentEncoding("UTF-8");
 //        entity.setContentType("application/json");
 //        method.setEntity(entity);
-
+//        try {
+//            CookieHelper.setCookies2(requestUrl, httpGet, ccbiShopEvent.getCookieList());
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
         CloseableHttpAsyncClient httpAsyncClient = HttpAsyncClient.getInstance();
-        httpAsyncClient.execute(httpPost, new HttpAsyncCallback(ccbiShopEvent));
+        httpAsyncClient.execute(httpGet, new HttpAsyncCallback(ccbiShopEvent));
 
     }
 
@@ -229,12 +195,8 @@ public class Test {
     }
 
     public static void main(String[]args){
-//        Test test = new Test();
-//        test.publish();
-
-        Date d = new Date(1470032468);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(sdf.format(d));
+        Test test = new Test();
+        test.publish();
     }
 
 

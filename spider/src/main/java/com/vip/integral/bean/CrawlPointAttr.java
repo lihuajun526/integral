@@ -28,11 +28,31 @@ public class CrawlPointAttr {
 
     private Integer maxPage;
 
+    private String taskClasspath;
+
+    private String attr;
+
+    public String getTaskClasspath() {
+        return taskClasspath;
+    }
+
+    public void setTaskClasspath(String taskClasspath) {
+        this.taskClasspath = taskClasspath;
+    }
+
     public Integer getMaxPage() {
         if (maxPage == null)
             return Integer.MAX_VALUE;
         else
             return maxPage;
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
     }
 
     public void setMaxPage(Integer maxPage) {

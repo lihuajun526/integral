@@ -34,6 +34,7 @@
 <div id="mm" class="easyui-menu" style="width:120px;">
     <div onclick="edit()" data-options="iconCls:'icon-add'">编辑</div>
     <div onclick="append()" data-options="iconCls:'icon-add'">添加子节点</div>
+    <div onclick="appendBrother()" data-options="iconCls:'icon-add'">添加同级节点</div>
 </div>
 
 <script type="text/javascript">
@@ -53,6 +54,12 @@
         curNode = null;
         loadPage('rule/node_add_edit.html');
     }
+    //添加同级节点
+    function appendBrother() {
+        pNode = null;
+        curNode = null;
+        loadPage('rule/node_add_edit.html');
+    }
     //编辑节点
     function edit() {
         pNode = null;
@@ -68,6 +75,8 @@
                 loadPage('rule/crawl_point.html');
             } else if (node.attributes.pageType == "attacker") {
                 loadPage('rule/attacker.html');
+            } else if (node.attributes.pageType == "qzoneCrawlPoint") {
+                loadPage('rule/qzone_crawl_point.html');
             }
         },
         onContextMenu: function (e, node) {

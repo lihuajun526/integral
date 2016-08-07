@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.vip.integral.dao.CrawlPointMapper" >
-  <resultMap id="BaseResultMap" type="com.vip.integral.model.CrawlPoint" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="nodeid" property="nodeid" jdbcType="INTEGER" />
-    <result column="category" property="category" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="url_cr_classpath" property="urlCrClasspath" jdbcType="VARCHAR" />
-    <result column="is_crawl_detail" property="isCrawlDetail" jdbcType="INTEGER" />
-    <result column="json_analyze_path" property="jsonAnalyzePath" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="belong" property="belong" jdbcType="VARCHAR" />
-    <result column="max_page" property="maxPage" jdbcType="INTEGER" />
-    <result column="sleep_time" property="sleepTime" jdbcType="BIGINT" />
-    <result column="method" property="method" jdbcType="VARCHAR" />
-    <result column="cookies" property="cookies" jdbcType="VARCHAR" />
-    <result column="referer" property="referer" jdbcType="VARCHAR" />
-    <result column="accept" property="accept" jdbcType="VARCHAR" />
-    <result column="response_encode" property="responseEncode" jdbcType="VARCHAR" />
-    <result column="response_type" property="responseType" jdbcType="VARCHAR" />
-    <result column="list_record_rule" property="listRecordRule" jdbcType="VARCHAR" />
-    <result column="list_attr_rule" property="listAttrRule" jdbcType="VARCHAR" />
-    <result column="link_rule" property="linkRule" jdbcType="VARCHAR" />
-    <result column="link_self_rule" property="linkSelfRule" jdbcType="VARCHAR" />
-    <result column="page_index_rule" property="pageIndexRule" jdbcType="VARCHAR" />
-    <result column="page_index_classpath" property="pageIndexClasspath" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="DATE" />
-    <result column="modify_time" property="modifyTime" jdbcType="DATE" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.vip.integral.dao.CrawlPointMapper">
+    <resultMap id="BaseResultMap" type="com.vip.integral.model.CrawlPoint">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="nodeid" property="nodeid" jdbcType="INTEGER"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="url_cr_classpath" property="urlCrClasspath" jdbcType="VARCHAR"/>
+        <result column="is_crawl_detail" property="isCrawlDetail" jdbcType="INTEGER"/>
+        <result column="json_analyze_path" property="jsonAnalyzePath" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="belong" property="belong" jdbcType="VARCHAR"/>
+        <result column="max_page" property="maxPage" jdbcType="INTEGER"/>
+        <result column="sleep_time" property="sleepTime" jdbcType="BIGINT"/>
+        <result column="method" property="method" jdbcType="VARCHAR"/>
+        <result column="cookies" property="cookies" jdbcType="VARCHAR"/>
+        <result column="referer" property="referer" jdbcType="VARCHAR"/>
+        <result column="accept" property="accept" jdbcType="VARCHAR"/>
+        <result column="response_encode" property="responseEncode" jdbcType="VARCHAR"/>
+        <result column="response_type" property="responseType" jdbcType="VARCHAR"/>
+        <result column="list_record_rule" property="listRecordRule" jdbcType="VARCHAR"/>
+        <result column="list_attr_rule" property="listAttrRule" jdbcType="VARCHAR"/>
+        <result column="link_rule" property="linkRule" jdbcType="VARCHAR"/>
+        <result column="link_self_rule" property="linkSelfRule" jdbcType="VARCHAR"/>
+        <result column="page_index_rule" property="pageIndexRule" jdbcType="VARCHAR"/>
+        <result column="page_index_classpath" property="pageIndexClasspath" jdbcType="VARCHAR"/>
+        <result column="task_classpath" property="taskClasspath" jdbcType="VARCHAR"/>
+        <result column="attr" property="attr" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="modify_time" property="modifyTime" jdbcType="DATE"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, nodeid, category, url, url_cr_classpath, is_crawl_detail, json_analyze_path, 
     status, belong, max_page, sleep_time, method, cookies, referer, accept, response_encode, 
     response_type, list_record_rule, list_attr_rule, link_rule, link_self_rule, page_index_rule, 
-    page_index_classpath, create_time, modify_time
+    page_index_classpath, task_classpath, attr, create_time, modify_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_crawl_point
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_crawl_point
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_crawl_point
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.vip.integral.model.CrawlPoint" >
+    <insert id="insert" parameterType="com.vip.integral.model.CrawlPoint">
     insert into t_crawl_point (id, nodeid, category, 
       url, url_cr_classpath, is_crawl_detail, 
       json_analyze_path, status, belong, 
@@ -52,7 +54,7 @@
       cookies, referer, accept, 
       response_encode, response_type, list_record_rule, 
       list_attr_rule, link_rule, link_self_rule, 
-      page_index_rule, page_index_classpath, create_time, 
+      page_index_rule, page_index_classpath, task_classpath, attr, create_time,
       modify_time)
     values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{urlCrClasspath,jdbcType=VARCHAR}, #{isCrawlDetail,jdbcType=INTEGER}, 
@@ -61,245 +63,263 @@
       #{cookies,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, #{accept,jdbcType=VARCHAR}, 
       #{responseEncode,jdbcType=VARCHAR}, #{responseType,jdbcType=VARCHAR}, #{listRecordRule,jdbcType=VARCHAR}, 
       #{listAttrRule,jdbcType=VARCHAR}, #{linkRule,jdbcType=VARCHAR}, #{linkSelfRule,jdbcType=VARCHAR}, 
-      #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR},#{taskClasspath,jdbcType=VARCHAR},#{attr,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
       #{modifyTime,jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="com.vip.integral.model.CrawlPoint" >
-    insert into t_crawl_point
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="nodeid != null" >
-        nodeid,
-      </if>
-      <if test="category != null" >
-        category,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="urlCrClasspath != null" >
-        url_cr_classpath,
-      </if>
-      <if test="isCrawlDetail != null" >
-        is_crawl_detail,
-      </if>
-      <if test="jsonAnalyzePath != null" >
-        json_analyze_path,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="belong != null" >
-        belong,
-      </if>
-      <if test="maxPage != null" >
-        max_page,
-      </if>
-      <if test="sleepTime != null" >
-        sleep_time,
-      </if>
-      <if test="method != null" >
-        method,
-      </if>
-      <if test="cookies != null" >
-        cookies,
-      </if>
-      <if test="referer != null" >
-        referer,
-      </if>
-      <if test="accept != null" >
-        accept,
-      </if>
-      <if test="responseEncode != null" >
-        response_encode,
-      </if>
-      <if test="responseType != null" >
-        response_type,
-      </if>
-      <if test="listRecordRule != null" >
-        list_record_rule,
-      </if>
-      <if test="listAttrRule != null" >
-        list_attr_rule,
-      </if>
-      <if test="linkRule != null" >
-        link_rule,
-      </if>
-      <if test="linkSelfRule != null" >
-        link_self_rule,
-      </if>
-      <if test="pageIndexRule != null" >
-        page_index_rule,
-      </if>
-      <if test="pageIndexClasspath != null" >
-        page_index_classpath,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="modifyTime != null" >
-        modify_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="nodeid != null" >
-        #{nodeid,jdbcType=INTEGER},
-      </if>
-      <if test="category != null" >
-        #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="urlCrClasspath != null" >
-        #{urlCrClasspath,jdbcType=VARCHAR},
-      </if>
-      <if test="isCrawlDetail != null" >
-        #{isCrawlDetail,jdbcType=INTEGER},
-      </if>
-      <if test="jsonAnalyzePath != null" >
-        #{jsonAnalyzePath,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="belong != null" >
-        #{belong,jdbcType=VARCHAR},
-      </if>
-      <if test="maxPage != null" >
-        #{maxPage,jdbcType=INTEGER},
-      </if>
-      <if test="sleepTime != null" >
-        #{sleepTime,jdbcType=BIGINT},
-      </if>
-      <if test="method != null" >
-        #{method,jdbcType=VARCHAR},
-      </if>
-      <if test="cookies != null" >
-        #{cookies,jdbcType=VARCHAR},
-      </if>
-      <if test="referer != null" >
-        #{referer,jdbcType=VARCHAR},
-      </if>
-      <if test="accept != null" >
-        #{accept,jdbcType=VARCHAR},
-      </if>
-      <if test="responseEncode != null" >
-        #{responseEncode,jdbcType=VARCHAR},
-      </if>
-      <if test="responseType != null" >
-        #{responseType,jdbcType=VARCHAR},
-      </if>
-      <if test="listRecordRule != null" >
-        #{listRecordRule,jdbcType=VARCHAR},
-      </if>
-      <if test="listAttrRule != null" >
-        #{listAttrRule,jdbcType=VARCHAR},
-      </if>
-      <if test="linkRule != null" >
-        #{linkRule,jdbcType=VARCHAR},
-      </if>
-      <if test="linkSelfRule != null" >
-        #{linkSelfRule,jdbcType=VARCHAR},
-      </if>
-      <if test="pageIndexRule != null" >
-        #{pageIndexRule,jdbcType=VARCHAR},
-      </if>
-      <if test="pageIndexClasspath != null" >
-        #{pageIndexClasspath,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=DATE},
-      </if>
-      <if test="modifyTime != null" >
-        #{modifyTime,jdbcType=DATE},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.vip.integral.model.CrawlPoint" >
-    update t_crawl_point
-    <set >
-      <if test="nodeid != null" >
-        nodeid = #{nodeid,jdbcType=INTEGER},
-      </if>
-      <if test="category != null" >
-        category = #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="urlCrClasspath != null" >
-        url_cr_classpath = #{urlCrClasspath,jdbcType=VARCHAR},
-      </if>
-      <if test="isCrawlDetail != null" >
-        is_crawl_detail = #{isCrawlDetail,jdbcType=INTEGER},
-      </if>
-      <if test="jsonAnalyzePath != null" >
-        json_analyze_path = #{jsonAnalyzePath,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="belong != null" >
-        belong = #{belong,jdbcType=VARCHAR},
-      </if>
-      <if test="maxPage != null" >
-        max_page = #{maxPage,jdbcType=INTEGER},
-      </if>
-      <if test="sleepTime != null" >
-        sleep_time = #{sleepTime,jdbcType=BIGINT},
-      </if>
-      <if test="method != null" >
-        method = #{method,jdbcType=VARCHAR},
-      </if>
-      <if test="cookies != null" >
-        cookies = #{cookies,jdbcType=VARCHAR},
-      </if>
-      <if test="referer != null" >
-        referer = #{referer,jdbcType=VARCHAR},
-      </if>
-      <if test="accept != null" >
-        accept = #{accept,jdbcType=VARCHAR},
-      </if>
-      <if test="responseEncode != null" >
-        response_encode = #{responseEncode,jdbcType=VARCHAR},
-      </if>
-      <if test="responseType != null" >
-        response_type = #{responseType,jdbcType=VARCHAR},
-      </if>
-      <if test="listRecordRule != null" >
-        list_record_rule = #{listRecordRule,jdbcType=VARCHAR},
-      </if>
-      <if test="listAttrRule != null" >
-        list_attr_rule = #{listAttrRule,jdbcType=VARCHAR},
-      </if>
-      <if test="linkRule != null" >
-        link_rule = #{linkRule,jdbcType=VARCHAR},
-      </if>
-      <if test="linkSelfRule != null" >
-        link_self_rule = #{linkSelfRule,jdbcType=VARCHAR},
-      </if>
-      <if test="pageIndexRule != null" >
-        page_index_rule = #{pageIndexRule,jdbcType=VARCHAR},
-      </if>
-      <if test="pageIndexClasspath != null" >
-        page_index_classpath = #{pageIndexClasspath,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=DATE},
-      </if>
-      <if test="modifyTime != null" >
-        modify_time = #{modifyTime,jdbcType=DATE},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.vip.integral.model.CrawlPoint" >
+    <insert id="insertSelective" parameterType="com.vip.integral.model.CrawlPoint">
+        insert into t_crawl_point
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="nodeid != null">
+                nodeid,
+            </if>
+            <if test="category != null">
+                category,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="urlCrClasspath != null">
+                url_cr_classpath,
+            </if>
+            <if test="isCrawlDetail != null">
+                is_crawl_detail,
+            </if>
+            <if test="jsonAnalyzePath != null">
+                json_analyze_path,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="belong != null">
+                belong,
+            </if>
+            <if test="maxPage != null">
+                max_page,
+            </if>
+            <if test="sleepTime != null">
+                sleep_time,
+            </if>
+            <if test="method != null">
+                method,
+            </if>
+            <if test="cookies != null">
+                cookies,
+            </if>
+            <if test="referer != null">
+                referer,
+            </if>
+            <if test="accept != null">
+                accept,
+            </if>
+            <if test="responseEncode != null">
+                response_encode,
+            </if>
+            <if test="responseType != null">
+                response_type,
+            </if>
+            <if test="listRecordRule != null">
+                list_record_rule,
+            </if>
+            <if test="listAttrRule != null">
+                list_attr_rule,
+            </if>
+            <if test="linkRule != null">
+                link_rule,
+            </if>
+            <if test="linkSelfRule != null">
+                link_self_rule,
+            </if>
+            <if test="pageIndexRule != null">
+                page_index_rule,
+            </if>
+            <if test="pageIndexClasspath != null">
+                page_index_classpath,
+            </if>
+            <if test="taskClasspath != null">
+                task_classpath,
+            </if>
+            <if test="attr != null">
+                attr,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="nodeid != null">
+                #{nodeid,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="urlCrClasspath != null">
+                #{urlCrClasspath,jdbcType=VARCHAR},
+            </if>
+            <if test="isCrawlDetail != null">
+                #{isCrawlDetail,jdbcType=INTEGER},
+            </if>
+            <if test="jsonAnalyzePath != null">
+                #{jsonAnalyzePath,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="belong != null">
+                #{belong,jdbcType=VARCHAR},
+            </if>
+            <if test="maxPage != null">
+                #{maxPage,jdbcType=INTEGER},
+            </if>
+            <if test="sleepTime != null">
+                #{sleepTime,jdbcType=BIGINT},
+            </if>
+            <if test="method != null">
+                #{method,jdbcType=VARCHAR},
+            </if>
+            <if test="cookies != null">
+                #{cookies,jdbcType=VARCHAR},
+            </if>
+            <if test="referer != null">
+                #{referer,jdbcType=VARCHAR},
+            </if>
+            <if test="accept != null">
+                #{accept,jdbcType=VARCHAR},
+            </if>
+            <if test="responseEncode != null">
+                #{responseEncode,jdbcType=VARCHAR},
+            </if>
+            <if test="responseType != null">
+                #{responseType,jdbcType=VARCHAR},
+            </if>
+            <if test="listRecordRule != null">
+                #{listRecordRule,jdbcType=VARCHAR},
+            </if>
+            <if test="listAttrRule != null">
+                #{listAttrRule,jdbcType=VARCHAR},
+            </if>
+            <if test="linkRule != null">
+                #{linkRule,jdbcType=VARCHAR},
+            </if>
+            <if test="linkSelfRule != null">
+                #{linkSelfRule,jdbcType=VARCHAR},
+            </if>
+            <if test="pageIndexRule != null">
+                #{pageIndexRule,jdbcType=VARCHAR},
+            </if>
+            <if test="pageIndexClasspath != null">
+                #{pageIndexClasspath,jdbcType=VARCHAR},
+            </if>
+            <if test="taskClasspath != null">
+                #{taskClasspath,jdbcType=VARCHAR},
+            </if>
+            <if test="attr != null">
+                #{attr,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=DATE},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.vip.integral.model.CrawlPoint">
+        update t_crawl_point
+        <set>
+            <if test="nodeid != null">
+                nodeid = #{nodeid,jdbcType=INTEGER},
+            </if>
+            <if test="category != null">
+                category = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="urlCrClasspath != null">
+                url_cr_classpath = #{urlCrClasspath,jdbcType=VARCHAR},
+            </if>
+            <if test="isCrawlDetail != null">
+                is_crawl_detail = #{isCrawlDetail,jdbcType=INTEGER},
+            </if>
+            <if test="jsonAnalyzePath != null">
+                json_analyze_path = #{jsonAnalyzePath,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="belong != null">
+                belong = #{belong,jdbcType=VARCHAR},
+            </if>
+            <if test="maxPage != null">
+                max_page = #{maxPage,jdbcType=INTEGER},
+            </if>
+            <if test="sleepTime != null">
+                sleep_time = #{sleepTime,jdbcType=BIGINT},
+            </if>
+            <if test="method != null">
+                method = #{method,jdbcType=VARCHAR},
+            </if>
+            <if test="cookies != null">
+                cookies = #{cookies,jdbcType=VARCHAR},
+            </if>
+            <if test="referer != null">
+                referer = #{referer,jdbcType=VARCHAR},
+            </if>
+            <if test="accept != null">
+                accept = #{accept,jdbcType=VARCHAR},
+            </if>
+            <if test="responseEncode != null">
+                response_encode = #{responseEncode,jdbcType=VARCHAR},
+            </if>
+            <if test="responseType != null">
+                response_type = #{responseType,jdbcType=VARCHAR},
+            </if>
+            <if test="listRecordRule != null">
+                list_record_rule = #{listRecordRule,jdbcType=VARCHAR},
+            </if>
+            <if test="listAttrRule != null">
+                list_attr_rule = #{listAttrRule,jdbcType=VARCHAR},
+            </if>
+            <if test="linkRule != null">
+                link_rule = #{linkRule,jdbcType=VARCHAR},
+            </if>
+            <if test="linkSelfRule != null">
+                link_self_rule = #{linkSelfRule,jdbcType=VARCHAR},
+            </if>
+            <if test="pageIndexRule != null">
+                page_index_rule = #{pageIndexRule,jdbcType=VARCHAR},
+            </if>
+            <if test="pageIndexClasspath != null">
+                page_index_classpath = #{pageIndexClasspath,jdbcType=VARCHAR},
+            </if>
+            <if test="taskClasspath != null">
+                task_classpath = #{taskClasspath,jdbcType=VARCHAR},
+            </if>
+            <if test="attr != null">
+                attr = #{attr,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=DATE},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.vip.integral.model.CrawlPoint">
     update t_crawl_point
     set nodeid = #{nodeid,jdbcType=INTEGER},
       category = #{category,jdbcType=VARCHAR},
@@ -323,23 +343,25 @@
       link_self_rule = #{linkSelfRule,jdbcType=VARCHAR},
       page_index_rule = #{pageIndexRule,jdbcType=VARCHAR},
       page_index_classpath = #{pageIndexClasspath,jdbcType=VARCHAR},
+      task_classpath = #{taskClasspath,jdbcType=VARCHAR},
+      attr = #{attr,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=DATE},
       modify_time = #{modifyTime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.integral.model.CrawlPoint" >
-    select
-    <include refid="Base_Column_List" />
-    from t_crawl_point
-    where
-    belong = #{belong,jdbcType=VARCHAR}
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.integral.model.CrawlPoint">
+        select
+        <include refid="Base_Column_List"/>
+        from t_crawl_point
+        where
+        belong = #{belong,jdbcType=VARCHAR}
 
-  </select>
+    </select>
 
-  <select id="getByNode" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
-    <include refid="Base_Column_List" />
-    from t_crawl_point
-    where nodeid = #{nodeid,jdbcType=INTEGER}
-  </select>
+    <select id="getByNode" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_crawl_point
+        where nodeid = #{nodeid,jdbcType=INTEGER}
+    </select>
 </mapper>

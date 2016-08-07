@@ -93,7 +93,7 @@ public class HttpAsyncClient {
                     .setConnectionManager(cm)
                     .setDefaultRequestConfig(requestConfig)
                     .setSSLStrategy(sslSessionStrategy)
-                     .setProxy(new HttpHost("192.168.0.113", 8888))
+                    //.setProxy(new HttpHost("127.0.0.1", 8888))
                     .setDefaultCookieStore(ignoreCookieStore)
                     .build();
             httpAsyncClient.start();

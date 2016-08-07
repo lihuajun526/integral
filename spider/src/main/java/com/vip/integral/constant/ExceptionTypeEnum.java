@@ -20,7 +20,11 @@ public enum ExceptionTypeEnum {
     ELEMENT_NOT_EXIST_ERROR("000010", "元素不存在"),
     HTTP_REQUEST_ERROR("000011", "http请求超时"),
     COMMENT_ERROR("000012", "评论失败"),
-    GET_COMMENT_ERROR("000013", "获取评论失败");
+    GET_COMMENT_ERROR("000013", "获取评论失败"),
+    NOT_LOGIN_ERROR("000014", "未登录"),
+    UNKNOW_ERROR("000015", "未知错误"),
+    INIT_HTTPCLIENT_ERROR("000016", "初始化httpClient错误"),
+    ;
 
     public final String code;
 

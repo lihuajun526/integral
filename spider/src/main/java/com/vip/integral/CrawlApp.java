@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +35,8 @@ public class CrawlApp {
         //构建采集点规则集合
         //设置查询条件
         CrawlPointAttr queryAttr = new CrawlPointAttr();
-        queryAttr.setBelong(Belong.TXXW.value());
-        queryAttr.setId(5);
+        queryAttr.setBelong(Belong.QZONE.value());
+       // queryAttr.setId(5);
 
         List<CrawlPointAttr> list = listCrawlPointAttr(queryAttr);
 
@@ -43,7 +45,18 @@ public class CrawlApp {
         for (int i = 1; i <= list.size(); i++) {
             CrawlPointAttr crawlPointAttr = list.get(i - 1);
             crawlPointAttr.setTaskid("Task" + i);
-            fixedThreadPool.execute(new CrawlTask(crawlPointAttr));
+            if(!StringUtils.isEmpty(crawlPointAttr.getTaskClasspath())){
+                try{
+                    Class clazz = Class.forName(crawlPointAttr.getTaskClasspath());
+                    Constructor constructor = clazz.getConstructor(CrawlPointAttr.class);
+                    Runnable task = (Runnable) constructor.newInstance(crawlPointAttr);
+                    new Thread(task).start();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else{
+                fixedThreadPool.execute(new CrawlTask(crawlPointAttr));
+            }
         }
         fixedThreadPool.shutdown();
         try {
@@ -92,7 +105,8 @@ public class CrawlApp {
                 crawlPointAttr.setCategory(
                         crawlPoint.getCategory() + (linkAttr.get("index") == null ? "" : "[" + linkAttr.get("index") + "]"));
                 crawlPointAttr.setUrlCrClassPath(crawlPoint.getUrlCrClasspath());
-                crawlPointAttr.setCrawlDetail(crawlPoint.getIsCrawlDetail() == 1 ? true : false);
+                if(crawlPoint.getIsCrawlDetail()!=null)
+                    crawlPointAttr.setCrawlDetail(crawlPoint.getIsCrawlDetail() == 1 ? true : false);
                 crawlPointAttr.setJsonAnalyzePath(crawlPoint.getJsonAnalyzePath());
                 crawlPointAttr.setStatus(crawlPoint.getStatus());
                 crawlPointAttr.setBelong(crawlPoint.getBelong());
@@ -109,6 +123,8 @@ public class CrawlApp {
                 crawlPointAttr.setLinkSelfRule(crawlPoint.getLinkSelfRule());
                 crawlPointAttr.setPageIndexClassPath(crawlPoint.getPageIndexClasspath());
                 crawlPointAttr.setPageIndexRule(crawlPoint.getPageIndexRule());
+                crawlPointAttr.setAttr(crawlPoint.getAttr());
+                crawlPointAttr.setTaskClasspath(crawlPoint.getTaskClasspath());
 
                 list.add(crawlPointAttr);
             }
