@@ -3,6 +3,7 @@ package com.vip.integral.util;
 import org.springframework.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -176,18 +177,38 @@ public class StrUtil {
         System.out.println("所有key：" + stringBuffer.toString());
     }
 
+    //设置表单
+    private static void setForm(String str, String decode) throws UnsupportedEncodingException {
+        String[] params = str.split("&");
+        for (int i = 0; i < params.length; i++) {
+            String[] kv = params[i].split("=");
+            if (kv.length == 1) {
+                System.out.println("params.add(new BasicNameValuePair(\"" + kv[0] + "\", \"\"));");
+            } else {
+                System.out.println("params.add(new BasicNameValuePair(\"" + kv[0] + "\", \"" + URLDecoder.decode(kv[1], decode) + "\"));");
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         //评论
-        String str1 = "aid=10630589&albumid=344891800&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=10630589&qypid=01010011010000000000&reply_sort=hot&sort=hot&t=0.373654650586821&tvid=344891800";
+        /*String str1 = "aid=10630589&albumid=344891800&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=10630589&qypid=01010011010000000000&reply_sort=hot&sort=hot&t=0.373654650586821&tvid=344891800";
         String str2 = "aid=10630589&albumid=344891800&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=10630589&qypid=01010011010000000000&reply_sort=hot&sort=add_time&t=0.3868190594192775&tvid=344891800";
 
         try {
             showDif(str1, str2, "&");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
+        }*/
 
+        //设置表单
+        String str = "qzreferrer=http%3A%2F%2Fctc.qzs.qq.com%2Fqzone%2Fapp%2Fmood_v6%2Fhtml%2Findex.html%23mood%26uin%3D516809046%26pfid%3D2%26qz_ver%3D8%26appcanvas%3D0%26qz_style%3D2%26params%3D%26entertime%3D1470584105720%26canvastype%3D&uin=515182557&hostUin=516809046&topicId=516809046_56e1cd1e3b5730566bd70e00&commentUin=515182557&content=%3F&richval=&richtype=&inCharset=&outCharset=&ref=&private=0&with_fwd=0&to_tweet=0&hostuin=515182557&code_version=1&format=fs";
+        try {
+            setForm(str,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
 }

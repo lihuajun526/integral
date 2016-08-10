@@ -19,6 +19,8 @@ public class AttackParam {
 
     private String action;
 
+    private String attr;
+
     private Date createTime;
 
     private Date updateTime;
@@ -121,5 +123,13 @@ public class AttackParam {
 
     public void setCookies(String cookies) {
         this.cookies = cookies;
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
     }
 }

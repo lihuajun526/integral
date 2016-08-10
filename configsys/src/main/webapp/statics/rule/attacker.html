@@ -17,6 +17,8 @@
                         <select id="belong" name="belong">
                             <option value="aqy">爱奇艺</option>
                             <option value="youku">优酷</option>
+                            <option value="txxw">腾讯新闻</option>
+                            <option value="qzone">qq空间</option>
                         </select>
                     </td>
                 </tr>
@@ -60,6 +62,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>属性</td>
+                    <td>
+                        <textarea id="attr" name="attr" cols="60" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
                 </tr>
             </table>
@@ -72,13 +80,14 @@
             if (curNode == null) {
                 return;
             }
-            $("#account").val(curNode.account);
+            $("#account").val(curNode.text);
             $("#nodeid").val(curNode.id);
             $.get("attack/param/get?nodeid=" + curNode.id, function (data) {
                 $("#id").val(data.data.id);
                 $("#data").val(data.data.data);
                 $("#cookies").val(data.data.cookies);
                 $("#action").val(data.data.action);
+                $("#attr").val(data.data.attr);
             }, "json");
         });
     });

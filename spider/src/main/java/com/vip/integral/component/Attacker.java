@@ -1,6 +1,5 @@
 package com.vip.integral.component;
 
-import com.alibaba.fastjson.JSON;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.model.AttackPage;
 import com.vip.integral.model.AttackParam;
@@ -83,6 +82,11 @@ public abstract class Attacker {
                 LOGGER.info("没有在公共参数中找到[" + key + "]的值");
         }
 
+        return params;
+    }
+
+    protected List<NameValuePair> initForm() {
+        List<NameValuePair> params = new ArrayList<>();
         return params;
     }
 

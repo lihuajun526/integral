@@ -23,23 +23,31 @@ public abstract class Commenter extends Attacker {
     /**
      * 回复
      */
-    protected abstract Comment reply(Comment comment);
+    protected Comment reply(Comment comment){
+        return null;
+    }
 
     /**
      * 点赞
      */
-    protected abstract void praise(Comment comment) throws RequestException, URISyntaxException;
+    protected void praise(Comment comment) throws RequestException, URISyntaxException{
+
+    }
 
     /**
      * 附和
      */
-    protected abstract void echo();
+    protected void echo(){
+
+    }
 
     /**
      * 获取热门评论
      *
      * @return
      */
-    protected abstract List<Comment> listHotComment(int maxComment, int maxReply) throws RequestException;
+    protected List<Comment> listHotComment(int maxComment, int maxReply) throws RequestException{
+        return null;
+    }
 
 }
