@@ -102,7 +102,7 @@ public class QZoneCommenter extends Commenter {
             CookieHelper.setCookies2(requestUrl, httpGet, cookieList);
             //攻击
             String response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
-            List<QZoneComment> qZoneComments = JSONArray.parseArray(JSONObject.parseObject(response).getString("msglist"), QZoneComment.class);
+            List<QZoneComment> qZoneComments = JSONArray.parseArray(JSONObject.parseObject(response.replace("_Callback(", "").replace(");", "")).getString("msglist"), QZoneComment.class);
             if (qZoneComments != null && qZoneComments.size() > 0)
                 qZoneComment = qZoneComments.get(0);
         } catch (Exception e) {
@@ -118,7 +118,7 @@ public class QZoneCommenter extends Commenter {
         //获得最新说说
         QZoneComment qZoneComment = this.getLatest();
         if (qZoneComment == null) {
-            LOGGER.warn("无法获取{}的最新说说", qZoneComment.getUin());
+            LOGGER.warn("无法获取{}的最新说说", attackAttr.getUserInfo().getUin());
             return comment;
         }
         try {
@@ -165,9 +165,9 @@ public class QZoneCommenter extends Commenter {
             boolean isSuccess = false;
             try {
                 Document doc = Jsoup.parse(result);
-                String str = doc.select("script").text();
+                String str = doc.select("script").html();
                 str = str.substring(str.indexOf("frameElement.callback("));
-                str = str.replace("frameElement.callback(", "").replace(")", "");
+                str = str.replace("frameElement.callback(", "").replace(");", "");
                 LOGGER.debug("返回值：{}", str);
                 JSONObject commentR = JSONObject.parseObject(str);
                 comment = new Comment();

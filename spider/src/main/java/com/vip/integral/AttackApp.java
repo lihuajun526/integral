@@ -1,6 +1,6 @@
 package com.vip.integral;
 
-import com.vip.integral.attack.aqy.task.AttackTask;
+import com.vip.integral.attack.qzone.task.AttackTask;
 import com.vip.integral.bean.SpringContext;
 
 /**
