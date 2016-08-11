@@ -2,10 +2,12 @@ package com.vip.integral.attack.qzone.task;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.attack.qzone.QZoneCommenter;
+import com.vip.integral.attack.qzone.bean.AttackAttr;
 import com.vip.integral.attack.qzone.bean.QQUserInfo;
 import com.vip.integral.bean.SpringContext;
 import com.vip.integral.model.AttackPage;
 import com.vip.integral.model.AttackParam;
+import com.vip.integral.service.AttackPageService;
 import com.vip.integral.service.AttackParamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,22 +31,24 @@ public class AttackTask implements Runnable {
             List<QZoneCommenter> commenters = allCommenter();
 
             // 获得评论详细页
-            List<AttackPage> attackPageList = null;
+            List<AttackPage> attackPageList = listAttackPage();
 
             for (int i = 0; i < attackPageList.size(); i++) {
                 AttackPage attackPage = attackPageList.get(i);
                 try {
-                    QQUserInfo qqUserInfo = JSONObject.parseObject(attackPage.getAttr(), QQUserInfo.class);
-                    //todo 确定男女值
+                    AttackAttr attackAttr = JSONObject.parseObject(attackPage.getAttr(), AttackAttr.class);
+                    QQUserInfo qqUserInfo = attackAttr.getUserInfo();
                     QZoneCommenter fixCommenter = getCommenterBySex(commenters, qqUserInfo.getSex());
                     if (fixCommenter == null) {
-                        LOGGER.warn("{}的性别为{}", qqUserInfo.getUin(), qqUserInfo.getSex());
+                        LOGGER.warn("{}的性别为{}，找不到合适的攻击者", qqUserInfo.getUin(), qqUserInfo.getSex());
                         continue;
                     }
                     //评论
+                    fixCommenter.setAttackPage(attackPage);
+                    fixCommenter.setAttackAttr(attackAttr);
                     fixCommenter.comment();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    LOGGER.error("评论失败:", e);
                 }
             }
 
@@ -87,5 +91,24 @@ public class AttackTask implements Runnable {
             }
         }
         return null;
+    }
+
+    /**
+     * 获得评论目标
+     *
+     * @return
+     */
+    private List<AttackPage> listAttackPage() {
+
+        AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
+        List<AttackPage> attackPageList = attackPageService.listByBelong(QZONE.value());
+        List<AttackPage> list = new ArrayList<>();
+        for (AttackPage attackPage : attackPageList) {
+            AttackAttr attackAttr = JSONObject.parseObject(attackPage.getAttr(), AttackAttr.class);
+            if (attackAttr.getStatus() == 1)
+                list.add(attackPage);
+        }
+
+        return list;
     }
 }

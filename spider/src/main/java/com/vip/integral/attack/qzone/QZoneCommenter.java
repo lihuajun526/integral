@@ -49,6 +49,10 @@ public class QZoneCommenter extends Commenter {
     private AttackAttr attackAttr;
     private Integer sex;
 
+    public void setAttackAttr(AttackAttr attackAttr) {
+        this.attackAttr = attackAttr;
+    }
+
     public void setSex(Integer sex) {
         this.sex = sex;
     }
@@ -64,7 +68,6 @@ public class QZoneCommenter extends Commenter {
             return;
 
         super.init();
-        attackAttr = JSONObject.parseObject(attackPage.getAttr(), AttackAttr.class);
         //收集公共参数
 
     }
