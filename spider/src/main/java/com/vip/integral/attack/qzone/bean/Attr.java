@@ -4,24 +4,24 @@ package com.vip.integral.attack.qzone.bean;
  * Created by lihuajun on 2016/8/7.
  */
 public class Attr {
-    private Integer current;
-    private Integer boundary;
+    private Long current;
+    private Long boundary;
     private String account;
     private String gtk;
 
-    public Integer getCurrent() {
+    public Long getCurrent() {
         return current;
     }
 
-    public void setCurrent(Integer current) {
+    public void setCurrent(Long current) {
         this.current = current;
     }
 
-    public Integer getBoundary() {
+    public Long getBoundary() {
         return boundary;
     }
 
-    public void setBoundary(Integer boundary) {
+    public void setBoundary(Long boundary) {
         this.boundary = boundary;
     }
 
