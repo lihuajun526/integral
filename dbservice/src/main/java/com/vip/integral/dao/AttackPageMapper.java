@@ -18,4 +18,6 @@ public interface AttackPageMapper {
     int updateByPrimaryKey(AttackPage record);
 
     List<AttackPage> listByBelong(String belong);
+
+    List<AttackPage> listByCondition(AttackPage attackPage);
 }

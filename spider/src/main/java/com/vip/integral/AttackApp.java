@@ -1,6 +1,6 @@
 package com.vip.integral;
 
-import com.vip.integral.attack.qzone.task.AttackTask;
+import com.vip.integral.attack.tengxun.task.CommentAttackTask;
 import com.vip.integral.bean.SpringContext;
 
 /**
@@ -11,7 +11,7 @@ public class AttackApp {
     public static void main(String[] args) {
         //初始化
         SpringContext.init("classpath:spring/spring.xml");
-        new Thread(new AttackTask()).start();
+        new Thread(new CommentAttackTask()).start();
     }
 
 }

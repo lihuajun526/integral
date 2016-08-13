@@ -35,8 +35,8 @@ public class CrawlApp {
         //构建采集点规则集合
         //设置查询条件
         CrawlPointAttr queryAttr = new CrawlPointAttr();
-        queryAttr.setBelong(Belong.QZONE.value());
-       // queryAttr.setId(5);
+        //queryAttr.setBelong(Belong.QZONE.value());
+        queryAttr.setId(9);
 
         List<CrawlPointAttr> list = listCrawlPointAttr(queryAttr);
 

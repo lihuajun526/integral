@@ -203,7 +203,7 @@ public class StrUtil {
         }*/
 
         //设置表单
-        String str = "qzreferrer=http%3A%2F%2Fctc.qzs.qq.com%2Fqzone%2Fapp%2Fmood_v6%2Fhtml%2Findex.html%23mood%26uin%3D516809046%26pfid%3D2%26qz_ver%3D8%26appcanvas%3D0%26qz_style%3D2%26params%3D%26entertime%3D1470584105720%26canvastype%3D&uin=515182557&hostUin=516809046&topicId=516809046_56e1cd1e3b5730566bd70e00&commentUin=515182557&content=%3F&richval=&richtype=&inCharset=&outCharset=&ref=&private=0&with_fwd=0&to_tweet=0&hostuin=515182557&code_version=1&format=fs";
+        String str = "targetid=1499637225&type=1&format=SCRIPT&callback=parent.topCallback&content=%D2%AA%B8%D2%D3%DA%B3%D0%C8%CF&_method=put&g_tk=47964975&code=1&source=1&subsource=0&picture=";
         try {
             setForm(str,"utf-8");
         } catch (UnsupportedEncodingException e) {

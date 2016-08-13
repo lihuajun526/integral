@@ -6,7 +6,7 @@ package com.vip.integral.attack.qzone.bean;
 public class QQUserInfo {
 
 
-    private Integer uin;
+    private Long uin;
     private String nickname;
     private String spacename;
     private String desc;
@@ -26,11 +26,11 @@ public class QQUserInfo {
     private String hp;
     private String hc;
 
-    public Integer getUin() {
+    public Long getUin() {
         return uin;
     }
 
-    public void setUin(Integer uin) {
+    public void setUin(Long uin) {
         this.uin = uin;
     }
 

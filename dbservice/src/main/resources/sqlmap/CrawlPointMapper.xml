@@ -354,7 +354,7 @@
         <include refid="Base_Column_List"/>
         from t_crawl_point
         where
-        belong = #{belong,jdbcType=VARCHAR}
+        belong = #{belong,jdbcType=VARCHAR} and status = 1
 
     </select>
 

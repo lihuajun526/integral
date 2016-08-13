@@ -3,7 +3,11 @@ package com.vip.integral.util;
 import com.vip.integral.constant.ExceptionTypeEnum;
 import com.vip.integral.exception.RequestException;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -60,14 +64,14 @@ public class XHttpClient {
         String result = null;
         CloseableHttpResponse response = null;
         try {
-            /*HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
+            HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
             RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
 
-            if(httpUriRequest instanceof HttpPost){
-                ((HttpPost)httpUriRequest).setConfig(config);
-            }else if(httpUriRequest instanceof HttpGet){
-                ((HttpGet)httpUriRequest).setConfig(config);
-            }*/
+            if (httpUriRequest instanceof HttpPost) {
+                ((HttpPost) httpUriRequest).setConfig(config);
+            } else if (httpUriRequest instanceof HttpGet) {
+                ((HttpGet) httpUriRequest).setConfig(config);
+            }
             //采用绕过验证的方式处理https请求
             SSLContext sslcontext = createIgnoreVerifySSL();
             // 设置协议http和https对应的处理socket链接工厂的对象

@@ -13,4 +13,6 @@ public interface AttackPageService {
 
     List<AttackPage> listByBelong(String belong);
 
+    List<AttackPage> listByCondition(AttackPage attackPage);
+
 }

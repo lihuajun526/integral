@@ -112,13 +112,16 @@ public class CrawlTask implements Runnable {
                 this.saveAttackPage(attackPage);
 
             } catch (Exception e) {
-                if (e instanceof UnknowException || e instanceof NotLoginException || e instanceof RequestException) {
+                LOGGER.error("获取用户信息失败:", e);
+                /*if (e instanceof UnknowException || e instanceof NotLoginException || e instanceof RequestException) {
                     break;
-                }
+                }*/
+                break;
             }
             attr.setCurrent(attr.getCurrent() + 1);
         }
         //更新下次爬取时的开始点
+        LOGGER.info("更新下次爬取时的开始点为:{}", attr.getCurrent());
         crawlPointAttr.setAttr(JSON.toJSONString(attr));
         this.updateNextStart(crawlPointAttr);
     }
@@ -139,6 +142,12 @@ public class CrawlTask implements Runnable {
     private void saveAttackPage(AttackPage attackPage) {
         AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
         attackPageService.save(attackPage);
+    }
+
+    public static void main(String[] args) {
+        String str = "3198491070";
+        Long i = Long.valueOf(str);
+        System.out.println(i);
     }
 
 }

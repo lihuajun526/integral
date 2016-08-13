@@ -24,4 +24,9 @@ public class AttackPageServiceImpl implements AttackPageService {
     @Override public List<AttackPage> listByBelong(String belong) {
         return attackPageMapper.listByBelong(belong);
     }
+
+    @Override
+    public List<AttackPage> listByCondition(AttackPage attackPage) {
+        return attackPageMapper.listByCondition(attackPage);
+    }
 }

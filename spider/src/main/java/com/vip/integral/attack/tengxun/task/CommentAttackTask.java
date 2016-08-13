@@ -1,9 +1,5 @@
 package com.vip.integral.attack.tengxun.task;
 
-import com.alibaba.fastjson.JSONObject;
-import com.vip.integral.attack.qzone.QZoneCommenter;
-import com.vip.integral.attack.qzone.bean.AttackAttr;
-import com.vip.integral.attack.qzone.bean.QQUserInfo;
 import com.vip.integral.attack.tengxun.TxxwCommenter;
 import com.vip.integral.bean.SpringContext;
 import com.vip.integral.model.AttackPage;
@@ -16,15 +12,14 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.vip.integral.constant.Belong.QZONE;
 import static com.vip.integral.constant.Belong.TXXW;
 
 /**
  * Created by lihuajun on 2016/8/5.
  */
-public class AttackTask implements Runnable {
+public class CommentAttackTask implements Runnable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AttackTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommentAttackTask.class);
 
     @Override
     public void run() {
@@ -81,7 +76,10 @@ public class AttackTask implements Runnable {
     private List<AttackPage> listAttackPage() {
 
         AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
-        List<AttackPage> list = attackPageService.listByBelong(TXXW.value());
+        //List<AttackPage> list = attackPageService.listByBelong(TXXW.value());
+        AttackPage attackPage = new AttackPage();
+        attackPage.setId(33630);
+        List<AttackPage> list = attackPageService.listByCondition(attackPage);
         return list;
     }
 }

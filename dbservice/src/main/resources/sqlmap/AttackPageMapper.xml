@@ -157,4 +157,10 @@
         from t_attack_page
         where belong = #{belong,jdbcType=VARCHAR}
     </select>
+    <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.vip.integral.model.AttackPage">
+        select
+        <include refid="Base_Column_List"/>
+        from t_attack_page
+        where id = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>
