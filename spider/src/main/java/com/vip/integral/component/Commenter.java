@@ -23,7 +23,7 @@ public abstract class Commenter extends Attacker {
     /**
      * 回复
      */
-    protected Comment reply(Comment comment){
+    protected Comment reply(Comment comment) throws CommentException {
         return null;
     }
 
@@ -37,7 +37,7 @@ public abstract class Commenter extends Attacker {
     /**
      * 附和
      */
-    protected void echo(){
+    protected void echo(Comment comment){
 
     }
 

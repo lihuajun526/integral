@@ -89,6 +89,9 @@
                 $("#action").val(data.data.action);
                 $("#attr").val(data.data.attr);
                 $("#belong").val(data.data.belong);
+                $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);
+                $("input[name='method'][value='" + data.data.method + "']").attr("checked", true);
+                $("input[name='charset'][value='" + data.data.charset + "']").attr("checked", true);
             }, "json");
         });
     });

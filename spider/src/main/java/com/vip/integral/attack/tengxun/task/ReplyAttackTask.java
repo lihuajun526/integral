@@ -1,14 +1,21 @@
 package com.vip.integral.attack.tengxun.task;
 
+import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.attack.tengxun.TxxwCommenter;
+import com.vip.integral.attack.tengxun.bean.TxxwComment;
+import com.vip.integral.bean.Comment;
 import com.vip.integral.bean.SpringContext;
 import com.vip.integral.model.AttackPage;
 import com.vip.integral.model.AttackParam;
 import com.vip.integral.service.AttackPageService;
 import com.vip.integral.service.AttackParamService;
+import com.vip.integral.util.Config;
+import com.vip.integral.util.XHttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,30 +27,59 @@ import static com.vip.integral.constant.Belong.TXXW;
 public class ReplyAttackTask implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReplyAttackTask.class);
+    private int maxReply = 2;
 
     @Override
     public void run() {
-        {
-            // 获得所有的评论水军
-            List<TxxwCommenter> commenters = allCommenter();
+        // 获得所有的评论水军
+        List<TxxwCommenter> commenters = allCommenter();
+        String txxwCommenterId = Config.get("txxw.commenter.id");
 
-            // 获得评论详细页
-            List<AttackPage> attackPageList = listAttackPage();
+        String hotcommentUrlTpl = "http://coral.qq.com/article/%s/hotcomment?reqnum=10";
+        String commentUrlTpl = "http://coral.qq.com/article/%s/comment?commentid=0&reqnum=10";
 
-            for (int i = 0; i < attackPageList.size(); i++) {
+        List<AttackPage> attackPageList = listAttackPage();
 
-                try {
-                    AttackPage attackPage = attackPageList.get(i);
-                    TxxwCommenter fixCommenter = commenters.get(0);
-                    fixCommenter.setAttackPage(attackPage);
-                    //评论
-                    fixCommenter.comment();
-                    //
-                } catch (Exception e) {
-                    LOGGER.error("评论失败:", e);
+        for (int i = 0; i < attackPageList.size(); i++) {
+
+            try {
+                AttackPage attackPage = attackPageList.get(i);
+                TxxwCommenter replyer = commenters.get(1);//回复者
+                TxxwCommenter echoer = commenters.get(2);//附和者
+                replyer.setAttackPage(attackPage);
+                //获取热评
+                JSONObject attr = JSONObject.parseObject(attackPage.getAttr());
+                String hotcommentUrl = String.format(hotcommentUrlTpl, attr.getString("commentid"));
+                String commentUrl = String.format(commentUrlTpl, attr.getString("commentid"));
+                HttpGet httpGet = new HttpGet();
+                httpGet.setURI(new URI(hotcommentUrl));
+                String result = XHttpClient.doRequest(httpGet);
+                TxxwComment txxwComment = JSONObject.parseObject(result, TxxwComment.class);
+                List<TxxwComment.Data.Commentid> txxwCommentList = txxwComment.getData().getCommentid();
+                if (txxwCommentList == null || txxwCommentList.size() == 0) {//如果没有热评，则获取所有评论
+                    httpGet.setURI(new URI(commentUrl));
+                    result = XHttpClient.doRequest(httpGet);
+                    txxwComment = JSONObject.parseObject(result, TxxwComment.class);
+                    txxwCommentList = txxwComment.getData().getCommentid();
                 }
+                //回复前N条评论
+                for (int j = 0, count = 0; j < txxwCommentList.size() && (j < 3 || count < maxReply); j++) {
+                    TxxwComment.Data.Commentid commentid = txxwCommentList.get(j);
+                    if ("0".equals(commentid.getParent()) && "0".equals(commentid.getIsdeleted())) {
+                        Comment comment = new Comment();
+                        comment.setId(commentid.getId());
+                        //碰到自己人的评论果断附和
+                        if (txxwCommenterId.equals(commentid.getUserid())) {
+                            echoer.echo(comment);
+                            continue;
+                        }
+                        replyer.reply(comment);
+                        count++;
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.error("回复失败:", e);
             }
-
         }
     }
 

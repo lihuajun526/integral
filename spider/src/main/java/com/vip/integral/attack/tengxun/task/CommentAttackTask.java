@@ -78,7 +78,7 @@ public class CommentAttackTask implements Runnable {
         AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
         //List<AttackPage> list = attackPageService.listByBelong(TXXW.value());
         AttackPage attackPage = new AttackPage();
-        attackPage.setId(33630);
+        attackPage.setId(33643);
         List<AttackPage> list = attackPageService.listByCondition(attackPage);
         return list;
     }

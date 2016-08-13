@@ -203,7 +203,7 @@ public class StrUtil {
         }*/
 
         //设置表单
-        String str = "targetid=1499637225&type=1&format=SCRIPT&callback=parent.topCallback&content=%D2%AA%B8%D2%D3%DA%B3%D0%C8%CF&_method=put&g_tk=47964975&code=1&source=1&subsource=0&picture=";
+        String str = "targetid=1500957283&type=1&format=SCRIPT&callback=parent.popCallback&content=%D4%DE%B8%F6&_method=put&g_tk=1203714245&code=1&source=1&subsource=0&picture=";
         try {
             setForm(str,"utf-8");
         } catch (UnsupportedEncodingException e) {

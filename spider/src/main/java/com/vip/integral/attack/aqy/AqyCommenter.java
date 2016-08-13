@@ -237,7 +237,7 @@ public class AqyCommenter extends Commenter {
         }
     }
 
-    @Override public void echo() {
+    @Override public void echo(Comment comment) {
 
     }
 
