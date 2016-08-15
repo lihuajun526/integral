@@ -1,5 +1,6 @@
 package com.vip.integral.service;
 
+import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
 
 /**
@@ -8,5 +9,14 @@ import com.vip.integral.model.User;
 public interface UserService {
 
     User getByOpenid(String openid);
+
+    /**
+     * 奖励积分
+     *
+     * @param userid
+     * @param integralRecord
+     * @return
+     */
+    Boolean encourageIntegral(Integer userid, IntegralRecord integralRecord);
 
 }

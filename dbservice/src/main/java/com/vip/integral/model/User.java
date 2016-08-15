@@ -13,6 +13,10 @@ public class User {
     //0:停用,1:正常
     private Integer status;
     private Integer integral;
+    //推广记录，id1:status#id2:status
+    private String spreadRecord;
+    //推广时间
+    private Date populateTime;
     private Date createTime;
     private Date modifyTime;
 
@@ -70,5 +74,21 @@ public class User {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getSpreadRecord() {
+        return spreadRecord;
+    }
+
+    public void setSpreadRecord(String spreadRecord) {
+        this.spreadRecord = spreadRecord;
+    }
+
+    public Date getPopulateTime() {
+        return populateTime;
+    }
+
+    public void setPopulateTime(Date populateTime) {
+        this.populateTime = populateTime;
     }
 }

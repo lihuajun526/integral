@@ -9,13 +9,19 @@ public class IntegralRecord {
 
     private Integer id;
     private Integer userid;
+    private Integer goodsid;
     private Integer count;
     /**
-     * 10:赠送,20:消费,30:充值
+     * 10:奖励(关注公众号)
+     * 12:奖励(分享到微信朋友圈)
+     * 13:奖励(分享到qq空间)
+     * 13:奖励(推广)
+     * 20:消费
+     * 30:充值
      */
     private Integer type;
     private String tag;
-    private String description;
+    private String desc;
     private Date createTime;
     private Date updateTime;
 
@@ -51,22 +57,6 @@ public class IntegralRecord {
         this.type = type;
     }
 
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -81,5 +71,29 @@ public class IntegralRecord {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public Integer getGoodsid() {
+        return goodsid;
+    }
+
+    public void setGoodsid(Integer goodsid) {
+        this.goodsid = goodsid;
     }
 }

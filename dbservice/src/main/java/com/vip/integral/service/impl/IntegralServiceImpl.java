@@ -1,0 +1,95 @@
+package com.vip.integral.service.impl;
+
+import com.vip.integral.model.IntegralRecord;
+import com.vip.integral.model.User;
+import com.vip.integral.service.IntegralService;
+import org.springframework.util.StringUtils;
+
+/**
+ * Created by lihuajun on 2016/8/15.
+ */
+public class IntegralServiceImpl implements IntegralService {
+    @Override
+    public Boolean encourageFromShare(Integer userid, Integer count, Integer type, String desc) {
+
+        User user = null;
+
+        //todo 只有第一次分享到微信朋友圈或qq空间才奖励
+        IntegralRecord integralRecord = null;
+        if (integralRecord != null) {
+            return false;
+        }
+        integralRecord = new IntegralRecord();
+        integralRecord.setUserid(userid);
+        String str = "";
+        if (type == 12) {
+            str = "到微信朋友圈";
+        } else if (type == 13) {
+            str = "到qq空间";
+        }
+        integralRecord.setTag("分享" + str);
+        integralRecord.setDesc(desc);
+        integralRecord.setCount(count);
+        integralRecord.setType(type);
+        //todo 积分记录表添加记录
+        user.setIntegral(user.getIntegral() + count);
+        //todo 用户表更新积分值
+        return true;
+    }
+
+    @Override
+    public Boolean encourageFromPopularize(Integer userid, Integer friendid, Integer count) {
+
+        User sourceUser = null;
+        Long interval = System.currentTimeMillis() - sourceUser.getPopulateTime().getTime();
+        //24小时内推广的好友有效
+        if ((interval / (1000 * 60 * 60)) > 24) {
+            if (StringUtils.isEmpty(sourceUser.getSpreadRecord())) {
+                sourceUser.setSpreadRecord(friendid + ":" + 0);
+            } else {
+                sourceUser.setSpreadRecord("#" + friendid + ":" + 0);
+            }
+            //todo 更新用户推广记录
+            return false;
+        }
+
+        if (StringUtils.isEmpty(sourceUser.getSpreadRecord())) {
+            sourceUser.setSpreadRecord(friendid + ":" + 1);
+        } else {
+            sourceUser.setSpreadRecord("#" + friendid + ":" + 1);
+        }
+        sourceUser.setIntegral(sourceUser.getIntegral() + count);
+        //todo 更新用户推广记录及积分
+        IntegralRecord integralRecord = new IntegralRecord();
+        integralRecord.setCount(count);
+        integralRecord.setDesc("用户[" + friendid + "]通过扫描你的二维码关注了公众号");
+        integralRecord.setTag("推广");
+        integralRecord.setUserid(userid);
+        integralRecord.setType(13);
+        //todo 添加积分记录
+        return true;
+    }
+
+    @Override
+    public Boolean encourageFromFocus(Integer userid, Integer count) {
+
+        User user = null;
+        //todo 只有第一次关注公众号才奖励
+        IntegralRecord integralRecord = null;
+        if (integralRecord != null) {
+            return false;
+        }
+        integralRecord = new IntegralRecord();
+        integralRecord.setUserid(userid);
+        integralRecord.setTag("关注");
+        integralRecord.setDesc("关注公众号");
+        integralRecord.setCount(count);
+        integralRecord.setType(10);
+        //todo 积分记录表添加记录
+        user.setIntegral(user.getIntegral() + count);
+        //todo 用户表更新积分值
+        return true;
+    }
+
+
+}
