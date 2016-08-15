@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/tree")
-public class TreeNodeController extends BaseController{
+public class TreeNodeController extends BaseController {
 
     @Autowired
     private TreeNodeService treeNodeService;
@@ -30,11 +30,11 @@ public class TreeNodeController extends BaseController{
     @ResponseBody
     public String save(TreeNode treeNode) {
 
-        Result<Boolean> result = new Result<>();
+        Result<TreeNode> result = new Result<>();
 
         treeNodeService.save(treeNode);
 
-        result.set("添加成功", true);
+        result.set("添加成功", treeNode);
         return result.toString();
     }
 

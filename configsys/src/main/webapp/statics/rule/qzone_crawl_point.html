@@ -124,6 +124,7 @@
             },
             success: function (data) {
                 var result = eval("(" + data + ")");// 将JSON字符串转换成对象
+                $("#id").val(result.data.id);
                 $.messager.alert('Info', result.message, 'info');
             }
         });

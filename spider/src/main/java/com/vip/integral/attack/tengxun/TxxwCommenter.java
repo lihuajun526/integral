@@ -13,6 +13,7 @@ import com.vip.integral.util.cookie.FilterCookies;
 import com.vip.integral.util.cookie.HttpCookieEx;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
@@ -21,7 +22,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.vip.integral.constant.ExceptionTypeEnum.COMMENT_ERROR;
@@ -77,7 +80,7 @@ public class TxxwCommenter extends Commenter {
             params.add(new BasicNameValuePair("type", "1"));
             params.add(new BasicNameValuePair("format", "SCRIPT"));
             params.add(new BasicNameValuePair("callback", ""));
-            String content = JSONObject.parseObject(attackParam.getAction()).getString("comment");
+            String content = JSONObject.parseObject(attackParam.getAction()).getString("comment") + "-" + crRandom();
             params.add(new BasicNameValuePair("content", content));
             params.add(new BasicNameValuePair("_method", "put"));
             params.add(new BasicNameValuePair("g_tk", pubParams.get("g_tk")));
@@ -153,7 +156,7 @@ public class TxxwCommenter extends Commenter {
             params.add(new BasicNameValuePair("type", "1"));
             params.add(new BasicNameValuePair("format", "SCRIPT"));
             params.add(new BasicNameValuePair("callback", "parent.popCallback"));
-            String content = JSONObject.parseObject(attackParam.getAction()).getString("reply");
+            String content = JSONObject.parseObject(attackParam.getAction()).getString("reply") + "-" + crRandom();
             params.add(new BasicNameValuePair("content", content));
             params.add(new BasicNameValuePair("_method", "put"));
             params.add(new BasicNameValuePair("g_tk", pubParams.get("g_tk")));
@@ -207,9 +210,64 @@ public class TxxwCommenter extends Commenter {
      * @param comment
      */
     @Override
-    public void echo(Comment comment) {
-
+    public Comment echo(Comment comment) throws CommentException {
+        return reply(comment);
     }
 
+    @Override
+    public void praise(Comment comment) {
+        String praiseUrlTpl = "http://w.coral.qq.com/article/comment/up/to/%s?targetid=%s";
+        try {
+            String targetid = JSONObject.parseObject(attackPage.getAttr()).getString("commentid");
+            String praiseUrl = String.format(praiseUrlTpl, comment.getId(), targetid);
+            //设置header
+            HttpGet httpGet = new HttpGet(praiseUrl);
+            httpGet.setHeader("Host", "w.coral.qq.com");
+            httpGet.setHeader("Accept", "*/*");
+            httpGet.setHeader("User-Agent", userAgent);
+            httpGet.setHeader("Referer", "http://www.qq.com/coral/coralBeta3/coralMainDom3.2.htm");
+            //设置cookie
+            String commentCookie = JSON.parseObject(attackParam.getCookies()).getString("reply");
+            List<HttpCookieEx> cookieList = new ArrayList<>();
+            cookieList.addAll(FilterCookies.filter(commentCookie));
+            CookieHelper.setCookies2(praiseUrl, httpGet, cookieList);
+            //攻击
+            Thread.sleep(2000);
+            String result = XHttpClient.doRequest(httpGet, attackParam.getCharset());
+            boolean isSuccess = false;
+            try {
+                JSONObject jsonObject = JSONObject.parseObject(result);
+                Integer errCode = jsonObject.getInteger("errCode");
+                if (errCode == 0)
+                    isSuccess = true;
+                else
+                    isSuccess = false;
+            } catch (Exception e) {
+                LOGGER.error("error:", e);
+            }
+            if (isSuccess) {
+                LOGGER.info("点赞成功[{}]", attackPage.getLink());
+            } else {
+                LOGGER.info("由于{},点赞失败[{}]", result, attackPage.getLink());
+                throw new CommentException(COMMENT_ERROR.code, result);
+            }
+        } catch (Exception e) {
+            LOGGER.error("error:", e);
+        }
+    }
+
+    /**
+     * 产生一个随机字符串
+     *
+     * @return
+     */
+    private String crRandom() {
+        StringBuffer random = new StringBuffer();
+        for (int i = 0; i < 5; i++) {
+            char c = (char) (65 + ((int) (Math.random() * 26)));
+            random.append(c);
+        }
+        return random.append(System.currentTimeMillis()).toString();
+    }
 
 }

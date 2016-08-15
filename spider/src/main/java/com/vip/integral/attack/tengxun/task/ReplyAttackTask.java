@@ -47,6 +47,7 @@ public class ReplyAttackTask implements Runnable {
                 TxxwCommenter replyer = commenters.get(1);//回复者
                 TxxwCommenter echoer = commenters.get(2);//附和者
                 replyer.setAttackPage(attackPage);
+                echoer.setAttackPage(attackPage);
                 //获取热评
                 JSONObject attr = JSONObject.parseObject(attackPage.getAttr());
                 String hotcommentUrl = String.format(hotcommentUrlTpl, attr.getString("commentid"));
@@ -71,9 +72,11 @@ public class ReplyAttackTask implements Runnable {
                         //碰到自己人的评论果断附和
                         if (txxwCommenterId.equals(commentid.getUserid())) {
                             echoer.echo(comment);
+                            echoer.praise(comment);
                             continue;
                         }
                         replyer.reply(comment);
+                        replyer.praise(comment);
                         count++;
                     }
                 }
@@ -112,7 +115,10 @@ public class ReplyAttackTask implements Runnable {
     private List<AttackPage> listAttackPage() {
 
         AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
-        List<AttackPage> list = attackPageService.listByBelong(TXXW.value());
+        //List<AttackPage> list = attackPageService.listByBelong(TXXW.value());
+        AttackPage attackPage = new AttackPage();
+        attackPage.setId(33778);
+        List<AttackPage> list = attackPageService.listByCondition(attackPage);
         return list;
     }
 }

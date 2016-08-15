@@ -38,6 +38,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.vip.integral.model.AttackParam" >
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
     insert into t_attack_param (id, nodeid, account, 
       belong, request_method, status, 
       charset, action, attr, create_time,
@@ -45,8 +48,8 @@
       )
     values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
       #{belong,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{charset,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{attr,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
-      #{updateTime,jdbcType=DATE}, #{data,jdbcType=LONGVARCHAR}, #{cookies,jdbcType=LONGVARCHAR}
+      #{charset,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{attr,jdbcType=VARCHAR}, NOW(),
+      NOW(), #{data,jdbcType=LONGVARCHAR}, #{cookies,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.vip.integral.model.AttackParam" >

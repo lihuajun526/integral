@@ -237,8 +237,8 @@ public class AqyCommenter extends Commenter {
         }
     }
 
-    @Override public void echo(Comment comment) {
-
+    @Override public Comment echo(Comment comment) {
+        return null;
     }
 
     @Override public List<Comment> listHotComment(int maxComment, int maxReply) throws RequestException {

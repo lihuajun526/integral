@@ -47,6 +47,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.vip.integral.model.CrawlPoint">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+        SELECT LAST_INSERT_ID() AS id
+    </selectKey>
     insert into t_crawl_point (id, nodeid, category, 
       url, url_cr_classpath, is_crawl_detail, 
       json_analyze_path, status, belong, 
@@ -63,8 +66,8 @@
       #{cookies,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, #{accept,jdbcType=VARCHAR}, 
       #{responseEncode,jdbcType=VARCHAR}, #{responseType,jdbcType=VARCHAR}, #{listRecordRule,jdbcType=VARCHAR}, 
       #{listAttrRule,jdbcType=VARCHAR}, #{linkRule,jdbcType=VARCHAR}, #{linkSelfRule,jdbcType=VARCHAR}, 
-      #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR},#{taskClasspath,jdbcType=VARCHAR},#{attr,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
-      #{modifyTime,jdbcType=DATE})
+      #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR},#{taskClasspath,jdbcType=VARCHAR},#{attr,jdbcType=VARCHAR}, NOW(),
+      NOW())
   </insert>
     <insert id="insertSelective" parameterType="com.vip.integral.model.CrawlPoint">
         insert into t_crawl_point
