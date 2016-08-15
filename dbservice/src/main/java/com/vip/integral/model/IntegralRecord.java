@@ -9,6 +9,7 @@ public class IntegralRecord {
 
     private Integer id;
     private Integer userid;
+    private Integer vipAccountId;
     private Integer goodsid;
     private Integer count;
     /**
@@ -95,5 +96,13 @@ public class IntegralRecord {
 
     public void setGoodsid(Integer goodsid) {
         this.goodsid = goodsid;
+    }
+
+    public Integer getVipAccountId() {
+        return vipAccountId;
+    }
+
+    public void setVipAccountId(Integer vipAccountId) {
+        this.vipAccountId = vipAccountId;
     }
 }

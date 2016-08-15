@@ -10,9 +10,7 @@ public class VipAccount {
     private Integer id;
     private String account;
     private String password;
-    /**
-     * 1：爱奇艺，2：优酷，3：乐视
-     */
+    //会员类型：1爱奇艺，2优酷，3腾讯视频，4乐视，5搜狐视频
     private Integer type;
     private Date effectiveTime;
     private Date createTime;

@@ -55,7 +55,7 @@ public class CrawlPoint {
 
     private Date createTime;
 
-    private Date modifyTime;
+    private Date updateTime;
 
     public String getTaskClasspath() {
         return taskClasspath;
@@ -265,11 +265,11 @@ public class CrawlPoint {
         this.createTime = createTime;
     }
 
-    public Date getModifyTime() {
-        return modifyTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

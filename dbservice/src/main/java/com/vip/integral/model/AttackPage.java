@@ -21,7 +21,7 @@ public class AttackPage {
 
     private Date createTime;
 
-    private Date modifyTime;
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -95,11 +95,11 @@ public class AttackPage {
         this.createTime = createTime;
     }
 
-    public Date getModifyTime() {
-        return modifyTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

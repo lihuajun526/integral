@@ -14,5 +14,7 @@ public interface GoodsService {
 
     // TODO: 16-7-6 跟据id查找商品，且status=1 
     Goods get(Goods goods);
-    
+
+    Integer order(Integer userid, Goods goods);
+
 }

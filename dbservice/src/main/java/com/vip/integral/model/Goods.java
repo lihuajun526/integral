@@ -10,10 +10,13 @@ public class Goods {
     private Integer id;
     private String title;
     private String description;
+    private Integer order;//排序
     /**
      * 1:会员帐号,2:积分包
      */
     private Integer type;
+    //会员类型：1爱奇艺，2优酷，3腾讯视频，4乐视，5搜狐视频
+    private Integer vipType;
     //数量
     private Integer count;
     //0:下架,1:上架
@@ -92,5 +95,21 @@ public class Goods {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public Integer getVipType() {
+        return vipType;
+    }
+
+    public void setVipType(Integer vipType) {
+        this.vipType = vipType;
     }
 }
