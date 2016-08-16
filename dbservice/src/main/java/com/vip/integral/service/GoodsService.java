@@ -1,6 +1,9 @@
 package com.vip.integral.service;
 
+import com.vip.integral.exception.OrderException;
 import com.vip.integral.model.Goods;
+import com.vip.integral.model.User;
+import com.vip.integral.model.VipAccount;
 
 import java.util.List;
 
@@ -15,6 +18,6 @@ public interface GoodsService {
     // TODO: 16-7-6 跟据id查找商品，且status=1 
     Goods get(Goods goods);
 
-    Integer order(Integer userid, Goods goods);
+    VipAccount order(User userid, Goods goods) throws OrderException;
 
 }

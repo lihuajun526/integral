@@ -11,6 +11,7 @@ public class Goods {
     private String title;
     private String description;
     private Integer order;//排序
+    private Integer price;//价格
     /**
      * 1:会员帐号,2:积分包
      */
@@ -111,5 +112,13 @@ public class Goods {
 
     public void setVipType(Integer vipType) {
         this.vipType = vipType;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }
