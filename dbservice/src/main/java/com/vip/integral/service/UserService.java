@@ -3,6 +3,8 @@ package com.vip.integral.service;
 import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
 
+import java.util.List;
+
 /**
  * Created by lihuajun on 16-7-6.
  */
@@ -18,5 +20,7 @@ public interface UserService {
      * @return
      */
     Boolean encourageIntegral(Integer userid, IntegralRecord integralRecord);
+
+    List<User> listSpreads(Integer userid);
 
 }

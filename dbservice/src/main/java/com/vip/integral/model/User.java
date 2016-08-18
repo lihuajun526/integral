@@ -10,7 +10,15 @@ public class User {
     private Integer id;
     private String openid;
     private String nickname;
-    //0:停用,1:正常
+    //值为1时是男性，值为2时是女性，值为0时是未知
+    private Integer sex;
+    private String language;
+    private String city;
+    private String province;
+    private String country;
+    private String headimgurl;
+    private Date subscribeTime;
+    //0:取消关注,1:正常
     private Integer status;
     private Integer integral;
     //推广记录，id1:status#id2:status
@@ -90,5 +98,61 @@ public class User {
 
     public void setPopulateTime(Date populateTime) {
         this.populateTime = populateTime;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getHeadimgurl() {
+        return headimgurl;
+    }
+
+    public void setHeadimgurl(String headimgurl) {
+        this.headimgurl = headimgurl;
+    }
+
+    public Date getSubscribeTime() {
+        return subscribeTime;
+    }
+
+    public void setSubscribeTime(Date subscribeTime) {
+        this.subscribeTime = subscribeTime;
     }
 }

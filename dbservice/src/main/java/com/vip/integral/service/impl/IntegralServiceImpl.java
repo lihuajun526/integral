@@ -53,6 +53,8 @@ public class IntegralServiceImpl implements IntegralService {
             return false;
         }
 
+        //todo 上层要判断该用户是否是新关注用户，只有新关注用户才送分给推广者
+
         if (StringUtils.isEmpty(sourceUser.getSpreadRecord())) {
             sourceUser.setSpreadRecord(friendid + ":" + 1);
         } else {

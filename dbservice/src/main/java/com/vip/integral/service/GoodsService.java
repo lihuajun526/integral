@@ -18,6 +18,6 @@ public interface GoodsService {
     // TODO: 16-7-6 跟据id查找商品，且status=1 
     Goods get(Goods goods);
 
-    VipAccount order(User userid, Goods goods) throws OrderException;
+    VipAccount order(User user, Goods goods) throws OrderException;
 
 }

@@ -18,4 +18,9 @@ public class VipAccountServiceImpl implements VipAccountService {
             return null;
         return vipAccount;
     }
+
+    @Override
+    public int update(VipAccount vipAccount) {
+        return 0;
+    }
 }

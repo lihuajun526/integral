@@ -31,4 +31,19 @@ public class UserController extends BaseController {
         return result.toString();
     }
 
+    /**
+     * 获得用户的推广记录
+     * @param user
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/spreads")
+    public String listSpreads(User user) {
+        Result<User> result = new Result<>();
+
+        result.set(0, userService.getByOpenid(user.getOpenid()));
+
+        return result.toString();
+    }
+
 }
