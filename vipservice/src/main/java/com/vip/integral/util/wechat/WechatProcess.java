@@ -1,51 +1,60 @@
 package com.vip.integral.util.wechat;
 
 
+import com.vip.integral.model.WechatMsg;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
-/**
- * 微信xml消息处理流程逻辑类
- * @author pamchen-1
- *
- */
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Date;
+
 public class WechatProcess {
-	/**
-	 * 解析处理xml、获取智能回复结果（通过图灵机器人api接口）
-	 * @param xml 接收到的微信数据
-	 * @return	最终的解析结果（xml格式数据）
-	 */
-	public WechatMsg processWechatMag(String xml){
 
-		WechatMsg wechatMsg = null;
+    private static final Logger LOGGER = LoggerFactory.getLogger(WechatProcess.class);
 
-		/** 解析xml数据 */
-		Document doc = Jsoup.parse(xml);
+    public WechatMsg processWechatMag(String xml) {
 
-		/**
-		 * <xml>
-		 <ToUserName><![CDATA[toUser]]></ToUserName>
-		 <FromUserName><![CDATA[FromUser]]></FromUserName>
-		 <CreateTime>123456789</CreateTime>
-		 <MsgType><![CDATA[event]]></MsgType>
-		 <Event><![CDATA[subscribe]]></Event>
-		 </xml>
-		 */
+        /** 解析xml数据 */
+        Document doc = Jsoup.parse(xml);
+        WechatMsg wechatMsg = create(doc);
+        return wechatMsg;
+    }
 
-		ReceiveXmlEntity xmlEntity = new ReceiveXmlProcess().getMsgEntity(xml);
-
-		/** 以文本消息为例，调用图灵机器人api接口，获取回复内容 */
-		/*String result = "";
-		if("text".endsWith(xmlEntity.getMsgType())){
-			result = new TulingApiProcess().getTulingResult(xmlEntity.getContent());
-		}
-
-		*//** 此时，如果用户输入的是“你好”，在经过上面的过程之后，result为“你也好”类似的内容
-		 *  因为最终回复给微信的也是xml格式的数据，所有需要将其封装为文本类型返回消息
-		 * *//*
-		result = new FormatXmlProcess().formatXmlAnswer(xmlEntity.getFromUserName(), xmlEntity.getToUserName(), result);
-
-		return result;*/
-		return null;
-	}
+    private WechatMsg create(Document doc) {
+        WechatMsg wechatMsg = new WechatMsg();
+        try {
+            Field[] fields = WechatMsg.class.getDeclaredFields();
+            for (Field field : fields) {
+                String key = field.getName();
+                if (key.equalsIgnoreCase("LOGGER"))
+                    continue;
+                String typeName = field.getType().getSimpleName();
+                byte[] b = {(byte) (key.charAt(0) - 32)};
+                key = new String(b) + key.substring(1);
+                Elements elements = doc.select(key.toLowerCase());
+                if (elements == null || elements.size() == 0)
+                    continue;
+                String value = elements.get(0).text();
+                if (StringUtils.isEmpty(value))
+                    continue;
+                if (typeName.equalsIgnoreCase("String")) {
+                    Method method = WechatMsg.class.getMethod("set" + key, String.class);
+                    method.invoke(wechatMsg, value);
+                } else if (typeName.equalsIgnoreCase("Date")) {
+                    Method method = WechatMsg.class.getMethod("set" + key, Date.class);
+                    method.invoke(wechatMsg, new Date(Long.valueOf(value)));
+                } else {
+                    LOGGER.warn("居然到了这里{}", typeName);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("将xml转为WechatMsg对象时出错:", e);
+        }
+        return wechatMsg;
+    }
 }

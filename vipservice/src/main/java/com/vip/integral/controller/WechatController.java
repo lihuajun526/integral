@@ -1,6 +1,8 @@
 package com.vip.integral.controller;
 
+import com.vip.integral.model.WechatMsg;
 import com.vip.integral.service.WechatService;
+import com.vip.integral.util.wechat.WechatProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,8 @@ public class WechatController {
             result = echostr;
         } else {
             //正常的微信处理流程
-            //result = new WechatProcess().processWechatMag(xml);
+            WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
+
         }
         PrintWriter writer = response.getWriter();
         writer.print(result);

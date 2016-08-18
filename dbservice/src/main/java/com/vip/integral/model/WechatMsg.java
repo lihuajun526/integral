@@ -1,4 +1,4 @@
-package com.vip.integral.util.wechat;
+package com.vip.integral.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +19,8 @@ public class WechatMsg {
     private Date createTime;
     private String msgType;
     private String event;
+    private String eventKey;
+    private String ticket;
 
     public String getToUserName() {
         return toUserName;
@@ -60,6 +62,22 @@ public class WechatMsg {
         this.event = event;
     }
 
+    public String getEventKey() {
+        return eventKey;
+    }
+
+    public void setEventKey(String eventKey) {
+        this.eventKey = eventKey;
+    }
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
+
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer("<xml>");
@@ -89,15 +107,5 @@ public class WechatMsg {
         }
         sb.append("</xml>");
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        WechatMsg wechatMsg = new WechatMsg();
-        wechatMsg.setToUserName("toUser");
-        wechatMsg.setFromUserName("fromUser");
-        wechatMsg.setCreateTime(new Date());
-        wechatMsg.setMsgType("event");
-        wechatMsg.setEvent("subscrib");
-        System.out.println(wechatMsg.toString());
     }
 }

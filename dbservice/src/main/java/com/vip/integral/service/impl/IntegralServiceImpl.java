@@ -66,7 +66,7 @@ public class IntegralServiceImpl implements IntegralService {
         integralRecord.setCount(count);
         integralRecord.setDesc("用户[" + friendid + "]通过扫描你的二维码关注了公众号");
         integralRecord.setTag("推广");
-        integralRecord.setUserid(userid);
+        //integralRecord.setUserid(userid);
         integralRecord.setType(13);
         //todo 添加积分记录
         return true;
