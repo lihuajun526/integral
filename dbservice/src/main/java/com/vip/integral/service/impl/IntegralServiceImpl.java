@@ -2,13 +2,19 @@ package com.vip.integral.service.impl;
 
 import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
+import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.IntegralService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 /**
  * Created by lihuajun on 2016/8/15.
  */
 public class IntegralServiceImpl implements IntegralService {
+
+    @Autowired
+    private ConfigService configService;
+
     @Override
     public Boolean encourageFromShare(Integer userid, Integer count, Integer type, String desc) {
 
@@ -54,10 +60,23 @@ public class IntegralServiceImpl implements IntegralService {
         }
 
         //todo 上层要判断该用户是否是新关注用户，只有新关注用户才送分给推广者
-
+        int spreadCount = 0;
         if (StringUtils.isEmpty(sourceUser.getSpreadRecord())) {
             sourceUser.setSpreadRecord(friendid + ":" + 1);
         } else {
+            //风控值，最多奖励积分数
+            String[] spreadRecord = sourceUser.getSpreadRecord().split("#");
+            for (String str : spreadRecord) {
+                String[] kv = str.split(":");
+                if (kv[1].equals("1")) {
+                    spreadCount++;
+                }
+            }
+            if (spreadCount >= configService.getInt("max.spread.count")) {
+                sourceUser.setSpreadRecord("#" + friendid + ":" + 0);
+                //todo 更新用户
+                return false;
+            }
             sourceUser.setSpreadRecord("#" + friendid + ":" + 1);
         }
         sourceUser.setIntegral(sourceUser.getIntegral() + count);
@@ -66,7 +85,7 @@ public class IntegralServiceImpl implements IntegralService {
         integralRecord.setCount(count);
         integralRecord.setDesc("用户[" + friendid + "]通过扫描你的二维码关注了公众号");
         integralRecord.setTag("推广");
-        //integralRecord.setUserid(userid);
+        integralRecord.setUserid(userid);
         integralRecord.setType(13);
         //todo 添加积分记录
         return true;
