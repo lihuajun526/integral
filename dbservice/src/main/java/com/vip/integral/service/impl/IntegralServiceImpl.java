@@ -1,5 +1,6 @@
 package com.vip.integral.service.impl;
 
+import com.vip.integral.dao.UserMapper;
 import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
 import com.vip.integral.service.ConfigService;
@@ -14,11 +15,13 @@ public class IntegralServiceImpl implements IntegralService {
 
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public Boolean encourageFromShare(Integer userid, Integer count, Integer type, String desc) {
 
-        User user = null;
+        User user = userMapper.selectByPrimaryKey(userid);
 
         //todo 只有第一次分享到微信朋友圈或qq空间才奖励
         IntegralRecord integralRecord = null;

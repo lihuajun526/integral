@@ -1,6 +1,9 @@
 package com.vip.integral.service.impl;
 
 import com.vip.integral.constant.ExceptionTypeEnum;
+import com.vip.integral.dao.GoodsMapper;
+import com.vip.integral.dao.IntegralRecordMapper;
+import com.vip.integral.dao.UserMapper;
 import com.vip.integral.exception.OrderException;
 import com.vip.integral.model.Goods;
 import com.vip.integral.model.IntegralRecord;
@@ -29,17 +32,31 @@ public class GoodsServiceImpl implements GoodsService {
     private ConfigService configService;
     @Autowired
     private VipAccountService vipAccountService;
+    @Autowired
+    private GoodsMapper goodsMapper;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private IntegralRecordMapper integralRecordMapper;
 
     @Override
     public List<Goods> listAll() {
-        return null;
+        return goodsMapper.listAll();
     }
 
     @Override
     public Goods get(Goods goods) {
-        return null;
+        return goodsMapper.selectByPrimaryKey(goods.getId());
     }
 
+    /**
+     * 下单
+     *
+     * @param user
+     * @param goods
+     * @return
+     * @throws OrderException
+     */
     //todo 事务
     @Override
     public VipAccount order(User user, Goods goods) throws OrderException {
@@ -52,32 +69,33 @@ public class GoodsServiceImpl implements GoodsService {
             LOGGER.warn("不在开售时间范围，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.NOT_IN_SELL_TIME_ERROR);
         }
-        //todo
-        goods = null;
+        goods = goodsMapper.selectByPrimaryKey(goods.getId());
         if (goods.getCount() == 0) {
             //库存不足
             LOGGER.warn("库存不足，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.STOCKS_LOW_ERROR);
         }
 
-        //todo 用户积分余额是否足够
+        //用户积分余额是否足够
+        user = userMapper.selectByPrimaryKey(user.getId());
         if (user.getIntegral() < goods.getPrice()) {
             //账户余额不足
             LOGGER.warn("账户余额不足，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.BALANCE_LOW_ERROR);
         }
 
-        //todo 此商品用户今日是否买过
+        //此商品用户今日是否买过
         calendar.set(Calendar.HOUR_OF_DAY, configService.getInt("begin.sell"));
-        List<IntegralRecord> records = null;
+        List<IntegralRecord> records = integralRecordMapper.selectByBeginTime(calendar.getTime());
         if (records != null && records.size() > 0) {
             //该用户今日已买过该商品，不能再次购买
             LOGGER.warn("不能再次购买，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.TODAY_HAS_BUY_ERROR);
         }
 
-        //todo 减库存
+        //减库存
         goods.setCount(goods.getCount() - 1);
+        goodsMapper.updateByPrimaryKeySelective(goods);
         VipAccount vipAccount = vipAccountService.vote(goods.getType());
         if (vipAccount.getCount() == 0) {
             LOGGER.error("VipAccount与Goods库存不同步，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
@@ -85,9 +103,10 @@ public class GoodsServiceImpl implements GoodsService {
             vipAccount.setCount(vipAccount.getCount() - 1);
             vipAccountService.update(vipAccount);
         }
-        //todo 减积分
+        //减积分
         user.setIntegral(user.getIntegral() - goods.getPrice());
-        //todo 新增积分记录
+        userMapper.updateByPrimaryKeySelective(user);
+        //新增积分记录
         IntegralRecord integralRecord = new IntegralRecord();
         integralRecord.setType(20);//消费
         integralRecord.setCount(0 - goods.getPrice());
@@ -95,6 +114,7 @@ public class GoodsServiceImpl implements GoodsService {
         integralRecord.setUserid(user.getId());
         integralRecord.setGoodsid(goods.getId());
         integralRecord.setVipAccountId(vipAccount.getId());
+        integralRecordMapper.insert(integralRecord);
         return vipAccount;
     }
 
