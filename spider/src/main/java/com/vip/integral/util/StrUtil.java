@@ -5,6 +5,7 @@ import org.springframework.util.StringUtils;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -203,9 +204,14 @@ public class StrUtil {
         }*/
 
         //设置表单
-        String str = "targetid=1500957283&type=1&format=SCRIPT&callback=parent.popCallback&content=%D4%DE%B8%F6&_method=put&g_tk=1203714245&code=1&source=1&subsource=0&picture=";
+        /*String str = "targetid=1500957283&type=1&format=SCRIPT&callback=parent.popCallback&content=%D4%DE%B8%F6&_method=put&g_tk=1203714245&code=1&source=1&subsource=0&picture=";
         try {
             setForm(str,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }*/
+        try {
+            System.out.println(URLEncoder.encode("预览不支持进行购买","utf-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

@@ -107,7 +107,7 @@ public class CrawlTask implements Runnable {
             attackPage.setTitle(parseResult.getTitle());
             attackPage.setAttr(JSON.toJSONString(parseResult.getAttr()));
             attackPage.setCreateTime(new Date());
-            attackPage.setModifyTime(new Date());
+            attackPage.setUpdateTime(new Date());
 
             attackPageService.save(attackPage);
         }
