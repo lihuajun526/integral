@@ -2,6 +2,8 @@ package com.vip.integral.service;
 
 import com.vip.integral.model.VipAccount;
 
+import java.util.List;
+
 /**
  * Created by lihuajun on 16-7-6.
  */
@@ -16,5 +18,13 @@ public interface VipAccountService {
     VipAccount vote(Integer type);
 
     int update(VipAccount vipAccount);
+
+    int save(VipAccount vipAccount);
+
+    VipAccount get(VipAccount vipAccount);
+
+    List<VipAccount> listAll();
+
+    int delete(VipAccount vipAccount);
 
 }

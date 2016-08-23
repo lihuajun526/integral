@@ -30,7 +30,7 @@
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{type,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{effectiveTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      NOW(), #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.vip.integral.model.VipAccount" >
     insert into t_vip_account
@@ -125,4 +125,10 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="listAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_vip_account
+  </select>
 </mapper>

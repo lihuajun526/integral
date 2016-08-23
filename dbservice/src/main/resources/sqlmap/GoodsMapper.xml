@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="order" property="order" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="vip_type" property="vipType" jdbcType="INTEGER" />
@@ -16,7 +16,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, description, order, price, type, vip_type, count, status, effective_time, 
+    id, title, description, sort, price, type, vip_type, count, status, effective_time,
     create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -31,14 +31,14 @@
   </delete>
   <insert id="insert" parameterType="com.vip.integral.model.Goods" >
     insert into t_goods (id, title, description, 
-      order, price, type, 
+      sort, price, type,
       vip_type, count, status, 
       effective_time, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{order,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
       #{vipType,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{effectiveTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{effectiveTime,jdbcType=TIMESTAMP}, NOW(), #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.vip.integral.model.Goods" >
@@ -53,8 +53,8 @@
       <if test="description != null" >
         description,
       </if>
-      <if test="order != null" >
-        order,
+      <if test="sort != null" >
+        sort,
       </if>
       <if test="price != null" >
         price,
@@ -91,8 +91,8 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="order != null" >
-        #{order,jdbcType=INTEGER},
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
       </if>
       <if test="price != null" >
         #{price,jdbcType=INTEGER},
@@ -129,8 +129,8 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="order != null" >
-        order = #{order,jdbcType=INTEGER},
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
       </if>
       <if test="price != null" >
         price = #{price,jdbcType=INTEGER},
@@ -163,7 +163,7 @@
     update t_goods
     set title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      order = #{order,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
       price = #{price,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       vip_type = #{vipType,jdbcType=INTEGER},
@@ -175,10 +175,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="listAll" resultMap="BaseResultMap">
+  <select id="listAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select
     <include refid="Base_Column_List" />
     from t_goods
-    where status = 1
+    <if test="status != null" >
+      where status = #{status,jdbcType=INTEGER}
+    </if>
+
   </select>
 </mapper>

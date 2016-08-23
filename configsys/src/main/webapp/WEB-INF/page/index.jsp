@@ -8,15 +8,20 @@
     <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/demo/demo.css">
     <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.min.js"></script>
     <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">爬虫规则管理系统</div>
 <div data-options="region:'west',split:true,title:'导航'" style="width:200px;padding:10px;">
-    <button onclick="loadPage('rule/crawl_point.html')">添加</button>
     <div class="easyui-panel" style="padding:5px" title="采集点">
         <ul id="tree" class="easyui-tree"></ul>
     </div>
     <br/>
+
+    <div class="easyui-panel" style="padding:5px" title="后台管理">
+        <ul id="tt"></ul>
+    </div>
+
 </div>
 <div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region
 </div>
@@ -106,6 +111,15 @@
         }
     });
 
+    $('#tt').tree({
+        onClick: function (node) {
+            if (node.id == 1)
+                loadPage('back/goods/goods_list.html');
+            else if (node.id == 2)
+                loadPage('back/vipaccount/vip_account_list.html');
+        }
+    });
+
     $(function () {
         $(document).ready(function () {
             $.get("./tree/tree?id=0", function (data) {
@@ -113,9 +127,13 @@
                     data: data
                 });
             }, "json");
+            $.get("/statics/data/back_tree_data.json", function (data) {
+                $("#tt").tree({
+                    data: data
+                });
+            }, "json");
         });
     });
-
 </script>
 </body>
 </html>

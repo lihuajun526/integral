@@ -40,8 +40,8 @@ public class GoodsServiceImpl implements GoodsService {
     private IntegralRecordMapper integralRecordMapper;
 
     @Override
-    public List<Goods> listAll() {
-        return goodsMapper.listAll();
+    public List<Goods> listAll(Integer status) {
+        return goodsMapper.listAll(status);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GoodsServiceImpl implements GoodsService {
         Calendar calendar = Calendar.getInstance();
         int curHour = calendar.get(Calendar.HOUR_OF_DAY);
         int curMinute = calendar.get(Calendar.MINUTE);
-        if (curHour < configService.getInt("begin.sell") && curHour >= configService.getInt("end.sell")) {
+        if (curHour < configService.getInt("goods.begin.sell.time") && curHour >= configService.getInt("goods.end.sell.time")) {
             //不在开售时间范围
             LOGGER.warn("不在开售时间范围，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.NOT_IN_SELL_TIME_ERROR);
@@ -85,7 +85,7 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         //此商品用户今日是否买过
-        calendar.set(Calendar.HOUR_OF_DAY, configService.getInt("begin.sell"));
+        calendar.set(Calendar.HOUR_OF_DAY, configService.getInt("goods.begin.sell.time"));
         List<IntegralRecord> records = integralRecordMapper.selectByBeginTime(calendar.getTime());
         if (records != null && records.size() > 0) {
             //该用户今日已买过该商品，不能再次购买
@@ -116,6 +116,24 @@ public class GoodsServiceImpl implements GoodsService {
         integralRecord.setVipAccountId(vipAccount.getId());
         integralRecordMapper.insert(integralRecord);
         return vipAccount;
+    }
+
+    @Override
+    public int save(Goods goods) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        goods.setEffectiveTime(calendar.getTime());
+        return goodsMapper.insert(goods);
+    }
+
+    @Override
+    public int update(Goods goods) {
+        return goodsMapper.updateByPrimaryKeySelective(goods);
     }
 
 }

@@ -2,6 +2,8 @@ package com.vip.integral.dao;
 
 import com.vip.integral.model.VipAccount;
 
+import java.util.List;
+
 public interface VipAccountMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface VipAccountMapper {
     int updateByPrimaryKeySelective(VipAccount record);
 
     int updateByPrimaryKey(VipAccount record);
+
+    List<VipAccount> listAll();
 }

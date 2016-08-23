@@ -13,11 +13,14 @@ import java.util.List;
 public interface GoodsService {
 
     // TODO: 16-7-6 查找所有上架商品 
-    List<Goods> listAll();
+    List<Goods> listAll(Integer status);
 
-    // TODO: 16-7-6 跟据id查找商品，且status=1 
     Goods get(Goods goods);
 
     VipAccount order(User user, Goods goods) throws OrderException;
+
+    int save(Goods goods);
+
+    int update(Goods goods);
 
 }
