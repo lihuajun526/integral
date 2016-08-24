@@ -4,6 +4,7 @@ import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
 import com.vip.integral.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * Created by lihuajun on 2016/8/15.
  */
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
 

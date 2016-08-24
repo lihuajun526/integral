@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
 <head>
@@ -2269,7 +2270,7 @@
             line-height: 1.5
         }                    </style>
 
-    <link rel="stylesheet" href="./home/showcase_admin_cbae433152bd29e702b2275058204f04.css"
+    <link rel="stylesheet" href="/statics/home/showcase_admin_cbae433152bd29e702b2275058204f04.css"
           onerror="_cdnFallback(this)" media="screen">
     <style>
         .content {
@@ -2406,15 +2407,15 @@
                 "materials": "\/\/materials.koudaitong.com"
             }
         };</script>
-    <script charset="utf-8" src="./home/common_jquery_75554d22a0.js"></script>
-    <script charset="utf-8" src="./home/base_2cdff17c2b.js"></script>
-    <script charset="utf-8" src="./home/base_5cb9812d2c.js"></script>
-    <script charset="utf-8" src="./home/global_icon_929caefc21.js"></script>
-    <script charset="utf-8" async="" src="./home/hm.js"></script>
-    <script charset="utf-8" src="./home/u_b.js"></script>
-    <script charset="utf-8" src="./home/sku_70722b246a.js"></script>
-    <script charset="utf-8" src="./home/goods_list_0b03120faf.js"></script>
-    <link rel="stylesheet" href="./home/shopnav_custom_1773d863bdd16769f4e92b24d76e1a0a.css">
+    <script charset="utf-8" src="/statics/home/common_jquery_75554d22a0.js"></script>
+    <script charset="utf-8" src="/statics/home/base_2cdff17c2b.js"></script>
+    <script charset="utf-8" src="/statics/home/base_5cb9812d2c.js"></script>
+    <script charset="utf-8" src="/statics/home/global_icon_929caefc21.js"></script>
+    <script charset="utf-8" async="" src="/statics/home/hm.js"></script>
+    <script charset="utf-8" src="/statics/home/u_b.js"></script>
+    <script charset="utf-8" src="/statics/home/sku_70722b246a.js"></script>
+    <script charset="utf-8" src="/statics/home/goods_list_0b03120faf.js"></script>
+    <link rel="stylesheet" href="/statics/home/shopnav_custom_1773d863bdd16769f4e92b24d76e1a0a.css">
     <style type="text/css">@charset "UTF-8";
     .block, .block-item {
         display: block;
@@ -3284,7 +3285,7 @@
                      style="background-color:#ffffff; background-image: url(https://img.yzcdn.cn/upload_files/2015/01/22/Fv-GeYTN-o5_lm1QS4G4byXoHGUK.png);">
                     <div class="tpl-shop-title">kankan1</div>
                     <div class="tpl-shop-avatar">
-                        <img src="./home/8f9c442de8666f82abaf7dd71574e997.png" alt="头像">
+                        <img src="/statics/home/8f9c442de8666f82abaf7dd71574e997.png" alt="头像">
                     </div>
                 </div>
                 <div class="tpl-shop-content">
@@ -3334,7 +3335,7 @@
                              style="background-color: rgb(255, 255, 255);">
                             <img class="goods-photo js-goods-lazy"
                                  data-src="https://img.yzcdn.cn/upload_files/2015/05/14/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png?imageView2/2/w/280/h/280/q/75/format/webp"
-                                 src="./home/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png" style="display: block;">
+                                 src="/statics/home/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png" style="display: block;">
                         </div>
                         <div class="info clearfix info-no-title info-price btn4">
                             <p class=" goods-title ">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不退款）</p>
@@ -3362,7 +3363,7 @@
                              style="background-color: rgb(255, 255, 255);">
                             <img class="goods-photo js-goods-lazy"
                                  data-src="https://img.yzcdn.cn/upload_files/2015/05/14/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png?imageView2/2/w/280/h/280/q/75/format/webp"
-                                 src="./home/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png" style="display: block;">
+                                 src="/statics/home/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png" style="display: block;">
                         </div>
                         <div class="info clearfix info-no-title info-price btn4">
                             <p class=" goods-title ">实物商品（购买时需填写收货地址，测试商品，不发货，不退款）</p>
@@ -3390,7 +3391,7 @@
                              style="background-color: rgb(255, 255, 255);">
                             <img class="goods-photo js-goods-lazy"
                                  data-src="https://img.yzcdn.cn/upload_files/2015/05/14/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png?imageView2/2/w/280/h/280/q/75/format/webp"
-                                 src="./home/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png" style="display: block;">
+                                 src="/statics/home/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png" style="display: block;">
                         </div>
                         <div class="info clearfix info-no-title info-price btn4">
                             <p class=" goods-title ">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不退款）</p>
@@ -3418,7 +3419,7 @@
                              style="background-color: rgb(255, 255, 255);">
                             <img class="goods-photo js-goods-lazy"
                                  data-src="https://img.yzcdn.cn/upload_files/2015/05/14/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png?imageView2/2/w/280/h/280/q/75/format/webp"
-                                 src="./home/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png" style="display: block;">
+                                 src="/statics/home/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png" style="display: block;">
                         </div>
                         <div class="info clearfix info-no-title info-price btn4">
                             <p class=" goods-title ">实物商品（购买时需填写收货地址，测试商品，不发货，不退款）</p>
@@ -3445,7 +3446,7 @@
             <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=17984819" class="link">
                 <div class="sidebar-section shop-card">
                     <div class="table-cell">
-                        <img src="./home/8f9c442de8666f82abaf7dd71574e997(1).png" width="60" height="60"
+                        <img src="/statics/home/8f9c442de8666f82abaf7dd71574e997(1).png" width="60" height="60"
                              class="shop-img" alt="公众号头像">
                     </div>
                     <div class="table-cell">

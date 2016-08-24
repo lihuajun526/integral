@@ -6,11 +6,13 @@ import com.vip.integral.model.User;
 import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.IntegralService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
  * Created by lihuajun on 2016/8/15.
  */
+@Service("integralService")
 public class IntegralServiceImpl implements IntegralService {
 
     @Autowired

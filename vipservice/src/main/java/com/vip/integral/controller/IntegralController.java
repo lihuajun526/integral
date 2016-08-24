@@ -6,12 +6,14 @@ import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
 import com.vip.integral.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by lihuajun on 16-7-6.
  */
+@Controller
 @RequestMapping("/integral")
 public class IntegralController extends BaseController {
 

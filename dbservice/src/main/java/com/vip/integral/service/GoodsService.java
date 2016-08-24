@@ -12,8 +12,7 @@ import java.util.List;
  */
 public interface GoodsService {
 
-    // TODO: 16-7-6 查找所有上架商品 
-    List<Goods> listAll(Integer status);
+    List<Goods> listByCondition(Goods goods);
 
     Goods get(Goods goods);
 

@@ -17,10 +17,10 @@ public class SecurityInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
 
         //从请求中获取openid
-        String openid = request.getParameter("openid");
+        /*String openid = request.getParameter("openid");
         if (StringUtils.isEmpty(openid)) {
             response.sendRedirect("404");
-        }
+        }*/
         return true;
     }
 

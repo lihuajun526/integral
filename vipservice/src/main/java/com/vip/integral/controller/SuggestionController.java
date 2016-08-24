@@ -5,12 +5,14 @@ import com.vip.integral.base.Result;
 import com.vip.integral.model.Suggestion;
 import com.vip.integral.service.SuggestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by lihuajun on 16-7-6.
  */
+@Controller
 @RequestMapping("/suggestion")
 public class SuggestionController extends BaseController {
 

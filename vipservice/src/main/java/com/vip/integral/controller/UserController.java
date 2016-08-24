@@ -7,6 +7,7 @@ import com.vip.integral.model.User;
 import com.vip.integral.service.GoodsService;
 import com.vip.integral.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Created by lihuajun on 16-7-6.
  */
+@Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {
 

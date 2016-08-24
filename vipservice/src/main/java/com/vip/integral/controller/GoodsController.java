@@ -9,14 +9,17 @@ import com.vip.integral.model.VipAccount;
 import com.vip.integral.service.GoodsService;
 import com.vip.integral.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 /**
  * Created by lihuajun on 16-7-6.
  */
+@Controller
 @RequestMapping("/goods")
 public class GoodsController extends BaseController {
 
@@ -30,14 +33,14 @@ public class GoodsController extends BaseController {
      *
      * @return
      */
-    @ResponseBody
     @RequestMapping("/list")
-    public String list() {
-        Result<List<Goods>> result = new Result<>();
+    public ModelAndView list() {
 
-        result.set(0, goodsService.listAll(1));
-
-        return result.toString();
+        ModelAndView modelAndView = new ModelAndView("home");
+        Goods goods = new Goods();
+        goods.setStatus(1);
+        modelAndView.addObject("goodsList", goodsService.listByCondition(goods));
+        return modelAndView;
     }
 
     @ResponseBody

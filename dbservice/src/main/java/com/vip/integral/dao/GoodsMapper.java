@@ -17,5 +17,5 @@ public interface GoodsMapper {
 
     int updateByPrimaryKey(Goods record);
 
-    List<Goods> listAll(Integer status);
+    List<Goods> listByCondition(Goods goods);
 }

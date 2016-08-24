@@ -6,11 +6,13 @@ import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.IntegralService;
 import com.vip.integral.service.WechatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
  * Created by lihuajun on 2016/8/18.
  */
+@Service("wechatService")
 public class WechatServiceImpl implements WechatService {
 
     //    @Autowired

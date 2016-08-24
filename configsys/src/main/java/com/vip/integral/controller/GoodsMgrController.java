@@ -57,7 +57,7 @@ public class GoodsMgrController extends BaseController {
 
         ResultDg<List<Goods>> resultDg = new ResultDg<>();
 
-        List<Goods> list = goodsService.listAll(null);
+        List<Goods> list = goodsService.listByCondition(null);
         resultDg.setTotal(list == null ? 0 : list.size());
         resultDg.setRows(list);
 

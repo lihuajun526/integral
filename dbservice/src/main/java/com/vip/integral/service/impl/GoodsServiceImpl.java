@@ -40,8 +40,8 @@ public class GoodsServiceImpl implements GoodsService {
     private IntegralRecordMapper integralRecordMapper;
 
     @Override
-    public List<Goods> listAll(Integer status) {
-        return goodsMapper.listAll(status);
+    public List<Goods> listByCondition(Goods goods) {
+        return goodsMapper.listByCondition(goods);
     }
 
     @Override

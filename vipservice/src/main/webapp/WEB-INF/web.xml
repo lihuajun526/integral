@@ -3,7 +3,7 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-    <display-name>rulesys</display-name>
+    <display-name>vipservice</display-name>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
