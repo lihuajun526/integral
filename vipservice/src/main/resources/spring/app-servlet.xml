@@ -5,6 +5,16 @@
 
     <mvc:resources mapping="/statics/**" location="/statics/"/>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 需拦截的地址 -->
+            <mvc:mapping path="/*"/>
+            <!-- 需排除拦截的地址 -->
+            <mvc:exclude-mapping path="/404.html"/>
+            <bean class="com.vip.integral.interceptor.SecurityInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/page/"/>

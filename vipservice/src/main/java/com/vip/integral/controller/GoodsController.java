@@ -35,10 +35,7 @@ public class GoodsController extends BaseController {
     public String list() {
         Result<List<Goods>> result = new Result<>();
 
-        Goods goods = new Goods();
-        goods.setStatus(1);
-
-        result.set(0, goodsService.listAll(goods));
+        result.set(0, goodsService.listAll(1));
 
         return result.toString();
     }
