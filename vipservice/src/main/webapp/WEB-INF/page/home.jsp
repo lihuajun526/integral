@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.vip.integral.model.Goods" %>
+<%@ page import="java.util.List" %>
+<%
+    List<Goods> goodsList = (List<Goods>) request.getAttribute("goodsList");
+%>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
 <head>
@@ -3283,7 +3288,7 @@
             <div class="tpl-shop">
                 <div class="tpl-shop-header"
                      style="background-color:#ffffff; background-image: url(https://img.yzcdn.cn/upload_files/2015/01/22/Fv-GeYTN-o5_lm1QS4G4byXoHGUK.png);">
-                    <div class="tpl-shop-title">kankan1</div>
+                    <div class="tpl-shop-title">黑眼圈365</div>
                     <div class="tpl-shop-avatar">
                         <img src="/statics/home/8f9c442de8666f82abaf7dd71574e997.png" alt="头像">
                     </div>
@@ -3292,7 +3297,7 @@
                     <ul class="clearfix">
                         <li class="js-all-goods">
                             <a href="https://wap.koudaitong.com/v2/allgoods/17984819">
-                                <span class="count">2</span>
+                                <span class="count"><%=goodsList.size()%></span>
                                 <span class="text">全部商品</span>
                             </a>
                         </li>
@@ -3328,9 +3333,13 @@
             </ul>
             <ul class="js-goods-list sc-goods-list pic clearfix size-1 " data-size="1" data-showtype="promotion"
                 style="visibility: visible;">
-                <li class="js-goods-card goods-card small-pic promotion ">
-                    <a href="https://wap.koudaitong.com/v2/goods/3eszo1hm1wd1v" class="js-goods link clearfix"
-                       target="_blank" data-goods-id="294942850" title="虚拟商品（购买时无需填写收货地址，测试商品，不发货，不退款）">
+                <%
+                    for (int i = 0; goodsList != null && i < goodsList.size(); i++) {
+                        Goods goods = goodsList.get(i);
+                %>
+                <li class="js-goods-card goods-card small-pic promotion">
+                    <a href="/goods/get?id=<%=goods.getId()%>" class="js-goods link clearfix"
+                       target="_blank">
                         <div class="photo-block" data-width="640" data-height="640"
                              style="background-color: rgb(255, 255, 255);">
                             <img class="goods-photo js-goods-lazy"
@@ -3338,108 +3347,23 @@
                                  src="/statics/home/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png" style="display: block;">
                         </div>
                         <div class="info clearfix info-no-title info-price btn4">
-                            <p class=" goods-title ">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不退款）</p>
-
+                            <p class="goods-title"><%=goods.getTitle() %></p>
                             <p class="goods-sub-title c-black hide"></p>
-
                             <p class="goods-price">
-                                <em>￥1.00</em>
+                                <em><%=goods.getPrice() %>积分</em>
                             </p>
-
                             <p class="goods-price-taobao  hide"></p>
                         </div>
                         <div class="goods-buy btn4 info-no-title">
                             我要抢购
                         </div>
                         <div class="js-goods-buy buy-response" data-alias="3eszo1hm1wd1v" data-postage="0"
-                             data-buyway="1" data-id="294942850" data-title="虚拟商品（购买时无需填写收货地址，测试商品，不发货，不退款）"
-                             data-price="1.00" data-isvirtual="2"></div>
+                             data-buyway="1" data-id="294942850" data-isvirtual="2"></div>
                     </a>
                 </li>
-                <li class="js-goods-card goods-card small-pic promotion ">
-                    <a href="https://wap.koudaitong.com/v2/goods/35xxtko77boir" class="js-goods link clearfix"
-                       target="_blank" data-goods-id="294942853" title="实物商品（购买时需填写收货地址，测试商品，不发货，不退款）">
-                        <div class="photo-block" data-width="640" data-height="640"
-                             style="background-color: rgb(255, 255, 255);">
-                            <img class="goods-photo js-goods-lazy"
-                                 data-src="https://img.yzcdn.cn/upload_files/2015/05/14/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png?imageView2/2/w/280/h/280/q/75/format/webp"
-                                 src="/statics/home/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png" style="display: block;">
-                        </div>
-                        <div class="info clearfix info-no-title info-price btn4">
-                            <p class=" goods-title ">实物商品（购买时需填写收货地址，测试商品，不发货，不退款）</p>
-
-                            <p class="goods-sub-title c-black hide"></p>
-
-                            <p class="goods-price">
-                                <em>￥1.00</em>
-                            </p>
-
-                            <p class="goods-price-taobao  hide"></p>
-                        </div>
-                        <div class="goods-buy btn4 info-no-title">
-                            我要抢购
-                        </div>
-                        <div class="js-goods-buy buy-response" data-alias="35xxtko77boir" data-postage="0"
-                             data-buyway="1" data-id="294942853" data-title="实物商品（购买时需填写收货地址，测试商品，不发货，不退款）"
-                             data-price="1.00" data-isvirtual="0"></div>
-                    </a>
-                </li>
-                <li class="js-goods-card goods-card small-pic promotion ">
-                    <a href="https://wap.koudaitong.com/v2/goods/3eszo1hm1wd1v" class="js-goods link clearfix"
-                       target="_blank" data-goods-id="294942850" title="虚拟商品（购买时无需填写收货地址，测试商品，不发货，不退款）">
-                        <div class="photo-block" data-width="640" data-height="640"
-                             style="background-color: rgb(255, 255, 255);">
-                            <img class="goods-photo js-goods-lazy"
-                                 data-src="https://img.yzcdn.cn/upload_files/2015/05/14/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png?imageView2/2/w/280/h/280/q/75/format/webp"
-                                 src="/statics/home/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png" style="display: block;">
-                        </div>
-                        <div class="info clearfix info-no-title info-price btn4">
-                            <p class=" goods-title ">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不退款）</p>
-
-                            <p class="goods-sub-title c-black hide"></p>
-
-                            <p class="goods-price">
-                                <em>￥1.00</em>
-                            </p>
-
-                            <p class="goods-price-taobao  hide"></p>
-                        </div>
-                        <div class="goods-buy btn4 info-no-title">
-                            我要抢购
-                        </div>
-                        <div class="js-goods-buy buy-response" data-alias="3eszo1hm1wd1v" data-postage="0"
-                             data-buyway="1" data-id="294942850" data-title="虚拟商品（购买时无需填写收货地址，测试商品，不发货，不退款）"
-                             data-price="1.00" data-isvirtual="2"></div>
-                    </a>
-                </li>
-                <li class="js-goods-card goods-card small-pic promotion ">
-                    <a href="https://wap.koudaitong.com/v2/goods/35xxtko77boir" class="js-goods link clearfix"
-                       target="_blank" data-goods-id="294942853" title="实物商品（购买时需填写收货地址，测试商品，不发货，不退款）">
-                        <div class="photo-block" data-width="640" data-height="640"
-                             style="background-color: rgb(255, 255, 255);">
-                            <img class="goods-photo js-goods-lazy"
-                                 data-src="https://img.yzcdn.cn/upload_files/2015/05/14/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png?imageView2/2/w/280/h/280/q/75/format/webp"
-                                 src="/statics/home/Fq9Xi4vSuS8D804oC_1CD04sb8uA.png" style="display: block;">
-                        </div>
-                        <div class="info clearfix info-no-title info-price btn4">
-                            <p class=" goods-title ">实物商品（购买时需填写收货地址，测试商品，不发货，不退款）</p>
-
-                            <p class="goods-sub-title c-black hide"></p>
-
-                            <p class="goods-price">
-                                <em>￥1.00</em>
-                            </p>
-
-                            <p class="goods-price-taobao  hide"></p>
-                        </div>
-                        <div class="goods-buy btn4 info-no-title">
-                            我要抢购
-                        </div>
-                        <div class="js-goods-buy buy-response" data-alias="35xxtko77boir" data-postage="0"
-                             data-buyway="1" data-id="294942853" data-title="实物商品（购买时需填写收货地址，测试商品，不发货，不退款）"
-                             data-price="1.00" data-isvirtual="0"></div>
-                    </a>
-                </li>
+                <%
+                    }
+                %>
             </ul>
         </div>
         <div class="content-sidebar">
@@ -3447,11 +3371,10 @@
                 <div class="sidebar-section shop-card">
                     <div class="table-cell">
                         <img src="/statics/home/8f9c442de8666f82abaf7dd71574e997(1).png" width="60" height="60"
-                             class="shop-img" alt="公众号头像">
+                             class="shop-img">
                     </div>
                     <div class="table-cell">
-                        <p class="shop-name">
-                            kankan1 </p>
+                        <p class="shop-name">黑眼圈365</p>
                     </div>
                 </div>
             </a>
@@ -3489,18 +3412,15 @@
                         <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/allgoods/17984819">
                             <span class="mainmenu-txt">全部商品</span>
                         </a>
-                        <!-- 子菜单 -->
                     </div>
                     <div class="nav-item">
                         <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/cart/17984819">
                             <span class="mainmenu-txt">赚积分</span>
                         </a>
-                        <!-- 子菜单 -->
                     </div>
                     <div class="nav-item">
                         <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal">
                             <span class="mainmenu-txt">会员中心</span></a>
-                        <!-- 子菜单 -->
                     </div>
                 </div>
             </div>
@@ -3516,7 +3436,7 @@
                     <a href="https://wap.koudaitong.com/v2/showcase/usercenter?kdt_id=17984819" target="_blank">会员中心</a>
                 </div>
                 <div class="ft-copyright">
-                    <a href="https://youzan.com/" target="_blank">有赞提供技术支持</a>
+                    <a href="https://youzan.com/" target="_blank">黑眼圈365</a>
                 </div>
             </div>
         </div>

@@ -1,5 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.vip.integral.model.Goods" %>
+<%
+    Goods goods = (Goods) request.getAttribute("goods");
+%>
 <!DOCTYPE html>
-<!-- saved from url=(0237)http://trade.koudaitong.com/wxpay/new_order?showwxpaytitle=1&kdt_id=54023&reft=1471859688135_1471859711473&spm=f4712938_g293131552&sf=wx_menu&page_type=normal&page_version=unknown&platform=mobile&book_key=2016082217551157bacbff6fa9a26709 -->
 <html class="" lang="zh-cmn-Hans">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -1364,12 +1368,8 @@
 
 <div class="container " style="min-height: 557px;">
     <div class="content confirm-container">
-
-
         <div class="app app-order">
             <div class="app-inner inner-order" id="js-page-content">
-
-                <!-- 物流 -->
                 <div class="block express border-0" id="js-logistics-container" style="margin-top: -1px;">
                     <div class="logistics hide">
                         <div class="js-logistics-select tabber tabber-n2 tabber-ios tabber-ios-gray-darker">
@@ -1388,71 +1388,53 @@
                     <div class="js-logistics-content logistics-content js-self-fetch hide"></div>
                     <div class="js-logistics-tips logistics-tips font-size-12 c-orange hide">很抱歉，该地区暂不支持配送。</div>
                 </div>
-
-
                 <div class="js-goods-list-container block block-list block-order ">
 
-                    <div class="js-header header"><a class="font-size-14"
-                                                     href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=54023">罗辑思维</a>
-
+                    <div class="js-header header">
+                        <a class="font-size-14"
+                           href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=54023">罗辑思维</a>
                     </div>
-
                     <div class="js-goods-list">
-                        <div class="js-goods-item name-card name-card-goods clearfix"><a href="javascript:;"
-                                                                                         class="thumb">
-                            <img class="js-view-image" src="./pay_fix/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!100x100.jpg"
-                                 alt="【预售9月8日发货】《细节》：如何轻松影响他人">
-
-                        </a>
-
+                        <div class="js-goods-item name-card name-card-goods clearfix">
+                            <a href="javascript:;" class="thumb">
+                                <img class="js-view-image" src="./pay_fix/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!100x100.jpg"
+                                     alt="【预售9月8日发货】《细节》：如何轻松影响他人">
+                            </a>
                             <div class="detail">
                                 <div class="clearfix detail-row">
                                     <div class="right-col">
-
-                                        <div class="price">￥<span>58.00</span></div>
-
+                                        <div class="price">积分<span><%=goods.getPrice() %></span></div>
                                     </div>
                                     <div class="left-col">
                                         <a href="javascript:;">
-                                            <h3 class="l2-ellipsis">【预售9月8日发货】《细节》：如何轻松影响他人</h3>
+                                            <h3 class="l2-ellipsis"><%=goods.getTitle() %></h3>
                                         </a>
                                     </div>
                                 </div>
-
                                 <div class="clearfix detail-row">
                                     <div class="right-col">
                                         <div class="num c-gray-darker">×<span class="num-txt">1</span></div>
                                     </div>
                                     <div class="left-col">
-                                        <p class="c-gray-darker ellipsis">
-                                            《细节》
-                                        </p>
+                                        <p class="c-gray-darker ellipsis"><%=goods.getTitle() %></p>
                                     </div>
                                 </div>
-
                                 <div class="clearfix detail-row">
                                     <div class="right-col">
                                         <div class="goods-action">
-
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
-
-
                     <div class="block-item info-panel hide">
                         <span class="left-part">店铺优惠</span>
-
                         <div class="right-part c-gray-darker">
                             满减送活动名称
                         </div>
                     </div>
                     <div class="js-express-block block-item info-panel"><span class="left-part">配送方式</span>
-
                         <div class="js-express-info right-part c-gray-darker
 			arrow">
                             <p>
@@ -1474,11 +1456,8 @@
                     </div>
 
                     <div class="js-total total-price block-item">合计
-<span class="c-orange pull-right js-sum-price">
-    ￥58.00
-</span></div>
-
-
+                    <span class="c-orange pull-right js-sum-price"><%=goods.getPrice() %></span>
+                    </div>
                     <div class="js-empty-goods empty-goods hide">
                         <div class="empty-icon"></div>
                         <p class="empty-info center c-gray-dark">哎呀，当前没有可购买的商品，请重新选择～</p>
@@ -1517,41 +1496,27 @@
                 <div class="js-order-total block-item block order-total">
                     <p>
                         <span>商品金额</span>
-    <span class="pull-right c-gray-darker">
-
-            ￥58.00
-
-    </span>
+                        <span class="pull-right c-gray-darker"><%=goods.getPrice() %></span>
                     </p>
-
                     <p>
                         <span>运费</span>
-    <span class="pull-right c-gray-darker">
-        + ￥0.00
-    </span>
+                        <span class="pull-right c-gray-darker">
+                            + ￥0.00
+                        </span>
                     </p>
-
-
                 </div>
-
                 <div class="js-invalid-goods invalid-goods hide">
-
                 </div>
-
                 <div class="js-order-total-pay order-total-pay bottom-fix">
                     <div class="pay-container clearfix">
                         <div class="pull-right">
                             <span class="c-gray-darker font-size-16">合计：</span>
-                            <span class="js-price c-orange font-size-16">￥58.</span>
-                            <span class="js-price-sub c-orange font-size-12">00</span>
-
+                            <span class="js-price c-orange font-size-16"><%=goods.getPrice() %>积分</span>
                             <button class="js-confirm btn btn-orange">提交订单</button>
-
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="app-inner inner-order peerpay-gift" style="display:none;" id="sku-message-poppage">
                 <h2>备注信息</h2>
                 <ul class="block form js-message-container"></ul>
@@ -1568,22 +1533,16 @@
                     src="./pay_fix/f32fc608cf4173bffa3c23b0ad682bf9.png" height="16"
                     style="vertical-align: text-bottom;">&nbsp;保险保障
             </div>
-
-
         </div>
     </div>
 </div>
-
 <div class="footer" style="min-height: 86px;">
     <div class="copyright">
         <div class="ft-copyright">
-            <a href="https://youzan.com/" target="_blank">有赞提供技术支持</a>
+            <a href="https://youzan.com/" target="_blank">黑眼圈365</a>
         </div>
     </div>
-
 </div>
-
-
 <script>
     "use strict";
     !function (n, e) {
@@ -1666,7 +1625,6 @@
         };
         return n.Loader = y, y
     });    </script>
-
 
 <script>window.Loader.sync(["https:\/\/b.yzcdn.cn\/v2\/build\/wap\/common_08b03c7826.js", "https:\/\/b.yzcdn.cn\/v2\/build\/wap\/base_2cdff17c2b.js", "https:\/\/b.yzcdn.cn\/v2\/vendor\/u_b.js", "https:\/\/b.yzcdn.cn\/v2\/build\/wap\/trade\/new_order_0bcf977dcd.js"]);
 window.Loader.async(["\/\/hm.baidu.com\/hm.js?58fe4cc4b4af82caeb8bc08af32dd62c"]);</script>

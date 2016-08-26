@@ -43,14 +43,20 @@ public class GoodsController extends BaseController {
         return modelAndView;
     }
 
-    @ResponseBody
     @RequestMapping("/get")
-    public String getGoods(Goods goods) {
-        Result<Goods> result = new Result<>();
+    public ModelAndView getGoods(Goods goods) {
 
-        result.set(0, goodsService.get(goods));
+        ModelAndView modelAndView = new ModelAndView("goods");
+        modelAndView.addObject("goods", goodsService.get(goods));
+        return modelAndView;
+    }
 
-        return result.toString();
+    @RequestMapping("/fix")
+    public ModelAndView fix(Goods goods) {
+
+        ModelAndView modelAndView = new ModelAndView("pay_fix");
+        modelAndView.addObject("goods", goodsService.get(goods));
+        return modelAndView;
     }
 
     @ResponseBody

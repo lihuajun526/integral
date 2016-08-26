@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.vip.integral.model.Goods" %>
+<%
+    Goods goods = (Goods) request.getAttribute("goods");
+%>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
 <head>
@@ -2301,9 +2305,9 @@
         }                    </style>
 
     <link rel="stylesheet"
-          href="./goods/showcase_admin_cbae433152bd29e702b2275058204f04.css"
+          href="/statics/goods/showcase_admin_cbae433152bd29e702b2275058204f04.css"
           onerror="_cdnFallback(this)" media="screen">
-    <link rel="stylesheet" href="./goods/goods_82fa49d6e19ca647b136343612752e3c.css"
+    <link rel="stylesheet" href="/statics/goods/goods_82fa49d6e19ca647b136343612752e3c.css"
           onerror="_cdnFallback(this)" media="screen">
 
     <style type="text/css">
@@ -3164,7 +3168,7 @@
             line-height: 17px;
             font-size: 14px
         }</style>
-    <script charset="utf-8" async="" src="./goods/swp_goods_dc375e0821.js"></script>
+    <script charset="utf-8" async="" src="/statics/goods/swp_goods_dc375e0821.js"></script>
 </head>
 <body class=" body-fixed-bottom">
 
@@ -3175,7 +3179,7 @@
                 <div class="swiper-wrapper js-swp-wrap" style="height: 320px;" data-height="320">
                     <div class="swp-page"
                          style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: block; transform: translate3d(320px, 0px, 0px);">
-                        <img class="" src="./goods/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png">
+                        <img class="" src="/statics/goods/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png">
                     </div>
                 </div>
                 <div class="swiper-pagination js-swiper-pagination">
@@ -3190,14 +3194,15 @@
 
             <div class="goods-header">
                 <h2 class="title">会员</h2>
+
                 <div class="goods-price ">
                     <div class="current-price">
-                        <span>￥</span><i class="js-goods-price price">1.00</i>
+                        <span>积分</span><i class="js-goods-price price"><%=goods.getPrice() %>
+                    </i>
                     </div>
                     <div class="original-price">
                     </div>
                 </div>
-
                 <hr class="with-margin-l">
                 <div class="stock-detail">
                     <dl>
@@ -3208,59 +3213,41 @@
                     </dl>
                     <dl>
                         <dt>剩余:</dt>
-                        <dd>999999</dd>
+                        <dd><%=goods.getCount()%>
+                        </dd>
                     </dl>
                 </div>
-
-
             </div>
-
             <div class="js-detail-container" style="margin-top: 10px;">
-
-
                 <div class="js-tabber-container goods-detail">
-
-
                     <div class="js-tabber-content">
                         <div class="js-part js-goods-detail goods-tabber-c" data-type="goods">
                             <div class="js-components-container components-container">
-
-
                                 <div class="custom-richtext js-lazy-container js-view-image-list">
-
-                                    <p><span style="color: rgb(255, 0, 0); font-size: 12px;">【特别提醒】<br>1.购买时无需填写收货地址，测试商品，不发货不退款。<br>2.该商品可直接修改价格上架销售，或删除。<br>3.付款成功后，可在“收入/提现”模块查询交易明细，虚拟商品付款后7天可提现。</span>
+                                    <p>
+                                        <span style="color: rgb(255, 0, 0); font-size: 12px;">【特别提醒】<br>1.购买时无需填写收货地址，测试商品，不发货不退款。<br>2.该商品可直接修改价格上架销售，或删除。<br>3.付款成功后，可在“收入/提现”模块查询交易明细，虚拟商品付款后7天可提现。</span>
                                     </p>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <div class="js-bottom-opts js-footer-auto-ele bottom-fix">
-
-
                 <div class="btn-1-1">
-                    <a href="javascript:;" class="js-buy-it btn btn-orange-dark">我想要</a>
+                    <a href="/goods/fix?id=<%=goods.getId() %>" class="js-buy-it btn btn-orange-dark">我想要</a>
                 </div>
-
-
             </div>
         </div>
         <div class="content-sidebar">
             <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=17984819" class="link">
                 <div class="sidebar-section shop-card">
                     <div class="table-cell">
-                        <img src="./goods/8f9c442de8666f82abaf7dd71574e997(1).png"
+                        <img src="/statics/goods/8f9c442de8666f82abaf7dd71574e997(1).png"
                              width="60" height="60" class="shop-img" alt="公众号头像">
                     </div>
                     <div class="table-cell">
-                        <p class="shop-name">
-                            kankan1 </p>
+                        <p class="shop-name">黑眼圈365</p>
                     </div>
                 </div>
             </a>
@@ -3291,7 +3278,6 @@
         <div id="shop-nav"></div>
     </div>
 </div>
-
 <div class="js-footer" style="min-height: 1px;">
     <div>
         <div class="footer">
@@ -3301,7 +3287,7 @@
                     <a href="https://wap.koudaitong.com/v2/showcase/usercenter?kdt_id=17984819" target="_blank">会员中心</a>
                 </div>
                 <div class="ft-copyright">
-                    <a href="https://youzan.com/" target="_blank">有赞提供技术支持</a>
+                    <a href="https://youzan.com/" target="_blank">黑眼圈365</a>
                 </div>
             </div>
         </div>
