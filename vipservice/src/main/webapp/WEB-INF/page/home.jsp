@@ -8,7 +8,6 @@
 <html class="admin responsive-320" lang="zh-cmn-Hans">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="HandheldFriendly" content="True">
@@ -2274,7 +2273,6 @@
         .sc-goods-list .text-center {
             line-height: 1.5
         }                    </style>
-
     <link rel="stylesheet" href="/statics/home/showcase_admin_cbae433152bd29e702b2275058204f04.css"
           onerror="_cdnFallback(this)" media="screen">
     <style>
@@ -2282,144 +2280,6 @@
             background-color: #f9f9f9;
         }
     </style>
-    <script>
-        var _global = {
-            "kdt_id": 17984819,
-            "user_id": 254587,
-            "run_mode": "online",
-            "debug": false,
-            "project": "default",
-            "online_debug": false,
-            "js": {
-                "js_compress": true,
-                "css_compress": true,
-                "use_js_cdn": true,
-                "use_css_cdn": true,
-                "message_report": true,
-                "checkbrowser": true,
-                "hide_wx_nav": true,
-                "qn_public": "kdt_img",
-                "qn_private": "kdt-private"
-            },
-            "query_path": "\/showcase\/homepage",
-            "query_key": "kdt_id=17984819&reft=1471334504040_1471334509271&spm=f44487562_fake17984819",
-            "real_query_path": "get:\/showcase\/homepage\/index.html",
-            "module": "showcase",
-            "controller": "Showcase_Homepage_Controller",
-            "action": "index",
-            "full_action": "getIndexHtml",
-            "method": "get",
-            "format": "html",
-            "offline_id": 0,
-            "platform": "unknown",
-            "is_mobile": false,
-            "authorize": "unknown",
-            "platform_version": "unknown",
-            "mobile_system": "unknown",
-            "youzan_app_login": false,
-            "page_size": 320,
-            "isShopDomain": false,
-            "share": {
-                "title": "\u53d1\u73b0\u4e00\u5bb6\u597d\u5e97\uff1akankan1",
-                "desc": "kankan1",
-                "cover": "https:\/\/img.yzcdn.cn\/public_files\/2016\/05\/13\/8f9c442de8666f82abaf7dd71574e997.png"
-            },
-            "jsBradgeSupport": true,
-            "wuxi1_0_0": false,
-            "source": "",
-            "track": "",
-            "nobody": "kd31i767f370us6u9hlp3k1gg4",
-            "mp_changed": false,
-            "team_certificate": false,
-            "is_secured_transactions": 1,
-            "hide_shopping_cart": 0,
-            "hide_top_bar": 0,
-            "mp_data": {
-                "logo": "https:\/\/img.yzcdn.cn\/public_files\/2016\/05\/13\/8f9c442de8666f82abaf7dd71574e997.png",
-                "team_name": "kankan1",
-                "intro": "",
-                "is_display_footbar": "1",
-                "is_display_suffix_name": "0",
-                "suffix_name": "",
-                "shopping_cart_style": "1",
-                "team_type": "youzan",
-                "mobile": "",
-                "team_physical": 0
-            },
-            "wxpay_big": false,
-            "alipay_env": true,
-            "wxpay_env": false,
-            "wxaddress_env": false,
-            "is_owner_team": true,
-            "weixin_jssdk_use": 1,
-            "isWishOpen": 0,
-            "wishUrl": "https:\/\/trade.koudaitong.com\/wxpay\/wish?kdt_id=17984819",
-            "directSeller": {"is_display_directseller_button": false},
-            "fans_id": 0,
-            "is_fans": 2,
-            "fans_nickname": "",
-            "fans_type": 0,
-            "fans_token": "",
-            "mp_id": 0,
-            "fans_picture": "",
-            "youzan_fans_id": 0,
-            "youzan_fans_nickname": "",
-            "youzan_fans_picture": "",
-            "youzan_user_id": 254587,
-            "no_user_login": false,
-            "buyer_id": 254587,
-            "change_password_url": "",
-            "buyer": {
-                "id": 254587,
-                "nick_name": "18857107097",
-                "avatar": "https:\/\/dn-kdt-img.qbox.me\/upload_files\/avatar.png",
-                "phone": "18857107097",
-                "gender": 0
-            },
-            "open_token": [],
-            "showcase_type": "homepage",
-            "have_goods": true,
-            "homepage_template": "shop",
-            "spm": {"logType": "f", "logId": 44487562},
-            "alias": "a7tdi8lh",
-            "ajaxURL": [],
-            "no_sidebar": 0,
-            "url": {
-                "base": "\/\/koudaitong.com",
-                "bbs": "http:\/\/bbs.youzan.com",
-                "cdn": "\/\/b.yzcdn.cn",
-                "cdn_static": "https:\/\/b.yzcdn.cn\/v2",
-                "cp": "http:\/\/cp.koudaitong.com",
-                "daxue": "http:\/\/xuetang.youzan.com",
-                "fenxiao": "\/\/fx.youzan.com",
-                "fuwu": "\/\/fuwu.youzan.com",
-                "img": "\/\/img.koudaitong.com",
-                "imgqn": "https:\/\/img.yzcdn.cn",
-                "login": "\/\/login.youzan.com",
-                "open": "\/\/open.koudaitong.com",
-                "static": "https:\/\/static.koudaitong.com\/v2",
-                "trade": "https:\/\/trade.koudaitong.com",
-                "v1": "http:\/\/koudaitong.com\/v1",
-                "v1_static": "\/\/static.koudaitong.com\/v1",
-                "v2": "\/\/koudaitong.com\/v2",
-                "wap": "https:\/\/wap.koudaitong.com\/v2",
-                "ws": "ws:\/\/s.im.youzan.com:83",
-                "www": "\/\/koudaitong.com\/v2",
-                "youzan": "\/\/youzan.com",
-                "cloud": "http:\/\/dl.koudaitong.com",
-                "pf": "https:\/\/pf.koudaitong.com",
-                "uic": "https:\/\/uic.koudaitong.com",
-                "materials": "\/\/materials.koudaitong.com"
-            }
-        };</script>
-    <script charset="utf-8" src="/statics/home/common_jquery_75554d22a0.js"></script>
-    <script charset="utf-8" src="/statics/home/base_2cdff17c2b.js"></script>
-    <script charset="utf-8" src="/statics/home/base_5cb9812d2c.js"></script>
-    <script charset="utf-8" src="/statics/home/global_icon_929caefc21.js"></script>
-    <script charset="utf-8" async="" src="/statics/home/hm.js"></script>
-    <script charset="utf-8" src="/statics/home/u_b.js"></script>
-    <script charset="utf-8" src="/statics/home/sku_70722b246a.js"></script>
-    <script charset="utf-8" src="/statics/home/goods_list_0b03120faf.js"></script>
     <link rel="stylesheet" href="/statics/home/shopnav_custom_1773d863bdd16769f4e92b24d76e1a0a.css">
     <style type="text/css">@charset "UTF-8";
     .block, .block-item {
@@ -3308,7 +3168,7 @@
                             </a>
                         </li>
                         <li class="js-order">
-                            <a href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal">
+                            <a href="/user/member?openid=1">
                                 <span class="count user"></span>
                                 <span class="text">会员中心</span>
                             </a>
@@ -3342,9 +3202,7 @@
                        target="_blank">
                         <div class="photo-block" data-width="640" data-height="640"
                              style="background-color: rgb(255, 255, 255);">
-                            <img class="goods-photo js-goods-lazy"
-                                 data-src="https://img.yzcdn.cn/upload_files/2015/05/14/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png?imageView2/2/w/280/h/280/q/75/format/webp"
-                                 src="/statics/home/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png" style="display: block;">
+                            <img height="141px" src="/statics/home/<%=goods.getImg()%>.jpg" style="display: block;">
                         </div>
                         <div class="info clearfix info-no-title info-price btn4">
                             <p class="goods-title"><%=goods.getTitle() %></p>
@@ -3379,29 +3237,6 @@
                 </div>
             </a>
         </div>
-        <script>
-            var showQcode = function () {
-                if (typeof $ !== 'undefined') {
-                    var $qrcode = $('.js-follow-qrcode');
-                    $qrcode.removeClass('js-follow-qrcode'); //兼容图文
-                    if ($qrcode.length == 0) return;
-                    if (!window._global.mp_data || $qrcode.length <= 0 || ( window._global.is_mobile && !(/ipad/gi).test(navigator.userAgent.toLowerCase()))) {
-                        return false;
-                    }
-                    var followQrcodeSrc = 'https://open.weixin.qq.com/qr/code/?username=' + window._global.mp_data.mp_weixin;
-                    var img = new Image();
-                    img.width = 158;
-                    img.height = 158;
-                    $(img).on('load', function (event) {
-                        $qrcode.append(img).removeClass('loading');
-                    });
-                    img.src = followQrcodeSrc;
-                } else {
-                    setTimeout(showQcode, 500);
-                }
-            };
-            showQcode();
-        </script>
         <div id="shop-nav" style="display: block;">
             <div class="js-navmenu js-footer-auto-ele shop-nav nav-menu nav-menu-1 has-menu-3">
                 <div class="nav-special-item">
@@ -3419,7 +3254,7 @@
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal">
+                        <a class="mainmenu js-mainmenu" href="/user/member?openid=1">
                             <span class="mainmenu-txt">会员中心</span></a>
                     </div>
                 </div>

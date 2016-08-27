@@ -12,6 +12,7 @@ public class Goods {
     private String description;
     private Integer sort;//排序
     private Integer price;//价格
+    private String img;//图片路径
     /**
      * 1:会员帐号,2:积分包
      */
@@ -120,5 +121,13 @@ public class Goods {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

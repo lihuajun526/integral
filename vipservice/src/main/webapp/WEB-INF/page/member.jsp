@@ -1,10 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<!-- saved from url=(0119)https://wap.koudaitong.com/v2/usercenter/jmb4ypal?reft=1471334013618_1471334088127&spm=f44487562_fake17984819_f44487562 -->
 <html class="admin responsive-320" lang="zh-cmn-Hans">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <meta name="keywords" content="有赞,移动电商服务平台">
+    <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
@@ -13,75 +12,7 @@
     <meta name="referrer" content="always">
     <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
     <title>会员主页</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script>
-        !function (e) {
-            e.onReady = function (o, t) {
-                if (t) {
-                    var r = function () {
-                        e[o] ? t() : setTimeout(function () {
-                            r(o, t)
-                        }, 500)
-                    };
-                    r(o, t)
-                }
-            };
-            var o = /complete|loaded/;
-            e.afterLoad = function (t) {
-                o.test(document.readyState) && document.body ? setTimeout(t) : e.addEventListener("load", t, !1)
-            }
-        }(window), function (e) {
-            var o, t = {script: "src", link: "href"}, r = "b.yzcdn.cn", n = "su.yzcdn.cn";
-            e._cdnFallback = function (a) {
-                var i, c, l, d, f, g, m, u;
-                if (i = a.nodeName.toLowerCase(), c = t[i]) {
-                    l = d = a[c], l = l.replace(r, n), f = l == d, f || (g = document, m = g.head || g.getElementsByTagName("head")[0] || g.documentElement, u = g.createElement(i), "link" == i && (u.rel = "stylesheet"), u[c] = l, u.onerror = function () {
-                        _cdnFallback(u)
-                    }, m.appendChild(u)), (new Image).src = "//tj.koudaitong.com/1.gif?net_error=1&fileurl=" + d;
-                    var s = l.indexOf(n) > -1 || l.indexOf(r) > -1, p = !o && f;
-                    p && s && (e.motify && e.motify.error && e.motify.error("啊哦，有东西加载失败了，刷新下试试~"), o = !0)
-                }
-            }
-        }(window), function (e) {
-            "use strict";
-            var o;
-            e.localStorage;
-            try {
-                var t = new Date;
-                try {
-                    localStorage.setItem(t, t)
-                } catch (r) {
-                    if (22 === r.code)throw"localstorage define error"
-                }
-                var n = localStorage.getItem(t) == t;
-                if (localStorage.removeItem(t), !n)throw"localstorage define error";
-                if ("FUNCTION" != (typeof localStorage.clear).toUpperCase())throw"localstorage define error";
-                o = localStorage
-            } catch (r) {
-                var a = function () {
-                    return null
-                };
-                o = {getItem: a, setItem: a, removeItem: a, clear: a}
-            }
-            "function" == typeof define && define.amd && define(function () {
-                return o
-            }), e.YZLocalStorage = o
-        }(window), function (e) {
-            e.motify = e.motify || {
-                        error: function (e) {
-                            setTimeout(function () {
-                                document.body.insertAdjacentHTML("afterbegin", '<div style="color:red;padding:5px;background:#fff;font-size:12px;border-bottom:1px solid #ddd;margin-bottom:5px;"><a style="border-radius:3px;line-height:18px;text-align:center;float:right;margin-left:5px;padding:4px 7px;color:#fff;background-color:#00BF05;" onclick="location.reload();">刷新</a> <p style="line-height:28px;padding-right:53px;word-break:break-all;margin:0;">' + e + "</p></div>")
-                            }, 500)
-                        }
-                    }, e.zenjs = e.zenjs || {}, e.__logs = [], e.Logger = {
-                log: function (o) {
-                    e.__logs.push(o)
-                }
-            }
-        }(window);    </script>
-
-
     <style>@charset "UTF-8";
     a, body {
         color: #333
@@ -1611,175 +1542,20 @@
                 border-bottom-width: 1px
             }
         }                    </style>
-
-    <link rel="stylesheet" href="./member/showcase_admin_cbae433152bd29e702b2275058204f04.css"
+    <link rel="stylesheet" href="/statics/member/showcase_admin_cbae433152bd29e702b2275058204f04.css"
           onerror="_cdnFallback(this)" media="screen">
-    <script>
-        var _global = {
-            "kdt_id": 17984819,
-            "user_id": 254587,
-            "run_mode": "online",
-            "debug": false,
-            "project": "default",
-            "online_debug": false,
-            "js": {
-                "js_compress": true,
-                "css_compress": true,
-                "use_js_cdn": true,
-                "use_css_cdn": true,
-                "message_report": true,
-                "checkbrowser": true,
-                "hide_wx_nav": true,
-                "qn_public": "kdt_img",
-                "qn_private": "kdt-private"
-            },
-            "query_path": "\/showcase\/usercenter",
-            "query_key": "reft=1471334013618_1471334088127&spm=f44487562_fake17984819_f44487562",
-            "real_query_path": "get:\/showcase\/usercenter\/index.html",
-            "module": "showcase",
-            "controller": "Showcase_Usercenter_Controller",
-            "action": "index",
-            "full_action": "getIndexHtml",
-            "method": "get",
-            "format": "html",
-            "platform": "unknown",
-            "is_mobile": false,
-            "authorize": "unknown",
-            "platform_version": "unknown",
-            "mobile_system": "unknown",
-            "youzan_app_login": false,
-            "page_size": 320,
-            "isShopDomain": false,
-            "share": {"notShare": true},
-            "jsBradgeSupport": true,
-            "wuxi1_0_0": false,
-            "source": "",
-            "track": "",
-            "nobody": "kd31i767f370us6u9hlp3k1gg4",
-            "mp_changed": false,
-            "team_certificate": false,
-            "is_secured_transactions": 1,
-            "hide_shopping_cart": 0,
-            "hide_top_bar": 0,
-            "mp_data": {
-                "logo": "https:\/\/img.yzcdn.cn\/public_files\/2016\/05\/13\/8f9c442de8666f82abaf7dd71574e997.png",
-                "team_name": "kankan1",
-                "intro": "",
-                "is_display_footbar": "1",
-                "is_display_suffix_name": "0",
-                "suffix_name": "",
-                "shopping_cart_style": "1",
-                "team_type": "youzan",
-                "mobile": "",
-                "team_physical": 0
-            },
-            "wxpay_big": false,
-            "alipay_env": true,
-            "wxpay_env": false,
-            "wxaddress_env": false,
-            "is_owner_team": true,
-            "weixin_jssdk_use": 1,
-            "isWishOpen": 0,
-            "wishUrl": "https:\/\/trade.koudaitong.com\/wxpay\/wish?kdt_id=17984819",
-            "fans_id": 0,
-            "is_fans": 2,
-            "fans_nickname": "",
-            "fans_type": 0,
-            "fans_token": "",
-            "mp_id": 0,
-            "fans_picture": "",
-            "youzan_fans_id": 0,
-            "youzan_fans_nickname": "",
-            "youzan_fans_picture": "",
-            "youzan_user_id": 254587,
-            "no_user_login": false,
-            "buyer_id": 254587,
-            "change_password_url": "",
-            "buyer": {
-                "id": 254587,
-                "nick_name": "18857107097",
-                "avatar": "https:\/\/dn-kdt-img.qbox.me\/upload_files\/avatar.png",
-                "phone": "18857107097",
-                "gender": 0
-            },
-            "open_token": [],
-            "showcase_type": "usercenter",
-            "taobao_order_import": 0,
-            "spm": {"logType": "sc", "logId": 18270228},
-            "ajaxURL": [],
-            "no_sidebar": 0,
-            "url": {
-                "base": "\/\/koudaitong.com",
-                "bbs": "http:\/\/bbs.youzan.com",
-                "cdn": "\/\/b.yzcdn.cn",
-                "cdn_static": "https:\/\/b.yzcdn.cn\/v2",
-                "cp": "http:\/\/cp.koudaitong.com",
-                "daxue": "http:\/\/xuetang.youzan.com",
-                "fenxiao": "\/\/fx.youzan.com",
-                "fuwu": "\/\/fuwu.youzan.com",
-                "img": "\/\/img.koudaitong.com",
-                "imgqn": "https:\/\/img.yzcdn.cn",
-                "login": "\/\/login.youzan.com",
-                "open": "\/\/open.koudaitong.com",
-                "static": "https:\/\/static.koudaitong.com\/v2",
-                "trade": "https:\/\/trade.koudaitong.com",
-                "v1": "http:\/\/koudaitong.com\/v1",
-                "v1_static": "\/\/static.koudaitong.com\/v1",
-                "v2": "\/\/koudaitong.com\/v2",
-                "wap": "https:\/\/wap.koudaitong.com\/v2",
-                "ws": "ws:\/\/s.im.youzan.com:83",
-                "www": "\/\/koudaitong.com\/v2",
-                "youzan": "\/\/youzan.com",
-                "cloud": "http:\/\/dl.koudaitong.com",
-                "pf": "https:\/\/pf.koudaitong.com",
-                "uic": "https:\/\/uic.koudaitong.com",
-                "materials": "\/\/materials.koudaitong.com"
-            }
-        };</script>
-    <script charset="utf-8" src="./member/common_jquery_75554d22a0.js"></script>
-    <script charset="utf-8" src="./member/base_2cdff17c2b.js"></script>
-    <script charset="utf-8" src="./member/base_5cb9812d2c.js"></script>
-    <script charset="utf-8" async="" src="./member/hm.js"></script>
-    <link rel="stylesheet" href="./member/shopnav_custom_1773d863bdd16769f4e92b24d76e1a0a.css">
+    <link rel="stylesheet" href="/statics/member/shopnav_custom_1773d863bdd16769f4e92b24d76e1a0a.css">
 </head>
 <body class="body-fixed-bottom">
 
 <div class="container " style="min-height: 599px;">
-    <div class="header">
-        <div class="headerbar">
-            <div class="headerbar-wrap clearfix">
-                <div class="headerbar-preview">
-                    <span>预览：</span>
-                    <ul>
-                        <li>
-                            <a href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal?reft=1471334013618_1471334088127&amp;spm=f44487562_fake17984819_f44487562&amp;ps=320"
-                               class="js-no-follow active" data-size="default">iPhone版</a>
-                        </li>
-                        <li>
-                            <a href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal?reft=1471334013618_1471334088127&amp;spm=f44487562_fake17984819_f44487562&amp;ps=360"
-                               class="js-no-follow" data-size="360">三星Note3版</a>
-                        </li>
-                        <li>
-                            <a href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal?reft=1471334013618_1471334088127&amp;spm=f44487562_fake17984819_f44487562&amp;ps=760"
-                               class="js-no-follow" data-size="800">PC版</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="headerbar-reedit">
-                    <a href="https://koudaitong.com/v2/showcase/usercenter" class="js-no-follow">重新编辑</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="content ">
+    <div class="content">
         <div class="content-body">
-
-
             <!-- 等级/积分 -->
             <div class="custom-level">
                 <img class="custom-level-img js-lazy "
                      data-src="https://img.yzcdn.cn/upload_files/2015/01/22/Fi7c8Ft3KMlWQp0oYJhI6pS9ckMq.png"
-                     src="./member/Fi7c8Ft3KMlWQp0oYJhI6pS9ckMq.png" style="display: block;">
+                     src="/statics/member/Fi7c8Ft3KMlWQp0oYJhI6pS9ckMq.png" style="display: block;">
 
                 <div class="custom-level-title-section js-custom-level-title-section">
                     <h5 class="custom-level-title">
@@ -1887,55 +1663,6 @@
             </div>
 
         </div>
-        <div class="content-sidebar">
-            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=17984819" class="link">
-                <div class="sidebar-section shop-card">
-                    <div class="table-cell">
-                        <img src="./member/8f9c442de8666f82abaf7dd71574e997.png" width="60" height="60"
-                             class="shop-img" alt="公众号头像">
-                    </div>
-                    <div class="table-cell">
-                        <p class="shop-name">
-                            kankan1 </p>
-                    </div>
-                </div>
-            </a>
-
-            <div class="sidebar-section qrcode-info">
-                <div class="section-detail">
-                    <p class="text-center shop-detail"><strong>手机扫码访问</strong></p>
-
-                    <p class="text-center weixin-title">微信“扫一扫”分享到朋友圈</p>
-
-                    <p class="text-center qr-code">
-                        <img width="158" height="158" src="./member/create">
-                    </p>
-                </div>
-            </div>
-        </div>
-        <script>
-            var showQcode = function () {
-                if (typeof $ !== 'undefined') {
-                    var $qrcode = $('.js-follow-qrcode');
-                    $qrcode.removeClass('js-follow-qrcode'); //兼容图文
-                    if ($qrcode.length == 0) return;
-                    if (!window._global.mp_data || $qrcode.length <= 0 || ( window._global.is_mobile && !(/ipad/gi).test(navigator.userAgent.toLowerCase()))) {
-                        return false;
-                    }
-                    var followQrcodeSrc = 'https://open.weixin.qq.com/qr/code/?username=' + window._global.mp_data.mp_weixin;
-                    var img = new Image();
-                    img.width = 158;
-                    img.height = 158;
-                    $(img).on('load', function (event) {
-                        $qrcode.append(img).removeClass('loading');
-                    });
-                    img.src = followQrcodeSrc;
-                } else {
-                    setTimeout(showQcode, 500);
-                }
-            };
-            showQcode();
-        </script>
         <div id="shop-nav" style="display: block;">
             <div class="js-navmenu js-footer-auto-ele shop-nav nav-menu nav-menu-1 has-menu-3">
                 <div class="nav-special-item">
@@ -1944,155 +1671,37 @@
                 <div class="nav-items-wrap">
                     <div class="nav-item">
                         <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/allgoods/17984819">
-                        <span class="mainmenu-txt">
-                                                            全部商品                                                    </span>
+                        <span class="mainmenu-txt">全部商品</span>
                         </a>
-                        <!-- 子菜单 -->
                     </div>
                     <div class="nav-item">
                         <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/cart/17984819">
-                        <span class="mainmenu-txt">
-                                                            购物车                                                    </span>
+                        <span class="mainmenu-txt">购物车</span>
                         </a>
-                        <!-- 子菜单 -->
                     </div>
                     <div class="nav-item">
                         <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal">
-                        <span class="mainmenu-txt">
-                                                            我的订单                                                    </span>
-                        </a>
-                        <!-- 子菜单 -->
+                        <span class="mainmenu-txt">我的订单</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="js-footer" style="min-height: 1px;">
-
-
     <div>
-
-
         <div class="footer">
             <div class="copyright">
                 <div class="ft-links">
                     <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=17984819" target="_blank">店铺主页</a>
                     <a href="https://wap.koudaitong.com/v2/showcase/usercenter?kdt_id=17984819" target="_blank">会员中心</a>
-                    <!-- 第三方app隐藏topbar时，需要在底部显示购物记录入口 -->
                 </div>
-
-
                 <div class="ft-copyright">
                     <a href="https://youzan.com/" target="_blank">有赞提供技术支持</a>
                 </div>
-
             </div>
         </div>
-
-
     </div>
-
-</div>
-
-
-<script>
-    "use strict";
-    !function (n, e) {
-        "function" == typeof define && define.amd ? define([], e(n, n.document)) : n.Loader = e(n, n.document)
-    }(this, function (n, e) {
-        function t(n) {
-            return "complete" === n.readyState || "loaded" === n.readyState
-        }
-
-        function o(n, t, o) {
-            var i = e.createElement("link");
-            i.rel = "stylesheet", a(i, o, "css"), i.async = !0, i.href = n, s.appendChild(i)
-        }
-
-        function i(n, t, o) {
-            var i = e.createElement("script");
-            i.charset = "utf-8", a(i, o, "js"), i.async = !t.sync, i.src = n, s.appendChild(i)
-        }
-
-        function c(n, e) {
-            var t;
-            n.sheet && (t = !0), setTimeout(function () {
-                t ? e() : c(n, e)
-            }, 20)
-        }
-
-        function a(e, o, i) {
-            function a() {
-                e.onload = e.onreadystatechange = null, e = null, o()
-            }
-
-            var r = "onload"in e, u = "css" === i;
-            return !u || !l && r ? void(r ? (e.onload = a, e.onerror = function () {
-                e.onerror = null, n._cdnFallback(e)
-            }) : e.onreadystatechange = function () {
-                t(e) && a()
-            }) : void setTimeout(function () {
-                c(e, o)
-            }, 1)
-        }
-
-        function r(n, e, t, c) {
-            function a() {
-                var t = e.indexOf(n);
-                t > -1 && e.splice(t, 1), 0 === e.length && c()
-            }
-
-            f.test(n) ? o(n, t, a) : i(n, t, a)
-        }
-
-        function u(n, e, t) {
-            var o = function () {
-                t && t()
-            };
-            if (n = Array.prototype.slice.call(n || []), 0 === n.length)return void o();
-            for (var i = 0, c = n.length; c > i; i++)r(n[i], n, e, o)
-        }
-
-        function d(e, o) {
-            if (t(e))o(); else {
-                var i = 1500, c = !1;
-                n.addEventListener("load", function () {
-                    c || (o(), c = !0)
-                }), setTimeout(function () {
-                    c || (o(), c = !0)
-                }, i)
-            }
-        }
-
-        var f = new RegExp("\\.css"), s = e.head || e.getElementsByTagName("head")[0], l = +navigator.userAgent.replace(/.*(?:AppleWebKit|AndroidWebKit)\/?(\d+).*/i, "$1") < 536, y = {
-            async: function (n, t) {
-                d(e, function () {
-                    u(n, {}, t)
-                })
-            }, sync: function (n, t) {
-                d(e, function () {
-                    u(n, {sync: !0}, t)
-                })
-            }
-        };
-        return n.Loader = y, y
-    });    </script>
-
-
-<script>window.Loader.sync(["https:\/\/b.yzcdn.cn\/v2\/build\/wap\/common_jquery_75554d22a0.js", "https:\/\/b.yzcdn.cn\/v2\/build\/wap\/base_2cdff17c2b.js", "https:\/\/b.yzcdn.cn\/v2\/build\/wap\/showcase\/base_5cb9812d2c.js"]);
-window.Loader.async(["\/\/hm.baidu.com\/hm.js?58fe4cc4b4af82caeb8bc08af32dd62c"]);</script>
-<div class="search-bar" style="display:none;">
-    <form class="search-form" action="https://wap.koudaitong.com/v2/search" method="GET"><input type="search"
-                                                                                                class="search-input"
-                                                                                                placeholder="搜索本店所有商品"
-                                                                                                name="q" value=""><input
-            type="hidden" name="kdt_id" value="17984819"><a class="js-search-cancel search-cancel" href="javascript:;">取消</a><span
-            class="search-icon"></span><span class="close-icon hide"></span></form>
-    <div class="history-wrap center">
-        <ul class="history-list search-recom-list js-history-list clearfix"></ul>
-        <a class="tag tag-clear js-tag-clear c-gray-darker hide" href="javascript:;">清除历史搜索</a></div>
 </div>
 </body>
 </html>

@@ -4,88 +4,18 @@
     Goods goods = (Goods) request.getAttribute("goods");
 %>
 <!DOCTYPE html>
-<html class="" lang="zh-cmn-Hans">
+<html lang="zh-cmn-Hans">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <meta name="keywords" content="有赞,移动电商服务平台">
+    <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="cleartype" content="on">
     <meta name="referrer" content="always">
-    <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
     <title>待付款的订单</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script>
-        !function (e) {
-            e.onReady = function (o, t) {
-                if (t) {
-                    var r = function () {
-                        e[o] ? t() : setTimeout(function () {
-                            r(o, t)
-                        }, 500)
-                    };
-                    r(o, t)
-                }
-            };
-            var o = /complete|loaded/;
-            e.afterLoad = function (t) {
-                o.test(document.readyState) && document.body ? setTimeout(t) : e.addEventListener("load", t, !1)
-            }
-        }(window), function (e) {
-            var o, t = {script: "src", link: "href"}, r = "b.yzcdn.cn", n = "su.yzcdn.cn";
-            e._cdnFallback = function (a) {
-                var i, c, l, d, f, g, m, u;
-                if (i = a.nodeName.toLowerCase(), c = t[i]) {
-                    l = d = a[c], l = l.replace(r, n), f = l == d, f || (g = document, m = g.head || g.getElementsByTagName("head")[0] || g.documentElement, u = g.createElement(i), "link" == i && (u.rel = "stylesheet"), u[c] = l, u.onerror = function () {
-                        _cdnFallback(u)
-                    }, m.appendChild(u)), (new Image).src = "//tj.koudaitong.com/1.gif?net_error=1&fileurl=" + d;
-                    var s = l.indexOf(n) > -1 || l.indexOf(r) > -1, p = !o && f;
-                    p && s && (e.motify && e.motify.error && e.motify.error("啊哦，有东西加载失败了，刷新下试试~"), o = !0)
-                }
-            }
-        }(window), function (e) {
-            "use strict";
-            var o;
-            e.localStorage;
-            try {
-                var t = new Date;
-                try {
-                    localStorage.setItem(t, t)
-                } catch (r) {
-                    if (22 === r.code)throw"localstorage define error"
-                }
-                var n = localStorage.getItem(t) == t;
-                if (localStorage.removeItem(t), !n)throw"localstorage define error";
-                if ("FUNCTION" != (typeof localStorage.clear).toUpperCase())throw"localstorage define error";
-                o = localStorage
-            } catch (r) {
-                var a = function () {
-                    return null
-                };
-                o = {getItem: a, setItem: a, removeItem: a, clear: a}
-            }
-            "function" == typeof define && define.amd && define(function () {
-                return o
-            }), e.YZLocalStorage = o
-        }(window), function (e) {
-            e.motify = e.motify || {
-                        error: function (e) {
-                            setTimeout(function () {
-                                document.body.insertAdjacentHTML("afterbegin", '<div style="color:red;padding:5px;background:#fff;font-size:12px;border-bottom:1px solid #ddd;margin-bottom:5px;"><a style="border-radius:3px;line-height:18px;text-align:center;float:right;margin-left:5px;padding:4px 7px;color:#fff;background-color:#00BF05;" onclick="location.reload();">刷新</a> <p style="line-height:28px;padding-right:53px;word-break:break-all;margin:0;">' + e + "</p></div>")
-                            }, 500)
-                        }
-                    }, e.zenjs = e.zenjs || {}, e.__logs = [], e.Logger = {
-                log: function (o) {
-                    e.__logs.push(o)
-                }
-            }
-        }(window);    </script>
-
-
     <style>@charset "UTF-8";
     a, body {
         color: #333
@@ -1063,306 +993,10 @@
             background-image: url(https://b.yzcdn.cn/v2/image/wap/right_icon/icons_sprite/icons_sprite@2x_29025c38a6.png)
         }
     }</style>
-    <link rel="stylesheet" href="./pay_fix/trade_3ea270f11c08cfa4e35c5a7a243e2b26.css" onerror="_cdnFallback(this)"
+    <link rel="stylesheet" href="/statics/pay_fix/trade_3ea270f11c08cfa4e35c5a7a243e2b26.css" onerror="_cdnFallback(this)"
           media="screen">
-    <link rel="stylesheet" href="./pay_fix/index_e19a56d801e8bb12bdb5a19a7e61175e.css" onerror="_cdnFallback(this)"
+    <link rel="stylesheet" href="/statics/pay_fix/index_e19a56d801e8bb12bdb5a19a7e61175e.css" onerror="_cdnFallback(this)"
           media="screen">
-    <script>
-        var _global = {
-            "kdt_id": "54023",
-            "user_id": 0,
-            "run_mode": "online",
-            "debug": false,
-            "project": "default",
-            "online_debug": false,
-            "js": {
-                "js_compress": true,
-                "css_compress": true,
-                "use_js_cdn": true,
-                "use_css_cdn": true,
-                "message_report": true,
-                "checkbrowser": true,
-                "hide_wx_nav": true,
-                "qn_public": "kdt_img",
-                "qn_private": "kdt-private"
-            },
-            "query_path": "\/trade\/bill\/order",
-            "query_key": "showwxpaytitle=1&kdt_id=54023&reft=1471859688135_1471859711473&spm=f4712938_g293131552&sf=wx_menu&page_type=normal&page_version=unknown&platform=mobile&book_key=2016082217551157bacbff6fa9a26709",
-            "real_query_path": "get:\/trade\/bill\/order.html",
-            "module": "trade",
-            "controller": "Trade_Bill_Controller",
-            "action": "order",
-            "full_action": "getOrderHtml",
-            "method": "get",
-            "format": "html",
-            "platform": "unknown",
-            "is_mobile": false,
-            "authorize": "unknown",
-            "platform_version": "unknown",
-            "mobile_system": "unknown",
-            "youzan_app_login": false,
-            "page_size": 320,
-            "isShopDomain": false,
-            "share": {"notShare": true},
-            "jsBradgeSupport": true,
-            "wuxi1_0_0": false,
-            "source": "",
-            "track": "",
-            "nobody": "7jt1oalnrh845r9gbi1vj2tlj2",
-            "kos_token_verify": false,
-            "mp_changed": false,
-            "team_certificate": true,
-            "is_secured_transactions": 1,
-            "hide_shopping_cart": 0,
-            "hide_top_bar": 0,
-            "mp_data": {
-                "logo": "http:\/\/img.yzcdn.cn\/upload_files\/2015\/01\/26\/FoX21i8VqwlCwjyDW618p66vd7g8.png",
-                "team_name": "\u7f57\u8f91\u601d\u7ef4",
-                "intro": "",
-                "is_display_footbar": "0",
-                "is_display_suffix_name": "0",
-                "suffix_name": "\u7f57\u8f91\u601d\u7ef4",
-                "shopping_cart_style": "0",
-                "team_type": "youzan",
-                "mobile": "",
-                "team_physical": 0,
-                "mp_id": "35164",
-                "kdt_id": "54023",
-                "mp_weixin": "luojisw",
-                "mp_nickname": "\u7f57\u8f91\u601d\u7ef4",
-                "tmp_token": "",
-                "quick_subscribe": "1",
-                "quick_subscribe_url": null
-            },
-            "wxpay_big": false,
-            "alipay_env": true,
-            "wxpay_env": false,
-            "wxaddress_env": false,
-            "is_owner_team": false,
-            "weixin_jssdk_use": 0,
-            "fans_id": 0,
-            "is_fans": 2,
-            "fans_nickname": "",
-            "fans_type": 0,
-            "fans_token": "",
-            "mp_id": "35164",
-            "fans_picture": "",
-            "youzan_fans_id": 0,
-            "youzan_fans_nickname": "",
-            "youzan_fans_picture": "",
-            "youzan_user_id": 254587,
-            "no_user_login": false,
-            "buyer_id": 254587,
-            "change_password_url": "",
-            "buyer": {
-                "id": 254587,
-                "nick_name": "18857107097",
-                "avatar": "https:\/\/dn-kdt-img.qbox.me\/upload_files\/avatar.png",
-                "phone": "18857107097",
-                "gender": 0
-            },
-            "open_token": [],
-            "team_certificate_gf": 0,
-            "book_key": "2016082217551157bacbff6fa9a26709",
-            "bill_cart": [{
-                "goods_id": "293131552",
-                "num": 1,
-                "sku_id": 36015767,
-                "price": 5800,
-                "activity_id": 0,
-                "activity_type": 0,
-                "activity_alias": ""
-            }],
-            "bill_data": {
-                "book_key": "2016082217551157bacbff6fa9a26709",
-                "kdt_id": "54023",
-                "buyer_id": 254587,
-                "buyer_phone": "18857107097",
-                "fans_id": 0,
-                "fans_type": 0,
-                "true_buyer_id": 254587,
-                "youzan_fans_id": 0,
-                "nobody": "7jt1oalnrh845r9gbi1vj2tlj2",
-                "mp_id": "35164",
-                "mp_nickname": "\u7f57\u8f91\u601d\u7ef4",
-                "source": "",
-                "track": "",
-                "client_ip": "218.80.192.214",
-                "shop_name": "\u7f57\u8f91\u601d\u7ef4",
-                "sl": "",
-                "is_pinjian": 0,
-                "is_points": 0,
-                "activity_id": 0,
-                "activity_type": 0,
-                "order_type": 0,
-                "order_from": "",
-                "from": "",
-                "use_wxpay": 0,
-                "platform": "unknown",
-                "store_id": 0,
-                "has_group_goods": false
-            },
-            "shop_item": [{
-                "points": 0,
-                "order": null,
-                "kdt_id": 54023,
-                "shop_name": "\u7f57\u8f91\u601d\u7ef4",
-                "store_name": null,
-                "order_type": 0,
-                "has_book_goods": true,
-                "has_fenxiao_goods": false,
-                "has_virtual_goods": false,
-                "has_present_goods": false,
-                "forbid_coupon": 0,
-                "can_self_fetch": true,
-                "order_payment": {
-                    "pay": 5800,
-                    "postage": 0,
-                    "decrease": 0,
-                    "kdt_id": 54023,
-                    "order_no": null,
-                    "real_pay": 5800,
-                    "refund_pay": null,
-                    "bank_pay": null,
-                    "outer_transaction_number": null,
-                    "use_ump": 0,
-                    "is_free_postage": 0,
-                    "item_pay": 5800,
-                    "shop_id": 54023
-                },
-                "postage_result": {
-                    "delivery_desc": ["\u5feb\u9012\u53d1\u8d27"],
-                    "postage_items": [{
-                        "postage": 0,
-                        "goods": [{
-                            "postage": 0,
-                            "goods_id": 293131552,
-                            "goods_num": 1,
-                            "img_url": "https:\/\/img.yzcdn.cn\/upload_files\/2016\/08\/11\/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!100x100.jpg"
-                        }],
-                        "postage_type": 1,
-                        "postage_desc": "\u7531\u5546\u5bb6\u9009\u62e9\u5408\u4f5c\u5feb\u9012\u4e3a\u60a8\u670d\u52a1, \u514d\u8fd0\u8d39"
-                    }]
-                },
-                "charge_coupon": [],
-                "order_item_list": [{
-                    "id": null,
-                    "num": 1,
-                    "sku": [{"k": "\u89c4\u683c", "k_id": 14, "v": "\u300a\u7ec6\u8282\u300b", "v_id": 12616427}],
-                    "s1": 12616427,
-                    "s2": 0,
-                    "s3": 0,
-                    "s4": 0,
-                    "s5": 0,
-                    "price": 5800,
-                    "postage": 0,
-                    "message": "",
-                    "feedback": null,
-                    "created": 1471859758,
-                    "title": "\u3010\u9884\u552e9\u67088\u65e5\u53d1\u8d27\u3011\u300a\u7ec6\u8282\u300b\uff1a\u5982\u4f55\u8f7b\u677e\u5f71\u54cd\u4ed6\u4eba",
-                    "alias": "27ck7nxg1mtp3",
-                    "kdt_id": 54023,
-                    "order_no": null,
-                    "shop_id": 54023,
-                    "shop_info": "{\"shop_name\":\"\u7f57\u8f91\u601d\u7ef4\"}",
-                    "goods_id": 293131552,
-                    "goods_type": 0,
-                    "delivery_template_id": 0,
-                    "goods_info": null,
-                    "sku_id": 36015767,
-                    "sku_code": "LJATS1606039YXL01",
-                    "origin_price": 5800,
-                    "pay_price": 5800,
-                    "points_price": 0,
-                    "feedback_time": null,
-                    "order_id": null,
-                    "goods_quota_num": null,
-                    "item_source": "",
-                    "supplier_kdt_id": null,
-                    "supplier_goods_id": null,
-                    "use_ump": null,
-                    "is_virtual": 0,
-                    "is_present": null,
-                    "goods_snap": null,
-                    "activity_alias": "",
-                    "activity_id": 0,
-                    "activity_type": 0,
-                    "img_url": "https:\/\/img.yzcdn.cn\/upload_files\/2016\/08\/11\/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!100x100.jpg",
-                    "unavailable_desc": null,
-                    "offline_delivery_set": null,
-                    "unique_key": "293131552_36015767"
-                }],
-                "unavailable_item_list": [],
-                "charge_price_change_result": null,
-                "order_address": null,
-                "self_fetch_address": null,
-                "order_source": null,
-                "buyer_msg": null
-            }],
-            "order_type": 0,
-            "is_self_fetch": false,
-            "address_required": true,
-            "allow_self_fetch": false,
-            "ecard": {"is_valid": false, "available": 0, "buyer_phone": ""},
-            "payWays": [{"key": 24, "code": "yzpay", "name": "\u4fe1\u7528\u5361\u4ed8\u6b3e"}, {
-                "key": 12,
-                "code": "baiduwap",
-                "name": "\u50a8\u84c4\u5361\u4ed8\u6b3e"
-            }],
-            "innerPayWays": {
-                "present": {"name": "\u9886\u53d6\u8d60\u54c1", "key": 15, "code": "presentpay"},
-                "coupon": {"name": "\u7acb\u5373\u5151\u6362", "key": 16, "code": "couponpay"},
-                "ecard": {"name": "\u6709\u8d5eE\u5361\u652f\u4ed8", "key": 28, "code": "ecard"}
-            },
-            "spm": {"logType": "trade", "logId": "54023"},
-            "address_token": {
-                "appId": 0,
-                "timeStamp": "1471859758",
-                "nonceStr": "HkNAPdphLIJ9MkhjZPSXNFxPy3HLKWbP",
-                "signType": "SHA1",
-                "addrSign": "77f76dadf5819ae36e19cded7bec7ecb0395350a",
-                "scope": "jsapi_address"
-            },
-            "address_token_log": {
-                "uri": "http:\/\/trade.koudaitong.com\/wxpay\/new_order?showwxpaytitle=1&kdt_id=54023&reft=1471859688135_1471859711473&spm=f4712938_g293131552&sf=wx_menu&page_type=normal&page_version=unknown&platform=mobile&book_key=2016082217551157bacbff6fa9a26709",
-                "cache": []
-            },
-            "clear_local_address": 0,
-            "_token_": "4f8b9ccf129d36d016ad9275bdbf453a",
-            "points_data": {"is_points": 0, "user_points": 0, "total_points": 0, "available": 0},
-            "url": {
-                "base": "\/\/koudaitong.com",
-                "bbs": "http:\/\/bbs.youzan.com",
-                "cdn": "\/\/b.yzcdn.cn",
-                "cdn_static": "https:\/\/b.yzcdn.cn\/v2",
-                "cp": "http:\/\/cp.koudaitong.com",
-                "daxue": "http:\/\/xuetang.youzan.com",
-                "fenxiao": "\/\/fx.youzan.com",
-                "fuwu": "\/\/fuwu.youzan.com",
-                "img": "\/\/img.koudaitong.com",
-                "imgqn": "https:\/\/img.yzcdn.cn",
-                "login": "\/\/login.youzan.com",
-                "open": "\/\/open.koudaitong.com",
-                "static": "https:\/\/static.koudaitong.com\/v2",
-                "trade": "http:\/\/trade.koudaitong.com",
-                "v1": "http:\/\/koudaitong.com\/v1",
-                "v1_static": "\/\/static.koudaitong.com\/v1",
-                "v2": "\/\/koudaitong.com\/v2",
-                "wap": "https:\/\/wap.koudaitong.com\/v2",
-                "ws": "ws:\/\/s.im.youzan.com:83",
-                "www": "\/\/koudaitong.com\/v2",
-                "youzan": "\/\/youzan.com",
-                "cloud": "http:\/\/dl.koudaitong.com",
-                "pf": "https:\/\/pf.koudaitong.com",
-                "uic": "https:\/\/uic.koudaitong.com",
-                "materials": "\/\/materials.koudaitong.com"
-            }
-        };</script>
-    <script charset="utf-8" src="./pay_fix/common_08b03c7826.js"></script>
-    <script charset="utf-8" src="./pay_fix/base_2cdff17c2b.js"></script>
-    <script charset="utf-8" src="./pay_fix/u_b.js"></script>
-    <script charset="utf-8" src="./pay_fix/new_order_0bcf977dcd.js"></script>
-    <script charset="utf-8" async="" src="./pay_fix/hm.js"></script>
 </head>
 <body class=" body-fixed-bottom">
 
@@ -1370,52 +1004,22 @@
     <div class="content confirm-container">
         <div class="app app-order">
             <div class="app-inner inner-order" id="js-page-content">
-                <div class="block express border-0" id="js-logistics-container" style="margin-top: -1px;">
-                    <div class="logistics hide">
-                        <div class="js-logistics-select tabber tabber-n2 tabber-ios tabber-ios-gray-darker">
-                            <a href="javascript:void(0);" class="active" data-type="express">快递配送</a>
-                            <a href="javascript:void(0);" class="js-tabber-self-fetch hide"
-                               data-type="self-fetch">到店自提</a>
-                        </div>
-                    </div>
-                    <div class="js-logistics-content logistics-content js-express">
-                        <div class="">
-                            <div class="js-edit-address empty-address-tip no-user-select">
-                                新增收货地址
-                            </div>
-                        </div>
-                    </div>
-                    <div class="js-logistics-content logistics-content js-self-fetch hide"></div>
-                    <div class="js-logistics-tips logistics-tips font-size-12 c-orange hide">很抱歉，该地区暂不支持配送。</div>
-                </div>
                 <div class="js-goods-list-container block block-list block-order ">
-
-                    <div class="js-header header">
-                        <a class="font-size-14"
-                           href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=54023">罗辑思维</a>
-                    </div>
                     <div class="js-goods-list">
                         <div class="js-goods-item name-card name-card-goods clearfix">
                             <a href="javascript:;" class="thumb">
-                                <img class="js-view-image" src="./pay_fix/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!100x100.jpg"
-                                     alt="【预售9月8日发货】《细节》：如何轻松影响他人">
+                                <img class="js-view-image" src="/statics/pay_fix/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!100x100.jpg">
                             </a>
                             <div class="detail">
                                 <div class="clearfix detail-row">
-                                    <div class="right-col">
-                                        <div class="price">积分<span><%=goods.getPrice() %></span></div>
-                                    </div>
-                                    <div class="left-col">
+                                    <div>
                                         <a href="javascript:;">
                                             <h3 class="l2-ellipsis"><%=goods.getTitle() %></h3>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="clearfix detail-row">
-                                    <div class="right-col">
-                                        <div class="num c-gray-darker">×<span class="num-txt">1</span></div>
-                                    </div>
-                                    <div class="left-col">
+                                    <div>
                                         <p class="c-gray-darker ellipsis"><%=goods.getTitle() %></p>
                                     </div>
                                 </div>
@@ -1428,84 +1032,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="block-item info-panel hide">
-                        <span class="left-part">店铺优惠</span>
-                        <div class="right-part c-gray-darker">
-                            满减送活动名称
-                        </div>
+                    <div class="js-total total-price block-item">价格<span class="c-orange pull-right js-sum-price"><%=goods.getPrice() %>积分</span>
                     </div>
-                    <div class="js-express-block block-item info-panel"><span class="left-part">配送方式</span>
-                        <div class="js-express-info right-part c-gray-darker
-			arrow">
-                            <p>
-                                免运费
-                            </p>
-
-                            <p class="font-size-12">
-                                快递发货
-                            </p>
-                        </div>
-                    </div>
-                    <div class="block-item order-message clearfix js-order-message">
-                        <span class="">买家留言：</span>
-
-                        <div class="input-wrapper">
-                            <textarea class="js-msg-container" placeholder="点击给商家留言"></textarea>
-                        </div>
-
-                    </div>
-
-                    <div class="js-total total-price block-item">合计
-                    <span class="c-orange pull-right js-sum-price"><%=goods.getPrice() %></span>
-                    </div>
-                    <div class="js-empty-goods empty-goods hide">
-                        <div class="empty-icon"></div>
-                        <p class="empty-info center c-gray-dark">哎呀，当前没有可购买的商品，请重新选择～</p>
-
-                        <div class="empty-action center">
-                            <a class="btn btn-white font-size-14 c-gray-darker"
-                               href="javascript:history.back();">返回重新选择</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="js-used-coupon block block-item">
-                    <div class="info-panel info-panel-big clearfix">
-                        <h4 class="left-part">优惠</h4>
-
-                        <div class="js-right-part right-part arrow">
-                            <div class="js-normal-coupon detail c-gray-darker js-change-coupon">
-                                <span>使用优惠</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="js-point-panel block block-item hide"></div>
-                <div class="js-ecard-panel block block-item hide"></div>
-                <div class="js-send-message send-message block block-item">
-                    <div class="info-panel info-panel-big clearfix">
-                        <h4 class="left-part">短信通知收件人</h4>
-
-                        <div class="right-part">
-                            <button class="js-msg-switcher send-message-switcher ui-switcher
-    		ui-switcher-on
-    	"></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="js-order-total block-item block order-total">
-                    <p>
-                        <span>商品金额</span>
-                        <span class="pull-right c-gray-darker"><%=goods.getPrice() %></span>
-                    </p>
-                    <p>
-                        <span>运费</span>
-                        <span class="pull-right c-gray-darker">
-                            + ￥0.00
-                        </span>
-                    </p>
-                </div>
-                <div class="js-invalid-goods invalid-goods hide">
                 </div>
                 <div class="js-order-total-pay order-total-pay bottom-fix">
                     <div class="pay-container clearfix">
@@ -1517,20 +1045,13 @@
                     </div>
                 </div>
             </div>
-            <div class="app-inner inner-order peerpay-gift" style="display:none;" id="sku-message-poppage">
-                <h2>备注信息</h2>
-                <ul class="block form js-message-container"></ul>
-                <div class="action-container">
-                    <button class="btn btn-white btn-block js-cancel">查看订单详情</button>
-                </div>
-            </div>
             <div class="app-inner inner-order" style="display:none;padding-top:40px;" id="js-datetime-picker-poppage">
             </div>
             <div class="app-inner inner-order selffetch-address" style="display:none;padding-top:40px;"
                  id="js-address-poppage">
             </div>
             <div class="center action-tip  js-pay-tip">本订单享受&nbsp;<img
-                    src="./pay_fix/f32fc608cf4173bffa3c23b0ad682bf9.png" height="16"
+                    src="/statics/pay_fix/f32fc608cf4173bffa3c23b0ad682bf9.png" height="16"
                     style="vertical-align: text-bottom;">&nbsp;保险保障
             </div>
         </div>
@@ -1543,91 +1064,5 @@
         </div>
     </div>
 </div>
-<script>
-    "use strict";
-    !function (n, e) {
-        "function" == typeof define && define.amd ? define([], e(n, n.document)) : n.Loader = e(n, n.document)
-    }(this, function (n, e) {
-        function t(n) {
-            return "complete" === n.readyState || "loaded" === n.readyState
-        }
-
-        function o(n, t, o) {
-            var i = e.createElement("link");
-            i.rel = "stylesheet", a(i, o, "css"), i.async = !0, i.href = n, s.appendChild(i)
-        }
-
-        function i(n, t, o) {
-            var i = e.createElement("script");
-            i.charset = "utf-8", a(i, o, "js"), i.async = !t.sync, i.src = n, s.appendChild(i)
-        }
-
-        function c(n, e) {
-            var t;
-            n.sheet && (t = !0), setTimeout(function () {
-                t ? e() : c(n, e)
-            }, 20)
-        }
-
-        function a(e, o, i) {
-            function a() {
-                e.onload = e.onreadystatechange = null, e = null, o()
-            }
-
-            var r = "onload"in e, u = "css" === i;
-            return !u || !l && r ? void(r ? (e.onload = a, e.onerror = function () {
-                e.onerror = null, n._cdnFallback(e)
-            }) : e.onreadystatechange = function () {
-                t(e) && a()
-            }) : void setTimeout(function () {
-                c(e, o)
-            }, 1)
-        }
-
-        function r(n, e, t, c) {
-            function a() {
-                var t = e.indexOf(n);
-                t > -1 && e.splice(t, 1), 0 === e.length && c()
-            }
-
-            f.test(n) ? o(n, t, a) : i(n, t, a)
-        }
-
-        function u(n, e, t) {
-            var o = function () {
-                t && t()
-            };
-            if (n = Array.prototype.slice.call(n || []), 0 === n.length)return void o();
-            for (var i = 0, c = n.length; c > i; i++)r(n[i], n, e, o)
-        }
-
-        function d(e, o) {
-            if (t(e))o(); else {
-                var i = 1500, c = !1;
-                n.addEventListener("load", function () {
-                    c || (o(), c = !0)
-                }), setTimeout(function () {
-                    c || (o(), c = !0)
-                }, i)
-            }
-        }
-
-        var f = new RegExp("\\.css"), s = e.head || e.getElementsByTagName("head")[0], l = +navigator.userAgent.replace(/.*(?:AppleWebKit|AndroidWebKit)\/?(\d+).*/i, "$1") < 536, y = {
-            async: function (n, t) {
-                d(e, function () {
-                    u(n, {}, t)
-                })
-            }, sync: function (n, t) {
-                d(e, function () {
-                    u(n, {sync: !0}, t)
-                })
-            }
-        };
-        return n.Loader = y, y
-    });    </script>
-
-<script>window.Loader.sync(["https:\/\/b.yzcdn.cn\/v2\/build\/wap\/common_08b03c7826.js", "https:\/\/b.yzcdn.cn\/v2\/build\/wap\/base_2cdff17c2b.js", "https:\/\/b.yzcdn.cn\/v2\/vendor\/u_b.js", "https:\/\/b.yzcdn.cn\/v2\/build\/wap\/trade\/new_order_0bcf977dcd.js"]);
-window.Loader.async(["\/\/hm.baidu.com\/hm.js?58fe4cc4b4af82caeb8bc08af32dd62c"]);</script>
-<iframe src="./pay_fix/prefetching.html" style="display: none;"></iframe>
 </body>
 </html>

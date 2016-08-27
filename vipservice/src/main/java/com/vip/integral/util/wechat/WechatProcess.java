@@ -19,7 +19,7 @@ public class WechatProcess {
 
     public WechatMsg processWechatMag(String xml) {
 
-        /** ½âÎöxmlÊı¾İ */
+        /** è§£æxmlæ•°æ® */
         Document doc = Jsoup.parse(xml);
         WechatMsg wechatMsg = create(doc);
         return wechatMsg;
@@ -49,11 +49,11 @@ public class WechatProcess {
                     Method method = WechatMsg.class.getMethod("set" + key, Date.class);
                     method.invoke(wechatMsg, new Date(Long.valueOf(value)));
                 } else {
-                    LOGGER.warn("¾ÓÈ»µ½ÁËÕâÀï{}", typeName);
+                    LOGGER.warn("å±…ç„¶åˆ°äº†è¿™é‡Œ{}", typeName);
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("½«xml×ªÎªWechatMsg¶ÔÏóÊ±³ö´í:", e);
+            LOGGER.error("å°†xmlè½¬ä¸ºWechatMsgå¯¹è±¡æ—¶å‡ºé”™:", e);
         }
         return wechatMsg;
     }

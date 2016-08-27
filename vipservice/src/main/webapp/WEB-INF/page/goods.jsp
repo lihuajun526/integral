@@ -2,6 +2,7 @@
 <%@ page import="com.vip.integral.model.Goods" %>
 <%
     Goods goods = (Goods) request.getAttribute("goods");
+    String effectiveTime = (String) request.getAttribute("effectiveTime");
 %>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
@@ -3177,9 +3178,8 @@
         <div class="content-body">
             <div class="custom-image-swiper custom-goods-swiper js-swp swp">
                 <div class="swiper-wrapper js-swp-wrap" style="height: 320px;" data-height="320">
-                    <div class="swp-page"
-                         style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: block; transform: translate3d(320px, 0px, 0px);">
-                        <img class="" src="/statics/goods/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png">
+                    <div class="swp-page">
+                        <img class="" src="/statics/goods/<%=goods.getImg()%>_320.jpg">
                     </div>
                 </div>
                 <div class="swiper-pagination js-swiper-pagination">
@@ -3193,11 +3193,12 @@
             <script id="resize-img-script-used"></script>
 
             <div class="goods-header">
-                <h2 class="title">会员</h2>
+                <h2 class="title"><%=goods.getTitle()%>
+                </h2>
 
                 <div class="goods-price ">
                     <div class="current-price">
-                        <span>积分</span><i class="js-goods-price price"><%=goods.getPrice() %>
+                        <span>价格：</span><i class="js-goods-price price"><%=goods.getPrice() %>积分
                     </i>
                     </div>
                     <div class="original-price">
@@ -3225,7 +3226,11 @@
                             <div class="js-components-container components-container">
                                 <div class="custom-richtext js-lazy-container js-view-image-list">
                                     <p>
-                                        <span style="color: rgb(255, 0, 0); font-size: 12px;">【特别提醒】<br>1.购买时无需填写收货地址，测试商品，不发货不退款。<br>2.该商品可直接修改价格上架销售，或删除。<br>3.付款成功后，可在“收入/提现”模块查询交易明细，虚拟商品付款后7天可提现。</span>
+                                        <span style="color: rgb(255, 0, 0); font-size: 12px;">
+                                            【特别提醒】<br>
+                                            1.会员有效期至次日早上<%=effectiveTime %>点。<br>
+                                            2.成功下单后会员账号信息将发送到您的微信中。<br>
+                                        </span>
                                     </p>
                                 </div>
                             </div>

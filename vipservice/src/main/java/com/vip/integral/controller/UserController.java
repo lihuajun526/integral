@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -46,6 +47,13 @@ public class UserController extends BaseController {
         result.set(0, userService.getByOpenid(user.getOpenid()));
 
         return result.toString();
+    }
+
+    @RequestMapping("/member")
+    public ModelAndView member(User user) {
+        ModelAndView modelAndView = new ModelAndView("member");
+        modelAndView.addObject("user", userService.getByOpenid(user.getOpenid()));
+        return modelAndView;
     }
 
 }

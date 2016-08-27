@@ -6,6 +6,7 @@ import com.vip.integral.exception.OrderException;
 import com.vip.integral.model.Goods;
 import com.vip.integral.model.User;
 import com.vip.integral.model.VipAccount;
+import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.GoodsService;
 import com.vip.integral.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class GoodsController extends BaseController {
     private GoodsService goodsService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ConfigService configService;
 
     /**
      * 查找所有上架商品
@@ -56,6 +59,7 @@ public class GoodsController extends BaseController {
 
         ModelAndView modelAndView = new ModelAndView("pay_fix");
         modelAndView.addObject("goods", goodsService.get(goods));
+        modelAndView.addObject("effectiveTime", configService.getString("goods.effective.time"));
         return modelAndView;
     }
 
