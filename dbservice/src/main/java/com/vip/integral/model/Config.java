@@ -5,16 +5,16 @@ package com.vip.integral.model;
  */
 public class Config {
 
-    private String key;
+    private String skey;
     private String value;
     private String desc;
 
-    public String getKey() {
-        return key;
+    public String getSkey() {
+        return skey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setSkey(String skey) {
+        this.skey = skey;
     }
 
     public String getValue() {

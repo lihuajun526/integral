@@ -23,4 +23,6 @@ public interface UserService {
 
     List<User> listSpreads(Integer userid);
 
+    int save(User user);
+
 }

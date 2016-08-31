@@ -110,7 +110,7 @@ public class GoodsServiceImpl implements GoodsService {
         IntegralRecord integralRecord = new IntegralRecord();
         integralRecord.setType(20);//消费
         integralRecord.setCount(0 - goods.getPrice());
-        integralRecord.setDesc("购买了商品[title=" + goods.getTitle() + "]");
+        integralRecord.setDes("购买了商品[title=" + goods.getTitle() + "]");
         integralRecord.setUserid(user.getId());
         integralRecord.setGoodsid(goods.getId());
         integralRecord.setVipAccountId(vipAccount.getId());

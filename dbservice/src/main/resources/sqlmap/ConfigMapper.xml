@@ -41,6 +41,6 @@
   <!--自定义-->
   <select id="getByKey" resultMap="BaseResultMap" parameterType="java.lang.String">
     select value from t_config
-    where key = #{key,jdbcType=VARCHAR}
+    where skey = #{skey,jdbcType=VARCHAR}
   </select>
 </mapper>

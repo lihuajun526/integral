@@ -16,20 +16,20 @@ public class ConfigServiceImpl implements ConfigService {
     private ConfigMapper configMapper;
 
     @Override
-    public String getString(String key) {
-        Config config = configMapper.getByKey(key);
+    public String getString(String skey) {
+        Config config = configMapper.getByKey(skey);
         return config.getValue();
     }
 
     @Override
-    public Integer getInt(String key) {
-        Config config = configMapper.getByKey(key);
+    public Integer getInt(String skey) {
+        Config config = configMapper.getByKey(skey);
         return Integer.valueOf(config.getValue());
     }
 
     @Override
-    public Long getLong(String key) {
-        Config config = configMapper.getByKey(key);
+    public Long getLong(String skey) {
+        Config config = configMapper.getByKey(skey);
         return Long.valueOf(config.getValue());
     }
 }

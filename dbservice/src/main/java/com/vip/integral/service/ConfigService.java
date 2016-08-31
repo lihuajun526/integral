@@ -5,10 +5,10 @@ package com.vip.integral.service;
  */
 public interface ConfigService {
 
-    String getString(String key);
+    String getString(String skey);
 
-    Integer getInt(String key);
+    Integer getInt(String skey);
 
-    Long getLong(String key);
+    Long getLong(String skey);
 
 }

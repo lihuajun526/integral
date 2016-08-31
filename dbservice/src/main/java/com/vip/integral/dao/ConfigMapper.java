@@ -7,5 +7,5 @@ public interface ConfigMapper {
 
     int insertSelective(Config record);
 
-    Config getByKey(String key);
+    Config getByKey(String skey);
 }

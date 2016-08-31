@@ -1,6 +1,9 @@
 package com.vip.integral.controller;
 
+import com.vip.integral.model.User;
 import com.vip.integral.model.WechatMsg;
+import com.vip.integral.service.ConfigService;
+import com.vip.integral.service.UserService;
 import com.vip.integral.service.WechatService;
 import com.vip.integral.util.wechat.WechatProcess;
 import org.slf4j.Logger;
@@ -26,6 +29,10 @@ public class WechatController {
 
     @Autowired
     private WechatService wechatService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ConfigService configService;
 
     @RequestMapping("/get")
     public void getUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -48,8 +55,22 @@ public class WechatController {
             result = echostr;
         } else {
             //正常的微信处理流程
-            WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
+            //WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
+            //测试阶段
+            WechatMsg wechatMsg = new WechatMsg();
+            wechatMsg.setEvent("subscribe");
 
+            if ("subscribe".equalsIgnoreCase(wechatMsg.getEvent())) {//关注
+                //todo 获取用户信息
+                User user = new User();
+                user.setStatus(1);
+                user.setIntegral(configService.getInt("integral.subscribe.encourage"));
+                user.setOpenid("0");
+                if (null == userService.getByOpenid(user.getOpenid())){
+                    userService.save(user);
+                }
+                result = "关注成功";
+            }
         }
         PrintWriter writer = response.getWriter();
         writer.print(result);
@@ -76,6 +97,4 @@ public class WechatController {
             e1.printStackTrace();
         }
     }
-
-
 }

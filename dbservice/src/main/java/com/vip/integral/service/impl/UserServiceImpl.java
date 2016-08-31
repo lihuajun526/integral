@@ -1,7 +1,10 @@
 package com.vip.integral.service.impl;
 
+import com.vip.integral.dao.UserMapper;
 import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
+import com.vip.integral.service.IntegralRecordService;
+import com.vip.integral.service.IntegralService;
 import com.vip.integral.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +19,14 @@ import java.util.List;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private IntegralService integralService;
 
     @Override
     public User getByOpenid(String openid) {
-        return null;
+        return userMapper.getByOpenid(openid);
     }
 
     @Override
@@ -58,6 +65,14 @@ public class UserServiceImpl implements UserService {
         list = null;
 
         return list;
+    }
+
+    @Override
+    public int save(User user) {
+        int i = userMapper.insert(user);
+        //奖励积分
+        integralService.encourageFromFocus(user.getId(), user.getIntegral());
+        return i;
     }
 
 }

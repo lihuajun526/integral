@@ -993,69 +993,76 @@
             background-image: url(https://b.yzcdn.cn/v2/image/wap/right_icon/icons_sprite/icons_sprite@2x_29025c38a6.png)
         }
     }</style>
-    <link rel="stylesheet" href="/statics/pay_fix/trade_3ea270f11c08cfa4e35c5a7a243e2b26.css" onerror="_cdnFallback(this)"
+    <link rel="stylesheet" href="/statics/pay_fix/trade_3ea270f11c08cfa4e35c5a7a243e2b26.css"
+          onerror="_cdnFallback(this)"
           media="screen">
-    <link rel="stylesheet" href="/statics/pay_fix/index_e19a56d801e8bb12bdb5a19a7e61175e.css" onerror="_cdnFallback(this)"
+    <link rel="stylesheet" href="/statics/pay_fix/index_e19a56d801e8bb12bdb5a19a7e61175e.css"
+          onerror="_cdnFallback(this)"
           media="screen">
 </head>
 <body class=" body-fixed-bottom">
 
 <div class="container " style="min-height: 557px;">
-    <div class="content confirm-container">
-        <div class="app app-order">
-            <div class="app-inner inner-order" id="js-page-content">
-                <div class="js-goods-list-container block block-list block-order ">
-                    <div class="js-goods-list">
-                        <div class="js-goods-item name-card name-card-goods clearfix">
-                            <a href="javascript:;" class="thumb">
-                                <img class="js-view-image" src="/statics/pay_fix/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!100x100.jpg">
-                            </a>
-                            <div class="detail">
-                                <div class="clearfix detail-row">
-                                    <div>
-                                        <a href="javascript:;">
-                                            <h3 class="l2-ellipsis"><%=goods.getTitle() %></h3>
-                                        </a>
+    <form action="/goods/order" method="post">
+        <input type="hidden" name="openid" value="0"/>
+        <input type="hidden" name="goodsid" value="<%=goods.getId() %>">
+        <div class="content confirm-container">
+            <div class="app app-order">
+                <div class="app-inner inner-order" id="js-page-content">
+                    <div class="js-goods-list-container block block-list block-order ">
+                        <div class="js-goods-list">
+                            <div class="js-goods-item name-card name-card-goods clearfix">
+                                <a href="javascript:;" class="thumb">
+                                    <img class="js-view-image" src="/statics/pay_fix/<%=goods.getImg()%>_100.jpg">
+                                </a>
+
+                                <div class="detail">
+                                    <div class="clearfix detail-row">
+                                        <div>
+                                            <a href="javascript:;">
+                                                <h3 class="l2-ellipsis"><%=goods.getTitle() %>
+                                                </h3>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="clearfix detail-row">
-                                    <div>
-                                        <p class="c-gray-darker ellipsis"><%=goods.getTitle() %></p>
+                                    <div class="clearfix detail-row">
+                                        <div>
+                                            <p class="c-gray-darker ellipsis"><%=goods.getTitle() %>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="clearfix detail-row">
-                                    <div class="right-col">
-                                        <div class="goods-action">
+                                    <div class="clearfix detail-row">
+                                        <div class="right-col">
+                                            <div class="goods-action">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="js-total total-price block-item">价格<span
+                                class="c-orange pull-right js-sum-price"><%=goods.getPrice() %>积分</span>
+                        </div>
                     </div>
-                    <div class="js-total total-price block-item">价格<span class="c-orange pull-right js-sum-price"><%=goods.getPrice() %>积分</span>
-                    </div>
-                </div>
-                <div class="js-order-total-pay order-total-pay bottom-fix">
-                    <div class="pay-container clearfix">
-                        <div class="pull-right">
-                            <span class="c-gray-darker font-size-16">合计：</span>
-                            <span class="js-price c-orange font-size-16"><%=goods.getPrice() %>积分</span>
-                            <button class="js-confirm btn btn-orange">提交订单</button>
+                    <div class="js-order-total-pay order-total-pay bottom-fix">
+                        <div class="pay-container clearfix">
+                            <div class="pull-right">
+                                <span class="c-gray-darker font-size-16">合计：</span>
+                                <span class="js-price c-orange font-size-16"><%=goods.getPrice() %>积分</span>
+                                <button type="submit" class="js-confirm btn btn-orange">提交订单</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="app-inner inner-order" style="display:none;padding-top:40px;" id="js-datetime-picker-poppage">
-            </div>
-            <div class="app-inner inner-order selffetch-address" style="display:none;padding-top:40px;"
-                 id="js-address-poppage">
-            </div>
-            <div class="center action-tip  js-pay-tip">本订单享受&nbsp;<img
-                    src="/statics/pay_fix/f32fc608cf4173bffa3c23b0ad682bf9.png" height="16"
-                    style="vertical-align: text-bottom;">&nbsp;保险保障
+                <div class="app-inner inner-order" style="display:none;padding-top:40px;"
+                     id="js-datetime-picker-poppage">
+                </div>
+                <div class="app-inner inner-order selffetch-address" style="display:none;padding-top:40px;"
+                     id="js-address-poppage">
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <div class="footer" style="min-height: 86px;">
     <div class="copyright">

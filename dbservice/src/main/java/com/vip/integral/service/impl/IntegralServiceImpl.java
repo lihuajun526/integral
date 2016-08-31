@@ -1,9 +1,11 @@
 package com.vip.integral.service.impl;
 
+import com.vip.integral.dao.IntegralRecordMapper;
 import com.vip.integral.dao.UserMapper;
 import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
 import com.vip.integral.service.ConfigService;
+import com.vip.integral.service.IntegralRecordService;
 import com.vip.integral.service.IntegralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ public class IntegralServiceImpl implements IntegralService {
     private ConfigService configService;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private IntegralRecordMapper integralRecordMapper;
 
     @Override
     public Boolean encourageFromShare(Integer userid, Integer count, Integer type, String desc) {
@@ -39,7 +43,7 @@ public class IntegralServiceImpl implements IntegralService {
             str = "到qq空间";
         }
         integralRecord.setTag("分享" + str);
-        integralRecord.setDesc(desc);
+        integralRecord.setDes(desc);
         integralRecord.setCount(count);
         integralRecord.setType(type);
         //todo 积分记录表添加记录
@@ -88,7 +92,7 @@ public class IntegralServiceImpl implements IntegralService {
         //todo 更新用户推广记录及积分
         IntegralRecord integralRecord = new IntegralRecord();
         integralRecord.setCount(count);
-        integralRecord.setDesc("用户[" + friendid + "]通过扫描你的二维码关注了公众号");
+        integralRecord.setDes("用户[" + friendid + "]通过扫描你的二维码关注了公众号");
         integralRecord.setTag("推广");
         integralRecord.setUserid(userid);
         integralRecord.setType(13);
@@ -99,21 +103,20 @@ public class IntegralServiceImpl implements IntegralService {
     @Override
     public Boolean encourageFromFocus(Integer userid, Integer count) {
 
-        User user = null;
-        //todo 只有第一次关注公众号才奖励
-        IntegralRecord integralRecord = null;
-        if (integralRecord != null) {
+        //只有第一次关注公众号才奖励
+        IntegralRecord condition = new IntegralRecord();
+        condition.setUserid(userid);
+        condition.setType(10);
+        if (integralRecordMapper.selectByCondition(condition) != null) {
             return false;
         }
-        integralRecord = new IntegralRecord();
+        IntegralRecord integralRecord = new IntegralRecord();
         integralRecord.setUserid(userid);
         integralRecord.setTag("关注");
-        integralRecord.setDesc("关注公众号");
+        integralRecord.setDes("关注公众号");
         integralRecord.setCount(count);
         integralRecord.setType(10);
-        //todo 积分记录表添加记录
-        user.setIntegral(user.getIntegral() + count);
-        //todo 用户表更新积分值
+        integralRecordMapper.insert(integralRecord);
         return true;
     }
 

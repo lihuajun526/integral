@@ -22,7 +22,7 @@ public class IntegralRecord {
      */
     private Integer type;
     private String tag;
-    private String desc;
+    private String des;
     private Date createTime;
     private Date updateTime;
 
@@ -74,12 +74,12 @@ public class IntegralRecord {
         this.updateTime = updateTime;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDes() {
+        return des;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDes(String des) {
+        this.des = des;
     }
 
     public String getTag() {

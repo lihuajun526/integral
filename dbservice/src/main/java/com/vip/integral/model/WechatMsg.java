@@ -78,8 +78,7 @@ public class WechatMsg {
         this.ticket = ticket;
     }
 
-    @Override
-    public String toString() {
+    /*public String toString() {
         StringBuffer sb = new StringBuffer("<xml>");
         Field[] fields = this.getClass().getDeclaredFields();
         try {
@@ -107,5 +106,5 @@ public class WechatMsg {
         }
         sb.append("</xml>");
         return sb.toString();
-    }
+    }*/
 }

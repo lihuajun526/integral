@@ -19,4 +19,6 @@ public interface IntegralRecordMapper {
     int updateByPrimaryKey(IntegralRecord record);
 
     List<IntegralRecord> selectByBeginTime(Date startTime);
+
+    IntegralRecord selectByCondition(IntegralRecord integralRecord);
 }
