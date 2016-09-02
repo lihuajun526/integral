@@ -14,7 +14,7 @@ public interface GoodsService {
 
     List<Goods> listByCondition(Goods goods);
 
-    Goods get(Goods goods);
+    Goods selectByPrimaryKey(Integer id);
 
     VipAccount order(User user, Goods goods) throws OrderException;
 

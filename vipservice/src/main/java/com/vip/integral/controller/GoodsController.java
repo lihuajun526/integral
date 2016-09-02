@@ -50,7 +50,7 @@ public class GoodsController extends BaseController {
     public ModelAndView getGoods(Goods goods) {
 
         ModelAndView modelAndView = new ModelAndView("goods");
-        modelAndView.addObject("goods", goodsService.get(goods));
+        modelAndView.addObject("goods", goodsService.selectByPrimaryKey(goods.getId()));
         modelAndView.addObject("effectiveTime", configService.getString("goods.effective.time"));
         return modelAndView;
     }
@@ -59,18 +59,19 @@ public class GoodsController extends BaseController {
     public ModelAndView fix(Goods goods) {
 
         ModelAndView modelAndView = new ModelAndView("pay_fix");
-        modelAndView.addObject("goods", goodsService.get(goods));
+        modelAndView.addObject("goods", goodsService.selectByPrimaryKey(goods.getId()));
         return modelAndView;
     }
 
     @RequestMapping("/order")
-    public ModelAndView order(User user, Goods goods) throws OrderException {
+    public ModelAndView order(String openid, Integer goodsid) throws OrderException {
         ModelAndView modelAndView = new ModelAndView("order_success");
 
-        user = userService.getByOpenid(user.getOpenid());
-        goods = goodsService.get(goods);
+        User user = userService.getByOpenid(openid);
+        Goods goods = goodsService.selectByPrimaryKey(goodsid);
 
         VipAccount vipAccount = goodsService.order(user, goods);
+
         modelAndView.addObject("vipAccount", vipAccount);
         return modelAndView;
     }
