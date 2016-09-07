@@ -1,5 +1,6 @@
 package com.vip.integral.dao;
 
+import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.VipAccount;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface VipAccountMapper {
     int updateByPrimaryKey(VipAccount record);
 
     List<VipAccount> listAll();
+
+    List<VipAccount> listByTypeOrderByCountDesc(Integer type);
 }

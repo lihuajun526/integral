@@ -131,4 +131,11 @@
     <include refid="Base_Column_List" />
     from t_vip_account
   </select>
+
+  <select id="listByTypeOrderByCountDesc" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_vip_account
+    WHERE type = #{type,jdbcType=INTEGER} order by count desc
+  </select>
 </mapper>

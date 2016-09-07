@@ -156,7 +156,8 @@
         <include refid="Base_Column_List"/>
         from t_integral_record
         where
-        <![CDATA[ create_time >= to_date(#{startTime,jdbcType=DATE},'yyyy-MM-dd hh24:mi:ss')]]>
+        create_time >= #{startTime,jdbcType=DATE}
+        <!--<![CDATA[ create_time >= to_date(#{startTime,jdbcType=DATE},'yyyy-MM-dd hh24:mi:ss')]]>-->
     </select>
 
     <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.integral.model.IntegralRecord">

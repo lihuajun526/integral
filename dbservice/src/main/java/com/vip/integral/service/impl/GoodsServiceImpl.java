@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
@@ -57,7 +58,7 @@ public class GoodsServiceImpl implements GoodsService {
      * @return
      * @throws OrderException
      */
-    //todo 事务
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public VipAccount order(User user, Goods goods) throws OrderException {
 
@@ -69,7 +70,6 @@ public class GoodsServiceImpl implements GoodsService {
             LOGGER.warn("不在开售时间范围，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.NOT_IN_SELL_TIME_ERROR);
         }
-        goods = goodsMapper.selectByPrimaryKey(goods.getId());
         if (goods.getCount() == 0) {
             //库存不足
             LOGGER.warn("库存不足，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
@@ -77,7 +77,6 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         //用户积分余额是否足够
-        user = userMapper.selectByPrimaryKey(user.getId());
         if (user.getIntegral() < goods.getPrice()) {
             //账户余额不足
             LOGGER.warn("账户余额不足，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
@@ -97,8 +96,11 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setCount(goods.getCount() - 1);
         goodsMapper.updateByPrimaryKeySelective(goods);
         VipAccount vipAccount = vipAccountService.vote(goods.getType());
-        if (vipAccount.getCount() == 0) {
+        int a = 0;
+        int b = 10 / a;
+        if (vipAccount == null || vipAccount.getCount() == 0) {
             LOGGER.error("VipAccount与Goods库存不同步，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
+            throw new OrderException(ExceptionTypeEnum.STOCK_NOT_SYN_ERROR);
         } else {
             vipAccount.setCount(vipAccount.getCount() - 1);
             vipAccountService.update(vipAccount);

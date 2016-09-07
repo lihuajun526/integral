@@ -19,8 +19,11 @@ public class VipAccountServiceImpl implements VipAccountService {
 
     @Override
     public VipAccount vote(Integer type) {
-
-        List<VipAccount> list = null;
+        if (true)
+            return null;
+        List<VipAccount> list = vipAccountMapper.listByTypeOrderByCountDesc(type);
+        if (list == null)
+            return null;
         VipAccount vipAccount = list.get(0);
         if (vipAccount.getCount() == 0)
             return null;
