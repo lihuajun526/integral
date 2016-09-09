@@ -1,8 +1,10 @@
 package com.vip.integral.service;
 
+import com.vip.integral.model.User;
 import com.vip.integral.model.VipAccount;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -26,5 +28,7 @@ public interface VipAccountService {
     List<VipAccount> listAll();
 
     int delete(VipAccount vipAccount);
+
+    List<VipAccount> listVip(User user);
 
 }

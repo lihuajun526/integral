@@ -1592,22 +1592,22 @@
         <div id="shop-nav" style="display: block;">
             <div class="js-navmenu js-footer-auto-ele shop-nav nav-menu nav-menu-1 has-menu-3">
                 <div class="nav-special-item">
-                    <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=17984819" class="home">主页</a>
+                    <a class="home" href="/goods/list">主页</a>
                 </div>
                 <div class="nav-items-wrap">
                     <div class="nav-item">
-                        <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/allgoods/17984819">
-                        <span class="mainmenu-txt">全部商品</span>
+                        <a class="mainmenu js-mainmenu" href="/goods/list">
+                            <span class="mainmenu-txt">全部商品</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/cart/17984819">
-                        <span class="mainmenu-txt">赚积分</span>
+                        <a class="mainmenu js-mainmenu" href="/integral/earn">
+                            <span class="mainmenu-txt">赚积分</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal">
-                        <span class="mainmenu-txt">会员中心</span></a>
+                        <a class="mainmenu js-mainmenu" href="/user/member?openid=1">
+                            <span class="mainmenu-txt">会员中心</span></a>
                     </div>
                 </div>
             </div>

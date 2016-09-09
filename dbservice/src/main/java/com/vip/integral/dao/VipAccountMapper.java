@@ -4,6 +4,7 @@ import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.VipAccount;
 
 import java.util.List;
+import java.util.Map;
 
 public interface VipAccountMapper {
     int deleteByPrimaryKey(Integer id);
@@ -21,4 +22,6 @@ public interface VipAccountMapper {
     List<VipAccount> listAll();
 
     List<VipAccount> listByTypeOrderByCountDesc(Integer type);
+
+    List<VipAccount> listByUserAndTime(Map paramMap);
 }

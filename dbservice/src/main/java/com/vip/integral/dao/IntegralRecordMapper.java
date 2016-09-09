@@ -21,4 +21,6 @@ public interface IntegralRecordMapper {
     List<IntegralRecord> selectByBeginTime(Date startTime);
 
     IntegralRecord selectByCondition(IntegralRecord integralRecord);
+
+    
 }

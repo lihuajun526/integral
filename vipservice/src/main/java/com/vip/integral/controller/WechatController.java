@@ -1,11 +1,13 @@
 package com.vip.integral.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.vip.integral.model.User;
+import com.vip.integral.model.VipAccount;
 import com.vip.integral.model.WechatMsg;
 import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.UserService;
+import com.vip.integral.service.VipAccountService;
 import com.vip.integral.service.WechatService;
-import com.vip.integral.util.wechat.WechatProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -33,6 +36,8 @@ public class WechatController {
     private UserService userService;
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private VipAccountService vipAccountService;
 
     @RequestMapping("/get")
     public void getUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -58,7 +63,8 @@ public class WechatController {
             //WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
             //测试阶段
             WechatMsg wechatMsg = new WechatMsg();
-            wechatMsg.setEvent("subscribe");
+            wechatMsg.setEvent("click");
+            wechatMsg.setEventKey("getVip");
 
             if ("subscribe".equalsIgnoreCase(wechatMsg.getEvent())) {//关注
                 //todo 获取用户信息
@@ -66,10 +72,20 @@ public class WechatController {
                 user.setStatus(1);
                 user.setIntegral(configService.getInt("integral.subscribe.encourage"));
                 user.setOpenid("0");
-                if (null == userService.getByOpenid(user.getOpenid())){
+                if (null == userService.getByOpenid(user.getOpenid())) {
                     userService.save(user);
                 }
                 result = "关注成功";
+            } else if ("click".equalsIgnoreCase(wechatMsg.getEvent())) {//点击菜单
+                if ("getVip".equalsIgnoreCase(wechatMsg.getEventKey())) {//获取vip
+                    User user = userService.getByOpenid("0");
+                    List<VipAccount> list = vipAccountService.listVip(user);
+                    if (list != null && list.size() > 0)
+                        result = JSONArray.toJSONString(list);
+                    else
+                        result = "没有购买记录";
+                }
+
             }
         }
         PrintWriter writer = response.getWriter();

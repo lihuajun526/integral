@@ -45,7 +45,7 @@ public class GoodsMgrController extends BaseController {
 
         Result<Goods> result = new Result<>();
 
-        goods = goodsService.get(goods);
+        goods = goodsService.selectByPrimaryKey(goods.getId());
 
         result.set("添加成功", goods);
         return result.toString();

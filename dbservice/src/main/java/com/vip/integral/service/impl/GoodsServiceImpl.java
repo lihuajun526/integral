@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -96,8 +97,6 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setCount(goods.getCount() - 1);
         goodsMapper.updateByPrimaryKeySelective(goods);
         VipAccount vipAccount = vipAccountService.vote(goods.getType());
-        int a = 0;
-        int b = 10 / a;
         if (vipAccount == null || vipAccount.getCount() == 0) {
             LOGGER.error("VipAccount与Goods库存不同步，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.STOCK_NOT_SYN_ERROR);

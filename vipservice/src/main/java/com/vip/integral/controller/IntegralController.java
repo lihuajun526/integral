@@ -22,6 +22,7 @@ public class IntegralController extends BaseController {
 
     /**
      * 分享到朋友圈获得积分奖励
+     *
      * @param userid
      * @param count
      * @return
@@ -49,5 +50,16 @@ public class IntegralController extends BaseController {
         return modelAndView;
     }
 
+    /**
+     * 赚积分
+     *
+     * @return
+     */
+    @RequestMapping("/earn")
+    public ModelAndView integralEarn() {
+        ModelAndView modelAndView = new ModelAndView("integral_earn");
+
+        return modelAndView;
+    }
 
 }

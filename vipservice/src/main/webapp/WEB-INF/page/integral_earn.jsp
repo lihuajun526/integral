@@ -11,7 +11,7 @@
     <meta http-equiv="cleartype" content="on">
     <meta name="referrer" content="always">
     <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
-    <title>会员主页</title>
+    <title>赚积分</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>@charset "UTF-8";
     a, body {
@@ -1547,7 +1547,6 @@
     <link rel="stylesheet" href="/statics/member/shopnav_custom_1773d863bdd16769f4e92b24d76e1a0a.css">
 </head>
 <body class="body-fixed-bottom">
-
 <div class="container " style="min-height: 599px;">
     <div class="content">
         <div class="content-body">
@@ -1565,100 +1564,22 @@
             </div>
 
             <div class="order-related">
-                <ul class="uc-order list-horizon clearfix">
-                    <li>
-                        <a class="link clearfix relative link-topay" href="https://wap.koudaitong.com/v2/orders/topay"
-                           target="_blank">
-                            <p class="title-info c-black font-size-12">待付款</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="link clearfix relative link-totuan" href="https://wap.koudaitong.com/v2/orders/totuan"
-                           target="_blank">
-                            <p class="title-info c-black font-size-12">待接单</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="link clearfix relative link-tosend" href="https://wap.koudaitong.com/v2/orders/tosend"
-                           target="_blank">
-                            <p class="title-info c-black font-size-12">待发货</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="link clearfix relative link-send" href="https://wap.koudaitong.com/v2/orders/send"
-                           target="_blank">
-                            <p class="title-info c-black font-size-12">已发货</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="link clearfix relative link-sign" href="https://wap.koudaitong.com/v2/orders/sign"
-                           target="_blank">
-                            <p class="title-info c-black font-size-12">已完成</p>
-                        </a>
-                    </li>
-                </ul>
-                <div class="block block-list list-vertical">
-                    <a class="block-item link clearfix ico-order" href="https://wap.koudaitong.com/v2/orders/all"
-                       target="_blank">
-                        <p class="title-info c-black font-size-14">全部订单</p>
-                    </a>
-                </div>
-
-                <div class="block block-list list-vertical">
-                    <a class="block-item link clearfix ico-record"
-                       href="https://wap.koudaitong.com/v2/trades/17984819?source=weixin11&amp;spm=cmkteleven0"
-                       target="_blank">
-                        <p class="title-info c-black font-size-14">我的购物记录</p>
-                    </a>
-                    <a class="block-item link clearfix ico-backs"
-                       href="https://wap.koudaitong.com/v2/backs/17984819?source=weixin11&amp;spm=cmkteleven0"
-                       target="_blank">
-                        <p class="title-info c-black font-size-14">我的返现</p>
-                    </a>
-
-                </div>
-                <div class="block block-list list-vertical">
-                    <a class="block-item link clearfix ico-saler-center"
-                       href="https://wap.koudaitong.com/v2/trade/directseller/center.html" target="_blank">
-                        <p class="title-info c-black font-size-14">销售员中心</p>
-                    </a>
-                </div>
-                <div class="block block-list list-vertical">
-                    <a class="block-item link clearfix ico-gift"
-                       href="https://wap.koudaitong.com/v2/orders/gift_receive" target="_blank">
-                        <p class="title-info c-black font-size-14">我收到的礼物</p>
-                    </a>
-                    <a class="block-item link clearfix ico-coupon" href="https://wap.koudaitong.com/v2/coupons"
-                       target="_blank">
-                        <p class="title-info c-black font-size-14">我的优惠券</p>
-                    </a>
-                    <a class="block-item link clearfix ico-promocode" href="https://wap.koudaitong.com/v2/promocodes"
-                       target="_blank">
-                        <p class="title-info c-black font-size-14">我的优惠码</p>
-                    </a>
-                    <a class="block-item link clearfix ico-present" href="https://wap.koudaitong.com/v2/presents"
-                       target="_blank">
-                        <p class="title-info c-black font-size-14">
-                            我的赠品
-                        </p>
-                    </a>
-                </div>
-
-                <div class="block block-list list-vertical">
-                    <a class="block-item link clearfix ico-manage" href="https://wap.koudaitong.com/v2/buyer/manage"
-                       target="_blank">
-                        <p class="title-info c-black font-size-14">管理账号</p>
-                    </a>
-                </div>
+                <p>
+                    <br/>
+                    1、阿斯顿发士大夫撒；<br/>
+                    2、阿斯顿发士大夫撒；<br/>
+                    3、阿斯顿发士大夫撒；<br/>
+                    4、阿斯顿发士大夫撒；<br/>
+                    5、阿斯顿发士大夫撒；
+                </p>
             </div>
 
             <div class="custom-store block-item border">
                 <a class="custom-store-link clearfix" href="https://wap.koudaitong.com/v2/home/a7tdi8lh">
                     <div class="custom-store-img"></div>
                     <div class="custom-store-name">
-                        kankan1
+                        黑眼圈365
                     </div>
-
                 </a>
             </div>
 
@@ -1666,22 +1587,22 @@
         <div id="shop-nav" style="display: block;">
             <div class="js-navmenu js-footer-auto-ele shop-nav nav-menu nav-menu-1 has-menu-3">
                 <div class="nav-special-item">
-                    <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=17984819" class="home">主页</a>
+                    <a class="home" href="/goods/list">主页</a>
                 </div>
                 <div class="nav-items-wrap">
                     <div class="nav-item">
-                        <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/allgoods/17984819">
+                        <a class="mainmenu js-mainmenu" href="/goods/list">
                             <span class="mainmenu-txt">全部商品</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/cart/17984819">
-                            <span class="mainmenu-txt">购物车</span>
+                        <a class="mainmenu js-mainmenu" href="/integral/earn">
+                            <span class="mainmenu-txt">赚积分</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="mainmenu js-mainmenu" href="https://wap.koudaitong.com/v2/usercenter/jmb4ypal">
-                            <span class="mainmenu-txt">我的订单</span></a>
+                        <a class="mainmenu js-mainmenu" href="/user/member?openid=1">
+                            <span class="mainmenu-txt">会员中心</span></a>
                     </div>
                 </div>
             </div>
@@ -1697,7 +1618,7 @@
                     <a href="https://wap.koudaitong.com/v2/showcase/usercenter?kdt_id=17984819" target="_blank">会员中心</a>
                 </div>
                 <div class="ft-copyright">
-                    <a href="https://youzan.com/" target="_blank">有赞提供技术支持</a>
+                    <a href="https://youzan.com/" target="_blank">黑眼圈365</a>
                 </div>
             </div>
         </div>
