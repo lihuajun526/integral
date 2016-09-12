@@ -1,5 +1,7 @@
 package com.vip.integral.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.constant.ExceptionTypeEnum;
 import com.vip.integral.exception.RequestException;
 import org.apache.commons.io.IOUtils;
@@ -12,6 +14,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,6 +68,14 @@ public class XHttpClient {
 
             response = IOUtils.toString(in, charset);
             in.close();
+            //{"errcode":40013,"errmsg":"invalid appid"}
+            JSONObject jsonObject = JSON.parseObject(response);
+            String errcode = jsonObject.getString("errcode");
+            if (!StringUtils.isEmpty(errcode) && !"0".equals(errcode)) {
+                LOGGER.error("请求微信服务器返回错误[errcode={},errmsg={}]", jsonObject.getString("errcode"), jsonObject.getString("errmsg"));
+                throw new RequestException(ExceptionTypeEnum.REQUEST_WECHAT_SERVER_ERROR);
+            }
+
         } catch (Exception e) {
             LOGGER.error("request {} error:", httpUriRequest.getURI(), e);
             throw new RequestException(ExceptionTypeEnum.HTTP_REQUEST_ERROR);

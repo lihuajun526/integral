@@ -1,4 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    String appId = (String) request.getAttribute("appId");
+    String timestamp = (String) request.getAttribute("timestamp");
+    String nonceStr = (String) request.getAttribute("nonceStr");
+    String signature = (String) request.getAttribute("signature");
+%>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
 <head>
@@ -1610,13 +1616,12 @@
 </body>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"/>
 <script>
-
     wx.config({
         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: 'wx9550cb6f6efa8cb1', // 必填，公众号的唯一标识
-        timestamp: 1420774989, // 必填，生成签名的时间戳
-        nonceStr: '1471123215', // 必填，生成签名的随机串
-        signature: 'd6ce760c2e48be5b2decb68746ce73d0eab5b701',// 必填，签名，见附录1
+        appId: '<%=appId%>', // 必填，公众号的唯一标识
+        timestamp: <%=timestamp%>, // 必填，生成签名的时间戳
+        nonceStr: '<%=nonceStr%>', // 必填，生成签名的随机串
+        signature: '<%=signature%>',// 必填，签名，见附录1
         jsApiList: [
             'checkJsApi',
             'onMenuShareTimeline',
@@ -1655,10 +1660,7 @@
         ]
     });
     wx.ready(function () {
-        alert("asfdsafsafd");
-
         document.querySelector('#onMenuShareTimeline').onclick = function () {
-            alert("okokokoko");
             wx.onMenuShareTimeline({
                 title: '互联网之子 方倍工作室',
                 link: 'http://movie.douban.com/subject/25785114/',
