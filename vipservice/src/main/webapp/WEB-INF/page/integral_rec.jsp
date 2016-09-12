@@ -15,73 +15,6 @@
     <title>积分记录</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <script>
-        !function (e) {
-            e.onReady = function (o, t) {
-                if (t) {
-                    var r = function () {
-                        e[o] ? t() : setTimeout(function () {
-                            r(o, t)
-                        }, 500)
-                    };
-                    r(o, t)
-                }
-            };
-            var o = /complete|loaded/;
-            e.afterLoad = function (t) {
-                o.test(document.readyState) && document.body ? setTimeout(t) : e.addEventListener("load", t, !1)
-            }
-        }(window), function (e) {
-            var o, t = {script: "src", link: "href"}, r = "b.yzcdn.cn", n = "su.yzcdn.cn";
-            e._cdnFallback = function (a) {
-                var i, c, l, d, f, g, m, u;
-                if (i = a.nodeName.toLowerCase(), c = t[i]) {
-                    l = d = a[c], l = l.replace(r, n), f = l == d, f || (g = document, m = g.head || g.getElementsByTagName("head")[0] || g.documentElement, u = g.createElement(i), "link" == i && (u.rel = "stylesheet"), u[c] = l, u.onerror = function () {
-                        _cdnFallback(u)
-                    }, m.appendChild(u)), (new Image).src = "//tj.koudaitong.com/1.gif?net_error=1&fileurl=" + d;
-                    var s = l.indexOf(n) > -1 || l.indexOf(r) > -1, p = !o && f;
-                    p && s && (e.motify && e.motify.error && e.motify.error("啊哦，有东西加载失败了，刷新下试试~"), o = !0)
-                }
-            }
-        }(window), function (e) {
-            "use strict";
-            var o;
-            e.localStorage;
-            try {
-                var t = new Date;
-                try {
-                    localStorage.setItem(t, t)
-                } catch (r) {
-                    if (22 === r.code)throw"localstorage define error"
-                }
-                var n = localStorage.getItem(t) == t;
-                if (localStorage.removeItem(t), !n)throw"localstorage define error";
-                if ("FUNCTION" != (typeof localStorage.clear).toUpperCase())throw"localstorage define error";
-                o = localStorage
-            } catch (r) {
-                var a = function () {
-                    return null
-                };
-                o = {getItem: a, setItem: a, removeItem: a, clear: a}
-            }
-            "function" == typeof define && define.amd && define(function () {
-                return o
-            }), e.YZLocalStorage = o
-        }(window), function (e) {
-            e.motify = e.motify || {
-                        error: function (e) {
-                            setTimeout(function () {
-                                document.body.insertAdjacentHTML("afterbegin", '<div style="color:red;padding:5px;background:#fff;font-size:12px;border-bottom:1px solid #ddd;margin-bottom:5px;"><a style="border-radius:3px;line-height:18px;text-align:center;float:right;margin-left:5px;padding:4px 7px;color:#fff;background-color:#00BF05;" onclick="location.reload();">刷新</a> <p style="line-height:28px;padding-right:53px;word-break:break-all;margin:0;">' + e + "</p></div>")
-                            }, 500)
-                        }
-                    }, e.zenjs = e.zenjs || {}, e.__logs = [], e.Logger = {
-                log: function (o) {
-                    e.__logs.push(o)
-                }
-            }
-        }(window);    </script>
-
-
     <style>@charset "UTF-8";
     a, body {
         color: #333
@@ -1059,147 +992,13 @@
             background-image: url(https://b.yzcdn.cn/v2/image/wap/right_icon/icons_sprite/icons_sprite@2x_29025c38a6.png)
         }
     }</style>
-    <link rel="stylesheet" href="./integral_rec_files/order_list_e14c8ea5e82fd500d7f78f60009a92a8.css"
+    <link rel="stylesheet" href="/statics/integral_rec/order_list_e14c8ea5e82fd500d7f78f60009a92a8.css"
           onerror="_cdnFallback(this)" media="screen">
-    <script>
-        var _global = {
-            "kdt_id": "17984819",
-            "user_id": 0,
-            "run_mode": "online",
-            "debug": false,
-            "project": "default",
-            "online_debug": false,
-            "js": {
-                "js_compress": true,
-                "css_compress": true,
-                "use_js_cdn": true,
-                "use_css_cdn": true,
-                "message_report": true,
-                "checkbrowser": true,
-                "hide_wx_nav": true,
-                "qn_public": "kdt_img",
-                "qn_private": "kdt-private"
-            },
-            "query_path": "\/trade\/record",
-            "query_key": "source=weixin11&spm=cmkteleven0",
-            "real_query_path": "get:\/trade\/record\/index.html",
-            "module": "trade",
-            "controller": "Trade_Record_Controller",
-            "action": "index",
-            "full_action": "getIndexHtml",
-            "method": "get",
-            "format": "html",
-            "platform": "unknown",
-            "is_mobile": false,
-            "authorize": "unknown",
-            "platform_version": "unknown",
-            "mobile_system": "unknown",
-            "youzan_app_login": false,
-            "page_size": 320,
-            "isShopDomain": false,
-            "share": {"notShare": true},
-            "jsBradgeSupport": true,
-            "wuxi1_0_0": false,
-            "source": "weixin11",
-            "track": "",
-            "nobody": "7jt1oalnrh845r9gbi1vj2tlj2",
-            "mp_changed": false,
-            "team_certificate": false,
-            "is_secured_transactions": 1,
-            "hide_shopping_cart": 0,
-            "hide_top_bar": 0,
-            "mp_data": {
-                "logo": "https:\/\/img.yzcdn.cn\/public_files\/2016\/05\/13\/8f9c442de8666f82abaf7dd71574e997.png",
-                "team_name": "kankan1160818",
-                "intro": "",
-                "is_display_footbar": "1",
-                "is_display_suffix_name": "0",
-                "suffix_name": "",
-                "shopping_cart_style": "1",
-                "team_type": "youzan",
-                "mobile": "",
-                "team_physical": 0
-            },
-            "wxpay_big": false,
-            "alipay_env": true,
-            "wxpay_env": false,
-            "wxaddress_env": false,
-            "is_owner_team": false,
-            "weixin_jssdk_use": 1,
-            "fans_id": 0,
-            "is_fans": 2,
-            "fans_nickname": "",
-            "fans_type": 0,
-            "fans_token": "",
-            "mp_id": 0,
-            "fans_picture": "",
-            "youzan_fans_id": 0,
-            "youzan_fans_nickname": "",
-            "youzan_fans_picture": "",
-            "youzan_user_id": 254587,
-            "no_user_login": false,
-            "buyer_id": 254587,
-            "change_password_url": "",
-            "buyer": {
-                "id": 254587,
-                "nick_name": "18857107097",
-                "avatar": "https:\/\/dn-kdt-img.qbox.me\/upload_files\/avatar.png",
-                "phone": "18857107097",
-                "gender": 0
-            },
-            "open_token": [],
-            "order_state": "all_shop",
-            "migrate_state": true,
-            "see_history": 0,
-            "isBuyerRecord": true,
-            "url": {
-                "base": "\/\/koudaitong.com",
-                "bbs": "http:\/\/bbs.youzan.com",
-                "cdn": "\/\/b.yzcdn.cn",
-                "cdn_static": "https:\/\/b.yzcdn.cn\/v2",
-                "cp": "http:\/\/cp.koudaitong.com",
-                "daxue": "http:\/\/xuetang.youzan.com",
-                "fenxiao": "\/\/fx.youzan.com",
-                "fuwu": "\/\/fuwu.youzan.com",
-                "img": "\/\/img.koudaitong.com",
-                "imgqn": "https:\/\/img.yzcdn.cn",
-                "login": "\/\/login.youzan.com",
-                "open": "\/\/open.koudaitong.com",
-                "static": "https:\/\/static.koudaitong.com\/v2",
-                "trade": "https:\/\/trade.koudaitong.com",
-                "v1": "http:\/\/koudaitong.com\/v1",
-                "v1_static": "\/\/static.koudaitong.com\/v1",
-                "v2": "\/\/koudaitong.com\/v2",
-                "wap": "https:\/\/wap.koudaitong.com\/v2",
-                "ws": "ws:\/\/s.im.youzan.com:83",
-                "www": "\/\/koudaitong.com\/v2",
-                "youzan": "\/\/youzan.com",
-                "cloud": "http:\/\/dl.koudaitong.com",
-                "pf": "https:\/\/pf.koudaitong.com",
-                "uic": "https:\/\/uic.koudaitong.com",
-                "materials": "\/\/materials.koudaitong.com"
-            }
-        };</script>
-    <script charset="utf-8" src="./integral_rec_files/common_08b03c7826.js"></script>
-    <script charset="utf-8" src="./integral_rec_files/base_33619a7a85.js"></script>
-    <script charset="utf-8" src="./integral_rec_files/u_b.js"></script>
-    <script charset="utf-8" src="./integral_rec_files/order_record_819973fc23.js"></script>
-    <script charset="utf-8" async="" src="./integral_rec_files/hm.js"></script>
 </head>
 <body>
 
 <div class="container " style="min-height: 557px;">
     <div class="content js-page-content">
-
-        <div class="tabber tabber-n4 tabber-double-11 clearfix">
-            <a class="" href="https://wap.koudaitong.com/v2/trade/cart?source=weixin11&amp;kdt_id=17984819">购物车</a>
-            <a class="active"
-               href="https://wap.koudaitong.com/v2/trade/record/index?source=weixin11&amp;kdt_id=17984819">购物记录</a>
-            <a class=""
-               href="https://wap.koudaitong.com/v2/trade/record/luckymoney?source=weixin11&amp;kdt_id=17984819">我的红包</a>
-            <a class=""
-               href="https://wap.koudaitong.com/v2/trade/record/backs?source=weixin11&amp;kdt_id=17984819">我的返现</a>
-        </div>
         <div id="order-list-container">
 
             <div class="js-list b-list">
@@ -1215,7 +1014,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20160822180233063571819&amp;kdt_id=54023">
                         <div class="thumb">
-                            <img src="./integral_rec_files/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!200x0.jpg">
+                            <img src="/statics/integral_rec/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">【预售9月8日发货】《细节》：如何轻松影响他人</h3>
@@ -1268,7 +1067,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20160715215707063550219&amp;kdt_id=820980">
                         <div class="thumb">
-                            <img src="./integral_rec_files/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
+                            <img src="/statics/integral_rec/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不...</h3>
@@ -1309,7 +1108,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20160715214611063556604&amp;kdt_id=820980">
                         <div class="thumb">
-                            <img src="./integral_rec_files/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
+                            <img src="/statics/integral_rec/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不...</h3>
@@ -1350,7 +1149,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20160319123411063528111&amp;kdt_id=16198908">
                         <div class="thumb">
-                            <img src="./integral_rec_files/FgeYcQaWFJYeqKlTaone2uDPNOLt.jpg!200x0.jpg">
+                            <img src="/statics/integral_rec/FgeYcQaWFJYeqKlTaone2uDPNOLt.jpg!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">爱奇艺黄金会员（包天）</h3>
@@ -1400,7 +1199,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/wxpay/confirmQr?qr_id=2799429&amp;kdt_id=1026355&amp;showwxpaytitle=1">
                         <div class="thumb">
-                            <img src="./integral_rec_files/cashier_order.jpg!200x0.jpg">
+                            <img src="/statics/integral_rec/cashier_order.jpg!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">[乐享券]的实名认证收款</h3>
@@ -1441,7 +1240,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308173331028496256&amp;kdt_id=16166785">
                         <div class="thumb">
-                            <img src="./integral_rec_files/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
+                            <img src="/statics/integral_rec/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不...</h3>
@@ -1491,7 +1290,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308153221028451571&amp;kdt_id=16166785">
                         <div class="thumb">
-                            <img src="./integral_rec_files/FmFVBvckr7tkCLZkl87zRw8v9Xal.png!200x0.jpg">
+                            <img src="/statics/integral_rec/FmFVBvckr7tkCLZkl87zRw8v9Xal.png!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">优酷会员（包天）</h3>
@@ -1541,7 +1340,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308145309028499487&amp;kdt_id=16166785">
                         <div class="thumb">
-                            <img src="./integral_rec_files/FmFVBvckr7tkCLZkl87zRw8v9Xal.png!200x0.jpg">
+                            <img src="/statics/integral_rec/FmFVBvckr7tkCLZkl87zRw8v9Xal.png!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">优酷会员（包天）</h3>
@@ -1582,7 +1381,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308142612028499420&amp;kdt_id=54023">
                         <div class="thumb">
-                            <img src="./integral_rec_files/FuU6vrk5LLThytNRtdszkNcOtcpj.jpg!200x0.jpg">
+                            <img src="/statics/integral_rec/FuU6vrk5LLThytNRtdszkNcOtcpj.jpg!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">《文艺复兴三杰》 你的私人美术馆</h3>
@@ -1635,7 +1434,7 @@
                     <a class="name-card name-card-3col clearfix"
                        href="https://trade.koudaitong.com/trade/order/result?order_no=E20151101200745028464055&amp;kdt_id=54023">
                         <div class="thumb">
-                            <img src="./integral_rec_files/FtB09EDIejQZ5WrD_3nW5MnQyZhI.jpg!200x0.jpg">
+                            <img src="/statics/integral_rec/FtB09EDIejQZ5WrD_3nW5MnQyZhI.jpg!200x0.jpg">
                         </div>
                         <div class="detail">
                             <h3 class="font-size-14 l2-ellipsis">《经济学通识》 给我一双慧眼吧 </h3>

@@ -1545,6 +1545,7 @@
     <link rel="stylesheet" href="/statics/member/showcase_admin_cbae433152bd29e702b2275058204f04.css"
           onerror="_cdnFallback(this)" media="screen">
     <link rel="stylesheet" href="/statics/member/shopnav_custom_1773d863bdd16769f4e92b24d76e1a0a.css">
+    <link rel="stylesheet" href="http://demo.open.weixin.qq.com/jssdk/css/style.css?ts=1420774989">
 </head>
 <body class="body-fixed-bottom">
 <div class="container " style="min-height: 599px;">
@@ -1555,34 +1556,16 @@
                 <img class="custom-level-img js-lazy "
                      data-src="https://img.yzcdn.cn/upload_files/2015/01/22/Fi7c8Ft3KMlWQp0oYJhI6pS9ckMq.png"
                      src="/statics/member/Fi7c8Ft3KMlWQp0oYJhI6pS9ckMq.png" style="display: block;">
-
-                <div class="custom-level-title-section js-custom-level-title-section">
-                    <h5 class="custom-level-title">
-                        尊贵的 <span class="js-custom-level">188****7097</span>
-                    </h5>
-                </div>
             </div>
-
             <div class="order-related">
                 <p>
                     <br/>
-                    1、阿斯顿发士大夫撒；<br/>
-                    2、阿斯顿发士大夫撒；<br/>
-                    3、阿斯顿发士大夫撒；<br/>
-                    4、阿斯顿发士大夫撒；<br/>
-                    5、阿斯顿发士大夫撒；
+                    1、下方是您的专属二维码，有效期48小时；<br/>
+                    2、邀请好友扫描二维码，每邀请一位好友赠送30积分；<br/>
+                    <button class="btn btn_primary" id="onMenuShareTimeline">onMenuShareTimeline</button>
                 </p>
+                <div align="center"><img src="/statics/home/ewm.png"/></div>
             </div>
-
-            <div class="custom-store block-item border">
-                <a class="custom-store-link clearfix" href="https://wap.koudaitong.com/v2/home/a7tdi8lh">
-                    <div class="custom-store-img"></div>
-                    <div class="custom-store-name">
-                        黑眼圈365
-                    </div>
-                </a>
-            </div>
-
         </div>
         <div id="shop-nav" style="display: block;">
             <div class="js-navmenu js-footer-auto-ele shop-nav nav-menu nav-menu-1 has-menu-3">
@@ -1625,4 +1608,93 @@
     </div>
 </div>
 </body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"/>
+<script>
+
+    wx.config({
+        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wx9550cb6f6efa8cb1', // 必填，公众号的唯一标识
+        timestamp: 1420774989, // 必填，生成签名的时间戳
+        nonceStr: '1471123215', // 必填，生成签名的随机串
+        signature: 'd6ce760c2e48be5b2decb68746ce73d0eab5b701',// 必填，签名，见附录1
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'hideMenuItems',
+            'showMenuItems',
+            'hideAllNonBaseMenuItem',
+            'showAllNonBaseMenuItem',
+            'translateVoice',
+            'startRecord',
+            'stopRecord',
+            'onRecordEnd',
+            'playVoice',
+            'pauseVoice',
+            'stopVoice',
+            'uploadVoice',
+            'downloadVoice',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'getNetworkType',
+            'openLocation',
+            'getLocation',
+            'hideOptionMenu',
+            'showOptionMenu',
+            'closeWindow',
+            'scanQRCode',
+            'chooseWXPay',
+            'openProductSpecificView',
+            'addCard',
+            'chooseCard',
+            'openCard'
+        ]
+    });
+    wx.ready(function () {
+        alert("asfdsafsafd");
+
+        document.querySelector('#onMenuShareTimeline').onclick = function () {
+            alert("okokokoko");
+            wx.onMenuShareTimeline({
+                title: '互联网之子 方倍工作室',
+                link: 'http://movie.douban.com/subject/25785114/',
+                imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+                trigger: function (res) {
+                    alert('用户点击分享到朋友圈');
+                },
+                success: function (res) {
+                    alert('已分享');
+                },
+                cancel: function (res) {
+                    alert('已取消');
+                },
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            });
+            alert('已注册获取“分享到朋友圈”状态事件');
+        };
+    });
+
+    /*var now = new Date();
+
+
+     wx.onMenuShareTimeline({
+     title: 'title', // 分享标题
+     link: 'http://www.baidu.com', // 分享链接
+     imgUrl: 'https://www.baidu.com/img/baidu_jgylogo3.gif', // 分享图标
+     success: function () {
+     // 用户确认分享后执行的回调函数
+     alert("success");
+     },
+     cancel: function () {
+     // 用户取消分享后执行的回调函数
+     alert("cancel");
+     }
+     });*/
+</script>
 </html>

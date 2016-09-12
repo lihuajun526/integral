@@ -57,6 +57,8 @@ public class WechatController {
         /** 判断是否是微信接入激活验证，只有首次接入验证时才会收到echostr参数，此时需要把它直接返回 */
         String echostr = request.getParameter("echostr");
         if (!StringUtils.isEmpty(echostr)) {
+            System.out.println(request.getParameter("nonce"));
+            System.out.println(request.getParameter("signature"));
             result = echostr;
         } else {
             //正常的微信处理流程

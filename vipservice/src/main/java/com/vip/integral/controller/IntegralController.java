@@ -43,7 +43,7 @@ public class IntegralController extends BaseController {
     @RequestMapping("/rec")
     public ModelAndView integralRec() {
 
-        ModelAndView modelAndView = new ModelAndView("home");
+        ModelAndView modelAndView = new ModelAndView("integral_rec");
         Goods goods = new Goods();
         goods.setStatus(1);
         //modelAndView.addObject("goodsList", goodsService.listByCondition(goods));
