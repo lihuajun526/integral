@@ -21,6 +21,7 @@ public class WechatMsg {
     private String event;
     private String eventKey;
     private String ticket;
+    private String content;
 
     public String getToUserName() {
         return toUserName;
@@ -78,7 +79,15 @@ public class WechatMsg {
         this.ticket = ticket;
     }
 
-    /*public String toString() {
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String toString() {
         StringBuffer sb = new StringBuffer("<xml>");
         Field[] fields = this.getClass().getDeclaredFields();
         try {
@@ -106,5 +115,5 @@ public class WechatMsg {
         }
         sb.append("</xml>");
         return sb.toString();
-    }*/
+    }
 }

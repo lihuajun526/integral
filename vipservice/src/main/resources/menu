@@ -1,0 +1,27 @@
+{
+     "button":[
+     {
+          "type":"view",
+          "name":"VIP会员",
+          "url":"http://lihuajun526.xicp.net/goods/list"
+      },
+      {
+          "type":"click",
+          "name":"会员账号",
+          "key":"getVip"
+      },
+      {
+           "name":"黑眼圈365",
+           "sub_button":[
+           {
+               "type":"view",
+               "name":"投诉",
+               "url":"http://www.soso.com/"
+            },
+            {
+               "type":"view",
+               "name":"建议",
+               "url":"http://v.qq.com/"
+            }]
+       }]
+ }

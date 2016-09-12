@@ -8,6 +8,7 @@ import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.UserService;
 import com.vip.integral.service.VipAccountService;
 import com.vip.integral.service.WechatService;
+import com.vip.integral.util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,8 +41,8 @@ public class WechatController {
     @Autowired
     private VipAccountService vipAccountService;
 
-    @RequestMapping("/get")
-    public void getUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @RequestMapping("/center")
+    public void center(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         /** 读取接收到的xml消息 */
         StringBuffer sb = new StringBuffer();
@@ -77,7 +79,13 @@ public class WechatController {
                 if (null == userService.getByOpenid(user.getOpenid())) {
                     userService.save(user);
                 }
-                result = "关注成功";
+                WechatMsg reply = new WechatMsg();
+                reply.setToUserName(user.getOpenid());
+                reply.setFromUserName(Config.get("wechat.account"));
+                reply.setCreateTime(new Date());
+                reply.setMsgType("text");
+                reply.setContent("欢迎关注黑眼圈365");
+                result = reply.toString();
             } else if ("click".equalsIgnoreCase(wechatMsg.getEvent())) {//点击菜单
                 if ("getVip".equalsIgnoreCase(wechatMsg.getEventKey())) {//获取vip
                     User user = userService.getByOpenid("0");
