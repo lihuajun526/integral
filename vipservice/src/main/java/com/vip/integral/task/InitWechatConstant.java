@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.util.Config;
 import com.vip.integral.util.XHttpClient;
-import com.vip.integral.util.wechat.Constant;
+import com.vip.integral.constant.Constant;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

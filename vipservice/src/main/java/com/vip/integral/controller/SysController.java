@@ -3,7 +3,7 @@ package com.vip.integral.controller;
 import com.vip.integral.base.BaseController;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.util.XHttpClient;
-import com.vip.integral.util.wechat.Constant;
+import com.vip.integral.constant.Constant;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;

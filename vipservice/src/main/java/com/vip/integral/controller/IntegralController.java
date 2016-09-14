@@ -5,7 +5,7 @@ import com.vip.integral.base.Result;
 import com.vip.integral.model.Goods;
 import com.vip.integral.util.Config;
 import com.vip.integral.util.StrUtil;
-import com.vip.integral.util.wechat.Constant;
+import com.vip.integral.constant.Constant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
