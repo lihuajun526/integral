@@ -47,15 +47,15 @@ public class HttpConnectionManager {
 
         cm = new PoolingHttpClientConnectionManager(registry);
         // 最大连接数
-        cm.setMaxTotal(Config.getInt("httpclient.pool.max.connection"));
+        cm.setMaxTotal(200);
         // 每个路由基础的连接数
-        cm.setDefaultMaxPerRoute(Config.getInt("httpclient.pool.max.route"));
+        cm.setDefaultMaxPerRoute(20);
 
         //请求重试处理
         httpRequestRetryHandler = new HttpRequestRetryHandler() {
             @Override
             public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
-                if (executionCount >= Config.getInt("httpclient.request.retry")) {// 如果已经重试了N次，就放弃
+                if (executionCount >= 3) {// 如果已经重试了N次，就放弃
                     return false;
                 }
                 if (exception instanceof NoHttpResponseException) {// 如果服务器丢掉了连接，那么就重试

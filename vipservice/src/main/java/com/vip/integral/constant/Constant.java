@@ -12,10 +12,5 @@ public class Constant {
 
     public static String JSAPI_TICKET;
 
-    public static String WECHAT_APPID = Config.get("wechat.appid");
-
-    public static String WECHAT_SECRET = Config.get("wechat.secret");
-
-    public static String APP_DOMAIN = Config.get("app.domain");
 
 }

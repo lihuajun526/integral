@@ -7,6 +7,7 @@ import com.vip.integral.constant.Constant;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/sys")
 public class SysController extends BaseController {
-
 
     /**
      * 更新菜单

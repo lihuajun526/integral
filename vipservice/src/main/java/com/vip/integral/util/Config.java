@@ -27,17 +27,10 @@ public class Config {
     }
 
     public static Integer getInt(String key) {
-        String value = prop.getProperty(key);
-        return Integer.valueOf(value);
+        return Integer.parseInt(prop.getProperty(key));
     }
 
     public static Long getLong(String key) {
-        String value = prop.getProperty(key);
-        return Long.valueOf(value);
-    }
-
-    public static void main(String[] args) {
-        String str = Config.get("is.spider.repeat");
-        System.out.println(str);
+        return Long.parseLong(prop.getProperty(key));
     }
 }

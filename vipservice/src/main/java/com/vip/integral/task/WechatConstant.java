@@ -2,12 +2,14 @@ package com.vip.integral.task;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.exception.RequestException;
-import com.vip.integral.util.Config;
+import com.vip.integral.util.AppConfig;
 import com.vip.integral.util.XHttpClient;
 import com.vip.integral.constant.Constant;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,23 +17,25 @@ import java.util.TimerTask;
 /**
  * Created by lihuajun on 2016/9/12.
  */
-public class InitWechatConstant {
+@Service("wechatConstant")
+public class WechatConstant {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(InitWechatConstant.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WechatConstant.class);
 
-    public static void run() {
+    @Autowired
+    private AppConfig appConfig;
+
+    public void init() {
 
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                String appid = Config.get("appid");
-                String secret = Config.get("secret");
                 //更新ACCESS_TOKEN
-                HttpGet httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" + secret);
+                HttpGet httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appConfig.wechatAppid + "&secret=" + appConfig.wechatSecret);
                 try {
                     String response = XHttpClient.doRequest(httpGet);
                     JSONObject jsonObject = JSONObject.parseObject(response);
-                    Constant.ACCESS_TOKEN = jsonObject.getString("ACCESS_TOKEN");
+                    Constant.ACCESS_TOKEN = jsonObject.getString("access_token");
                     LOGGER.info("最新的ACCESS_TOKEN=" + Constant.ACCESS_TOKEN);
                 } catch (RequestException e) {
                     LOGGER.error("更新ACCESS_TOKEN失败:", e);

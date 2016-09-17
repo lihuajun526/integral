@@ -14,6 +14,8 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -31,9 +33,9 @@ public class XHttpClient {
     static {
 
         requestConfig = RequestConfig.custom()
-                .setConnectionRequestTimeout(Config.getInt("httpclient.request.timeout"))
-                .setConnectTimeout(Config.getInt("httpclient.connect.timeout"))
-                .setSocketTimeout(Config.getInt("httpclient.socket.timeout"))
+                .setConnectionRequestTimeout(30000)
+                .setConnectTimeout(30000)
+                .setSocketTimeout(30000)
                 .setExpectContinueEnabled(false)
                 .build();
     }

@@ -1,8 +1,11 @@
 package com.vip.integral.listener;
 
-import com.vip.integral.task.InitWechatConstant;
+import com.vip.integral.task.WechatConstant;
+import com.vip.integral.util.AppConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -16,9 +19,12 @@ public class ApplicationInit implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+
         LOGGER.info("##############################系统初始化开始##############################");
 
-        InitWechatConstant.run();
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContextEvent.getServletContext());
+        WechatConstant wechatConstant = (WechatConstant) webApplicationContext.getBean("wechatConstant");
+        wechatConstant.init();
 
         LOGGER.info("##############################系统初始化结束##############################");
     }
