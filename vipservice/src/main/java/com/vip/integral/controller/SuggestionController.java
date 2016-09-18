@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by lihuajun on 16-7-6.
  */
 @Controller
-@RequestMapping("/suggestion")
+@RequestMapping("/suggest")
 public class SuggestionController extends BaseController {
 
     @Autowired

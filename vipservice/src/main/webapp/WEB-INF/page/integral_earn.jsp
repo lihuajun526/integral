@@ -1568,7 +1568,7 @@
                     <br/>
                     1、下方是您的专属二维码，有效期48小时；<br/>
                     2、邀请好友扫描二维码，每邀请一位好友赠送30积分；<br/>
-                    <button class="btn btn_primary" id="onMenuShareTimeline">onMenuShareTimeline</button>
+                    <button class="btn btn_primary" id="onMenuShareTimeline">test</button>
                 </p>
                 <div align="center"><img src="/statics/home/ewm.png"/></div>
             </div>
@@ -1614,7 +1614,7 @@
     </div>
 </div>
 </body>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"/>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
     wx.config({
         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -1624,43 +1624,12 @@
         signature: '<%=signature%>',// 必填，签名，见附录1
         jsApiList: [
             'checkJsApi',
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'hideMenuItems',
-            'showMenuItems',
-            'hideAllNonBaseMenuItem',
-            'showAllNonBaseMenuItem',
-            'translateVoice',
-            'startRecord',
-            'stopRecord',
-            'onRecordEnd',
-            'playVoice',
-            'pauseVoice',
-            'stopVoice',
-            'uploadVoice',
-            'downloadVoice',
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            'downloadImage',
-            'getNetworkType',
-            'openLocation',
-            'getLocation',
-            'hideOptionMenu',
-            'showOptionMenu',
-            'closeWindow',
-            'scanQRCode',
-            'chooseWXPay',
-            'openProductSpecificView',
-            'addCard',
-            'chooseCard',
-            'openCard'
+            'onMenuShareTimeline'
         ]
     });
     wx.ready(function () {
         document.querySelector('#onMenuShareTimeline').onclick = function () {
+            alert(location.href.split('#')[0]);
             wx.onMenuShareTimeline({
                 title: '互联网之子 方倍工作室',
                 link: 'http://movie.douban.com/subject/25785114/',
@@ -1681,22 +1650,5 @@
             alert('已注册获取“分享到朋友圈”状态事件');
         };
     });
-
-    /*var now = new Date();
-
-
-     wx.onMenuShareTimeline({
-     title: 'title', // 分享标题
-     link: 'http://www.baidu.com', // 分享链接
-     imgUrl: 'https://www.baidu.com/img/baidu_jgylogo3.gif', // 分享图标
-     success: function () {
-     // 用户确认分享后执行的回调函数
-     alert("success");
-     },
-     cancel: function () {
-     // 用户取消分享后执行的回调函数
-     alert("cancel");
-     }
-     });*/
 </script>
 </html>

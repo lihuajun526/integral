@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+    public static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

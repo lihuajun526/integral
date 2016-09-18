@@ -8,7 +8,7 @@ import java.util.Date;
 public class Suggestion {
 
     private Integer id;
-    private Integer openid;
+    private String openid;
     //1建议,2投诉
     private Integer type;
     //状态，默认为1
@@ -25,11 +25,11 @@ public class Suggestion {
         this.id = id;
     }
 
-    public Integer getOpenid() {
+    public String getOpenid() {
         return openid;
     }
 
-    public void setOpenid(Integer openid) {
+    public void setOpenid(String openid) {
         this.openid = openid;
     }
 

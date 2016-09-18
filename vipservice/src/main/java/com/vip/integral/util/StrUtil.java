@@ -3,6 +3,7 @@ package com.vip.integral.util;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 
 /**
  * Created by lihuajun on 2016/9/12.
@@ -31,11 +32,23 @@ public class StrUtil {
                 }
                 hexString.append(shaHex);
             }
-            return hexString.toString().toUpperCase();
+            return hexString.toString().toLowerCase();
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             throw new DigestException("签名错误！");
+        }
+    }
+
+    public static void main(String[]args){
+        try {
+            Timestamp d = new Timestamp(System.currentTimeMillis());
+            long time1 = d.getTime();
+            System.out.println(time1);
+            System.out.println(Long.toString(time1 / 1000));
+            System.out.println(StrUtil.sha1("jsapi_ticket=bxLdikRXVbTPdHSM05e5u_H6X4LRoooANL2XioWz9Sq8gBvv3VdEtQNgqq73zbEeO6M0JagHQBPNA04vuRKssw&noncestr=Wm3WZYTPz0wzccnW&timestamp=1474190054&url=http://lihuajun526.xicp.net/integral/earn"));
+        } catch (DigestException e) {
+            e.printStackTrace();
         }
     }
 }

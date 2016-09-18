@@ -1,7 +1,9 @@
 package com.vip.integral.service.impl;
 
+import com.vip.integral.dao.SuggestionMapper;
 import com.vip.integral.model.Suggestion;
 import com.vip.integral.service.SuggestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +13,13 @@ import java.util.List;
  */
 @Service("suggestionService")
 public class SuggestionServiceImpl implements SuggestionService {
+
+    @Autowired
+    private SuggestionMapper suggestionMapper;
+
     @Override
     public int save(Suggestion suggestion) {
-        return 0;
+        return suggestionMapper.insert(suggestion);
     }
 
     @Override

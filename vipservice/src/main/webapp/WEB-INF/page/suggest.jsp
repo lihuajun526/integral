@@ -12,21 +12,37 @@
 </head>
 <body>
 <div>
-    <form action="" method="post">
-        <input name="type" type="hidden" value="<%=type %>"/>
-        <input name="openid" type="hidden" value="<%=openid %>"/>
-        <input name="status" type="hidden" value="1"/>
-        <textarea name="content"></textarea>
-        <input type="button" value="提交" onclick="test()"/>
+    <form>
+        <input id="type" name="type" type="hidden" value="<%=type %>"/>
+        <input id="openid" name="openid" type="hidden" value="<%=openid %>"/>
+        <input id="status" name="status" type="hidden" value="1"/>
+        <textarea id="content" name="content"></textarea>
+        <input type="button" value="提交" onclick="save()"/>
     </form>
     <div data-role="popup" id="message">
-        <p>这是一个简单的弹窗</p>
+        <p>提交成功，感谢您的支持</p>
     </div>
 </div>
 </body>
 <script>
-    function test(){
-        $("#message").popup('open');
+    function save() {
+        alert($("#content").val());
+        $.ajax({
+            url: '/suggest/save',
+            type: 'post',
+            data: {
+                "type": $("#type").val(),
+                "openid": $("#openid").val(),
+                "status": $("#status").val(),
+                "content": $("#content").val()
+            },
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $("#message").popup('open');
+                }
+            }
+        });
     }
 </script>
 </html>

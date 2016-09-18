@@ -100,7 +100,7 @@ public class Menus {
         }
         Menu menu3_2 = new Menus.Menu();
         menu3_2.setType("view");
-        menu3_2.setName("投诉");
+        menu3_2.setName("建议");
         redirectUri = Config.get("app.domain") + "/index/suggest?type=1";
         try {
             menu3_2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
