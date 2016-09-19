@@ -40,10 +40,10 @@ public class XHttpClient {
                 .build();
     }
 
-    public static String doRequest(HttpUriRequest httpUriRequest)
+    public static JSONObject doRequest(HttpUriRequest httpUriRequest)
             throws RequestException {
 
-        String response = null;
+        JSONObject jsonObject = null;
         CloseableHttpResponse httpResponse = null;
         HttpRequestBase httpRequestBase = null;
         try {
@@ -68,10 +68,10 @@ public class XHttpClient {
                 charset = header.getValue().split("charset=")[1];
             }
 
-            response = IOUtils.toString(in, charset);
+            String response = IOUtils.toString(in, charset);
             in.close();
             //{"errcode":40013,"errmsg":"invalid appid"}
-            JSONObject jsonObject = JSON.parseObject(response);
+            jsonObject = JSON.parseObject(response);
             String errcode = jsonObject.getString("errcode");
             if (!StringUtils.isEmpty(errcode) && !"0".equals(errcode)) {
                 LOGGER.error("请求微信服务器返回错误[errcode={},errmsg={}]", jsonObject.getString("errcode"), jsonObject.getString("errmsg"));
@@ -89,6 +89,6 @@ public class XHttpClient {
                 LOGGER.error("error:", e);
             }
         }
-        return response;
+        return jsonObject;
     }
 }

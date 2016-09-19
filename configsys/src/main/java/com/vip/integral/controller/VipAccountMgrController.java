@@ -34,6 +34,9 @@ public class VipAccountMgrController extends BaseController {
         Result<Boolean> result = new Result<>();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String[] strs = vipAccount.getTypeName().split("_");
+        vipAccount.setType(Integer.parseInt(strs[0]));
+        vipAccount.setTypeName(strs[1]);
         vipAccount.setEffectiveTime(sdf.parse(sEffectiveTime));
         if (vipAccount.getId() == 0) {
             vipAccountService.save(vipAccount);

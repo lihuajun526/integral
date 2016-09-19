@@ -39,9 +39,9 @@ public class SysController extends BaseController {
         params.add(new BasicNameValuePair("access_token", Constant.ACCESS_TOKEN));
         params.add(new BasicNameValuePair("body", menu));
 
-        String response = XHttpClient.doRequest(httpPost);
+        XHttpClient.doRequest(httpPost);
 
-        return response;
+        return "";
     }
 
 

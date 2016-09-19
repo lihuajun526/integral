@@ -27,12 +27,12 @@
                 <tr>
                     <td align="right">会员类型</td>
                     <td>
-                        <select id="type" name="type">
-                            <option value="1">爱奇艺</option>
-                            <option value="2">优酷</option>
-                            <option value="3">腾讯视频</option>
-                            <option value="4">乐视</option>
-                            <option value="5">搜狐视频</option>
+                        <select id="typeName" name="typeName">
+                            <option value="1_爱奇艺">爱奇艺</option>
+                            <option value="2_优酷">优酷</option>
+                            <option value="3_腾讯视频">腾讯视频</option>
+                            <option value="4_乐视">乐视</option>
+                            <option value="5_搜狐视频">搜狐视频</option>
                         </select>
                     </td>
                 </tr>
@@ -68,19 +68,7 @@
                 field: 'account', title: '账号', width: 20
             },
             {
-                field: 'type', title: '类型', width: 20,
-                formatter: function (value, rec) {
-                    if (rec.type == 1)
-                        return "爱奇艺";
-                    else if (rec.status == 2)
-                        return "优酷";
-                    else if (rec.status == 3)
-                        return "腾讯视频";
-                    else if (rec.status == 4)
-                        return "乐视";
-                    else if (rec.status == 5)
-                        return "搜狐视频";
-                }
+                field: 'typeName', title: '类型', width: 20
             },
             {
                 field: 'effectiveTime', title: '有效期', width: 20,
@@ -121,7 +109,7 @@
                 "id": $("#id").val(),
                 "account": $("#account").val(),
                 "password": $("#password").val(),
-                "type": $("#type").val(),
+                "typeName": $("#typeName").val(),
                 "count": $("#count").val(),
                 "sEffectiveTime": $('#effectiveTime').datetimebox('getValue')
             },
@@ -148,7 +136,7 @@
                     $("#id").val(data.id);
                     $("#account").val(data.account);
                     $("#password").val(data.password);
-                    $("#type").val(data.type);
+                    $("#typeName").val(data.typeName);
                     $("#count").val(data.count);
                     $('#effectiveTime').datebox("setValue", dateFormatter(new Date(data.effectiveTime)));
                     $('#w').window('open');

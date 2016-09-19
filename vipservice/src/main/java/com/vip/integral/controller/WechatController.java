@@ -1,14 +1,21 @@
 package com.vip.integral.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.vip.integral.constant.Constant;
+import com.vip.integral.constant.ExceptionTypeEnum;
+import com.vip.integral.exception.OpenidNotExistException;
+import com.vip.integral.exception.RequestException;
 import com.vip.integral.model.User;
 import com.vip.integral.model.VipAccount;
 import com.vip.integral.model.WechatMsg;
-import com.vip.integral.service.ConfigService;
-import com.vip.integral.service.UserService;
-import com.vip.integral.service.VipAccountService;
-import com.vip.integral.service.WechatService;
+import com.vip.integral.service.*;
+import com.vip.integral.util.AppConfig;
 import com.vip.integral.util.Config;
+import com.vip.integral.util.XHttpClient;
+import com.vip.integral.util.wechat.WechatProcess;
+import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +47,13 @@ public class WechatController {
     private ConfigService configService;
     @Autowired
     private VipAccountService vipAccountService;
+    @Autowired
+    private AppConfig appConfig;
+    @Autowired
+    private IntegralService integralService;
 
     @RequestMapping("/center")
-    public void center(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void center(HttpServletRequest request, HttpServletResponse response) throws IOException, OpenidNotExistException {
 
         /** 读取接收到的xml消息 */
         StringBuffer sb = new StringBuffer();
@@ -59,43 +70,100 @@ public class WechatController {
         /** 判断是否是微信接入激活验证，只有首次接入验证时才会收到echostr参数，此时需要把它直接返回 */
         String echostr = request.getParameter("echostr");
         if (!StringUtils.isEmpty(echostr)) {
-            System.out.println(request.getParameter("nonce"));
-            System.out.println(request.getParameter("signature"));
+            LOGGER.info("接入成功");
+            LOGGER.info(request.getParameter("nonce"));
+            LOGGER.info(request.getParameter("signature"));
             result = echostr;
         } else {
             //正常的微信处理流程
-            //WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
-            //测试阶段
-            WechatMsg wechatMsg = new WechatMsg();
-            wechatMsg.setEvent("click");
-            wechatMsg.setEventKey("getVip");
-
+            WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
+            String openid = wechatMsg.getFromUserName();
+            User user = userService.getByOpenid(openid);
+            if (user == null) {
+                LOGGER.error("openid=[{}]的用户不存在：", openid);
+                throw new OpenidNotExistException(ExceptionTypeEnum.OPENID_NOT_EXIST_ERROR);
+            }
             if ("subscribe".equalsIgnoreCase(wechatMsg.getEvent())) {//关注
-                //todo 获取用户信息
-                User user = new User();
-                user.setStatus(1);
-                user.setIntegral(configService.getInt("integral.subscribe.encourage"));
-                user.setOpenid("0");
-                if (null == userService.getByOpenid(user.getOpenid())) {
+                if (null == user) {//添加用户
+                    user = new User();
+                    user.setStatus(1);
+                    user.setIntegral(configService.getInt("integral.subscribe.encourage"));
+                    user.setOpenid(openid);
+                    //获取用户基本信息
+                    HttpGet httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + Constant.ACCESS_TOKEN + "&openid=" + openid + "&lang=zh_CN");
+                    try {
+                        JSONObject jsonObject = XHttpClient.doRequest(httpGet);
+                        user.setNickname(jsonObject.getString("nickname"));
+                        user.setSex(jsonObject.getInteger("sex"));
+                        user.setLanguage(jsonObject.getString("language"));
+                        user.setCity(jsonObject.getString("city"));
+                        user.setProvince(jsonObject.getString("province"));
+                        user.setCountry(jsonObject.getString("country"));
+                        user.setHeadimgurl(jsonObject.getString("headimgurl"));
+                    } catch (Exception e) {
+                        LOGGER.error("获取用户基本信息错误：", e);
+                    }
                     userService.save(user);
+                    LOGGER.info("新用户[{}]关注成功", user.getNickname());
+                    //奖励推广者积分
+                    String userid = wechatMsg.getEventKey();
+                    if (!StringUtils.isEmpty(userid)) {
+                        integralService.encourageFromPopularize(Integer.parseInt(userid), user.getId(), configService.getInt("integral.spread.encourage"));
+                    }
+                } else {//更新用户状态
+                    User updateUser = new User();
+                    updateUser.setId(user.getId());
+                    updateUser.setStatus(1);
+                    userService.update(updateUser);
+                    LOGGER.info("老用户[{}]重新关注成功", user.getNickname());
                 }
                 WechatMsg reply = new WechatMsg();
-                reply.setToUserName(user.getOpenid());
-                reply.setFromUserName(Config.get("wechat.account"));
+                reply.setToUserName(openid);
+                reply.setFromUserName(appConfig.wechatAccount);
                 reply.setCreateTime(new Date());
                 reply.setMsgType("text");
                 reply.setContent("欢迎关注黑眼圈365");
-                result = reply.toString();
+                result = reply.toXml();
+                LOGGER.info("关注后的返回数据：" + result);
+            } else if ("unsubscribe".equalsIgnoreCase(wechatMsg.getEvent())) {//取消关注
+                User updateUser = new User();
+                updateUser.setId(user.getId());
+                updateUser.setStatus(0);
+                userService.update(updateUser);
+                LOGGER.info("用户[{}]取消关注成功", user.getNickname());
+            } else if ("scan".equalsIgnoreCase(wechatMsg.getEvent())) {
+                LOGGER.info("已关注的用户[{}]扫描二维码不做任何处理", user.getNickname());
             } else if ("click".equalsIgnoreCase(wechatMsg.getEvent())) {//点击菜单
                 if ("getVip".equalsIgnoreCase(wechatMsg.getEventKey())) {//获取vip
-                    User user = userService.getByOpenid("0");
                     List<VipAccount> list = vipAccountService.listVip(user);
-                    if (list != null && list.size() > 0)
-                        result = JSONArray.toJSONString(list);
-                    else
-                        result = "没有购买记录";
+                    String content = null;
+                    if (list != null && list.size() > 0) {
+                        StringBuffer vips = new StringBuffer();
+                        boolean isFirst = true;
+                        for (VipAccount vipAccount : list) {
+                            if (isFirst) {
+                                vips.append(vipAccount.getTypeName()).append(":")
+                                        .append(vipAccount.getAccount()).append(" / ")
+                                        .append(vipAccount.getPassword());
+                                isFirst = false;
+                                continue;
+                            }
+                            vips.append("\n").append(vipAccount.getTypeName()).append(":")
+                                    .append(vipAccount.getAccount()).append(" / ")
+                                    .append(vipAccount.getPassword());
+                        }
+                        content = vips.toString();
+                    } else {
+                        content = "没有购买记录";
+                    }
+                    WechatMsg reply = new WechatMsg();
+                    reply.setToUserName(openid);
+                    reply.setFromUserName(appConfig.wechatAccount);
+                    reply.setCreateTime(new Date());
+                    reply.setMsgType("text");
+                    reply.setContent(content);
+                    result = reply.toXml();
                 }
-
             }
         }
         PrintWriter writer = response.getWriter();

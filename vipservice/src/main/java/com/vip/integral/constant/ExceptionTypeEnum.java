@@ -10,7 +10,7 @@ public enum ExceptionTypeEnum {
     SUCCESS("000000", "成功!"),
     HTTP_REQUEST_ERROR("000001", "http请求失败!"),
     REQUEST_WECHAT_SERVER_ERROR("000002", "请求微信服务器失败"),
-
+    OPENID_NOT_EXIST_ERROR("000003", "openid不存在"),
     ;
 
     public final String code;

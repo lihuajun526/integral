@@ -12,6 +12,7 @@ public class VipAccount {
     private String password;
     //会员类型：1爱奇艺，2优酷，3腾讯视频，4乐视，5搜狐视频
     private Integer type;
+    private String typeName;
     private Integer count;//数量
     private Date effectiveTime;
     private Date createTime;
@@ -79,5 +80,13 @@ public class VipAccount {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 }

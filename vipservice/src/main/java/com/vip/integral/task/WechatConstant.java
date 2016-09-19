@@ -33,8 +33,7 @@ public class WechatConstant {
                 //更新ACCESS_TOKEN
                 HttpGet httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appConfig.wechatAppid + "&secret=" + appConfig.wechatSecret);
                 try {
-                    String response = XHttpClient.doRequest(httpGet);
-                    JSONObject jsonObject = JSONObject.parseObject(response);
+                    JSONObject jsonObject = XHttpClient.doRequest(httpGet);
                     Constant.ACCESS_TOKEN = jsonObject.getString("access_token");
                     LOGGER.info("最新的ACCESS_TOKEN=" + Constant.ACCESS_TOKEN);
                 } catch (RequestException e) {
@@ -44,8 +43,7 @@ public class WechatConstant {
                 //更新JSAPI_TICKET
                 httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + Constant.ACCESS_TOKEN + "&type=jsapi");
                 try {
-                    String response = XHttpClient.doRequest(httpGet);
-                    JSONObject jsonObject = JSONObject.parseObject(response);
+                    JSONObject jsonObject = XHttpClient.doRequest(httpGet);
                     Constant.JSAPI_TICKET = jsonObject.getString("ticket");
                     LOGGER.info("最新的JSAPI_TICKET=" + Constant.JSAPI_TICKET);
                 } catch (RequestException e) {

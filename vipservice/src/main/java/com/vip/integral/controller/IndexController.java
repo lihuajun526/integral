@@ -35,8 +35,7 @@ public class IndexController extends BaseController {
         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appConfig.wechatAppid + "&secret=" + appConfig.wechatSecret + "&code=" + code + "&grant_type=authorization_code";
         HttpGet httpGet = new HttpGet(url);
         try {
-            String response = XHttpClient.doRequest(httpGet);
-            JSONObject jsonObject = JSON.parseObject(response);
+            JSONObject jsonObject = XHttpClient.doRequest(httpGet);
             modelAndView.addObject("openid", jsonObject.getString("openid"));
         } catch (RequestException e) {
             e.printStackTrace();

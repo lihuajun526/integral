@@ -5,8 +5,9 @@ import com.vip.integral.dao.UserMapper;
 import com.vip.integral.model.IntegralRecord;
 import com.vip.integral.model.User;
 import com.vip.integral.service.ConfigService;
-import com.vip.integral.service.IntegralRecordService;
 import com.vip.integral.service.IntegralService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,6 +17,8 @@ import org.springframework.util.StringUtils;
  */
 @Service("integralService")
 public class IntegralServiceImpl implements IntegralService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(IntegralServiceImpl.class);
 
     @Autowired
     private ConfigService configService;
@@ -55,20 +58,24 @@ public class IntegralServiceImpl implements IntegralService {
     @Override
     public Boolean encourageFromPopularize(Integer userid, Integer friendid, Integer count) {
 
-        User sourceUser = null;
+        User sourceUser = userMapper.selectByPrimaryKey(userid);
+        User updateUser = new User();
+        updateUser.setId(sourceUser.getId());
+
         Long interval = System.currentTimeMillis() - sourceUser.getPopulateTime().getTime();
-        //24小时内推广的好友有效
-        if ((interval / (1000 * 60 * 60)) > 24) {
+        //N小时外推广的好友无效
+        if ((interval / (1000 * 60 * 60)) > configService.getInt("spread.effective")) {
             if (StringUtils.isEmpty(sourceUser.getSpreadRecord())) {
                 sourceUser.setSpreadRecord(friendid + ":" + 0);
             } else {
                 sourceUser.setSpreadRecord("#" + friendid + ":" + 0);
             }
-            //todo 更新用户推广记录
+            updateUser.setSpreadRecord(sourceUser.getSpreadRecord());
+            userMapper.updateByPrimaryKeySelective(updateUser);
+            LOGGER.info("推广的好友不在有效期内");
             return false;
         }
 
-        //todo 上层要判断该用户是否是新关注用户，只有新关注用户才送分给推广者
         int spreadCount = 0;
         if (StringUtils.isEmpty(sourceUser.getSpreadRecord())) {
             sourceUser.setSpreadRecord(friendid + ":" + 1);
@@ -82,21 +89,24 @@ public class IntegralServiceImpl implements IntegralService {
                 }
             }
             if (spreadCount >= configService.getInt("max.spread.count")) {
-                sourceUser.setSpreadRecord("#" + friendid + ":" + 0);
-                //todo 更新用户
+                updateUser.setSpreadRecord(sourceUser.getSpreadRecord() + "#" + friendid + ":" + 0);
+                userMapper.updateByPrimaryKeySelective(updateUser);
+                LOGGER.warn("超出最大推广人数");
                 return false;
             }
-            sourceUser.setSpreadRecord("#" + friendid + ":" + 1);
+            updateUser.setSpreadRecord(sourceUser.getSpreadRecord() + "#" + friendid + ":" + 1);
         }
-        sourceUser.setIntegral(sourceUser.getIntegral() + count);
-        //todo 更新用户推广记录及积分
+        updateUser.setIntegral(sourceUser.getIntegral() + count);
+        userMapper.updateByPrimaryKeySelective(updateUser);
+
         IntegralRecord integralRecord = new IntegralRecord();
         integralRecord.setCount(count);
         integralRecord.setDes("用户[" + friendid + "]通过扫描你的二维码关注了公众号");
         integralRecord.setTag("推广");
         integralRecord.setUserid(userid);
         integralRecord.setType(13);
-        //todo 添加积分记录
+        //添加积分记录
+        integralRecordMapper.insert(integralRecord);
         return true;
     }
 

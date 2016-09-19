@@ -87,7 +87,7 @@ public class WechatMsg {
         this.content = content;
     }
 
-    public String toString() {
+    public String toXml() {
         StringBuffer sb = new StringBuffer("<xml>");
         Field[] fields = this.getClass().getDeclaredFields();
         try {
