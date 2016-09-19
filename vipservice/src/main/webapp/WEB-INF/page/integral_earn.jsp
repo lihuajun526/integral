@@ -4,6 +4,7 @@
     String timestamp = (String) request.getAttribute("timestamp");
     String nonceStr = (String) request.getAttribute("nonceStr");
     String signature = (String) request.getAttribute("signature");
+    String ticket = (String) request.getAttribute("ticket");
 %>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
@@ -1570,7 +1571,7 @@
                     2、邀请好友扫描二维码，每邀请一位好友赠送30积分；<br/>
                     <button class="btn btn_primary" id="onMenuShareTimeline">test</button>
                 </p>
-                <div align="center"><img src="/statics/home/ewm.png"/></div>
+                <div align="center"><img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=<%=ticket%>"/></div>
             </div>
         </div>
         <div id="shop-nav" style="display: block;">

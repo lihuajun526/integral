@@ -73,14 +73,15 @@ public class Menus {
         }
     }
 
-    public String create() {
+    public String create() throws UnsupportedEncodingException {
 
         Menus menus = new Menus();
 
         Menu menu1 = new Menus.Menu();
         menu1.setType("view");
-        menu1.setName("VIP会员");
-        menu1.setUrl(Config.get("app.domain") + "/goods/list");
+        menu1.setName("黑眼圈365");
+        String redirectUri = Config.get("app.domain") + "/goods/list";
+        menu1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
 
         Menu menu2 = new Menus.Menu();
         menu2.setType("click");
@@ -88,25 +89,17 @@ public class Menus {
         menu2.setKey("getVip");
 
         Menu menu3 = new Menus.Menu();
-        menu3.setName("黑眼圈365");
+        menu3.setName("会员");
         Menu menu3_1 = new Menus.Menu();
         menu3_1.setType("view");
         menu3_1.setName("投诉");
-        String redirectUri = Config.get("app.domain") + "/index/suggest?type=2";
-        try {
-            menu3_1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        redirectUri = Config.get("app.domain") + "/index/suggest?type=2";
+        menu3_1.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
         Menu menu3_2 = new Menus.Menu();
         menu3_2.setType("view");
         menu3_2.setName("建议");
         redirectUri = Config.get("app.domain") + "/index/suggest?type=1";
-        try {
-            menu3_2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        menu3_2.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Config.get("wechat.appid") + "&redirect_uri=" + URLEncoder.encode(redirectUri, "utf-8") + "&response_type=code&scope=snsapi_base&state=#wechat_redirect");
         menu3.setSub_button(new ArrayList<>());
         menu3.getSub_button().add(menu3_1);
         menu3.getSub_button().add(menu3_2);
@@ -119,7 +112,7 @@ public class Menus {
         return JSON.toJSONString(menus);
     }
 
-    public static void main(String[]args){
+    public static void main(String[] args) throws UnsupportedEncodingException {
 
         Menus menus = new Menus();
         System.out.println(menus.create());

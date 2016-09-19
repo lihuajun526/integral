@@ -23,7 +23,7 @@ public class IndexController extends BaseController {
     private AppConfig appConfig;
 
     /**
-     * 查找所有上架商品
+     * 投诉/建议
      *
      * @return
      */
@@ -44,6 +44,4 @@ public class IndexController extends BaseController {
         modelAndView.addObject("type", type);
         return modelAndView;
     }
-
-
 }
