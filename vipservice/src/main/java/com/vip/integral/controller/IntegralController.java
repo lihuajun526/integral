@@ -1,16 +1,15 @@
 package com.vip.integral.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.base.BaseController;
 import com.vip.integral.base.Result;
+import com.vip.integral.constant.Constant;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.model.Goods;
 import com.vip.integral.model.User;
 import com.vip.integral.service.UserService;
 import com.vip.integral.util.AppConfig;
 import com.vip.integral.util.StrUtil;
-import com.vip.integral.constant.Constant;
 import com.vip.integral.util.XHttpClient;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -26,7 +25,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.DigestException;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-7-6.

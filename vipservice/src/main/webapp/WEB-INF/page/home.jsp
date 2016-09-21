@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%
     List<Goods> goodsList = (List<Goods>) request.getAttribute("goodsList");
+    String openid = (String) request.getAttribute("openid");
 %>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
@@ -3168,7 +3169,7 @@
                             </a>
                         </li>
                         <li class="js-order">
-                            <a href="/user/member?openid=1">
+                            <a href="/user/member?openid=<%=openid%>">
                                 <span class="count user"></span>
                                 <span class="text">会员中心</span>
                             </a>
@@ -3205,11 +3206,15 @@
                             <img height="141px" src="/statics/home/<%=goods.getImg()%>.jpg" style="display: block;">
                         </div>
                         <div class="info clearfix info-no-title info-price btn4">
-                            <p class="goods-title"><%=goods.getTitle() %></p>
+                            <p class="goods-title"><%=goods.getTitle() %>
+                            </p>
+
                             <p class="goods-sub-title c-black hide"></p>
+
                             <p class="goods-price">
                                 <em><%=goods.getPrice() %>积分</em>
                             </p>
+
                             <p class="goods-price-taobao  hide"></p>
                         </div>
                         <div class="goods-buy btn4 info-no-title">
@@ -3240,7 +3245,7 @@
         <div id="shop-nav" style="display: block;">
             <div class="js-navmenu js-footer-auto-ele shop-nav nav-menu nav-menu-1 has-menu-3">
                 <div class="nav-special-item">
-                    <a class="home" href="/goods/list">主页</a>
+                    <a class="home" href="/goods/list?openid=<%=openid%>">主页</a>
                 </div>
                 <div class="nav-items-wrap">
                     <div class="nav-item">

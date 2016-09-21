@@ -3,6 +3,7 @@
 <%
     Goods goods = (Goods) request.getAttribute("goods");
     String effectiveTime = (String) request.getAttribute("effectiveTime");
+    String openid = (String) request.getAttribute("openid");
 %>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
