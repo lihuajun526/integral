@@ -193,6 +193,13 @@
         <if test="status != null">
             where status = #{status,jdbcType=INTEGER}
         </if>
+    </select>
 
+    <select id="selectByTypeAndVipType" resultMap="BaseResultMap" parameterType="com.vip.integral.model.Goods">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods
+        where type = #{type,jdbcType=INTEGER}
+        and vip_type = #{vipType,jdbcType=INTEGER}
     </select>
 </mapper>

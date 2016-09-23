@@ -21,10 +21,6 @@
                     <td><input id="password" name="password" type="input"/></td>
                 </tr>
                 <tr>
-                    <td align="right">数量</td>
-                    <td><input id="count" name="count" type="input"/></td>
-                </tr>
-                <tr>
                     <td align="right">会员类型</td>
                     <td>
                         <select id="typeName" name="typeName">
@@ -98,7 +94,29 @@
                 $("#vipAccountForm")[0].reset();
                 $('#w').window('open');
             }
-        }]
+        },
+            {
+                text: '重置数量',
+                handler: function () {
+                    $.messager.confirm('提示框', '你确定重置会员及商品数量吗?', function (r) {
+                        if (r) {
+                            $.ajax({
+                                url: '/sys/account/count/reset',
+                                type: 'get',
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result.code == 0) {
+                                        $('#datagrid').datagrid('reload');
+                                    } else {
+                                        $.messager.alert('Info', "失败", 'info');
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        ]
     });
     //确定
     function fix() {
@@ -136,7 +154,7 @@
                     $("#id").val(data.id);
                     $("#account").val(data.account);
                     $("#password").val(data.password);
-                    $("#typeName").val(data.typeName);
+                    $("#typeName").val(data.type + "_" + data.typeName);
                     $("#count").val(data.count);
                     $('#effectiveTime').datebox("setValue", dateFormatter(new Date(data.effectiveTime)));
                     $('#w').window('open');
@@ -161,6 +179,7 @@
             }
         });
     }
+
 </script>
 </body>
 </html>

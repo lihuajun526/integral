@@ -29,6 +29,8 @@ public interface VipAccountService {
 
     int delete(VipAccount vipAccount);
 
+    void reset();
+
     List<VipAccount> listVip(User user);
 
 }

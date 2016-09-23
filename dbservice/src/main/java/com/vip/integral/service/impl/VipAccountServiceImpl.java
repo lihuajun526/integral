@@ -1,12 +1,15 @@
 package com.vip.integral.service.impl;
 
+import com.vip.integral.dao.GoodsMapper;
 import com.vip.integral.dao.VipAccountMapper;
+import com.vip.integral.model.Goods;
 import com.vip.integral.model.User;
 import com.vip.integral.model.VipAccount;
 import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.VipAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -20,6 +23,8 @@ public class VipAccountServiceImpl implements VipAccountService {
     private VipAccountMapper vipAccountMapper;
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private GoodsMapper goodsMapper;
 
     @Override
     public VipAccount vote(Integer type) {
@@ -55,6 +60,33 @@ public class VipAccountServiceImpl implements VipAccountService {
     @Override
     public int delete(VipAccount vipAccount) {
         return vipAccountMapper.deleteByPrimaryKey(vipAccount.getId());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void reset() {
+        int vipSellCount = configService.getInt("vip.sell.count");
+        Map<Integer, Integer> map = new HashMap<>();
+        List<VipAccount> list = vipAccountMapper.listAll();
+        for (VipAccount vipAccount : list) {
+            vipAccount.setCount(vipSellCount);
+            vipAccountMapper.updateByPrimaryKey(vipAccount);
+            Integer count = map.get(vipAccount.getType());
+            if (null == count) {
+                map.put(vipAccount.getType(), 1);
+            } else {
+                map.put(vipAccount.getType(), ++count);
+            }
+        }
+        //更新商品数量
+        for (Integer vipType : map.keySet()) {
+            Goods goods = new Goods();
+            goods.setType(1);
+            goods.setVipType(vipType);
+            goods = goodsMapper.selectByTypeAndVipType(goods);
+            goods.setCount(vipSellCount * map.get(vipType));
+            goodsMapper.updateByPrimaryKey(goods);
+        }
     }
 
     @Override

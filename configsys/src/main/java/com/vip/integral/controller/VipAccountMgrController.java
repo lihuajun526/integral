@@ -6,6 +6,7 @@ import com.vip.integral.base.Result;
 import com.vip.integral.base.ResultDg;
 import com.vip.integral.model.Goods;
 import com.vip.integral.model.VipAccount;
+import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.GoodsService;
 import com.vip.integral.service.VipAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class VipAccountMgrController extends BaseController {
 
     @Autowired
     private VipAccountService vipAccountService;
+    @Autowired
+    private ConfigService configService;
 
     @RequestMapping("/fix")
     @ResponseBody
@@ -39,6 +42,7 @@ public class VipAccountMgrController extends BaseController {
         vipAccount.setTypeName(strs[1]);
         vipAccount.setEffectiveTime(sdf.parse(sEffectiveTime));
         if (vipAccount.getId() == 0) {
+            vipAccount.setCount(configService.getInt("vip.sell.count"));
             vipAccountService.save(vipAccount);
         } else if (vipAccount.getId() > 0) {
             vipAccountService.update(vipAccount);
@@ -79,6 +83,23 @@ public class VipAccountMgrController extends BaseController {
         Result<Boolean> result = new Result<>();
 
         vipAccountService.delete(vipAccount);
+
+        result.set("成功", true);
+        return result.toString();
+    }
+
+    /**
+     * 重置会员及商品数量
+     *
+     * @return
+     */
+    @RequestMapping("/count/reset")
+    @ResponseBody
+    public String reset() {
+
+        Result<Boolean> result = new Result<>();
+
+        vipAccountService.reset();
 
         result.set("成功", true);
         return result.toString();
