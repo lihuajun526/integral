@@ -1,4 +1,4 @@
-<%@ page import="com.vip.integral.model.VipAccount" %>
+<%@ page import="com.vip.dbservice.model.VipAccount" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     VipAccount vipAccount = (VipAccount) request.getAttribute("vipAccount");

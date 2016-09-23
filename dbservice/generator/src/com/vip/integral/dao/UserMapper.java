@@ -1,6 +1,6 @@
 package com.vip.integral.dao;
 
-import com.vip.integral.model.User;
+import com.vip.dbservice.model.User;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);

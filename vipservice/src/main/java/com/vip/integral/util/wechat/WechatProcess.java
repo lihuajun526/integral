@@ -1,7 +1,7 @@
 package com.vip.integral.util.wechat;
 
 
-import com.vip.integral.model.WechatMsg;
+import com.vip.dbservice.model.WechatMsg;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

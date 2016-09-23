@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.vip.integral.dao.CrawlPointMapper">
-    <resultMap id="BaseResultMap" type="com.vip.integral.model.CrawlPoint">
+<mapper namespace="com.vip.dbservice.dao.CrawlPointMapper">
+    <resultMap id="BaseResultMap" type="com.vip.dbservice.model.CrawlPoint">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="nodeid" property="nodeid" jdbcType="INTEGER"/>
         <result column="category" property="category" jdbcType="VARCHAR"/>
@@ -46,7 +46,7 @@
     delete from t_crawl_point
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.vip.integral.model.CrawlPoint">
+    <insert id="insert" parameterType="com.vip.dbservice.model.CrawlPoint">
     <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
         SELECT LAST_INSERT_ID() AS id
     </selectKey>
@@ -69,7 +69,7 @@
       #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR},#{taskClasspath,jdbcType=VARCHAR},#{attr,jdbcType=VARCHAR}, NOW(),
       NOW())
   </insert>
-    <insert id="insertSelective" parameterType="com.vip.integral.model.CrawlPoint">
+    <insert id="insertSelective" parameterType="com.vip.dbservice.model.CrawlPoint">
         insert into t_crawl_point
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -238,7 +238,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.vip.integral.model.CrawlPoint">
+    <update id="updateByPrimaryKeySelective" parameterType="com.vip.dbservice.model.CrawlPoint">
         update t_crawl_point
         <set>
             <if test="nodeid != null">
@@ -322,7 +322,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.vip.integral.model.CrawlPoint">
+    <update id="updateByPrimaryKey" parameterType="com.vip.dbservice.model.CrawlPoint">
     update t_crawl_point
     set nodeid = #{nodeid,jdbcType=INTEGER},
       category = #{category,jdbcType=VARCHAR},
@@ -352,7 +352,7 @@
       update_time = #{updateTime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.integral.model.CrawlPoint">
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.CrawlPoint">
         select
         <include refid="Base_Column_List"/>
         from t_crawl_point

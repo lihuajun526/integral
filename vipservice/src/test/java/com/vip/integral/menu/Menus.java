@@ -1,7 +1,6 @@
 package com.vip.integral.menu;
 
 import com.alibaba.fastjson.JSON;
-import com.vip.integral.controller.SysController;
 import com.vip.integral.util.Config;
 
 import java.io.UnsupportedEncodingException;

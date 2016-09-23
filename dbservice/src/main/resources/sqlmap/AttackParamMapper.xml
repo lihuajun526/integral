@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.vip.integral.dao.AttackParamMapper" >
-  <resultMap id="BaseResultMap" type="com.vip.integral.model.AttackParam" >
+<mapper namespace="com.vip.dbservice.dao.AttackParamMapper" >
+  <resultMap id="BaseResultMap" type="com.vip.dbservice.model.AttackParam" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="nodeid" property="nodeid" jdbcType="INTEGER" />
     <result column="account" property="account" jdbcType="VARCHAR" />
@@ -14,7 +14,7 @@
     <result column="create_time" property="createTime" jdbcType="DATE" />
     <result column="update_time" property="updateTime" jdbcType="DATE" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.vip.integral.model.AttackParam" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.vip.dbservice.model.AttackParam" extends="BaseResultMap" >
     <result column="data" property="data" jdbcType="LONGVARCHAR" />
     <result column="cookies" property="cookies" jdbcType="LONGVARCHAR" />
   </resultMap>
@@ -37,7 +37,7 @@
     delete from t_attack_param
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.vip.integral.model.AttackParam" >
+  <insert id="insert" parameterType="com.vip.dbservice.model.AttackParam" >
     <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
       SELECT LAST_INSERT_ID() AS id
     </selectKey>
@@ -52,7 +52,7 @@
       NOW(), #{data,jdbcType=LONGVARCHAR}, #{cookies,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.vip.integral.model.AttackParam" >
+  <insert id="insertSelective" parameterType="com.vip.dbservice.model.AttackParam" >
     insert into t_attack_param
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -137,7 +137,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.vip.integral.model.AttackParam" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.vip.dbservice.model.AttackParam" >
     update t_attack_param
     <set >
       <if test="nodeid != null" >
@@ -179,7 +179,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.vip.integral.model.AttackParam" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.vip.dbservice.model.AttackParam" >
     update t_attack_param
     set nodeid = #{nodeid,jdbcType=INTEGER},
       account = #{account,jdbcType=VARCHAR},
@@ -195,7 +195,7 @@
       cookies = #{cookies,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.vip.integral.model.AttackParam" >
+  <update id="updateByPrimaryKey" parameterType="com.vip.dbservice.model.AttackParam" >
     update t_attack_param
     set nodeid = #{nodeid,jdbcType=INTEGER},
       account = #{account,jdbcType=VARCHAR},

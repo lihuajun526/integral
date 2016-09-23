@@ -1,19 +1,15 @@
 package com.vip.integral.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.base.BaseController;
-import com.vip.integral.exception.OrderException;
+import com.vip.dbservice.service.ConfigService;
+import com.vip.dbservice.service.UserService;
+import com.vip.dbservice.exception.OrderException;
 import com.vip.integral.exception.RequestException;
-import com.vip.integral.model.Goods;
-import com.vip.integral.model.User;
-import com.vip.integral.model.VipAccount;
-import com.vip.integral.service.ConfigService;
-import com.vip.integral.service.GoodsService;
-import com.vip.integral.service.UserService;
+import com.vip.dbservice.model.Goods;
+import com.vip.dbservice.model.User;
+import com.vip.dbservice.model.VipAccount;
+import com.vip.dbservice.service.GoodsService;
 import com.vip.integral.util.AppConfig;
-import com.vip.integral.util.XHttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

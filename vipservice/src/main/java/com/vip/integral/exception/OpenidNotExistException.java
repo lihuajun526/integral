@@ -1,6 +1,6 @@
 package com.vip.integral.exception;
 
-import com.vip.integral.constant.ExceptionTypeEnum;
+import com.vip.dbservice.constant.ExceptionTypeEnum;
 
 /**
  * 不存在的openid异常

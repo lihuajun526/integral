@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.vip.integral.dao.IntegralRecordMapper">
-    <resultMap id="BaseResultMap" type="com.vip.integral.model.IntegralRecord">
+<mapper namespace="com.vip.dbservice.dao.IntegralRecordMapper">
+    <resultMap id="BaseResultMap" type="com.vip.dbservice.model.IntegralRecord">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="userid" property="userid" jdbcType="INTEGER"/>
         <result column="vip_account_id" property="vipAccountId" jdbcType="INTEGER"/>
@@ -26,7 +26,7 @@
     delete from t_integral_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.vip.integral.model.IntegralRecord">
+    <insert id="insert" parameterType="com.vip.dbservice.model.IntegralRecord">
     insert into t_integral_record (id, userid, vip_account_id, 
       goodsid, count, type, 
       tag, des, create_time,
@@ -36,7 +36,7 @@
       #{tag,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, NOW(),
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="com.vip.integral.model.IntegralRecord">
+    <insert id="insertSelective" parameterType="com.vip.dbservice.model.IntegralRecord">
         insert into t_integral_record
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -103,7 +103,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.vip.integral.model.IntegralRecord">
+    <update id="updateByPrimaryKeySelective" parameterType="com.vip.dbservice.model.IntegralRecord">
         update t_integral_record
         <set>
             <if test="userid != null">
@@ -136,7 +136,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.vip.integral.model.IntegralRecord">
+    <update id="updateByPrimaryKey" parameterType="com.vip.dbservice.model.IntegralRecord">
     update t_integral_record
     set userid = #{userid,jdbcType=INTEGER},
       vip_account_id = #{vipAccountId,jdbcType=INTEGER},
@@ -155,12 +155,12 @@
         select
         <include refid="Base_Column_List"/>
         from t_integral_record
-        where
+        where type = 20 and
         create_time >= #{startTime,jdbcType=DATE}
         <!--<![CDATA[ create_time >= to_date(#{startTime,jdbcType=DATE},'yyyy-MM-dd hh24:mi:ss')]]>-->
     </select>
 
-    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.integral.model.IntegralRecord">
+    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.IntegralRecord">
         select
         <include refid="Base_Column_List"/>
         from t_integral_record

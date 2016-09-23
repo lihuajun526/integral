@@ -2,17 +2,13 @@ package com.vip.integral.controller;
 
 import com.vip.integral.base.BaseController;
 import com.vip.integral.base.Result;
-import com.vip.integral.model.Goods;
-import com.vip.integral.model.User;
-import com.vip.integral.service.GoodsService;
-import com.vip.integral.service.UserService;
+import com.vip.dbservice.service.UserService;
+import com.vip.dbservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 /**
  * Created by lihuajun on 16-7-6.

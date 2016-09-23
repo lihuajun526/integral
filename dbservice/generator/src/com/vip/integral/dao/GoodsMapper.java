@@ -1,6 +1,6 @@
 package com.vip.integral.dao;
 
-import com.vip.integral.model.Goods;
+import com.vip.dbservice.model.Goods;
 
 public interface GoodsMapper {
     int deleteByPrimaryKey(Integer id);

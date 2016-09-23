@@ -1,6 +1,6 @@
 package com.vip.integral.dao;
 
-import com.vip.integral.model.Suggestion;
+import com.vip.dbservice.model.Suggestion;
 
 public interface SuggestionMapper {
     int deleteByPrimaryKey(Integer id);

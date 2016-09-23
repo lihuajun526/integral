@@ -1,11 +1,10 @@
 package com.vip.integral.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vip.integral.base.BaseController;
-import com.vip.integral.exception.RequestException;
 import com.vip.integral.util.AppConfig;
 import com.vip.integral.util.XHttpClient;
+import com.vip.integral.exception.RequestException;
 import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

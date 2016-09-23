@@ -123,7 +123,7 @@
                     <programs>
                         <program>
                             <id>spider</id>
-                            <mainClass>com.vip.integral.CrawlApp</mainClass>
+                            <mainClass>com.vip.spider.CrawlApp</mainClass>
                         </program>
                     </programs>
                 </configuration>

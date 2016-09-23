@@ -1,10 +1,10 @@
 package com.vip.integral.task;
 
 import com.alibaba.fastjson.JSONObject;
-import com.vip.integral.exception.RequestException;
+import com.vip.integral.constant.Constant;
 import com.vip.integral.util.AppConfig;
 import com.vip.integral.util.XHttpClient;
-import com.vip.integral.constant.Constant;
+import com.vip.integral.exception.RequestException;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

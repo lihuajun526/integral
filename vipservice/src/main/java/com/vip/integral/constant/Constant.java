@@ -1,7 +1,5 @@
 package com.vip.integral.constant;
 
-import com.vip.integral.util.Config;
-
 /**
  * Created by lihuajun on 2016/9/11.
  */

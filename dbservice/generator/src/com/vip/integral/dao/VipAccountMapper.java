@@ -1,6 +1,6 @@
 package com.vip.integral.dao;
 
-import com.vip.integral.model.VipAccount;
+import com.vip.dbservice.model.VipAccount;
 
 public interface VipAccountMapper {
     int deleteByPrimaryKey(Integer id);

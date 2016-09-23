@@ -12,7 +12,6 @@
     <packaging>war</packaging>
 
     <dependencies>
-
         <dependency>
             <groupId>com.vip.integral</groupId>
             <artifactId>dbservice</artifactId>

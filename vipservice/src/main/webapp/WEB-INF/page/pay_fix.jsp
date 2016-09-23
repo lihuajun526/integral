@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.vip.integral.model.Goods" %>
+<%@ page import="com.vip.dbservice.model.Goods" %>
 <%
     Goods goods = (Goods) request.getAttribute("goods");
 %>
