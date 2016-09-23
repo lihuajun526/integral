@@ -42,8 +42,20 @@ public class VipAccountServiceImpl implements VipAccountService {
         return vipAccountMapper.updateByPrimaryKeySelective(vipAccount);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int save(VipAccount vipAccount) {
+
+        //更新商品数量
+        Goods goods = new Goods();
+            goods.setType(1);
+            goods.setVipType(vipAccount.getType());
+            goods = goodsMapper.selectByTypeAndVipType(goods);
+            if (goods != null) {
+                goods.setCount(goods.getCount() + vipAccount.getCount());
+                goodsMapper.updateByPrimaryKey(goods);
+        }
+
         return vipAccountMapper.insert(vipAccount);
     }
 

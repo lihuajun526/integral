@@ -1,4 +1,8 @@
+<%@ page import="com.vip.integral.model.VipAccount" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    VipAccount vipAccount = (VipAccount) request.getAttribute("vipAccount");
+%>
 <!DOCTYPE html>
 <html class="" lang="zh-cmn-Hans">
 <head>
@@ -1009,7 +1013,10 @@
                 <!-- 文本 -->
                 <div>
                     <h4>下单成功</h4>
-                    <p class="font-size-12">账号/密码：18857107097 <font color="red">/</font> 1234567</p>
+
+                    <p class="font-size-12">账号/密码：<%=vipAccount.getAccount()%> <font
+                            color="red">/</font> <%=vipAccount.getPassword()%>
+                    </p>
                 </div>
                 <!-- 自定义html，和上面的可以并存 -->
                 <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=17984819"

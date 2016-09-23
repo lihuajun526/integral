@@ -1004,7 +1004,6 @@
 
 <div class="container " style="min-height: 557px;">
     <form action="/goods/order" method="post">
-        <input type="hidden" name="openid" value="0"/>
         <input type="hidden" name="goodsid" value="<%=goods.getId() %>">
         <div class="content confirm-container">
             <div class="app app-order">

@@ -61,14 +61,7 @@ public class XHttpClient {
             }
             HttpEntity httpEntity = httpResponse.getEntity();
             InputStream in = httpEntity.getContent();
-
-            String charset = null;
-            Header header = httpResponse.getFirstHeader("Content-Type");
-            if (header != null && header.getValue().indexOf("charset=") != -1) {
-                charset = header.getValue().split("charset=")[1];
-            }
-
-            String response = IOUtils.toString(in, charset);
+            String response = IOUtils.toString(in, "utf-8");
             in.close();
             //{"errcode":40013,"errmsg":"invalid appid"}
             jsonObject = JSON.parseObject(response);

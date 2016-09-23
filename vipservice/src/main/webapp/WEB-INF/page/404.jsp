@@ -1255,9 +1255,9 @@
 
         @charset "UTF-8";
         .sc-goods-list.pic .goods-card.big-pic.card .link, .sc-goods-list.pic .goods-card.small-pic.card .link, .sc-goods-list.pic .goods-card.small-pic.promotion .link, .sc-goods-list.pic.size-4 .goods-card.multi-pic, .sc-goods-list.pic.waterfall .goods-card.small-pic .link {
-            -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-            -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-            border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch
+            -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+            -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+            border-image: url(/statics/goods/border-line-2.png) 2 stretch
         }
 
         .sc-goods-list {
@@ -2011,9 +2011,9 @@
         }
 
         .sc-goods-list.list .goods-card.card, .sc-goods-list.list .goods-card.normal {
-            -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-            -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-            border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch
+            -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+            -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+            border-image: url(/statics/goods/border-line-2.png) 2 stretch
         }
 
         .sc-goods-list.pic.size-4 .goods-card.multi-pic .goods-title {
@@ -2419,7 +2419,7 @@
     .block, .block-item {
         display: block;
         overflow: hidden;
-        border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch
+        border-image: url(/statics/goods/border-line-2.png) 2 stretch
     }
 
     .block, .block p, .block-item {
@@ -2431,7 +2431,7 @@
     }
 
     .block, .block-item, .sku-layout .block-item, .sku-layout-title, .sku-message dl {
-        border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch
+        border-image: url(/statics/goods/border-line-2.png) 2 stretch
     }
 
     .block-item {
@@ -2439,8 +2439,8 @@
         padding: 10px;
         line-height: 1.5;
         border: 0;
-        -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-        -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+        -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+        -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
         border-top: 2px solid #e5e5e5
     }
 
@@ -2492,8 +2492,8 @@
     }
 
     .block {
-        -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-        -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+        -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+        -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
         border-top: 2px solid #e5e5e5;
         border-bottom: 2px solid #e5e5e5;
         margin: 10px 0;
@@ -2867,8 +2867,8 @@
 
     .sku-layout .block-item {
         border: 0;
-        -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-        -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+        -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+        -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
         border-top: 2px solid #e5e5e5
     }
 
@@ -2888,8 +2888,8 @@
     }
 
     .sku-layout-title {
-        -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-        -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+        -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+        -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
         border-bottom: 2px solid #e5e5e5;
         border-top-width: 0;
         position: static;
@@ -3117,8 +3117,8 @@
     }
 
     .sku-message dl {
-        -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-        -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+        -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+        -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
         border-top: 2px solid #e5e5e5
     }
 

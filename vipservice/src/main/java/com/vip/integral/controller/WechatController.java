@@ -75,10 +75,6 @@ public class WechatController {
             WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
             String openid = wechatMsg.getFromUserName();
             User user = userService.getByOpenid(openid);
-            if (user == null) {
-                LOGGER.error("openid=[{}]的用户不存在：", openid);
-                throw new OpenidNotExistException(ExceptionTypeEnum.OPENID_NOT_EXIST_ERROR);
-            }
             if ("subscribe".equalsIgnoreCase(wechatMsg.getEvent())) {//关注
                 if (null == user) {//添加用户
                     user = new User();

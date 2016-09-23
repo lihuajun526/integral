@@ -1037,7 +1037,7 @@
 
         @charset "UTF-8";
         .block, .block-item {
-            border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+            border-image: url(/statics/goods/border-line-2.png) 2 stretch;
             display: block;
             overflow: hidden
         }
@@ -1056,8 +1056,8 @@
             padding: 10px;
             line-height: 1.5;
             border: 0;
-            -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-            -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+            -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+            -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
             border-top: 2px solid #e5e5e5
         }
 
@@ -1105,8 +1105,8 @@
         }
 
         .block {
-            -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-            -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+            -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+            -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
             border-top: 2px solid #e5e5e5;
             border-bottom: 2px solid #e5e5e5;
             margin: 10px 0;
@@ -1519,9 +1519,9 @@
         }
 
         .custom-store.border {
-            -webkit-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-            -moz-border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
-            border-image: url(https://b.yzcdn.cn/v2/image/wap/border-line-2.png) 2 stretch;
+            -webkit-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+            -moz-border-image: url(/statics/goods/border-line-2.png) 2 stretch;
+            border-image: url(/statics/goods/border-line-2.png) 2 stretch;
             border-top: 2px solid #e5e5e5;
             border-bottom: 2px solid #e5e5e5
         }

@@ -2,6 +2,7 @@ package com.vip.integral.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -101,9 +102,13 @@ public class WechatMsg {
                 Method method = this.getClass().getMethod("get" + key);
                 if (typeName.equalsIgnoreCase("String")) {
                     String value = (String) method.invoke(this);
+                    if (StringUtils.isEmpty(value))
+                        continue;
                     sb.append("<").append(key).append(">").append("<![CDATA[").append(value).append("]]></").append(key).append(">");
                 } else if (typeName.equalsIgnoreCase("Date")) {
                     Date value = (Date) method.invoke(this);
+                    if (StringUtils.isEmpty(value))
+                        continue;
                     sb.append("<").append(key).append(">").append(value.getTime()).append("</").append(key).append(">");
                 } else {
 

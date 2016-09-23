@@ -6,6 +6,7 @@ import com.vip.integral.exception.OrderException;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.model.Goods;
 import com.vip.integral.model.User;
+import com.vip.integral.model.VipAccount;
 import com.vip.integral.service.ConfigService;
 import com.vip.integral.service.GoodsService;
 import com.vip.integral.service.UserService;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -40,16 +43,23 @@ public class GoodsController extends BaseController {
      * @return
      */
     @RequestMapping("/list")
-    public ModelAndView list(String code) throws RequestException {
+    public ModelAndView list(HttpServletRequest request, String code) throws RequestException {
 
         ModelAndView modelAndView = new ModelAndView("home");
 
         //获取openid
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appConfig.wechatAppid + "&secret=" + appConfig.wechatSecret + "&code=" + code + "&grant_type=authorization_code";
+        /*String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appConfig.wechatAppid + "&secret=" + appConfig.wechatSecret + "&code=" + code + "&grant_type=authorization_code";
         HttpGet httpGet = new HttpGet(url);
         JSONObject jsonObject = XHttpClient.doRequest(httpGet);
         modelAndView.addObject("openid", jsonObject.getString("openid"));
-        logger.debug("openid={}", jsonObject.getString("openid"));
+        logger.debug("openid={}", jsonObject.getString("openid"));*/
+
+        //临时测试
+        String openid = code;
+        modelAndView.addObject("openid", openid);
+
+        request.getSession().setAttribute("openid", openid);
+
         //获取全部商品
         Goods goods = new Goods();
         goods.setStatus(1);
@@ -75,15 +85,18 @@ public class GoodsController extends BaseController {
     }
 
     @RequestMapping("/order")
-    public ModelAndView order(String openid, Integer goodsid) throws OrderException {
+    public ModelAndView order(Integer goodsid, HttpServletRequest request) throws OrderException {
+
+        String openid = (String) request.getSession().getAttribute("openid");
+
         ModelAndView modelAndView = new ModelAndView("order_success");
 
         User user = userService.getByOpenid(openid);
         Goods goods = goodsService.selectByPrimaryKey(goodsid);
 
-        //VipAccount vipAccount = goodsService.order(user, goods);
+        VipAccount vipAccount = goodsService.order(user, goods);
 
-        //modelAndView.addObject("vipAccount", vipAccount);
+        modelAndView.addObject("vipAccount", vipAccount);
         return modelAndView;
     }
 }
