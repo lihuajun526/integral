@@ -1,5 +1,6 @@
 package com.vip.integral.controller;
 
+import com.vip.dbservice.constant.ExceptionTypeEnum;
 import com.vip.integral.base.BaseController;
 import com.vip.dbservice.service.ConfigService;
 import com.vip.dbservice.service.UserService;
@@ -81,7 +82,7 @@ public class GoodsController extends BaseController {
     }
 
     @RequestMapping("/order")
-    public ModelAndView order(Integer goodsid, HttpServletRequest request) throws OrderException {
+    public ModelAndView order(Integer goodsid, HttpServletRequest request) {
 
         String openid = (String) request.getSession().getAttribute("openid");
 
@@ -90,8 +91,26 @@ public class GoodsController extends BaseController {
         User user = userService.getByOpenid(openid);
         Goods goods = goodsService.selectByPrimaryKey(goodsid);
 
-        VipAccount vipAccount = goodsService.order(user, goods);
-
+        VipAccount vipAccount = null;
+        try {
+            vipAccount = goodsService.order(user, goods);
+        } catch (OrderException e) {
+            logger.error("错误编码：{}，错误描述：{}", e.getCode(), e.getDescription());
+            if (e.getCode().equals(ExceptionTypeEnum.NOT_IN_SELL_TIME_ERROR.code)) {
+                modelAndView.addObject("errMsg", "对不起，请您在早上" + configService.getString("goods.begin.sell.time") + "点到次日凌晨" + configService.getString("goods.end.sell.time") + "点之间购买会员");
+            } else if (e.getCode().equals(ExceptionTypeEnum.STOCKS_LOW_ERROR.code)) {
+                modelAndView.addObject("errMsg", "对不起，该商品已售完");
+            } else if (e.getCode().equals(ExceptionTypeEnum.BALANCE_LOW_ERROR.code)) {
+                modelAndView.addObject("errMsg", "对不起，您的余额不足");
+            } else if (e.getCode().equals(ExceptionTypeEnum.TODAY_HAS_BUY_ERROR.code)) {
+                modelAndView.addObject("errMsg", "对不起，您今天已买过该商品，一天只能买一次");
+            } else if (e.getCode().equals(ExceptionTypeEnum.STOCK_NOT_SYN_ERROR.code)) {
+                modelAndView.addObject("errMsg", "对不起，系统异常，工程师正在玩命解决");
+            }
+            modelAndView.addObject("errCode", e.getCode());
+            modelAndView.setViewName("order_fail");
+            return modelAndView;
+        }
         modelAndView.addObject("vipAccount", vipAccount);
         return modelAndView;
     }
