@@ -1591,7 +1591,7 @@
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a class="mainmenu js-mainmenu" href="/user/member?openid=1">
+                        <a class="mainmenu js-mainmenu" href="/user/member">
                             <span class="mainmenu-txt">会员中心</span></a>
                     </div>
                 </div>

@@ -53,7 +53,6 @@ public class GoodsController extends BaseController {
 
         //临时测试
         String openid = code;
-        modelAndView.addObject("openid", openid);
 
         request.getSession().setAttribute("openid", openid);
 
