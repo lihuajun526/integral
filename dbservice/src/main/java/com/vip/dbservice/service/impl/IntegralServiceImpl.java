@@ -78,7 +78,7 @@ public class IntegralServiceImpl implements IntegralService {
 
         int spreadCount = 0;
         if (StringUtils.isEmpty(sourceUser.getSpreadRecord())) {
-            sourceUser.setSpreadRecord(friendid + ":" + 1);
+            updateUser.setSpreadRecord(friendid + ":" + 1);
         } else {
             //风控值，最多奖励积分数
             String[] spreadRecord = sourceUser.getSpreadRecord().split("#");

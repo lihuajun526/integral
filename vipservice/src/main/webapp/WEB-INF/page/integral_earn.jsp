@@ -1571,7 +1571,7 @@
                     2、邀请好友扫描二维码，每邀请一位好友赠送30积分；<br/>
                     <button class="btn btn_primary" id="onMenuShareTimeline">test</button>
                 </p>
-                <div align="center"><img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=<%=ticket%>"/></div>
+                <div align="center"><img width="300" height="300" src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=<%=ticket%>"/></div>
             </div>
         </div>
         <div id="shop-nav" style="display: block;">

@@ -14,21 +14,21 @@ import com.vip.integral.util.XHttpClient;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.DigestException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -78,22 +78,32 @@ public class IntegralController extends BaseController {
      * @return
      */
     @RequestMapping("/earn")
-    public ModelAndView integralEarn(String openid) throws DigestException, UnsupportedEncodingException {
+    public ModelAndView integralEarn(HttpServletRequest request) throws DigestException, UnsupportedEncodingException {
+
+        String openid = (String) request.getSession().getAttribute("openid");
 
         ModelAndView modelAndView = new ModelAndView("integral_earn");
         User user = userService.getByOpenid(openid);
 
         //创建二维码ticket
         HttpPost httpPost = new HttpPost("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + Constant.ACCESS_TOKEN);
-        List<NameValuePair> paramList = new ArrayList<>();
-        String body = "{\"expire_seconds\": 604800, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": " + user.getId() + "}}}";
-        paramList.add(new BasicNameValuePair("body", body));
-        httpPost.setEntity(new UrlEncodedFormEntity(paramList, "utf-8"));
+        String body = "{\"expire_seconds\": 2592000, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": " + user.getId() + "}}}";
+        StringEntity s = new StringEntity(body);
+        s.setContentEncoding("UTF-8");
+        s.setContentType("application/json");//发送json数据需要设置contentType
+        httpPost.setEntity(s);
+
         JSONObject jsonObject = null;
         try {
             jsonObject = XHttpClient.doRequest(httpPost);
         } catch (RequestException e) {
             logger.error("创建二维码ticket错误:", e);
+        }
+
+        //默认推广时间是从打开赚积分的页面，当用户将二维码分享到朋友圈时再次更新推广时间
+        if (user.getPopulateTime() == null) {
+            user.setPopulateTime(new Date());
+            userService.update(user);
         }
 
         Map param = this.getParam(appConfig.appDomain + "/integral/earn");

@@ -97,9 +97,9 @@ public class WechatController {
                     userService.save(user);
                     LOGGER.info("新用户[{}]关注成功", user.getNickname());
                     //奖励推广者积分
-                    String userid = wechatMsg.getEventKey();
-                    if (!StringUtils.isEmpty(userid)) {
-                        integralService.encourageFromPopularize(Integer.parseInt(userid), user.getId(), configService.getInt("integral.spread.encourage"));
+                    String key = wechatMsg.getEventKey();
+                    if (!StringUtils.isEmpty(key)) {
+                        integralService.encourageFromPopularize(Integer.parseInt(key.split("_")[1]), user.getId(), configService.getInt("integral.spread.encourage"));
                     }
                 } else {//更新用户状态
                     User updateUser = new User();

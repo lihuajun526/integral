@@ -6,6 +6,7 @@ import com.vip.integral.constant.ExceptionTypeEnum;
 import com.vip.integral.exception.RequestException;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -34,6 +35,7 @@ public class XHttpClient {
                 .setConnectTimeout(30000)
                 .setSocketTimeout(30000)
                 .setExpectContinueEnabled(false)
+                        //.setProxy(new HttpHost("127.0.0.1", 8888))
                 .build();
     }
 
