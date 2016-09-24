@@ -151,13 +151,13 @@
   </update>
 
     <!-- 自定义 -->
-    <select id="selectByBeginTime" resultMap="BaseResultMap" parameterType="java.util.Date">
+    <select id="selectByBeginTime" resultMap="BaseResultMap" parameterType="java.util.HashMap">
         select
         <include refid="Base_Column_List"/>
         from t_integral_record
-        where type = 20 and
-        create_time >= #{startTime,jdbcType=DATE}
-        <!--<![CDATA[ create_time >= to_date(#{startTime,jdbcType=DATE},'yyyy-MM-dd hh24:mi:ss')]]>-->
+        where type = 20
+        and goodsid = #{goodsid,jdbcType=INTEGER}
+        and create_time >= #{startTime,jdbcType=DATE}
     </select>
 
     <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.IntegralRecord">

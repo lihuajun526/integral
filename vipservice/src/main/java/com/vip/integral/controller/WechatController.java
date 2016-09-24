@@ -133,13 +133,13 @@ public class WechatController {
                         boolean isFirst = true;
                         for (VipAccount vipAccount : list) {
                             if (isFirst) {
-                                vips.append(vipAccount.getTypeName()).append(":")
+                                vips.append(vipAccount.getTypeName()).append("账号/密码：\n")
                                         .append(vipAccount.getAccount()).append(" / ")
                                         .append(vipAccount.getPassword());
                                 isFirst = false;
                                 continue;
                             }
-                            vips.append("\n").append(vipAccount.getTypeName()).append(":")
+                            vips.append("\n\n").append(vipAccount.getTypeName()).append("账号/密码：\n")
                                     .append(vipAccount.getAccount()).append(" / ")
                                     .append(vipAccount.getPassword());
                         }

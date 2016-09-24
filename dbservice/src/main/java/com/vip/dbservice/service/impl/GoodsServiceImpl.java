@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2016/8/15.
@@ -85,7 +87,11 @@ public class GoodsServiceImpl implements GoodsService {
 
         //此商品用户今日是否买过
         calendar.set(Calendar.HOUR_OF_DAY, configService.getInt("goods.begin.sell.time"));
-        List<IntegralRecord> records = integralRecordMapper.selectByBeginTime(calendar.getTime());
+
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("startTime",calendar.getTime());
+        paramMap.put("goodsid",goods.getId());
+        List<IntegralRecord> records = integralRecordMapper.selectByBeginTime(paramMap);
         if (records != null && records.size() > 0) {
             //该用户今日已买过该商品，不能再次购买
             LOGGER.warn("不能再次购买，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
@@ -95,7 +101,7 @@ public class GoodsServiceImpl implements GoodsService {
         //减库存
         goods.setCount(goods.getCount() - 1);
         goodsMapper.updateByPrimaryKeySelective(goods);
-        VipAccount vipAccount = vipAccountService.vote(goods.getType());
+        VipAccount vipAccount = vipAccountService.vote(goods.getVipType());
         if (vipAccount == null || vipAccount.getCount() == 0) {
             LOGGER.error("VipAccount与Goods库存不同步，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.STOCK_NOT_SYN_ERROR);

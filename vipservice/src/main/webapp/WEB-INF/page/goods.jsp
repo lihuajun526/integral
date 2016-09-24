@@ -3,7 +3,6 @@
 <%
     Goods goods = (Goods) request.getAttribute("goods");
     String effectiveTime = (String) request.getAttribute("effectiveTime");
-    String openid = (String) request.getAttribute("openid");
 %>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
@@ -3170,7 +3169,6 @@
             line-height: 17px;
             font-size: 14px
         }</style>
-    <script charset="utf-8" async="" src="/statics/goods/swp_goods_dc375e0821.js"></script>
 </head>
 <body class=" body-fixed-bottom">
 
@@ -3185,7 +3183,9 @@
                 </div>
             </div>
             <div class="goods-header">
-                <h2 class="title"><%=goods.getTitle()%></h2>
+                <h2 class="title"><%=goods.getTitle()%>
+                </h2>
+
                 <div class="goods-price ">
                     <div class="current-price">
                         <span>价格：</span><i class="js-goods-price price"><%=goods.getPrice() %>积分
@@ -3230,7 +3230,13 @@
             </div>
             <div class="js-bottom-opts js-footer-auto-ele bottom-fix">
                 <div class="btn-1-1">
-                    <a href="/goods/fix?id=<%=goods.getId() %>" class="js-buy-it btn btn-orange-dark">我想要</a>
+                    <%
+                        if (goods.getCount() == 0) {
+                    %><a class="js-buy-it btn btn-block">已售完</a><%
+                } else {
+                %><a href="/goods/fix?id=<%=goods.getId() %>" class="js-buy-it btn btn-orange-dark">我想要</a><%
+                    }
+                %>
                 </div>
             </div>
         </div>
@@ -3247,29 +3253,6 @@
                 </div>
             </a>
         </div>
-        <script>
-            var showQcode = function () {
-                if (typeof $ !== 'undefined') {
-                    var $qrcode = $('.js-follow-qrcode');
-                    $qrcode.removeClass('js-follow-qrcode'); //兼容图文
-                    if ($qrcode.length == 0) return;
-                    if (!window._global.mp_data || $qrcode.length <= 0 || ( window._global.is_mobile && !(/ipad/gi).test(navigator.userAgent.toLowerCase()))) {
-                        return false;
-                    }
-                    var followQrcodeSrc = 'https://open.weixin.qq.com/qr/code/?username=' + window._global.mp_data.mp_weixin;
-                    var img = new Image();
-                    img.width = 158;
-                    img.height = 158;
-                    $(img).on('load', function (event) {
-                        $qrcode.append(img).removeClass('loading');
-                    });
-                    img.src = followQrcodeSrc;
-                } else {
-                    setTimeout(showQcode, 500);
-                }
-            };
-            showQcode();
-        </script>
         <div id="shop-nav"></div>
     </div>
 </div>

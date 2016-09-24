@@ -1,15 +1,15 @@
 package com.vip.integral.controller;
 
 import com.vip.dbservice.constant.ExceptionTypeEnum;
-import com.vip.integral.base.BaseController;
-import com.vip.dbservice.service.ConfigService;
-import com.vip.dbservice.service.UserService;
 import com.vip.dbservice.exception.OrderException;
-import com.vip.integral.exception.RequestException;
 import com.vip.dbservice.model.Goods;
 import com.vip.dbservice.model.User;
 import com.vip.dbservice.model.VipAccount;
+import com.vip.dbservice.service.ConfigService;
 import com.vip.dbservice.service.GoodsService;
+import com.vip.dbservice.service.UserService;
+import com.vip.integral.base.BaseController;
+import com.vip.integral.exception.RequestException;
 import com.vip.integral.util.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,7 +103,7 @@ public class GoodsController extends BaseController {
             } else if (e.getCode().equals(ExceptionTypeEnum.BALANCE_LOW_ERROR.code)) {
                 modelAndView.addObject("errMsg", "对不起，您的余额不足");
             } else if (e.getCode().equals(ExceptionTypeEnum.TODAY_HAS_BUY_ERROR.code)) {
-                modelAndView.addObject("errMsg", "对不起，您今天已买过该商品，一天只能买一次");
+                modelAndView.addObject("errMsg", "对不起，您今天已买过该商品，一天只能买一次哦");
             } else if (e.getCode().equals(ExceptionTypeEnum.STOCK_NOT_SYN_ERROR.code)) {
                 modelAndView.addObject("errMsg", "对不起，系统异常，工程师正在玩命解决");
             }
@@ -111,6 +111,7 @@ public class GoodsController extends BaseController {
             modelAndView.setViewName("order_fail");
             return modelAndView;
         }
+
         modelAndView.addObject("vipAccount", vipAccount);
         return modelAndView;
     }

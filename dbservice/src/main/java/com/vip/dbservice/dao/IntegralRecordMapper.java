@@ -4,6 +4,7 @@ import com.vip.dbservice.model.IntegralRecord;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface IntegralRecordMapper {
     int deleteByPrimaryKey(Integer id);
@@ -18,7 +19,7 @@ public interface IntegralRecordMapper {
 
     int updateByPrimaryKey(IntegralRecord record);
 
-    List<IntegralRecord> selectByBeginTime(Date startTime);
+    List<IntegralRecord> selectByBeginTime(Map<String,Object> paramMap);
 
     IntegralRecord selectByCondition(IntegralRecord integralRecord);
 
