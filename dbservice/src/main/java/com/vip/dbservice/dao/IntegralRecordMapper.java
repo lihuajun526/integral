@@ -23,5 +23,6 @@ public interface IntegralRecordMapper {
 
     IntegralRecord selectByCondition(IntegralRecord integralRecord);
 
-    
+    List<IntegralRecord> selectBySelective(IntegralRecord integralRecord);
+
 }

@@ -13,6 +13,18 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+    <resultMap id="ResultMap" type="com.vip.dbservice.model.IntegralRecord">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="userid" property="userid" jdbcType="INTEGER"/>
+        <result column="vip_account_id" property="vipAccountId" jdbcType="INTEGER"/>
+        <result column="goodsid" property="goodsid" jdbcType="INTEGER"/>
+        <result column="count" property="count" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="tag" property="tag" jdbcType="VARCHAR"/>
+        <result column="des" property="des" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
     <sql id="Base_Column_List">
     id, userid, vip_account_id, goodsid, count, type, tag, des, create_time, update_time
   </sql>
@@ -158,6 +170,7 @@
         where type = 20
         and goodsid = #{goodsid,jdbcType=INTEGER}
         and create_time >= #{startTime,jdbcType=DATE}
+        and userid = #{userid,jdbcType=INTEGER}
     </select>
 
     <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.IntegralRecord">
@@ -173,5 +186,16 @@
         </if>
     </select>
 
-
+    <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.IntegralRecord">
+        select
+        <include refid="Base_Column_List"/>
+        from t_integral_record
+        where 1=1
+        <if test="userid != null">
+            and userid = #{userid,jdbcType=INTEGER}
+        </if>
+        <if test="type != null">
+            and type = #{type,jdbcType=INTEGER}
+        </if>
+    </select>
 </mapper>

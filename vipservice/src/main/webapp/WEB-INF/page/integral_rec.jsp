@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.vip.dbservice.model.IntegralRecord" %>
+<%@ page import="java.util.List" %>
+<%
+    List<IntegralRecord> list = (List<IntegralRecord>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html class="" lang="zh-cmn-Hans">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="HandheldFriendly" content="True">
@@ -13,7 +17,6 @@
     <meta name="referrer" content="always">
     <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
     <title>积分记录</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>@charset "UTF-8";
     a, body {
@@ -996,580 +999,50 @@
           onerror="_cdnFallback(this)" media="screen">
 </head>
 <body>
-
 <div class="container " style="min-height: 557px;">
     <div class="content js-page-content">
+        <div class="tabber tabber-n4 tabber-double-11 clearfix">
+            <a class="active">推广奖励</a>
+            <a class="" href="">奖励记录</a>
+            <a class="" href="">消费记录</a>
+            <a class="" href="">充值记录</a>
+        </div>
         <div id="order-list-container">
-
             <div class="js-list b-list">
+                <%
+                    for (IntegralRecord integralRecord : list) {
+                %>
                 <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=54023"><span
-                                    class="font-size-14">店铺：罗辑思维</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易关闭</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160822180233063571819</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20160822180233063571819&amp;kdt_id=54023">
+                    <div class="header"></div>
+                    <a class="name-card name-card-3col clearfix">
                         <div class="thumb">
                             <img src="/statics/integral_rec/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!200x0.jpg">
                         </div>
                         <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">【预售9月8日发货】《细节》：如何轻松影响他人</h3>
-
-                            <p class="sku-detail ellipsis js-toggle-more">
-                <span class="c-gray-darker">
-                    
-                    
-                    
-                        《细节》&nbsp;
-                        
-                    
-                </span>
-
-                            </p>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>58.00</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
+                            <h3 class="font-size-14 l2-ellipsis">
+                                【预售9月8日发货】《细节》：如何轻松影响他人【预售9月8日发货】《细节》：如何轻松影响他人【预售9月8日发货】《细节》：如何轻松影响他人</h3>
                         </div>
                     </a>
-
 
                     <div class="bottom-price  ">
                         <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥58.00</span>
-
+                            积分：<span class="c-orange">+30</span>
                         </div>
                     </div>
-
-
                 </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=820980"><span
-                                    class="font-size-14">店铺：有赞美妆旗舰店</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易关闭</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160715215707063550219</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20160715215707063550219&amp;kdt_id=820980">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不...</h3>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>1.00</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  ">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥1.00</span>
-
-                        </div>
-                    </div>
-
-
-                </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=820980"><span
-                                    class="font-size-14">店铺：有赞美妆旗舰店</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易关闭</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160715214611063556604</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20160715214611063556604&amp;kdt_id=820980">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不...</h3>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>1.00</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  ">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥1.00</span>
-
-                        </div>
-                    </div>
-
-
-                </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=16198908"><span
-                                    class="font-size-14">店铺：乐享券</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易完成</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160319123411063528111</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20160319123411063528111&amp;kdt_id=16198908">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/FgeYcQaWFJYeqKlTaone2uDPNOLt.jpg!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">爱奇艺黄金会员（包天）</h3>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>0.01</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  has-bottom-btns">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥0.01</span>
-
-                        </div>
-                    </div>
-
-
-                    <div class="bottom">
-                        <div class="opt-btn pull-right">
-                            <a class="btn btn-default btn-in-order-list"
-                               href="https://trade.koudaitong.com/trade/order/result?order_no=E20160319123411063528111&amp;kdt_id=16198908">物流</a><a
-                                class="btn btn-default btn-in-order-list"
-                                href="https://wap.koudaitong.com/v2/trade/reviews/readyReviewsList?order_no=E20160319123411063528111&amp;kdt_id=16198908">评价</a>
-                        </div>
-                    </div>
-
-                </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=1026355"><span
-                                    class="font-size-14">店铺：有赞店铺认证</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易关闭</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160310165526063594637</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/wxpay/confirmQr?qr_id=2799429&amp;kdt_id=1026355&amp;showwxpaytitle=1">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/cashier_order.jpg!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">[乐享券]的实名认证收款</h3>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>0.01</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  ">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥0.01</span>
-
-                        </div>
-                    </div>
-
-
-                </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=16166785"><span
-                                    class="font-size-14">店铺：乐享积分生活</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易完成</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160308173331028496256</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308173331028496256&amp;kdt_id=16166785">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/Fh1ZR74CpUm0s85svgQuU-MQ3oQd.png!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">虚拟商品（购买时无需填写收货地址，测试商品，不发货，不...</h3>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>0.01</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  has-bottom-btns">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥0.01</span>
-
-                        </div>
-                    </div>
-
-
-                    <div class="bottom">
-                        <div class="opt-btn pull-right">
-                            <a class="btn btn-default btn-in-order-list"
-                               href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308173331028496256&amp;kdt_id=16166785">物流</a><a
-                                class="btn btn-default btn-in-order-list"
-                                href="https://wap.koudaitong.com/v2/trade/reviews/readyReviewsList?order_no=E20160308173331028496256&amp;kdt_id=16166785">评价</a>
-                        </div>
-                    </div>
-
-                </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=16166785"><span
-                                    class="font-size-14">店铺：乐享积分生活</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易完成</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160308153221028451571</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308153221028451571&amp;kdt_id=16166785">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/FmFVBvckr7tkCLZkl87zRw8v9Xal.png!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">优酷会员（包天）</h3>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>0.10</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  has-bottom-btns">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥0.10</span>
-
-                        </div>
-                    </div>
-
-
-                    <div class="bottom">
-                        <div class="opt-btn pull-right">
-                            <a class="btn btn-default btn-in-order-list"
-                               href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308153221028451571&amp;kdt_id=16166785">物流</a><a
-                                class="btn btn-default btn-in-order-list"
-                                href="https://wap.koudaitong.com/v2/trade/reviews/readyReviewsList?order_no=E20160308153221028451571&amp;kdt_id=16166785">评价</a>
-                        </div>
-                    </div>
-
-                </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=16166785"><span
-                                    class="font-size-14">店铺：乐享积分生活</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易关闭</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160308145309028499487</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308145309028499487&amp;kdt_id=16166785">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/FmFVBvckr7tkCLZkl87zRw8v9Xal.png!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">优酷会员（包天）</h3>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>1.00</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  ">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥1.00</span>
-
-                        </div>
-                    </div>
-
-
-                </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=54023"><span
-                                    class="font-size-14">店铺：罗辑思维</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易关闭</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20160308142612028499420</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20160308142612028499420&amp;kdt_id=54023">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/FuU6vrk5LLThytNRtdszkNcOtcpj.jpg!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">《文艺复兴三杰》 你的私人美术馆</h3>
-
-                            <p class="sku-detail ellipsis js-toggle-more">
-                <span class="c-gray-darker">
-                    
-                    
-                    
-                        平装版&nbsp;
-                        
-                    
-                </span>
-
-                            </p>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>368.00</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  ">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥368.00</span>
-
-                        </div>
-                    </div>
-
-
-                </li>
-                <li class="js-block-order block block-order animated">
-                    <div class="header">
-                        <div>
-                            <a href="https://wap.koudaitong.com/v2/showcase/homepage?kdt_id=54023"><span
-                                    class="font-size-14">店铺：罗辑思维</span></a>
-                            <a class="order-state-str pull-right font-size-14" href="javascript:;">交易完成</a>
-                        </div>
-                        <div class="order-no font-size-12">订单编号：E20151101200745028464055</div>
-                    </div>
-                    <a class="name-card name-card-3col clearfix"
-                       href="https://trade.koudaitong.com/trade/order/result?order_no=E20151101200745028464055&amp;kdt_id=54023">
-                        <div class="thumb">
-                            <img src="/statics/integral_rec/FtB09EDIejQZ5WrD_3nW5MnQyZhI.jpg!200x0.jpg">
-                        </div>
-                        <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">《经济学通识》 给我一双慧眼吧 </h3>
-
-
-                        </div>
-                        <div class="right-col">
-
-                            <div class="price c-black">￥<span>58.00</span></div>
-
-                            <div class="num c-gray-darker">
-                                ×<span class="num-txt c-gray-darker">1</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <div class="bottom-price  has-bottom-btns">
-                        <div class="pull-right">
-                            合计：
-
-                            <span class="c-orange">￥58.00</span>
-
-                        </div>
-                    </div>
-
-
-                    <div class="bottom">
-                        <div class="opt-btn pull-right">
-                            <a class="btn btn-default btn-in-order-list"
-                               href="https://trade.koudaitong.com/trade/order/result?order_no=E20151101200745028464055&amp;kdt_id=54023">物流</a>
-                        </div>
-                    </div>
-
-                </li>
+                <%
+                    }
+                %>
             </div>
         </div>
     </div>
 </div>
-
 <div class="footer" style="min-height: 86px;">
     <div class="copyright">
         <div class="ft-copyright">
-            <a href="https://youzan.com/" target="_blank">有赞提供技术支持</a>
+            <a href="#">黑眼圈365</a>
         </div>
     </div>
-
 </div>
-
-
-<script>
-    "use strict";
-    !function (n, e) {
-        "function" == typeof define && define.amd ? define([], e(n, n.document)) : n.Loader = e(n, n.document)
-    }(this, function (n, e) {
-        function t(n) {
-            return "complete" === n.readyState || "loaded" === n.readyState
-        }
-
-        function o(n, t, o) {
-            var i = e.createElement("link");
-            i.rel = "stylesheet", a(i, o, "css"), i.async = !0, i.href = n, s.appendChild(i)
-        }
-
-        function i(n, t, o) {
-            var i = e.createElement("script");
-            i.charset = "utf-8", a(i, o, "js"), i.async = !t.sync, i.src = n, s.appendChild(i)
-        }
-
-        function c(n, e) {
-            var t;
-            n.sheet && (t = !0), setTimeout(function () {
-                t ? e() : c(n, e)
-            }, 20)
-        }
-
-        function a(e, o, i) {
-            function a() {
-                e.onload = e.onreadystatechange = null, e = null, o()
-            }
-
-            var r = "onload"in e, u = "css" === i;
-            return !u || !l && r ? void(r ? (e.onload = a, e.onerror = function () {
-                e.onerror = null, n._cdnFallback(e)
-            }) : e.onreadystatechange = function () {
-                t(e) && a()
-            }) : void setTimeout(function () {
-                c(e, o)
-            }, 1)
-        }
-
-        function r(n, e, t, c) {
-            function a() {
-                var t = e.indexOf(n);
-                t > -1 && e.splice(t, 1), 0 === e.length && c()
-            }
-
-            f.test(n) ? o(n, t, a) : i(n, t, a)
-        }
-
-        function u(n, e, t) {
-            var o = function () {
-                t && t()
-            };
-            if (n = Array.prototype.slice.call(n || []), 0 === n.length)return void o();
-            for (var i = 0, c = n.length; c > i; i++)r(n[i], n, e, o)
-        }
-
-        function d(e, o) {
-            if (t(e))o(); else {
-                var i = 1500, c = !1;
-                n.addEventListener("load", function () {
-                    c || (o(), c = !0)
-                }), setTimeout(function () {
-                    c || (o(), c = !0)
-                }, i)
-            }
-        }
-
-        var f = new RegExp("\\.css"), s = e.head || e.getElementsByTagName("head")[0], l = +navigator.userAgent.replace(/.*(?:AppleWebKit|AndroidWebKit)\/?(\d+).*/i, "$1") < 536, y = {
-            async: function (n, t) {
-                d(e, function () {
-                    u(n, {}, t)
-                })
-            }, sync: function (n, t) {
-                d(e, function () {
-                    u(n, {sync: !0}, t)
-                })
-            }
-        };
-        return n.Loader = y, y
-    });    </script>
-
-
-<script>window.Loader.sync(["https:\/\/b.yzcdn.cn\/v2\/build\/wap\/common_08b03c7826.js", "https:\/\/b.yzcdn.cn\/v2\/build\/wap\/base_33619a7a85.js", "https:\/\/b.yzcdn.cn\/v2\/vendor\/u_b.js", "https:\/\/b.yzcdn.cn\/v2\/build\/wap\/uc\/order_record_819973fc23.js"]);
-window.Loader.async(["\/\/hm.baidu.com\/hm.js?58fe4cc4b4af82caeb8bc08af32dd62c"]);</script>
 </body>
 </html>

@@ -88,9 +88,10 @@ public class GoodsServiceImpl implements GoodsService {
         //此商品用户今日是否买过
         calendar.set(Calendar.HOUR_OF_DAY, configService.getInt("goods.begin.sell.time"));
 
-        Map<String,Object> paramMap = new HashMap<>();
-        paramMap.put("startTime",calendar.getTime());
-        paramMap.put("goodsid",goods.getId());
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("startTime", calendar.getTime());
+        paramMap.put("goodsid", goods.getId());
+        paramMap.put("userid", user.getId());
         List<IntegralRecord> records = integralRecordMapper.selectByBeginTime(paramMap);
         if (records != null && records.size() > 0) {
             //该用户今日已买过该商品，不能再次购买

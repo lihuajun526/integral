@@ -1,6 +1,8 @@
 package com.vip.integral.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.vip.dbservice.model.IntegralRecord;
+import com.vip.dbservice.service.IntegralRecordService;
 import com.vip.integral.base.BaseController;
 import com.vip.integral.base.Result;
 import com.vip.integral.constant.Constant;
@@ -41,6 +43,8 @@ public class IntegralController extends BaseController {
     private AppConfig appConfig;
     @Autowired
     private UserService userService;
+    @Autowired
+    private IntegralRecordService integralRecordService;
 
     /**
      * 分享到朋友圈获得积分奖励
@@ -63,12 +67,18 @@ public class IntegralController extends BaseController {
 
 
     @RequestMapping("/rec")
-    public ModelAndView integralRec() {
+    public ModelAndView integralRec(Integer type, HttpServletRequest request) {
 
         ModelAndView modelAndView = new ModelAndView("integral_rec");
-        Goods goods = new Goods();
-        goods.setStatus(1);
-        //modelAndView.addObject("goodsList", goodsService.listByCondition(goods));
+        String openid = (String) request.getSession().getAttribute("openid");
+        User user = userService.getByOpenid(openid);
+        IntegralRecord integralRecord = new IntegralRecord();
+        integralRecord.setUserid(user.getId());
+        integralRecord.setType(type);
+
+        List<IntegralRecord> list = integralRecordService.selectBySelective(integralRecord);
+
+        modelAndView.addObject("list", list);
         return modelAndView;
     }
 

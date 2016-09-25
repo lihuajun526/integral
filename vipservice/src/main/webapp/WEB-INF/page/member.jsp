@@ -1,4 +1,8 @@
+<%@ page import="com.vip.dbservice.model.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    User user = (User) request.getAttribute("user");
+%>
 <!DOCTYPE html>
 <html class="admin responsive-320" lang="zh-cmn-Hans">
 <head>
@@ -1559,7 +1563,7 @@
 
                 <div class="custom-level-title-section js-custom-level-title-section">
                     <h5 class="custom-level-title">
-                        尊贵的 <span class="js-custom-level">188****7097</span>
+                        亲爱的 <span class="js-custom-level"><%=user.getNickname() %></span>
                     </h5>
                 </div>
             </div>
@@ -1581,7 +1585,7 @@
                 </div>
             </div>
             <div class="custom-store block-item border">
-                <a class="custom-store-link clearfix" href="https://wap.koudaitong.com/v2/home/a7tdi8lh">
+                <a class="custom-store-link clearfix" href="/goods/list">
                     <div class="custom-store-img"></div>
                     <div class="custom-store-name">
                         黑眼圈365
@@ -1623,7 +1627,7 @@
                     <a href="https://wap.koudaitong.com/v2/showcase/usercenter?kdt_id=17984819" target="_blank">会员中心</a>
                 </div>
                 <div class="ft-copyright">
-                    <a href="https://youzan.com/" target="_blank">黑眼圈365</a>
+                    <a href="/goods/list" target="_blank">黑眼圈365</a>
                 </div>
             </div>
         </div>

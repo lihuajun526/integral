@@ -1,5 +1,6 @@
 package com.vip.integral.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.vip.dbservice.constant.ExceptionTypeEnum;
 import com.vip.dbservice.exception.OrderException;
 import com.vip.dbservice.model.Goods;
@@ -11,6 +12,8 @@ import com.vip.dbservice.service.UserService;
 import com.vip.integral.base.BaseController;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.util.AppConfig;
+import com.vip.integral.util.XHttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,16 +48,18 @@ public class GoodsController extends BaseController {
         ModelAndView modelAndView = new ModelAndView("home");
 
         //获取openid
-        /*String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appConfig.wechatAppid + "&secret=" + appConfig.wechatSecret + "&code=" + code + "&grant_type=authorization_code";
-        HttpGet httpGet = new HttpGet(url);
-        JSONObject jsonObject = XHttpClient.doRequest(httpGet);
-        modelAndView.addObject("openid", jsonObject.getString("openid"));
-        logger.debug("openid={}", jsonObject.getString("openid"));*/
+        if (null == request.getSession().getAttribute("openid")) {
+            //临时测试
+            /*String openid = code;
+            request.getSession().setAttribute("openid", openid);*/
 
-        //临时测试
-        String openid = code;
-
-        request.getSession().setAttribute("openid", openid);
+            String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appConfig.wechatAppid + "&secret=" + appConfig.wechatSecret + "&code=" + code + "&grant_type=authorization_code";
+            HttpGet httpGet = new HttpGet(url);
+            JSONObject jsonObject = XHttpClient.doRequest(httpGet);
+            String openid = jsonObject.getString("openid");
+            request.getSession().setAttribute("openid", openid);
+            logger.debug("openid={}", openid);
+        }
 
         //获取全部商品
         Goods goods = new Goods();

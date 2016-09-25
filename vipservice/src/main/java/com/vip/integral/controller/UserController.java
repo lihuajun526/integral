@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by lihuajun on 16-7-6.
  */
@@ -32,6 +34,7 @@ public class UserController extends BaseController {
 
     /**
      * 获得用户的推广记录
+     *
      * @param user
      * @return
      */
@@ -46,9 +49,12 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/member")
-    public ModelAndView member(User user) {
+    public ModelAndView member(HttpServletRequest request) {
+
+        String openid = (String) request.getSession().getAttribute("openid");
+
         ModelAndView modelAndView = new ModelAndView("member");
-        modelAndView.addObject("user", userService.getByOpenid(user.getOpenid()));
+        modelAndView.addObject("user", userService.getByOpenid(openid));
         return modelAndView;
     }
 
