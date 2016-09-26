@@ -21,6 +21,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,8 +44,6 @@ public class IntegralController extends BaseController {
     private AppConfig appConfig;
     @Autowired
     private UserService userService;
-    @Autowired
-    private IntegralRecordService integralRecordService;
 
     /**
      * 分享到朋友圈获得积分奖励
@@ -66,19 +65,24 @@ public class IntegralController extends BaseController {
     }
 
 
-    @RequestMapping("/rec")
-    public ModelAndView integralRec(Integer type, HttpServletRequest request) {
+    @RequestMapping("/rec/populate")
+    public ModelAndView integralPopulateRec(Integer type, HttpServletRequest request) {
 
-        ModelAndView modelAndView = new ModelAndView("integral_rec");
+        ModelAndView modelAndView = new ModelAndView("integral_populate_rec");
         String openid = (String) request.getSession().getAttribute("openid");
         User user = userService.getByOpenid(openid);
-        IntegralRecord integralRecord = new IntegralRecord();
-        integralRecord.setUserid(user.getId());
-        integralRecord.setType(type);
+        if (!StringUtils.isEmpty(user.getSpreadRecord())) {
+            //id1:status#id2:status
+            List<Integer> ids = new ArrayList<>();
+            String[] strs = user.getSpreadRecord().split("#");
+            for (String str : strs) {
+                String[] kv = str.split(":");
+                if ("1".equals(kv[1])) {
+                    ids.add(Integer.valueOf(kv[0]));
+                }
+            }
 
-        List<IntegralRecord> list = integralRecordService.selectBySelective(integralRecord);
-
-        modelAndView.addObject("list", list);
+        }
         return modelAndView;
     }
 

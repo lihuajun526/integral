@@ -2,6 +2,8 @@ package com.vip.dbservice.dao;
 
 import com.vip.dbservice.model.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -18,4 +20,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User getByOpenid(String openid);
+
+    List<User> getByIds(List<Integer> ids);
 }

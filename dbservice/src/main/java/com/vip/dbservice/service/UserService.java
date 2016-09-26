@@ -27,4 +27,6 @@ public interface UserService {
 
     int update(User user);
 
+    List<User> getByIds(List<Integer> ids);
+
 }
