@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.vip.dbservice.model.IntegralRecord" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.vip.dbservice.model.User" %>
 <%
-    List<IntegralRecord> list = (List<IntegralRecord>) request.getAttribute("list");
+    List<User> list = (List<User>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html class="" lang="zh-cmn-Hans">
@@ -1010,23 +1010,23 @@
         <div id="order-list-container">
             <div class="js-list b-list">
                 <%
-                    for (IntegralRecord integralRecord : list) {
+                    for (int i = 0; list != null && i < list.size(); i++) {
+                        User user = list.get(0);
                 %>
                 <li class="js-block-order block block-order animated">
                     <div class="header"></div>
                     <a class="name-card name-card-3col clearfix">
                         <div class="thumb">
-                            <img src="/statics/integral_rec/Fml1cxHbZRzWPQn5zFy0nqgy9rMu.jpg!200x0.jpg">
+                            <img src="<%=user.getHeadimgurl().replace("/0","/96")%>">
                         </div>
                         <div class="detail">
-                            <h3 class="font-size-14 l2-ellipsis">
-                                【预售9月8日发货】《细节》：如何轻松影响他人【预售9月8日发货】《细节》：如何轻松影响他人【预售9月8日发货】《细节》：如何轻松影响他人</h3>
+                            <h3 class="font-size-14 l2-ellipsis"><%=user.getNickname() %>扫描您的推广码</h3>
                         </div>
                     </a>
 
                     <div class="bottom-price  ">
                         <div class="pull-right">
-                            积分：<span class="c-orange">+30</span>
+                            奖励积分：<span class="c-orange">+30</span>
                         </div>
                     </div>
                 </li>

@@ -66,7 +66,7 @@ public class IntegralController extends BaseController {
 
 
     @RequestMapping("/rec/populate")
-    public ModelAndView integralPopulateRec(Integer type, HttpServletRequest request) {
+    public ModelAndView integralPopulateRec(HttpServletRequest request) {
 
         ModelAndView modelAndView = new ModelAndView("integral_populate_rec");
         String openid = (String) request.getSession().getAttribute("openid");
@@ -81,7 +81,8 @@ public class IntegralController extends BaseController {
                     ids.add(Integer.valueOf(kv[0]));
                 }
             }
-
+            List<User> list = userService.getByIds(ids);
+            modelAndView.addObject("list", list);
         }
         return modelAndView;
     }

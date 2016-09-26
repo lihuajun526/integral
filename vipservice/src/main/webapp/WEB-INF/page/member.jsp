@@ -1578,7 +1578,7 @@
 
                 <div class="block block-list list-vertical">
                     <a class="block-item link clearfix ico-record"
-                       href="/integral/rec"
+                       href="/integral/rec/populate"
                        target="_blank">
                         <p class="title-info c-black font-size-14">积分记录</p>
                     </a>
