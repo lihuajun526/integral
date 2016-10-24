@@ -216,7 +216,7 @@
     ,
     <include refid="Blob_Column_List" />
     from t_attack_param
-    where belong = #{belong,jdbcType=VARCHAR}
+    where belong = #{belong,jdbcType=VARCHAR} and status = 1
   </select>
   <!-- 根据节点id获取攻击者 -->
   <select id="getByNode" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >

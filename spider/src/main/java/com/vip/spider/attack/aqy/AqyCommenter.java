@@ -44,10 +44,9 @@ public class AqyCommenter extends Commenter {
 
     @Override public void init() throws RequestException, UnsupportedEncodingException {
 
-        if (pubParams.size() > 0)
-            return;
-
+        //if (pubParams.size() == 0)
         super.init();
+
         //收集公共参数
         //设置categoryid
         element = document.getElementById("data-vip-remindbox");

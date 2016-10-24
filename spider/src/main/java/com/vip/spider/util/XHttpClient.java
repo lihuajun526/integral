@@ -65,7 +65,8 @@ public class XHttpClient {
         CloseableHttpResponse response = null;
         try {
             HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
-            RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
+            //RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
+            RequestConfig config = RequestConfig.custom().build();
 
             if (httpUriRequest instanceof HttpPost) {
                 ((HttpPost) httpUriRequest).setConfig(config);

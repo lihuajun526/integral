@@ -8,6 +8,8 @@ import com.vip.dbservice.model.AttackParam;
 import com.vip.dbservice.service.AttackPageService;
 import com.vip.dbservice.service.AttackParamService;
 import com.vip.spider.attack.aqy.AqyCommenter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,8 @@ import java.util.List;
  * Created by lihuajun on 16-7-16.
  */
 public class AttackTask implements Runnable {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AttackTask.class);
 
     //热评最大数
     private int maxHotCount = 3;
@@ -36,14 +40,15 @@ public class AttackTask implements Runnable {
         List<AttackPage> attackPageList = listAttackPage();
 
         for (int i = 0; i < attackPageList.size(); i++) {
+            AttackPage attackPage = attackPageList.get(i);
             try {
                 // 主角对影片进行评论，所有配角对该评论进行点赞/回复
                 //选一个主角
                 AqyCommenter major = commenters.get(i % commenters.size());
-                major.setAttackPage(attackPageList.get(i));
+                major.setAttackPage(attackPage);
                 Comment comment = major.comment();
                 //配角点赞/回复
-                for (AqyCommenter support : commenters) {
+                /*for (AqyCommenter support : commenters) {
                     if (support == major) {
                         support.praise(comment);
                         continue;
@@ -52,7 +57,7 @@ public class AttackTask implements Runnable {
                     support.praise(comment);
                     support.reply(comment);
                 }
-                /*
+
                 // TODO: 16-7-16 主角对最热的前N条评论进行点赞/回复，所有配角对该回复点赞，每次再选两个配角进行附和
                 List<Comment> hotComments = major.listHotComment(maxHotCount, maxReply);
                 for (int j = 0; j < hotComments.size(); j++) {
@@ -70,7 +75,7 @@ public class AttackTask implements Runnable {
                     }
                 }*/
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("评论[{}]失败",attackPage.getLink(),e);
             }
         }
 

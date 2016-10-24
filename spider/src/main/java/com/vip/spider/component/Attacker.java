@@ -43,7 +43,10 @@ public abstract class Attacker {
         HttpGet httpGet = new HttpGet(attackPage.getLink());
         response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
         action = attackParam.getAction();
-        initPubParam(attackParam.getData(), "&");
+
+        if(pubParams.size()==0)
+            initPubParam(attackParam.getData(), "&");
+
         document = Jsoup.parse(response);
     }
 
