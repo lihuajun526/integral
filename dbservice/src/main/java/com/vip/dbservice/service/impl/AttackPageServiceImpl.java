@@ -26,6 +26,11 @@ public class AttackPageServiceImpl implements AttackPageService {
     }
 
     @Override
+    public AttackPage selectByPrimaryKey(Integer id) {
+        return attackPageMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public List<AttackPage> listByCondition(AttackPage attackPage) {
         return attackPageMapper.listByCondition(attackPage);
     }

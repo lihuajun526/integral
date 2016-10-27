@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.vip.dbservice.dao.GoodsMapper" >
-  <resultMap id="BaseResultMap" type="com.vip.dbservice.model.Goods" >
+<mapper namespace="com.vip.integral.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.vip.integral.model.Goods" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="order" property="order" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="vip_type" property="vipType" jdbcType="INTEGER" />
     <result column="count" property="count" jdbcType="INTEGER" />
@@ -15,10 +16,54 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List" >
-    id, title, description, order, price, type, vip_type, count, status, effective_time, 
+    id, title, description, sort, price, img, type, vip_type, count, status, effective_time, 
     create_time, update_time
   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vip.integral.model.GoodsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -29,19 +74,19 @@
     delete from t_goods
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.vip.dbservice.model.Goods" >
+  <insert id="insert" parameterType="com.vip.integral.model.Goods" >
     insert into t_goods (id, title, description, 
-      order, price, type, 
+      sort, price, img, type, 
       vip_type, count, status, 
       effective_time, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{order,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{vipType,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{effectiveTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.vip.dbservice.model.Goods" >
+  <insert id="insertSelective" parameterType="com.vip.integral.model.Goods" >
     insert into t_goods
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -53,11 +98,14 @@
       <if test="description != null" >
         description,
       </if>
-      <if test="order != null" >
-        order,
+      <if test="sort != null" >
+        sort,
       </if>
       <if test="price != null" >
         price,
+      </if>
+      <if test="img != null" >
+        img,
       </if>
       <if test="type != null" >
         type,
@@ -91,11 +139,14 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="order != null" >
-        #{order,jdbcType=INTEGER},
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
       </if>
       <if test="price != null" >
         #{price,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
@@ -120,7 +171,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.vip.dbservice.model.Goods" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.vip.integral.model.Goods" >
     update t_goods
     <set >
       <if test="title != null" >
@@ -129,11 +180,14 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="order != null" >
-        order = #{order,jdbcType=INTEGER},
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
       </if>
       <if test="price != null" >
         price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
@@ -159,12 +213,13 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.vip.dbservice.model.Goods" >
+  <update id="updateByPrimaryKey" parameterType="com.vip.integral.model.Goods" >
     update t_goods
     set title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      order = #{order,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
       price = #{price,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
       vip_type = #{vipType,jdbcType=INTEGER},
       count = #{count,jdbcType=INTEGER},

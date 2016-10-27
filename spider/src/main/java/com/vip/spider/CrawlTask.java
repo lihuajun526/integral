@@ -47,9 +47,12 @@ public class CrawlTask implements Runnable {
                 try {
                     String response = pageIndexLoader.next();
                     List<ParseResult> parseResultList = listParser.parse(response);
-                    /**
-                     * 判断该爬取源是否需要爬取 策略：前N条记录DB中是否已存在
-                     */
+
+                    if (parseResultList == null || parseResultList.size() == 0) {//如果列表为空则认为没有下一页了，此时退出，如知乎
+                        break;
+                    }
+
+                    //判断该爬取源是否需要爬取 策略：前N条记录DB中是否已存在
                     if (isFirst) {
                         isFirst = false;
                         if (!isNeedCrawl(parseResultList)) {
@@ -98,11 +101,17 @@ public class CrawlTask implements Runnable {
         AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
 
         for (ParseResult parseResult : list) {
+
             AttackPage attackPage = new AttackPage();
+            attackPage.setLink(parseResult.getLink());
+
+            //判断数据库中是否已存在
+            if (attackPageService.listByCondition(attackPage).size() > 0)
+                continue;
+
             attackPage.setBelong(parseResult.getBelong());
             attackPage.setCategory(parseResult.getCategory());
             attackPage.setCount(0);
-            attackPage.setLink(parseResult.getLink());
             attackPage.setPointLink(parseResult.getPointLink().replace("{pagenum}", "1"));
             attackPage.setTitle(parseResult.getTitle());
             attackPage.setAttr(JSON.toJSONString(parseResult.getAttr()));

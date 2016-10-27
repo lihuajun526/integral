@@ -9,9 +9,11 @@ public class Goods {
 
     private String description;
 
-    private Integer order;
+    private Integer sort;
 
     private Integer price;
+
+    private String img;
 
     private Integer type;
 
@@ -51,12 +53,12 @@ public class Goods {
         this.description = description == null ? null : description.trim();
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public Integer getPrice() {
@@ -65,6 +67,14 @@ public class Goods {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img == null ? null : img.trim();
     }
 
     public Integer getType() {

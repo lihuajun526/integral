@@ -117,7 +117,7 @@ public class AqyCommenter extends Commenter {
             cookieList.addAll(FilterCookies.filter(commentCookie));
             CookieHelper.setCookies2(requestUrl, httpPost, cookieList);
             //攻击
-            Thread.sleep(6000);
+            Thread.sleep(2000);
             String result = XHttpClient.doRequest(httpPost, attackParam.getCharset());
             JSONObject jsonObject = JSON.parseObject(result);
             String code = jsonObject.getString("code");
@@ -132,7 +132,7 @@ public class AqyCommenter extends Commenter {
                                     + pubParams.get("qitanid")
                                     + "&qypid=01010011010000000000&reply_sort=hot&sort=add_time&tvid=" + pubParams.get("tvid");
                     LOGGER.info("获取评论数据的链接[{}]", getCommentsUrl);
-                    Thread.sleep(6000);
+                    Thread.sleep(3000);
                     String commentsResult = XHttpClient.doRequest(new HttpGet(getCommentsUrl), attackParam.getCharset());
                     AqyComment aqyComment = JSONObject.parseObject(commentsResult, AqyComment.class);
                     comment = new Comment();

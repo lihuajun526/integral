@@ -1,6 +1,8 @@
 package com.vip.integral.dao;
 
-import com.vip.dbservice.model.Goods;
+import com.vip.integral.model.Goods;
+import com.vip.integral.model.GoodsExample;
+import java.util.List;
 
 public interface GoodsMapper {
     int deleteByPrimaryKey(Integer id);
@@ -8,6 +10,8 @@ public interface GoodsMapper {
     int insert(Goods record);
 
     int insertSelective(Goods record);
+
+    List<Goods> selectByExample(GoodsExample example);
 
     Goods selectByPrimaryKey(Integer id);
 
