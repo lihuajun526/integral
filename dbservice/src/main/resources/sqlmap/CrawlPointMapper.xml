@@ -14,11 +14,14 @@
         <result column="max_page" property="maxPage" jdbcType="INTEGER"/>
         <result column="sleep_time" property="sleepTime" jdbcType="BIGINT"/>
         <result column="method" property="method" jdbcType="VARCHAR"/>
+        <result column="post_param" property="postParam" jdbcType="VARCHAR"/>
+        <result column="header" property="header" jdbcType="VARCHAR"/>
         <result column="cookies" property="cookies" jdbcType="VARCHAR"/>
         <result column="referer" property="referer" jdbcType="VARCHAR"/>
         <result column="accept" property="accept" jdbcType="VARCHAR"/>
         <result column="response_encode" property="responseEncode" jdbcType="VARCHAR"/>
         <result column="response_type" property="responseType" jdbcType="VARCHAR"/>
+        <result column="response_handler" property="responseHandler" jdbcType="VARCHAR"/>
         <result column="list_record_rule" property="listRecordRule" jdbcType="VARCHAR"/>
         <result column="list_attr_rule" property="listAttrRule" jdbcType="VARCHAR"/>
         <result column="link_rule" property="linkRule" jdbcType="VARCHAR"/>
@@ -32,8 +35,8 @@
     </resultMap>
     <sql id="Base_Column_List">
     id, nodeid, category, url, url_cr_classpath, is_crawl_detail, json_analyze_path, 
-    status, belong, max_page, sleep_time, method, cookies, referer, accept, response_encode, 
-    response_type, list_record_rule, list_attr_rule, link_rule, link_self_rule, page_index_rule, 
+    status, belong, max_page, sleep_time, method, post_param, header, cookies, referer, accept, response_encode,
+    response_type, response_handler, list_record_rule, list_attr_rule, link_rule, link_self_rule, page_index_rule,
     page_index_classpath, task_classpath, attr, create_time, update_time
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -54,17 +57,17 @@
       url, url_cr_classpath, is_crawl_detail, 
       json_analyze_path, status, belong, 
       max_page, sleep_time, method, 
-      cookies, referer, accept, 
-      response_encode, response_type, list_record_rule, 
+      post_param, header, cookies, referer, accept,
+      response_encode, response_type, response_handler, list_record_rule,
       list_attr_rule, link_rule, link_self_rule, 
       page_index_rule, page_index_classpath, task_classpath, attr, create_time,
       update_time)
     values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{urlCrClasspath,jdbcType=VARCHAR}, #{isCrawlDetail,jdbcType=INTEGER}, 
       #{jsonAnalyzePath,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{belong,jdbcType=VARCHAR}, 
-      #{maxPage,jdbcType=INTEGER}, #{sleepTime,jdbcType=BIGINT}, #{method,jdbcType=VARCHAR}, 
-      #{cookies,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, #{accept,jdbcType=VARCHAR}, 
-      #{responseEncode,jdbcType=VARCHAR}, #{responseType,jdbcType=VARCHAR}, #{listRecordRule,jdbcType=VARCHAR}, 
+      #{maxPage,jdbcType=INTEGER}, #{sleepTime,jdbcType=BIGINT}, #{method,jdbcType=VARCHAR},
+      #{postParam,jdbcType=VARCHAR},#{header,jdbcType=VARCHAR},#{cookies,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, #{accept,jdbcType=VARCHAR},
+      #{responseEncode,jdbcType=VARCHAR}, #{responseType,jdbcType=VARCHAR}, #{responseHandler,jdbcType=VARCHAR}, #{listRecordRule,jdbcType=VARCHAR},
       #{listAttrRule,jdbcType=VARCHAR}, #{linkRule,jdbcType=VARCHAR}, #{linkSelfRule,jdbcType=VARCHAR}, 
       #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR},#{taskClasspath,jdbcType=VARCHAR},#{attr,jdbcType=VARCHAR}, NOW(),
       NOW())
@@ -108,6 +111,12 @@
             <if test="method != null">
                 method,
             </if>
+            <if test="postParam != null">
+                post_param,
+            </if>
+            <if test="header != null">
+                header,
+            </if>
             <if test="cookies != null">
                 cookies,
             </if>
@@ -122,6 +131,9 @@
             </if>
             <if test="responseType != null">
                 response_type,
+            </if>
+            <if test="responseHandler != null">
+                response_handler,
             </if>
             <if test="listRecordRule != null">
                 list_record_rule,
@@ -191,6 +203,12 @@
             <if test="method != null">
                 #{method,jdbcType=VARCHAR},
             </if>
+            <if test="postParam != null">
+                #{postParam,jdbcType=VARCHAR},
+            </if>
+            <if test="header != null">
+                #{header,jdbcType=VARCHAR},
+            </if>
             <if test="cookies != null">
                 #{cookies,jdbcType=VARCHAR},
             </if>
@@ -205,6 +223,9 @@
             </if>
             <if test="responseType != null">
                 #{responseType,jdbcType=VARCHAR},
+            </if>
+            <if test="responseHandler != null">
+                #{responseHandler,jdbcType=VARCHAR},
             </if>
             <if test="listRecordRule != null">
                 #{listRecordRule,jdbcType=VARCHAR},
@@ -274,6 +295,12 @@
             <if test="method != null">
                 method = #{method,jdbcType=VARCHAR},
             </if>
+            <if test="postParam != null">
+                post_param = #{postParam,jdbcType=VARCHAR},
+            </if>
+            <if test="header != null">
+                header = #{header,jdbcType=VARCHAR},
+            </if>
             <if test="cookies != null">
                 cookies = #{cookies,jdbcType=VARCHAR},
             </if>
@@ -288,6 +315,9 @@
             </if>
             <if test="responseType != null">
                 response_type = #{responseType,jdbcType=VARCHAR},
+            </if>
+            <if test="responseHandler != null">
+                response_handler = #{responseHandler,jdbcType=VARCHAR},
             </if>
             <if test="listRecordRule != null">
                 list_record_rule = #{listRecordRule,jdbcType=VARCHAR},
@@ -335,11 +365,14 @@
       max_page = #{maxPage,jdbcType=INTEGER},
       sleep_time = #{sleepTime,jdbcType=BIGINT},
       method = #{method,jdbcType=VARCHAR},
+      post_param = #{postParam,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
       cookies = #{cookies,jdbcType=VARCHAR},
       referer = #{referer,jdbcType=VARCHAR},
       accept = #{accept,jdbcType=VARCHAR},
       response_encode = #{responseEncode,jdbcType=VARCHAR},
       response_type = #{responseType,jdbcType=VARCHAR},
+      response_handler = #{responseHandler,jdbcType=VARCHAR},
       list_record_rule = #{listRecordRule,jdbcType=VARCHAR},
       list_attr_rule = #{listAttrRule,jdbcType=VARCHAR},
       link_rule = #{linkRule,jdbcType=VARCHAR},

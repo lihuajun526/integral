@@ -27,6 +27,10 @@ public class CrawlPoint {
 
     private String method;
 
+    private String postParam;
+
+    private String header;
+
     private String cookies;
 
     private String referer;
@@ -34,6 +38,8 @@ public class CrawlPoint {
     private String accept;
 
     private String responseEncode;
+
+    private String responseHandler;
 
     private String responseType;
 
@@ -271,5 +277,29 @@ public class CrawlPoint {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public void setPostParam(String postParam) {
+        this.postParam = postParam;
+    }
+
+    public String getPostParam() {
+        return postParam;
+    }
+
+    public void setResponseHandler(String responseHandler) {
+        this.responseHandler = responseHandler;
+    }
+
+    public String getResponseHandler() {
+        return responseHandler;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String getHeader() {
+        return header;
     }
 }

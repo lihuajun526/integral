@@ -72,20 +72,24 @@ public class CrawlTask implements Runnable {
                         parseResult.setCategory(crawlPointAttr.getCategory());
                         parseResult.setBelong(crawlPointAttr.getBelong());
                         parseResult.setPointLink(crawlPointAttr.getUrl());
-                        LOGGER.debug(JSON.toJSONString(parseResult));
+
+                        //保存到数据库
+                        saveToDb(parseResult);
+                        LOGGER.info(JSON.toJSONString(parseResult));
                         // 追加数据
-                        allParseResultList.add(parseResult);
+                        //allParseResultList.add(parseResult);
                     }
                     if (!isNeedSpider) {
                         break;
                     }
                     pageNum++;
+
+                    Thread.sleep(crawlPointAttr.getSleepTime());
+
                 } catch (Exception e) {
                     LOGGER.error("", e);
                 }
             }
-            // 结果入库
-            saveAll(allParseResultList);
             LOGGER.info("任务{}完成{},共采集点{}页{}条数据", crawlPointAttr.getTaskid(), crawlPointAttr.getCategory(),
                     pageIndexLoader.getCurCount(), allParseResultList.size());
 
@@ -120,6 +124,30 @@ public class CrawlTask implements Runnable {
 
             attackPageService.save(attackPage);
         }
+    }
+
+    //保存采集结果
+    private void saveToDb(ParseResult parseResult) {
+
+        AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
+
+        AttackPage attackPage = new AttackPage();
+        attackPage.setLink(parseResult.getLink());
+
+        //判断数据库中是否已存在
+        if (attackPageService.listByCondition(attackPage).size() > 0)
+            return;
+
+        attackPage.setBelong(parseResult.getBelong());
+        attackPage.setCategory(parseResult.getCategory());
+        attackPage.setCount(0);
+        attackPage.setPointLink(parseResult.getPointLink().replace("{pagenum}", "1"));
+        attackPage.setTitle(parseResult.getTitle());
+        attackPage.setAttr(JSON.toJSONString(parseResult.getAttr()));
+        attackPage.setCreateTime(new Date());
+        attackPage.setUpdateTime(new Date());
+
+        attackPageService.save(attackPage);
     }
 
     /**

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 
 /**
  * 组件生成器
@@ -42,7 +43,7 @@ public class ComponentBuilder {
      * @return
      */
     public PageIndexLoader buildPageIndexLoader() throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, UnsupportedEncodingException {
+            InstantiationException, UnsupportedEncodingException, URISyntaxException {
         PageIndexLoader pageIndexLoader = (PageIndexLoader) Class.forName(crawlPointAttr.getPageIndexClassPath()).newInstance();
         pageIndexLoader.init(crawlPointAttr);
         return pageIndexLoader;

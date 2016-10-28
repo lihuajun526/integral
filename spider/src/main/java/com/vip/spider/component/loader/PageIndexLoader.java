@@ -1,14 +1,21 @@
 package com.vip.spider.component.loader;
 
 import com.vip.spider.bean.CrawlPointAttr;
+import com.vip.spider.component.creater.PointLinkCreater;
+import com.vip.spider.component.handler.response.ResponseHandler;
 import com.vip.spider.exception.ElementNotExistException;
 import com.vip.spider.exception.RequestException;
 import com.vip.spider.util.StrUtil;
 import com.vip.spider.util.XHttpClient;
+import com.vip.spider.util.cookie.CookieHelper;
+import com.vip.spider.util.cookie.FilterCookies;
+import com.vip.spider.util.cookie.HttpCookieEx;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -38,13 +45,27 @@ public abstract class PageIndexLoader {
 
     /**
      * 初始化
+     *
      * @param crawlPointAttr
      * @throws UnsupportedEncodingException
      */
-    public void init(CrawlPointAttr crawlPointAttr) throws UnsupportedEncodingException {
+    public void init(CrawlPointAttr crawlPointAttr) throws UnsupportedEncodingException, URISyntaxException {
         this.crawlPointAttr = crawlPointAttr;
         if ("POST".equalsIgnoreCase(crawlPointAttr.getMethod())) {
             httpPost = new HttpPost(crawlPointAttr.getUrl());
+
+            //设置post参数
+            String postParam = crawlPointAttr.getPostParam();
+            if (!StringUtils.isEmpty(postParam)) {
+                List<NameValuePair> params = new ArrayList<>();
+                String[] kvs = postParam.split(";");
+                for (String kv : kvs) {
+                    String[] strs = kv.split("=");
+                    params.add(new BasicNameValuePair(strs[0].trim(), strs[1].trim()));
+                }
+                httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
+            }
+
             httpUriRequest = httpPost;
         } else if ("GET".equalsIgnoreCase(crawlPointAttr.getMethod())) {
             url = URLDecoder.decode(crawlPointAttr.getUrl(), "utf-8");
@@ -57,6 +78,18 @@ public abstract class PageIndexLoader {
             httpUriRequest.setHeader("Accept", crawlPointAttr.getAccept());
         if (!StringUtils.isEmpty(crawlPointAttr.getReferer()))
             httpUriRequest.setHeader("Referer", crawlPointAttr.getReferer());
+        if (!StringUtils.isEmpty(crawlPointAttr.getCookies())) {
+            List<HttpCookieEx> cookieList = new ArrayList<>();
+            cookieList.addAll(FilterCookies.filter(crawlPointAttr.getCookies()));
+            CookieHelper.setCookies2(crawlPointAttr.getUrl(), httpUriRequest, cookieList);
+        }
+        if (!StringUtils.isEmpty(crawlPointAttr.getHeader())) {
+            String[] kvs = crawlPointAttr.getHeader().split(";");
+            for (String kv : kvs) {
+                String[] strs = kv.split(":");
+                httpUriRequest.setHeader(strs[0].trim(), strs[1].trim());
+            }
+        }
     }
 
     public boolean isNext() {
@@ -72,7 +105,7 @@ public abstract class PageIndexLoader {
      * @throws URISyntaxException
      * @throws RequestException
      */
-    public String next() throws URISyntaxException, RequestException, ElementNotExistException {
+    public String next() throws URISyntaxException, RequestException, ElementNotExistException, ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         if ("POST".equalsIgnoreCase(crawlPointAttr.getMethod())) {// POST请求
 
@@ -101,6 +134,14 @@ public abstract class PageIndexLoader {
             }
         }
         String response = XHttpClient.doRequest(httpUriRequest);
+
+        //处理response
+        if (!StringUtils.isEmpty(crawlPointAttr.getResponseHandler())) {
+            ResponseHandler responseHandler = (ResponseHandler) Class.forName(crawlPointAttr.getResponseHandler())
+                    .newInstance();
+            response = responseHandler.handle(response);
+        }
+
         // 更新总页数
         updatePageCount(response);
         // 返回

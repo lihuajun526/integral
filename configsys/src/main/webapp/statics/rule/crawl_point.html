@@ -34,6 +34,7 @@
                             <option value="youku">优酷</option>
                             <option value="txxw">腾讯新闻</option>
                             <option value="douban">豆瓣</option>
+                            <option value="zhihu">知乎</option>
                         </select>
                     </td>
                 </tr>
@@ -58,10 +59,29 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>请求方式</td>
+                    <td>请求间隔时间</td>
+                    <td><input style="width: 100px;" id="sleepTime" name="sleepTime" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>请求方式/参数</td>
                     <td>
-                        <input name="method" type="radio" value="GET" checked/>GET
-                        <input name="method" type="radio" value="POST"/>POST
+                        <input name="method" type="radio" value="GET" checked onclick="showText(0);"/>GET
+                        <input name="method" type="radio" value="POST" onclick="showText(1);"/>POST
+                        <div id="post_param" style="display: none;">
+                            <textarea id="postParam" name="postParam" cols="60" rows="5"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>请求头</td>
+                    <td>
+                        <textarea id="header" name="header" cols="68" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>cookies</td>
+                    <td>
+                        <textarea id="cookies" name="cookies" cols="68" rows="5"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -86,6 +106,10 @@
                             <option value="XML">XML</option>
                         </select>
                     </td>
+                </tr>
+                <tr>
+                    <td>Response处理类</td>
+                    <td><input style="width: 500px;" id="responseHandler" name="responseHandler" type="text"/></td>
                 </tr>
                 <tr>
                     <td>列表记录规则</td>
@@ -146,10 +170,17 @@
                 $("#pageIndexRule").val(data.data.pageIndexRule);
                 $("#pageIndexClasspath").val(data.data.pageIndexClasspath);
                 $("#belong").val(data.data.belong);
+                $("#postParam").val(data.data.postParam);
+                $("#cookies").val(data.data.cookies);
+                $("#sleepTime").val(data.data.sleepTime);
+                $("#header").val(data.data.header);
+                $("#responseHandler").val(data.data.responseHandler);
                 $("#responseType").val(data.data.responseType);
                 $("input[name='isCrawlDetail'][value='" + data.data.isCrawlDetail + "']").attr("checked", true);
                 $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);
                 $("input[name='method'][value='" + data.data.method + "']").attr("checked", true);
+                if(data.data.method == "POST")
+                    $("#post_param").show();
                 $("input[name='responseEncode'][value='" + data.data.responseEncode + "']").attr("checked", true);
             }, "json");
         });
@@ -176,6 +207,13 @@
                 $.messager.alert('Info', result.message, 'info');
             }
         });
+    }
+
+    function showText(flag){
+        if(flag == 1)
+            $("#post_param").show();
+        else if(flag == 0)
+            $("#post_param").hide();
     }
 </script>
 </body>

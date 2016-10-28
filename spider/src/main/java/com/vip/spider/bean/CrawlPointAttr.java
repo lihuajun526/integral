@@ -32,6 +32,8 @@ public class CrawlPointAttr {
 
     private String attr;
 
+    private Long sleepTime;
+
     public String getTaskClasspath() {
         return taskClasspath;
     }
@@ -62,6 +64,10 @@ public class CrawlPointAttr {
     //请求属性
     private String method;
 
+    private String postParam;
+
+    private String header;
+
     private String cookies;
 
     private String referer;
@@ -71,6 +77,8 @@ public class CrawlPointAttr {
     private String responseEncode;//返回结果编码
 
     private String responseType;//返回类型：html/json
+
+    private String responseHandler;
 
     //列表属性
     private String listRecordRule;//{"jsoup":""}
@@ -253,5 +261,37 @@ public class CrawlPointAttr {
 
     public void setPageIndexClassPath(String pageIndexClassPath) {
         this.pageIndexClassPath = pageIndexClassPath;
+    }
+
+    public void setPostParam(String postParam) {
+        this.postParam = postParam;
+    }
+
+    public String getPostParam() {
+        return postParam;
+    }
+
+    public void setResponseHandler(String responseHandler) {
+        this.responseHandler = responseHandler;
+    }
+
+    public String getResponseHandler() {
+        return responseHandler;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setSleepTime(Long sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public Long getSleepTime() {
+        return sleepTime;
     }
 }

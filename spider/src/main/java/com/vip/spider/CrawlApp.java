@@ -34,7 +34,7 @@ public class CrawlApp {
         //设置查询条件
         CrawlPointAttr queryAttr = new CrawlPointAttr();
         //queryAttr.setBelong(Belong.QZONE.value());
-        queryAttr.setId(2);
+        queryAttr.setId(20);
 
         List<CrawlPointAttr> list = listCrawlPointAttr(queryAttr);
 
@@ -43,16 +43,16 @@ public class CrawlApp {
         for (int i = 1; i <= list.size(); i++) {
             CrawlPointAttr crawlPointAttr = list.get(i - 1);
             crawlPointAttr.setTaskid("Task" + i);
-            if(!StringUtils.isEmpty(crawlPointAttr.getTaskClasspath())){
-                try{
+            if (!StringUtils.isEmpty(crawlPointAttr.getTaskClasspath())) {
+                try {
                     Class clazz = Class.forName(crawlPointAttr.getTaskClasspath());
                     Constructor constructor = clazz.getConstructor(CrawlPointAttr.class);
                     Runnable task = (Runnable) constructor.newInstance(crawlPointAttr);
                     new Thread(task).start();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 fixedThreadPool.execute(new CrawlTask(crawlPointAttr));
             }
         }
@@ -103,18 +103,22 @@ public class CrawlApp {
                 crawlPointAttr.setCategory(
                         crawlPoint.getCategory() + (linkAttr.get("index") == null ? "" : "[" + linkAttr.get("index") + "]"));
                 crawlPointAttr.setUrlCrClassPath(crawlPoint.getUrlCrClasspath());
-                if(crawlPoint.getIsCrawlDetail()!=null)
+                if (crawlPoint.getIsCrawlDetail() != null)
                     crawlPointAttr.setCrawlDetail(crawlPoint.getIsCrawlDetail() == 1 ? true : false);
                 crawlPointAttr.setJsonAnalyzePath(crawlPoint.getJsonAnalyzePath());
                 crawlPointAttr.setStatus(crawlPoint.getStatus());
                 crawlPointAttr.setBelong(crawlPoint.getBelong());
                 crawlPointAttr.setMaxPage(crawlPoint.getMaxPage());
                 crawlPointAttr.setMethod(crawlPoint.getMethod());
+                crawlPointAttr.setPostParam(crawlPoint.getPostParam());
+                crawlPointAttr.setHeader(crawlPoint.getHeader());
                 crawlPointAttr.setCookies(crawlPoint.getCookies());
+                crawlPointAttr.setSleepTime(crawlPoint.getSleepTime());
                 crawlPointAttr.setReferer(crawlPoint.getReferer());
                 crawlPointAttr.setAccept(crawlPoint.getAccept());
                 crawlPointAttr.setResponseEncode(crawlPoint.getResponseEncode());
                 crawlPointAttr.setResponseType(crawlPoint.getResponseType());
+                crawlPointAttr.setResponseHandler(crawlPoint.getResponseHandler());
                 crawlPointAttr.setListRecordRule(crawlPoint.getListRecordRule());
                 crawlPointAttr.setListAttrRule(crawlPoint.getListAttrRule());
                 crawlPointAttr.setLinkRule(crawlPoint.getLinkRule());

@@ -143,7 +143,7 @@ public class ListParser {
                         link = JsHelper.exe(jsonObject.getString("method"), link);
                     }
                 }
-                parseResult.setLink(StrUtil.cleanUrl(link));
+                parseResult.setLink(StrUtil.handleLink(crawlPointAttr.getUrl(), StrUtil.cleanUrl(link)));
             } catch (Exception e) {
                 LOGGER.error("解析链接错误[id={}]", crawlPointAttr.getId(), e);
                 throw new FavourUrlParseException(ExceptionTypeEnum.FAVOUR_URL_PARSE_ERROR);
