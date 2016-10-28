@@ -14,12 +14,12 @@
 <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">爬虫规则管理系统</div>
 <div data-options="region:'west',split:true,title:'导航'" style="width:200px;padding:10px;">
     <div class="easyui-panel" style="padding:5px" title="采集点">
-        <ul id="tree" class="easyui-tree"></ul>
+        <ul id="tree" class="easyui-tree" url="./tree/tree"></ul>
     </div>
     <br/>
 
     <div class="easyui-panel" style="padding:5px" title="后台管理">
-        <ul id="tt"></ul>
+        <ul id="tt" class="easyui-tree"></ul>
     </div>
 
 </div>
@@ -94,20 +94,6 @@
                 left: e.pageX,
                 top: e.pageY
             });
-        },
-        onExpand: function (node) {
-            $.get("./tree/tree?id=" + node.id,
-                    function (data) {
-                        var childrenNodes = $('#tree').tree('getChildren', node.target);
-                        for (var i = 0; i < childrenNodes.length; i++) {
-                            var childrenNode = childrenNodes[i];
-                            $('#tree').treegrid('remove', childrenNode.id);//移除
-                        }
-                        $('#tree').tree('append', {
-                            parent: node.target,
-                            data: data
-                        });
-                    }, "json");
         }
     });
 
@@ -122,11 +108,6 @@
 
     $(function () {
         $(document).ready(function () {
-            $.get("./tree/tree?id=0", function (data) {
-                $("#tree").tree({
-                    data: data
-                });
-            }, "json");
             $.get("/statics/data/back_tree_data.json", function (data) {
                 $("#tt").tree({
                     data: data

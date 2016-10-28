@@ -65,6 +65,9 @@ public class TreeNodeController extends BaseController {
     @ResponseBody
     public String tree(Integer id) {
 
+        if (id == null)
+            id = 0;
+
         List<TreeNode> list = treeNodeService.listByParent(id);
 
         if (list == null)
