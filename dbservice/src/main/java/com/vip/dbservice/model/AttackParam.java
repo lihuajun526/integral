@@ -29,6 +29,8 @@ public class AttackParam {
 
     private String cookies;
 
+    private String header;
+
     public Integer getId() {
         return id;
     }
@@ -131,5 +133,13 @@ public class AttackParam {
 
     public void setAttr(String attr) {
         this.attr = attr;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String getHeader() {
+        return header;
     }
 }

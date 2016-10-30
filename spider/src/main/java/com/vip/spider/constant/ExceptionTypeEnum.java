@@ -24,7 +24,7 @@ public enum ExceptionTypeEnum {
     NOT_LOGIN_ERROR("000014", "未登录"),
     UNKNOW_ERROR("000015", "未知错误"),
     INIT_HTTPCLIENT_ERROR("000016", "初始化httpClient错误"),
-    ;
+    MESSAGE_SEND_ERROR("000017", "信息发送失败"),;
 
     public final String code;
 

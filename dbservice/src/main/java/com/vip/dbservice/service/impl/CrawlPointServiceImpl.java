@@ -41,4 +41,9 @@ public class CrawlPointServiceImpl implements CrawlPointService {
     @Override public CrawlPoint getByNode(Integer nodeid) {
         return crawlPointMapper.getByNode(nodeid);
     }
+
+    @Override
+    public CrawlPoint selectByPrimaryKey(Integer id) {
+        return crawlPointMapper.selectByPrimaryKey(id);
+    }
 }

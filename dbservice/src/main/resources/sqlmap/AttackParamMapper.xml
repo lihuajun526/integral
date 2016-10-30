@@ -10,6 +10,7 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="charset" property="charset" jdbcType="VARCHAR" />
     <result column="action" property="action" jdbcType="VARCHAR" />
+    <result column="header" property="header" jdbcType="VARCHAR" />
     <result column="attr" property="attr" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="DATE" />
     <result column="update_time" property="updateTime" jdbcType="DATE" />
@@ -19,7 +20,7 @@
     <result column="cookies" property="cookies" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, nodeid, account, belong, request_method, status, charset, action, attr, create_time,
+    id, nodeid, account, belong, request_method, status, charset, action, header, attr, create_time,
     update_time
   </sql>
   <sql id="Blob_Column_List" >
@@ -43,12 +44,12 @@
     </selectKey>
     insert into t_attack_param (id, nodeid, account, 
       belong, request_method, status, 
-      charset, action, attr, create_time,
+      charset, action, header, attr, create_time,
       update_time, data, cookies
       )
     values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
       #{belong,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{charset,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{attr,jdbcType=VARCHAR}, NOW(),
+      #{charset,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{header,jdbcType=VARCHAR}, #{attr,jdbcType=VARCHAR}, NOW(),
       NOW(), #{data,jdbcType=LONGVARCHAR}, #{cookies,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -78,6 +79,9 @@
       </if>
       <if test="action != null" >
         action,
+      </if>
+      <if test="header != null" >
+        header,
       </if>
       <if test="attr != null" >
         attr,
@@ -120,6 +124,9 @@
       <if test="action != null" >
         #{action,jdbcType=VARCHAR},
       </if>
+      <if test="header != null" >
+        #{header,jdbcType=VARCHAR},
+      </if>
       <if test="attr != null" >
         #{attr,jdbcType=VARCHAR},
       </if>
@@ -161,6 +168,9 @@
       <if test="action != null" >
         action = #{action,jdbcType=VARCHAR},
       </if>
+      <if test="header != null" >
+        header = #{header,jdbcType=VARCHAR},
+      </if>
       <if test="attr != null" >
         attr = #{attr,jdbcType=VARCHAR},
       </if>
@@ -188,6 +198,7 @@
       status = #{status,jdbcType=INTEGER},
       charset = #{charset,jdbcType=VARCHAR},
       action = #{action,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
       attr = #{attr,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=DATE},
       update_time = #{updateTime,jdbcType=DATE},
@@ -204,6 +215,7 @@
       status = #{status,jdbcType=INTEGER},
       charset = #{charset,jdbcType=VARCHAR},
       action = #{action,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
       attr = #{attr,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=DATE},
       update_time = #{updateTime,jdbcType=DATE}

@@ -1,5 +1,8 @@
 package com.vip.spider.component.loader.index.zhihu;
 
+import com.vip.dbservice.model.CrawlPoint;
+import com.vip.dbservice.service.CrawlPointService;
+import com.vip.spider.bean.SpringContext;
 import com.vip.spider.component.loader.PageIndexLoader;
 import com.vip.spider.constant.ExceptionTypeEnum;
 import com.vip.spider.exception.ElementNotExistException;
@@ -11,6 +14,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,14 @@ import java.util.List;
  * 知乎话题关注者
  */
 public class Follower extends PageIndexLoader {
+
+    private CrawlPointService crawlPointService;
+
+    public Follower(){
+        ClassPathXmlApplicationContext context = SpringContext.getContext();
+        crawlPointService = (CrawlPointService) context.getBean("crawlPointService");
+    }
+
     @Override
     public void updatePageCount(String response) throws ElementNotExistException {
         try {
@@ -36,9 +48,16 @@ public class Follower extends PageIndexLoader {
 
                 HttpPost httpPost = (HttpPost) httpUriRequest;
                 List<NameValuePair> params = new ArrayList<>();
-                params.add(new BasicNameValuePair("offset", String.valueOf(20 * pageCount)));
+                String offset = String.valueOf(20 * pageCount);
+                params.add(new BasicNameValuePair("offset", offset));
                 params.add(new BasicNameValuePair("start", id));
                 httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
+
+                //更新采集点的postParam属性，方便任务下次继续执行
+                CrawlPoint crawlPoint = new CrawlPoint();
+                crawlPoint.setId(crawlPointAttr.getId());
+                crawlPoint.setPostParam("offset=" + offset + ";start=" + id);
+                crawlPointService.update(crawlPoint);
 
                 httpUriRequest = httpPost;
             }

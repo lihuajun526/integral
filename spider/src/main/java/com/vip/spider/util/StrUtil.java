@@ -194,14 +194,14 @@ public class StrUtil {
     public static void main(String[] args) {
 
         //评论
-        /*String str1 = "aid=10630589&albumid=344891800&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=10630589&qypid=01010011010000000000&reply_sort=hot&sort=hot&t=0.373654650586821&tvid=344891800";
-        String str2 = "aid=10630589&albumid=344891800&categoryid=1&cb=fnsucc&escape=true&is_video_page=true&need_reply=true&need_subject=true&need_total=1&page=1&page_size=10&page_size_reply=3&qitan_comment_type=1&qitancallback=fnsucc&qitanid=10630589&qypid=01010011010000000000&reply_sort=hot&sort=add_time&t=0.3868190594192775&tvid=344891800";
+        String str1 = "d_c0=AHAA2J2WngqPTg29F5RB7iMYNGFmFNxNgVg=|1475221375; _za=30e82170-dc0a-434a-9d6d-a2165077f167; _zap=ddab3390-9acf-4493-91f5-2a806ffd605c; _xsrf=52c5a1f783fb75e458f254e918d488ea; q_c1=1abe3fda341a43dd9292ee116dcd9561|1477384487000|1477384487000; l_cap_id=MDgwYmJiOWI0ODQxNDdiODk3NmNjM2U3ZGRhZWFlY2I=|1477384487|5736949b8a5bb1fb0d467b082ef19889f14b7d12; cap_id=ZWVmZTIyZjU3M2NmNDQwMGIzMDBlY2I5YzcwZjY0ZDM=|1477384487|897e2d6d3b11ce7b96b96122b1d850456f5895e9; a_t=2.0AOCAgY8N3gcXAAAAKHw9WADggIGPDd4HAHAA2J2WngoXAAAAYQJVTV2nNlgAKaQdqU3Ruz77NC-AymDOnlLt_gbkeTUOCN2ZZ-hfnLsUVSeUbR9PPQ==; z_c0=Mi4wQU9DQWdZOE4zZ2NBY0FEWW5aYWVDaGNBQUFCaEFsVk5YYWMyV0FBcHBCMnBUZEc3UHZzMEw0REtZTTZlVXUzLUJn|1477832488|16be806acb16f6badf91a09c382ce6531b01aef4; __utma=51854390.1355232947.1477649019.1477820877.1477831686.5; __utmb=51854390.11.9.1477832488123; __utmc=51854390; __utmz=51854390.1477820877.4.3.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/people/li-hua-jun-43; __utmv=51854390.100--|2=registration_date=20150402=1^3=entry_date=20150402=1";
+        String str2 = "d_c0=AHAA2J2WngqPTg29F5RB7iMYNGFmFNxNgVg=|1475221375; _za=30e82170-dc0a-434a-9d6d-a2165077f167; _zap=ddab3390-9acf-4493-91f5-2a806ffd605c; _xsrf=52c5a1f783fb75e458f254e918d488ea; q_c1=1abe3fda341a43dd9292ee116dcd9561|1477384487000|1477384487000; l_cap_id=MDgwYmJiOWI0ODQxNDdiODk3NmNjM2U3ZGRhZWFlY2I=|1477384487|5736949b8a5bb1fb0d467b082ef19889f14b7d12; cap_id=ZWVmZTIyZjU3M2NmNDQwMGIzMDBlY2I5YzcwZjY0ZDM=|1477384487|897e2d6d3b11ce7b96b96122b1d850456f5895e9; a_t=2.0AOCAgY8N3gcXAAAAvX09WADggIGPDd4HAHAA2J2WngoXAAAAYQJVTV2nNlgAKaQdqU3Ruz77NC-AymDOnlLt_gZAYMm3iRWDinmxHMVT6UKDm3NcTA==; z_c0=Mi4wQU9DQWdZOE4zZ2NBY0FEWW5aYWVDaGNBQUFCaEFsVk5YYWMyV0FBcHBCMnBUZEc3UHZzMEw0REtZTTZlVXUzLUJn|1477832893|9f5f5e395a15af6d3972ff668911648611cab5a0; __utma=51854390.1355232947.1477649019.1477820877.1477831686.5; __utmb=51854390.12.9.1477832893314; __utmc=51854390; __utmz=51854390.1477820877.4.3.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/people/li-hua-jun-43; __utmv=51854390.100--|2=registration_date=20150402=1^3=entry_date=20150402=1";
 
         try {
-            showDif(str1, str2, "&");
+            showDif(str1, str2, ";");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }*/
+        }
 
         //设置表单
         /*String str = "targetid=1500957283&type=1&format=SCRIPT&callback=parent.popCallback&content=%D4%DE%B8%F6&_method=put&g_tk=1203714245&code=1&source=1&subsource=0&picture=";
@@ -210,11 +210,6 @@ public class StrUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }*/
-        try {
-            System.out.println(URLEncoder.encode("预览不支持进行购买","utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
     }
 
 }

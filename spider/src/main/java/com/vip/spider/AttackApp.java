@@ -1,6 +1,6 @@
 package com.vip.spider;
 
-import com.vip.spider.attack.aqy.task.AttackTask;
+import com.vip.spider.attack.zhihu.task.AttackTask;
 import com.vip.spider.bean.SpringContext;
 
 /**

@@ -9,6 +9,7 @@ public enum Belong {
     YouKu("youku"),
     TXXW("txxw"),
     QZONE("qzone"),
+    ZHIHU("zhihu"),
     ;
 
     private String value;

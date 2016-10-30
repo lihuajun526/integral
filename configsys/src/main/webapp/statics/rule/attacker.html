@@ -19,6 +19,7 @@
                             <option value="youku">优酷</option>
                             <option value="txxw">腾讯新闻</option>
                             <option value="qzone">qq空间</option>
+                            <option value="zhihu">知乎</option>
                         </select>
                     </td>
                 </tr>
@@ -47,6 +48,12 @@
                     <td>数据</td>
                     <td>
                         <textarea id="data" name="data" cols="60" rows="6"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>header</td>
+                    <td>
+                        <textarea id="header" name="header" cols="60" rows="6"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -87,6 +94,7 @@
                 $("#data").val(data.data.data);
                 $("#cookies").val(data.data.cookies);
                 $("#action").val(data.data.action);
+                $("#header").val(data.data.header);
                 $("#attr").val(data.data.attr);
                 $("#belong").val(data.data.belong);
                 $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);

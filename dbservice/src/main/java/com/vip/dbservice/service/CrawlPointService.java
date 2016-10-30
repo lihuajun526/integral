@@ -21,4 +21,6 @@ public interface CrawlPointService {
     //查询
     CrawlPoint getByNode(Integer nodeid);
 
+    CrawlPoint selectByPrimaryKey(Integer id);
+
 }
