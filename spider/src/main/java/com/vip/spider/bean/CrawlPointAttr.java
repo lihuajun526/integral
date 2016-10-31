@@ -95,6 +95,17 @@ public class CrawlPointAttr {
 
     private String pageIndexClassPath;
 
+    //详细页规则
+    private String pageRule;
+
+    public void setPageRule(String pageRule) {
+        this.pageRule = pageRule;
+    }
+
+    public String getPageRule() {
+        return pageRule;
+    }
+
     public Integer getId() {
         return id;
     }

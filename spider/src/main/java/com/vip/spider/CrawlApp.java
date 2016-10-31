@@ -116,6 +116,7 @@ public class CrawlApp {
                 crawlPointAttr.setSleepTime(crawlPoint.getSleepTime());
                 crawlPointAttr.setReferer(crawlPoint.getReferer());
                 crawlPointAttr.setAccept(crawlPoint.getAccept());
+                crawlPointAttr.setPageRule(crawlPoint.getPageRule());
                 crawlPointAttr.setResponseEncode(crawlPoint.getResponseEncode());
                 crawlPointAttr.setResponseType(crawlPoint.getResponseType());
                 crawlPointAttr.setResponseHandler(crawlPoint.getResponseHandler());

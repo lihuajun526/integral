@@ -136,6 +136,13 @@ public class ListParser {
                 } else {
                     link = element.select(linkParam.getJsoup()).get(0).attr("href");
                 }
+
+                link = "https://www.zhihu.com/people/whale";
+
+                //格式化链接
+                if (!StringUtils.isEmpty(linkParam.getFormat())) {
+                    link = String.format(linkParam.getFormat(), link);
+                }
                 // 需要自定义方式提取规则
                 if (!StringUtils.isEmpty(linkSelfRule)) {// {'by':'js','method':'xxx'}
                     JSONObject jsonObject = JSONObject.parseObject(linkSelfRule);
@@ -143,6 +150,7 @@ public class ListParser {
                         link = JsHelper.exe(jsonObject.getString("method"), link);
                     }
                 }
+
                 parseResult.setLink(StrUtil.handleLink(crawlPointAttr.getUrl(), StrUtil.cleanUrl(link)));
             } catch (Exception e) {
                 LOGGER.error("解析链接错误[id={}]", crawlPointAttr.getId(), e);
@@ -196,6 +204,7 @@ public class ListParser {
 class LinkParam {
     private String jsoup;
     private String attr;
+    private String format;
 
     public String getJsoup() {
         return jsoup;
@@ -211,6 +220,14 @@ class LinkParam {
 
     public void setAttr(String attr) {
         this.attr = attr;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public String getFormat() {
+        return format;
     }
 }
 

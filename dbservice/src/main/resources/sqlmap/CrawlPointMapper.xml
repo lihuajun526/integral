@@ -30,6 +30,7 @@
         <result column="page_index_classpath" property="pageIndexClasspath" jdbcType="VARCHAR"/>
         <result column="task_classpath" property="taskClasspath" jdbcType="VARCHAR"/>
         <result column="attr" property="attr" jdbcType="VARCHAR"/>
+        <result column="page_rule" property="pageRule" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="DATE"/>
         <result column="update_time" property="updateTime" jdbcType="DATE"/>
     </resultMap>
@@ -37,7 +38,7 @@
     id, nodeid, category, url, url_cr_classpath, is_crawl_detail, json_analyze_path, 
     status, belong, max_page, sleep_time, method, post_param, header, cookies, referer, accept, response_encode,
     response_type, response_handler, list_record_rule, list_attr_rule, link_rule, link_self_rule, page_index_rule,
-    page_index_classpath, task_classpath, attr, create_time, update_time
+    page_index_classpath, task_classpath, attr, page_rule, create_time, update_time
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -60,7 +61,7 @@
       post_param, header, cookies, referer, accept,
       response_encode, response_type, response_handler, list_record_rule,
       list_attr_rule, link_rule, link_self_rule, 
-      page_index_rule, page_index_classpath, task_classpath, attr, create_time,
+      page_index_rule, page_index_classpath, task_classpath, attr, page_rule, create_time,
       update_time)
     values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{urlCrClasspath,jdbcType=VARCHAR}, #{isCrawlDetail,jdbcType=INTEGER}, 
@@ -69,7 +70,7 @@
       #{postParam,jdbcType=VARCHAR},#{header,jdbcType=VARCHAR},#{cookies,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, #{accept,jdbcType=VARCHAR},
       #{responseEncode,jdbcType=VARCHAR}, #{responseType,jdbcType=VARCHAR}, #{responseHandler,jdbcType=VARCHAR}, #{listRecordRule,jdbcType=VARCHAR},
       #{listAttrRule,jdbcType=VARCHAR}, #{linkRule,jdbcType=VARCHAR}, #{linkSelfRule,jdbcType=VARCHAR}, 
-      #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR},#{taskClasspath,jdbcType=VARCHAR},#{attr,jdbcType=VARCHAR}, NOW(),
+      #{pageIndexRule,jdbcType=VARCHAR}, #{pageIndexClasspath,jdbcType=VARCHAR},#{taskClasspath,jdbcType=VARCHAR},#{attr,jdbcType=VARCHAR},#{pageRule,jdbcType=VARCHAR}, NOW(),
       NOW())
   </insert>
     <insert id="insertSelective" parameterType="com.vip.dbservice.model.CrawlPoint">
@@ -158,6 +159,9 @@
             </if>
             <if test="attr != null">
                 attr,
+            </if>
+            <if test="pageRule != null">
+                page_rule,
             </if>
             <if test="createTime != null">
                 create_time,
@@ -251,6 +255,9 @@
             <if test="attr != null">
                 #{attr,jdbcType=VARCHAR},
             </if>
+            <if test="pageRule != null">
+                #{pageRule,jdbcType=VARCHAR},
+            </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=DATE},
             </if>
@@ -343,6 +350,9 @@
             <if test="attr != null">
                 attr = #{attr,jdbcType=VARCHAR},
             </if>
+            <if test="pageRule != null">
+                page_rule = #{pageRule,jdbcType=VARCHAR},
+            </if>
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=DATE},
             </if>
@@ -381,6 +391,7 @@
       page_index_classpath = #{pageIndexClasspath,jdbcType=VARCHAR},
       task_classpath = #{taskClasspath,jdbcType=VARCHAR},
       attr = #{attr,jdbcType=VARCHAR},
+      page_rule = #{pageRule,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=DATE},
       update_time = #{updateTime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}

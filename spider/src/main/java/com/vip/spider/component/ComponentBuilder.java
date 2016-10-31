@@ -54,7 +54,7 @@ public class ComponentBuilder {
      *
      * @return
      */
-    public PageLoader buildPageLoader() {
+    public PageLoader buildPageLoader() throws URISyntaxException {
         PageLoader pageLoader = new PageLoader();
         pageLoader.init(crawlPointAttr);
         return pageLoader;

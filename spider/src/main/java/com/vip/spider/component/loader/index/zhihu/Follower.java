@@ -56,7 +56,7 @@ public class Follower extends PageIndexLoader {
                 //更新采集点的postParam属性，方便任务下次继续执行
                 CrawlPoint crawlPoint = new CrawlPoint();
                 crawlPoint.setId(crawlPointAttr.getId());
-                crawlPoint.setPostParam("offset=" + offset + ";start=" + id);
+                crawlPoint.setPostParam("offset=" + offset + "&start=" + id);
                 crawlPointService.update(crawlPoint);
 
                 httpUriRequest = httpPost;

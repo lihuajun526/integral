@@ -59,9 +59,19 @@ public class CrawlPoint {
 
     private String attr;
 
+    private String pageRule;
+
     private Date createTime;
 
     private Date updateTime;
+
+    public void setPageRule(String pageRule) {
+        this.pageRule = pageRule;
+    }
+
+    public String getPageRule() {
+        return pageRule;
+    }
 
     public String getTaskClasspath() {
         return taskClasspath;

@@ -137,6 +137,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>详细页规则</td>
+                    <td><textarea id="pageRule" name="pageRule" cols="68" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="2"><input onclick="saveOrUpdate();" value="确定" type="button"/></td>
                 </tr>
             </table>
@@ -169,6 +174,7 @@
                 $("#linkSelfRule").val(data.data.linkSelfRule);
                 $("#pageIndexRule").val(data.data.pageIndexRule);
                 $("#pageIndexClasspath").val(data.data.pageIndexClasspath);
+                $("#pageRule").val(data.data.pageRule);
                 $("#belong").val(data.data.belong);
                 $("#postParam").val(data.data.postParam);
                 $("#cookies").val(data.data.cookies);
@@ -179,7 +185,7 @@
                 $("input[name='isCrawlDetail'][value='" + data.data.isCrawlDetail + "']").attr("checked", true);
                 $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);
                 $("input[name='method'][value='" + data.data.method + "']").attr("checked", true);
-                if(data.data.method == "POST")
+                if (data.data.method == "POST")
                     $("#post_param").show();
                 $("input[name='responseEncode'][value='" + data.data.responseEncode + "']").attr("checked", true);
             }, "json");
@@ -209,10 +215,10 @@
         });
     }
 
-    function showText(flag){
-        if(flag == 1)
+    function showText(flag) {
+        if (flag == 1)
             $("#post_param").show();
-        else if(flag == 0)
+        else if (flag == 0)
             $("#post_param").hide();
     }
 </script>

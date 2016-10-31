@@ -58,7 +58,7 @@ public abstract class PageIndexLoader {
             String postParam = crawlPointAttr.getPostParam();
             if (!StringUtils.isEmpty(postParam)) {
                 List<NameValuePair> params = new ArrayList<>();
-                String[] kvs = postParam.split(";");
+                String[] kvs = postParam.split("&");
                 for (String kv : kvs) {
                     String[] strs = kv.split("=");
                     params.add(new BasicNameValuePair(strs[0].trim(), strs[1].trim()));
