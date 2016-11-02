@@ -1,5 +1,6 @@
 package com.vip.spider.attack.zhihu.task;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vip.dbservice.model.AttackPage;
 import com.vip.dbservice.model.AttackParam;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by lihuajun on 2016/8/5.
@@ -21,6 +23,12 @@ import java.util.List;
 public class AttackTask implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AttackTask.class);
+
+    private AttackPageService attackPageService;
+
+    public AttackTask(AttackPageService attackPageService) {
+        this.attackPageService = attackPageService;
+    }
 
     @Override
     public void run() {
@@ -34,7 +42,13 @@ public class AttackTask implements Runnable {
             for (int i = 0; i < attackPageList.size(); i++) {
                 AttackPage attackPage = attackPageList.get(i);
                 try {
-                    ZhihuMessageSender fixSender = getSenderBySex(senders, 0);
+                    JSONObject attr = JSONObject.parseObject(attackPage.getAttr());
+                    int sex = 2;
+                    String sSex = attr.getString("sex");
+                    if (sSex != null && "icon icon-profile-female".equals(sSex)) {
+                        sex = 1;
+                    }
+                    ZhihuMessageSender fixSender = getSenderBySex(senders, sex);
                     //发送信息
                     fixSender.setAttackPage(attackPage);
                     fixSender.send();
@@ -59,7 +73,7 @@ public class AttackTask implements Runnable {
         List<AttackParam> list = attackParamService.listByBelong(Belong.ZHIHU.value());
 
         for (AttackParam attackParam : list) {
-            ZhihuMessageSender zhihuMessageSender = new ZhihuMessageSender();
+            ZhihuMessageSender zhihuMessageSender = new ZhihuMessageSender(attackPageService);
             zhihuMessageSender.setAttackParam(attackParam);
             senders.add(zhihuMessageSender);
         }
@@ -69,13 +83,24 @@ public class AttackTask implements Runnable {
 
     /**
      * 选择异性发送消息
+     *
      * @param senders
      * @param sex
      * @return
      */
     private ZhihuMessageSender getSenderBySex(List<ZhihuMessageSender> senders, Integer sex) {
 
-        return senders.get(0);
+        List<ZhihuMessageSender> tempList = new ArrayList<>();
+        for (ZhihuMessageSender sender : senders) {
+            JSONObject attr = JSON.parseObject(sender.getAttackParam().getAttr());
+            if (attr.getInteger("sex") == sex)
+                tempList.add(sender);
+        }
+
+        Random random = new Random();
+        int index = random.nextInt(tempList.size());
+
+        return senders.get(index);
     }
 
     /**
@@ -85,16 +110,8 @@ public class AttackTask implements Runnable {
      */
     private List<AttackPage> listAttackPage() {
 
-        AttackPageService attackPageService = (AttackPageService) SpringContext.getContext().getBean("attackPageService");
         List<AttackPage> attackPageList = attackPageService.listByBelong(Belong.ZHIHU.value());
-        List<AttackPage> list = new ArrayList<>();
-        for (AttackPage attackPage : attackPageList) {
-            AttackAttr attackAttr = JSONObject.parseObject(attackPage.getAttr(), AttackAttr.class);
-            attackPage.setLink("https://www.zhihu.com/people/zoe-50-36-42");
-            list.add(attackPage);
-            break;
-        }
-
-        return list;
+        return attackPageList;
     }
+
 }

@@ -132,7 +132,15 @@ public abstract class Attacker {
         this.attackParam = attackParam;
     }
 
+    public AttackParam getAttackParam() {
+        return attackParam;
+    }
+
     public void setAttackPage(AttackPage attackPage) {
         this.attackPage = attackPage;
+    }
+
+    public AttackPage getAttackPage() {
+        return attackPage;
     }
 }

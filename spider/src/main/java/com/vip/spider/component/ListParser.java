@@ -137,8 +137,6 @@ public class ListParser {
                     link = element.select(linkParam.getJsoup()).get(0).attr("href");
                 }
 
-                link = "https://www.zhihu.com/people/whale";
-
                 //格式化链接
                 if (!StringUtils.isEmpty(linkParam.getFormat())) {
                     link = String.format(linkParam.getFormat(), link);

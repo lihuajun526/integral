@@ -34,4 +34,9 @@ public class AttackPageServiceImpl implements AttackPageService {
     public List<AttackPage> listByCondition(AttackPage attackPage) {
         return attackPageMapper.listByCondition(attackPage);
     }
+
+    @Override
+    public int addCount(AttackPage attackPage) {
+        return attackPageMapper.updateByPrimaryKeySelective(attackPage);
+    }
 }

@@ -2,6 +2,7 @@ package com.vip.spider.attack.zhihu;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.vip.dbservice.service.AttackPageService;
 import com.vip.spider.component.MessageSender;
 import com.vip.spider.constant.ExceptionTypeEnum;
 import com.vip.spider.exception.CommentException;
@@ -35,29 +36,18 @@ public class ZhihuMessageSender extends MessageSender {
     private String accept = "*/*";
     private String origin = "https://www.zhihu.com";
     private String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36";
-    private Element element;
 
-    @Override
-    public void init() throws RequestException, UnsupportedEncodingException {
+    private AttackPageService attackPageService;
 
-        super.init();
-        //收集公共参数
-        //设置member_id
-        Elements elements = document.select("div.zu-main-content>div.zu-main-content-inner>div.zm-profile-header>div.zm-profile-header-operation>div.zm-profile-header-op-btns>button");
-        if (elements == null || elements.size() == 0) {
-            LOGGER.error("未找到member_id参数，无法发送消息");
-            return;
-        }
-        element = elements.get(0);
-        String member_id = element.attr("data-id");
-        pubParams.put("member_id", member_id);
+
+    public ZhihuMessageSender(AttackPageService attackPageService) {
+        this.attackPageService = attackPageService;
+        action = attackParam.getAction();
     }
 
     @Override
     public void send() throws MessageSendException {
         try {
-            //初始化
-            this.init();
             String requestUrl = "https://www.zhihu.com/inbox/post";
             HttpPost httpPost = new HttpPost(requestUrl);
             //设置header
@@ -68,7 +58,10 @@ public class ZhihuMessageSender extends MessageSender {
 
             //设置表单参数
             List<NameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("member_id", pubParams.get("member_id")));
+
+            JSONObject attr = JSON.parseObject(attackPage.getAttr());
+
+            params.add(new BasicNameValuePair("member_id", attr.getString("id")));
             //设置text
             params.add(new BasicNameValuePair("content", JSON.parseObject(action).getString("send")));
             httpPost.setEntity(new UrlEncodedFormEntity(params, attackParam.getCharset()));
@@ -93,6 +86,8 @@ public class ZhihuMessageSender extends MessageSender {
 
             if ("0".equals(code)) {
                 LOGGER.info("信息发送成功[{}]", attackPage.getLink());
+                attackPage.setCount(attackPage.getCount() + 1);
+                attackPageService.addCount(attackPage);
             } else {
                 LOGGER.info("由于{},信息发送失败[{}]", result, attackPage.getLink());
                 throw new MessageSendException(ExceptionTypeEnum.MESSAGE_SEND_ERROR.code, result);

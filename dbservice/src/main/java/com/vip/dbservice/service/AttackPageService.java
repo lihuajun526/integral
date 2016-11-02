@@ -17,4 +17,6 @@ public interface AttackPageService {
 
     List<AttackPage> listByCondition(AttackPage attackPage);
 
+    int addCount(AttackPage attackPage);
+
 }
