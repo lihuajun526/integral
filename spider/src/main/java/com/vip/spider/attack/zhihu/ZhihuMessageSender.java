@@ -42,12 +42,12 @@ public class ZhihuMessageSender extends MessageSender {
 
     public ZhihuMessageSender(AttackPageService attackPageService) {
         this.attackPageService = attackPageService;
-        action = attackParam.getAction();
     }
 
     @Override
     public void send() throws MessageSendException {
         try {
+            action = attackParam.getAction();
             String requestUrl = "https://www.zhihu.com/inbox/post";
             HttpPost httpPost = new HttpPost(requestUrl);
             //设置header

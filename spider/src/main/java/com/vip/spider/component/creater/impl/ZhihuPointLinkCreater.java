@@ -18,7 +18,12 @@ public class ZhihuPointLinkCreater implements PointLinkCreater {
         List<Map<String, String>> linkAttrList = new ArrayList<>();
 
         Map<String, String> linkAttr = new HashMap<>();
-        linkAttr.put("link", "https://www.zhihu.com/topic/19550429/followers");
+
+        //电影
+        //linkAttr.put("link", "https://www.zhihu.com/topic/19550429/followers");
+
+        //男装
+        linkAttr.put("link", "https://www.zhihu.com/topic/19555391/followers");
 
         linkAttrList.add(linkAttr);
 
