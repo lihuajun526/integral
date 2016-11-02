@@ -25,6 +25,9 @@ public class ZhihuPointLinkCreater implements PointLinkCreater {
         //男装
         linkAttr.put("link", "https://www.zhihu.com/topic/19555391/followers");
 
+        //美食
+        //linkAttr.put("link", "https://www.zhihu.com/topic/19551137/followers");
+
         linkAttrList.add(linkAttr);
 
         return linkAttrList;

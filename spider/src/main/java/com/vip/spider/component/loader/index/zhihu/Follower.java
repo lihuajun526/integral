@@ -27,7 +27,7 @@ public class Follower extends PageIndexLoader {
 
     private CrawlPointService crawlPointService;
 
-    public Follower(){
+    public Follower() {
         ClassPathXmlApplicationContext context = SpringContext.getContext();
         crawlPointService = (CrawlPointService) context.getBean("crawlPointService");
     }
@@ -48,14 +48,17 @@ public class Follower extends PageIndexLoader {
 
                 HttpPost httpPost = (HttpPost) httpUriRequest;
                 List<NameValuePair> params = new ArrayList<>();
-                String offset = String.valueOf(20 * pageCount);
-                params.add(new BasicNameValuePair("offset", offset));
+
+                CrawlPoint crawlPoint = crawlPointService.selectByPrimaryKey(crawlPointAttr.getId());
+                String postParam = crawlPoint.getPostParam();
+                String[] postParams = postParam.split("&");
+                Integer offset = Integer.parseInt(postParams[0].split("=")[1]) + 20;
+
+                params.add(new BasicNameValuePair("offset", String.valueOf(offset)));
                 params.add(new BasicNameValuePair("start", id));
                 httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
 
                 //更新采集点的postParam属性，方便任务下次继续执行
-                CrawlPoint crawlPoint = new CrawlPoint();
-                crawlPoint.setId(crawlPointAttr.getId());
                 crawlPoint.setPostParam("offset=" + offset + "&start=" + id);
                 crawlPointService.update(crawlPoint);
 

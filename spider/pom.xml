@@ -60,7 +60,6 @@
         <finalName>spider</finalName>
         <filters>
             <filter>src/main/filters/${env}/properties/db.properties</filter>
-            <filter>src/main/filters/${env}/properties/mq-config.properties</filter>
         </filters>
         <resources>
             <resource>
