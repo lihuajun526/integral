@@ -32,7 +32,10 @@ public class ZhihuPointLinkCreater implements PointLinkCreater {
         //linkAttr.put("link", "https://www.zhihu.com/topic/19629004/followers");
 
         //家居
-        linkAttr.put("link", "https://www.zhihu.com/topic/19559947/followers");
+        //linkAttr.put("link", "https://www.zhihu.com/topic/19559947/followers");
+
+        //烹饪
+        linkAttr.put("link", "https://www.zhihu.com/topic/19551805/followers");
 
         linkAttrList.add(linkAttr);
 
