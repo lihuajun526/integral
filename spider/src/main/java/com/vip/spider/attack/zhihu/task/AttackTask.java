@@ -39,9 +39,9 @@ public class AttackTask implements Runnable {
             // 获得详细页
             List<AttackPage> attackPageList = listAttackPage();
 
-            for (int i = 0; i < attackPageList.size(); i++) {
-                AttackPage attackPage = attackPageList.get(i);
-                try {
+            try {
+                for (int i = 0; i < attackPageList.size(); i++) {
+                    AttackPage attackPage = attackPageList.get(i);
                     JSONObject attr = JSONObject.parseObject(attackPage.getAttr());
                     int sex = 2;
                     String sSex = attr.getString("sex");
@@ -52,11 +52,10 @@ public class AttackTask implements Runnable {
                     //发送信息
                     fixSender.setAttackPage(attackPage);
                     fixSender.send();
-                } catch (Exception e) {
-                    LOGGER.error("信息发送失败:", e);
                 }
+            } catch (Exception e) {
+                LOGGER.error("信息发送失败:", e);
             }
-
         }
     }
 

@@ -155,7 +155,9 @@
         select
         <include refid="Base_Column_List"/>
         from t_attack_page
-        where belong = #{belong,jdbcType=VARCHAR} order by id DESC
+        where belong = #{belong,jdbcType=VARCHAR}
+        AND id in(61859,63019)
+        order by id DESC
     </select>
     <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.AttackPage">
         select
