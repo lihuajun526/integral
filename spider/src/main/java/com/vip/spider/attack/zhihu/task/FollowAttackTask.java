@@ -6,7 +6,7 @@ import com.vip.dbservice.model.AttackPage;
 import com.vip.dbservice.model.AttackParam;
 import com.vip.dbservice.service.AttackPageService;
 import com.vip.dbservice.service.AttackParamService;
-import com.vip.spider.attack.zhihu.MessageSender;
+import com.vip.spider.attack.zhihu.UserFollower;
 import com.vip.spider.bean.SpringContext;
 import com.vip.spider.constant.Belong;
 import org.slf4j.Logger;
@@ -19,13 +19,13 @@ import java.util.Random;
 /**
  * Created by lihuajun on 2016/8/5.
  */
-public class AttackTask implements Runnable {
+public class FollowAttackTask implements Runnable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AttackTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FollowAttackTask.class);
 
     private AttackPageService attackPageService;
 
-    public AttackTask(AttackPageService attackPageService) {
+    public FollowAttackTask(AttackPageService attackPageService) {
         this.attackPageService = attackPageService;
     }
 
@@ -33,7 +33,7 @@ public class AttackTask implements Runnable {
     public void run() {
         {
             // 获得所有消息发送者
-            List<MessageSender> senders = allSender();
+            List<UserFollower> followers = allFollower();
 
             // 获得详细页
             List<AttackPage> attackPageList = listAttackPage();
@@ -47,13 +47,13 @@ public class AttackTask implements Runnable {
                     if (sSex != null && "icon icon-profile-female".equals(sSex)) {
                         sex = 1;
                     }
-                    MessageSender fixSender = getSenderBySex(senders, sex);
+                    UserFollower fixFollower = getSenderBySex(followers, sex);
                     //发送信息
-                    fixSender.setAttackPage(attackPage);
-                    fixSender.send();
+                    fixFollower.setAttackPage(attackPage);
+                    fixFollower.follow();
                 }
             } catch (Exception e) {
-                LOGGER.error("信息发送失败:", e);
+                LOGGER.error("关注失败:", e);
             }
         }
     }
@@ -63,36 +63,36 @@ public class AttackTask implements Runnable {
      *
      * @return
      */
-    private List<MessageSender> allSender() {
+    private List<UserFollower> allFollower() {
 
-        List<MessageSender> senders = new ArrayList<>();
+        List<UserFollower> followers = new ArrayList<>();
 
         AttackParamService attackParamService = (AttackParamService) SpringContext.getContext().getBean("attackParamService");
         List<AttackParam> list = attackParamService.listByBelong(Belong.ZHIHU.value());
 
         for (AttackParam attackParam : list) {
-            MessageSender zhihuMessageSender = new MessageSender(attackPageService);
-            zhihuMessageSender.setAttackParam(attackParam);
-            senders.add(zhihuMessageSender);
+            UserFollower userFollower = new UserFollower(attackPageService);
+            userFollower.setAttackParam(attackParam);
+            followers.add(userFollower);
         }
 
-        return senders;
+        return followers;
     }
 
     /**
-     * 选择异性发送消息
+     * 选择异性进行关注
      *
-     * @param senders
+     * @param followers
      * @param sex
      * @return
      */
-    private MessageSender getSenderBySex(List<MessageSender> senders, Integer sex) {
+    private UserFollower getSenderBySex(List<UserFollower> followers, Integer sex) {
 
-        List<MessageSender> tempList = new ArrayList<>();
-        for (MessageSender sender : senders) {
-            JSONObject attr = JSON.parseObject(sender.getAttackParam().getAttr());
+        List<UserFollower> tempList = new ArrayList<>();
+        for (UserFollower follower : followers) {
+            JSONObject attr = JSON.parseObject(follower.getAttackParam().getAttr());
             if (attr.getInteger("sex") == sex)
-                tempList.add(sender);
+                tempList.add(follower);
         }
 
         Random random = new Random();

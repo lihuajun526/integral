@@ -2,12 +2,11 @@ package com.vip.spider.attack.zhihu;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.vip.dbservice.model.AttackPage;
 import com.vip.dbservice.service.AttackPageService;
-import com.vip.spider.component.MessageSender;
 import com.vip.spider.constant.ExceptionTypeEnum;
 import com.vip.spider.exception.CommentException;
 import com.vip.spider.exception.MessageSendException;
-import com.vip.spider.exception.RequestException;
 import com.vip.spider.util.XHttpClient;
 import com.vip.spider.util.cookie.CookieHelper;
 import com.vip.spider.util.cookie.FilterCookies;
@@ -16,22 +15,20 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by lihuajun on 2016/10/30.
  */
-public class ZhihuMessageSender extends MessageSender {
+public class MessageSender extends com.vip.spider.component.MessageSender {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZhihuMessageSender.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageSender.class);
 
     private String accept = "*/*";
     private String origin = "https://www.zhihu.com";
@@ -40,7 +37,7 @@ public class ZhihuMessageSender extends MessageSender {
     private AttackPageService attackPageService;
 
 
-    public ZhihuMessageSender(AttackPageService attackPageService) {
+    public MessageSender(AttackPageService attackPageService) {
         this.attackPageService = attackPageService;
     }
 
@@ -63,7 +60,8 @@ public class ZhihuMessageSender extends MessageSender {
 
             params.add(new BasicNameValuePair("member_id", attr.getString("id")));
             //设置text
-            params.add(new BasicNameValuePair("content", JSON.parseObject(action).getString("send")));
+            Random random = new Random();
+            params.add(new BasicNameValuePair("content", JSON.parseObject(action).getString("send") + random.nextFloat()));
             httpPost.setEntity(new UrlEncodedFormEntity(params, attackParam.getCharset()));
             //设置头
             if (!StringUtils.isEmpty(attackParam.getHeader())) {
@@ -79,17 +77,19 @@ public class ZhihuMessageSender extends MessageSender {
             cookieList.addAll(FilterCookies.filter(sendCookie));
             CookieHelper.setCookies2(requestUrl, httpPost, cookieList);
             //攻击
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             String result = XHttpClient.doRequest(httpPost, attackParam.getCharset());
             JSONObject jsonObject = JSON.parseObject(result);
             String code = jsonObject.getString("r");
 
             if ("0".equals(code)) {
                 LOGGER.info("信息发送成功[{}]", attackPage.getLink());
-                attackPage.setCount(attackPage.getCount() + 1);
-                attackPageService.addCount(attackPage);
+                AttackPage upAttackPage = new AttackPage();
+                upAttackPage.setId(attackPage.getId());
+                upAttackPage.setCount(attackPage.getCount() + 1);
+                attackPageService.addCount(upAttackPage);
             } else {
-                LOGGER.info("由于{},信息发送失败[{}]", result, attackPage.getLink());
+                LOGGER.info("由于{},攻击者{}信息发送失败[{}]", jsonObject.getString("msg"), attackParam.getAccount(), attackPage.getLink());
                 throw new MessageSendException(ExceptionTypeEnum.MESSAGE_SEND_ERROR.code, result);
             }
         } catch (Exception e) {

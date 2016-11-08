@@ -156,8 +156,8 @@
         <include refid="Base_Column_List"/>
         from t_attack_page
         where belong = #{belong,jdbcType=VARCHAR}
-        AND id in(61859,63019)
-        order by id DESC
+        <!--AND id in(61859,63019)-->
+        AND COUNT =0 limit 500
     </select>
     <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.AttackPage">
         select

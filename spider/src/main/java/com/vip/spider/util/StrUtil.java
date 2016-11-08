@@ -6,10 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by lihuajun on 16-6-28.
@@ -191,6 +188,28 @@ public class StrUtil {
         }
     }
 
+    /**
+     * 将unicode编码转成中文
+     * @param utfString
+     * @return
+     */
+    public static String convert(String utfString){
+        StringBuilder sb = new StringBuilder();
+        int i = -1;
+        int pos = 0;
+
+        while((i=utfString.indexOf("\\u", pos)) != -1){
+            sb.append(utfString.substring(pos, i));
+            if(i+5 < utfString.length()){
+                pos = i+6;
+                sb.append((char)Integer.parseInt(utfString.substring(i+2, i+6), 16));
+            }
+        }
+
+        return sb.toString();
+    }
+
+
     public static void main(String[] args) {
 
         //评论
@@ -202,6 +221,9 @@ public class StrUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
+        Random random = new Random();
+        System.out.println(random.nextFloat());
 
         //设置表单
         /*String str = "targetid=1500957283&type=1&format=SCRIPT&callback=parent.popCallback&content=%D4%DE%B8%F6&_method=put&g_tk=1203714245&code=1&source=1&subsource=0&picture=";
