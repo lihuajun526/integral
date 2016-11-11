@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vip.integral.dao.BreakRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.vip.integral.model.BreakRule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="crawl_point_id" property="crawlPointId" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="break_name" property="breakName" jdbcType="VARCHAR" />
+    <result column="break_rule" property="breakRule" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, crawl_point_id, level, break_name, break_rule, creat_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_break_rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_break_rule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vip.integral.model.BreakRule" >
+    insert into t_break_rule (id, crawl_point_id, level, 
+      break_name, break_rule, creat_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{crawlPointId,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{breakName,jdbcType=VARCHAR}, #{breakRule,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vip.integral.model.BreakRule" >
+    insert into t_break_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="crawlPointId != null" >
+        crawl_point_id,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="breakName != null" >
+        break_name,
+      </if>
+      <if test="breakRule != null" >
+        break_rule,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="crawlPointId != null" >
+        #{crawlPointId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="breakName != null" >
+        #{breakName,jdbcType=VARCHAR},
+      </if>
+      <if test="breakRule != null" >
+        #{breakRule,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vip.integral.model.BreakRule" >
+    update t_break_rule
+    <set >
+      <if test="crawlPointId != null" >
+        crawl_point_id = #{crawlPointId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="breakName != null" >
+        break_name = #{breakName,jdbcType=VARCHAR},
+      </if>
+      <if test="breakRule != null" >
+        break_rule = #{breakRule,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vip.integral.model.BreakRule" >
+    update t_break_rule
+    set crawl_point_id = #{crawlPointId,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      break_name = #{breakName,jdbcType=VARCHAR},
+      break_rule = #{breakRule,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByCrawlOrderByLevel" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from t_break_rule
+    WHERE crawl_point_id = #{crawlId,jdbcType=INTEGER} order by level
+  </select>
+</mapper>

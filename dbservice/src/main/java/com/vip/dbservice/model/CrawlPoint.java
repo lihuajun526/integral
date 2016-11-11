@@ -45,6 +45,8 @@ public class CrawlPoint {
 
     private String listRecordRule;
 
+    private String recordCountRule;
+
     private String listAttrRule;
 
     private String linkRule;
@@ -231,6 +233,14 @@ public class CrawlPoint {
 
     public void setListRecordRule(String listRecordRule) {
         this.listRecordRule = listRecordRule == null ? null : listRecordRule.trim();
+    }
+
+    public String getRecordCountRule() {
+        return recordCountRule;
+    }
+
+    public void setRecordCountRule(String recordCountRule) {
+        this.recordCountRule = recordCountRule;
     }
 
     public String getListAttrRule() {

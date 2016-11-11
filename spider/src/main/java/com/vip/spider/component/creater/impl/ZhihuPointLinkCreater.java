@@ -35,7 +35,19 @@ public class ZhihuPointLinkCreater implements PointLinkCreater {
         //linkAttr.put("link", "https://www.zhihu.com/topic/19559947/followers");
 
         //烹饪
-        linkAttr.put("link", "https://www.zhihu.com/topic/19551805/followers");
+        //linkAttr.put("link", "https://www.zhihu.com/topic/19551805/followers");
+
+        //互联网
+        //linkAttr.put("link", "https://www.zhihu.com/topic/19550517/followers");
+
+        //篮球
+        //linkAttr.put("link", "https://www.zhihu.com/topic/19562832/followers");
+
+        //食品安全
+        //linkAttr.put("link", "https://www.zhihu.com/topic/19562435/followers");
+
+        //对冲基金
+        linkAttr.put("link", "https://www.zhihu.com/topic/19570709/followers");
 
         linkAttrList.add(linkAttr);
 
