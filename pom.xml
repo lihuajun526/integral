@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.vip.integral</groupId>
-    <artifactId>integral</artifactId>
+    <groupId>com.operational.platform</groupId>
+    <artifactId>operational-platform</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -11,7 +11,7 @@
         <module>dbservice</module>
         <module>spider</module>
         <module>vipservice</module>
-        <module>configsys</module>
+        <module>backstage</module>
     </modules>
 
     <properties>

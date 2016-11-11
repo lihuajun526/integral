@@ -1,4 +1,4 @@
-<%@ page import="com.vip.dbservice.model.User" %>
+<%@ page import="com.operational.platform.dbservice.model.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     User user = (User) request.getAttribute("user");

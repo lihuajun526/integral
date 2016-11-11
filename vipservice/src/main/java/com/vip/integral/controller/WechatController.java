@@ -1,13 +1,13 @@
 package com.vip.integral.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.vip.dbservice.service.*;
+import com.operational.platform.dbservice.service.*;
 import com.vip.integral.constant.Constant;
-import com.vip.dbservice.model.VipAccount;
+import com.operational.platform.dbservice.model.VipAccount;
 import com.vip.integral.util.AppConfig;
 import com.vip.integral.exception.OpenidNotExistException;
-import com.vip.dbservice.model.User;
-import com.vip.dbservice.model.WechatMsg;
+import com.operational.platform.dbservice.model.User;
+import com.operational.platform.dbservice.model.WechatMsg;
 import com.vip.integral.util.XHttpClient;
 import com.vip.integral.util.wechat.WechatProcess;
 import org.apache.http.client.methods.HttpGet;

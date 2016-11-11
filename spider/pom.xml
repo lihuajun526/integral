@@ -3,17 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>integral</artifactId>
-        <groupId>com.vip.integral</groupId>
+        <artifactId>operational-platform</artifactId>
+        <groupId>com.operational.platform</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spider</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -51,7 +49,7 @@
             <version>1.8.3</version>
         </dependency>
         <dependency>
-            <groupId>com.vip.integral</groupId>
+            <groupId>com.operational.platform</groupId>
             <artifactId>dbservice</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -122,7 +120,7 @@
                     <programs>
                         <program>
                             <id>spider</id>
-                            <mainClass>com.vip.spider.CrawlApp</mainClass>
+                            <mainClass>com.operational.platform.spider.CrawlApp</mainClass>
                         </program>
                     </programs>
                 </configuration>

@@ -2,8 +2,8 @@ package com.vip.integral.controller;
 
 import com.vip.integral.base.BaseController;
 import com.vip.integral.base.Result;
-import com.vip.dbservice.model.Suggestion;
-import com.vip.dbservice.service.SuggestionService;
+import com.operational.platform.dbservice.model.Suggestion;
+import com.operational.platform.dbservice.service.SuggestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

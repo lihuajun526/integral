@@ -2,8 +2,8 @@ package com.vip.integral.controller;
 
 import com.vip.integral.base.BaseController;
 import com.vip.integral.base.Result;
-import com.vip.dbservice.service.UserService;
-import com.vip.dbservice.model.User;
+import com.operational.platform.dbservice.service.UserService;
+import com.operational.platform.dbservice.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

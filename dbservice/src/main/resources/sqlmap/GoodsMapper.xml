@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.vip.dbservice.dao.GoodsMapper">
-    <resultMap id="BaseResultMap" type="com.vip.dbservice.model.Goods">
+<mapper namespace="com.operational.platform.dbservice.dao.GoodsMapper">
+    <resultMap id="BaseResultMap" type="com.operational.platform.dbservice.model.Goods">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="description" property="description" jdbcType="VARCHAR"/>
@@ -30,7 +30,7 @@
     delete from t_goods
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.vip.dbservice.model.Goods">
+    <insert id="insert" parameterType="com.operational.platform.dbservice.model.Goods">
     insert into t_goods (id, title, description, 
       sort, price, img, type,
       vip_type, count, status, 
@@ -42,7 +42,7 @@
       #{effectiveTime,jdbcType=TIMESTAMP}, NOW(), #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-    <insert id="insertSelective" parameterType="com.vip.dbservice.model.Goods">
+    <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.Goods">
         insert into t_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -127,7 +127,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.vip.dbservice.model.Goods">
+    <update id="updateByPrimaryKeySelective" parameterType="com.operational.platform.dbservice.model.Goods">
         update t_goods
         <set>
             <if test="title != null">
@@ -169,7 +169,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.vip.dbservice.model.Goods">
+    <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.Goods">
     update t_goods
     set title = #{title,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
@@ -186,7 +186,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.Goods">
+    <select id="listByCondition" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.Goods">
         select
         <include refid="Base_Column_List"/>
         from t_goods
@@ -195,7 +195,7 @@
         </if>
     </select>
 
-    <select id="selectByTypeAndVipType" resultMap="BaseResultMap" parameterType="com.vip.dbservice.model.Goods">
+    <select id="selectByTypeAndVipType" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.Goods">
         select
         <include refid="Base_Column_List"/>
         from t_goods

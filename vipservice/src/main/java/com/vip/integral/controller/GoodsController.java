@@ -1,14 +1,14 @@
 package com.vip.integral.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.vip.dbservice.constant.ExceptionTypeEnum;
-import com.vip.dbservice.exception.OrderException;
-import com.vip.dbservice.model.Goods;
-import com.vip.dbservice.model.User;
-import com.vip.dbservice.model.VipAccount;
-import com.vip.dbservice.service.ConfigService;
-import com.vip.dbservice.service.GoodsService;
-import com.vip.dbservice.service.UserService;
+import com.operational.platform.dbservice.constant.ExceptionTypeEnum;
+import com.operational.platform.dbservice.exception.OrderException;
+import com.operational.platform.dbservice.model.Goods;
+import com.operational.platform.dbservice.model.User;
+import com.operational.platform.dbservice.model.VipAccount;
+import com.operational.platform.dbservice.service.ConfigService;
+import com.operational.platform.dbservice.service.GoodsService;
+import com.operational.platform.dbservice.service.UserService;
 import com.vip.integral.base.BaseController;
 import com.vip.integral.exception.RequestException;
 import com.vip.integral.util.AppConfig;

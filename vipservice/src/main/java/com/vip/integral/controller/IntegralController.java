@@ -1,24 +1,17 @@
 package com.vip.integral.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.vip.dbservice.model.IntegralRecord;
-import com.vip.dbservice.service.IntegralRecordService;
 import com.vip.integral.base.BaseController;
 import com.vip.integral.base.Result;
 import com.vip.integral.constant.Constant;
-import com.vip.dbservice.service.UserService;
+import com.operational.platform.dbservice.service.UserService;
 import com.vip.integral.exception.RequestException;
-import com.vip.dbservice.model.Goods;
-import com.vip.dbservice.model.User;
+import com.operational.platform.dbservice.model.User;
 import com.vip.integral.util.AppConfig;
 import com.vip.integral.util.StrUtil;
 import com.vip.integral.util.XHttpClient;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;

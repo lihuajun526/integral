@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.vip.dbservice.dao.TreeNodeMapper" >
-  <resultMap id="BaseResultMap" type="com.vip.dbservice.model.TreeNode" >
+<mapper namespace="com.operational.platform.dbservice.dao.TreeNodeMapper" >
+  <resultMap id="BaseResultMap" type="com.operational.platform.dbservice.model.TreeNode" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="text" property="text" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="VARCHAR" />
@@ -23,7 +23,7 @@
     delete from t_tree_node
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.vip.dbservice.model.TreeNode" >
+  <insert id="insert" parameterType="com.operational.platform.dbservice.model.TreeNode" >
     <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
       SELECT LAST_INSERT_ID() AS id
     </selectKey>
@@ -33,7 +33,7 @@
     values (#{id,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
       #{attributes,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, NOW(),NOW())
   </insert>
-  <insert id="insertSelective" parameterType="com.vip.dbservice.model.TreeNode" >
+  <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.TreeNode" >
     insert into t_tree_node
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -82,7 +82,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.vip.dbservice.model.TreeNode" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.operational.platform.dbservice.model.TreeNode" >
     update t_tree_node
     <set >
       <if test="text != null" >
@@ -106,7 +106,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.vip.dbservice.model.TreeNode" >
+  <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.TreeNode" >
     update t_tree_node
     set text = #{text,jdbcType=VARCHAR},
       state = #{state,jdbcType=VARCHAR},

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.vip.dbservice.model.Goods" %>
+<%@ page import="com.operational.platform.dbservice.model.Goods" %>
 <%
     Goods goods = (Goods) request.getAttribute("goods");
     String effectiveTime = (String) request.getAttribute("effectiveTime");
