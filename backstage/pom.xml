@@ -30,7 +30,7 @@
     </dependencies>
 
     <build>
-        <finalName>backstage</finalName>
+        <finalName>vipmgr</finalName>
         <resources>
             <resource>
                 <directory>src/main/filters/${env}</directory>
