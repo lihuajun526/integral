@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 定义目标bean和bean中的方法 -->
+    <!-- =====================日常任务job========================== -->
+    <bean id="proxyReload" class="com.unionpay.spiderframework.proxyservice.monitor.ProxyReloadMonitor"/>
+    <bean id="proxyMonitor" class="com.unionpay.spiderframework.proxyservice.monitor.ProxyMonitor">
+        <property name="crawlProxyService" ref="crawlProxyService"/>
+        <property name="reachableURL" value="${filter.monitor.reachable.url}"/>
+        <property name="monitorQualitySource" value="${filter.monitor.quality.url}"/>
+    </bean>
+
+
+    <bean id="DailyTaskProxyReloadQtzJobMethod"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="proxyReload"/>
+        <property name="targetMethod" value="execute"/>
+    </bean>
+    <bean id="DailyTaskProxyMonitorQtzJobMethod"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="proxyMonitor"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!-- ======================== 调度触发器 ======================== -->
+    <bean id="DailyTaskProxyReloadCronTriggerBean"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="DailyTaskProxyReloadQtzJobMethod"/>
+        <property name="cronExpression" value="${filter.reload.cron.expression}"/>
+    </bean>
+    <bean id="DailyTaskProxyMonitorCronTriggerBean"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="DailyTaskProxyMonitorQtzJobMethod"/>
+        <property name="cronExpression" value="${filter.monitor.cron.expression}"/>
+    </bean>
+
+
+    <!-- ======================== 调度工厂 ======================== -->
+    <bean id="SpringJobSchedulerFactoryBean" autowire="no" lazy-init="false"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="DailyTaskProxyReloadCronTriggerBean"/>
+                <ref bean="DailyTaskProxyMonitorCronTriggerBean"/>
+            </list>
+        </property>
+        <property name="taskExecutor" ref="executor"/>
+    </bean>
+
+    <!-- 线程执行器配置,用于任务注册 -->
+    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5"/>
+        <property name="maxPoolSize" value="20"/>
+        <property name="queueCapacity" value="500"/>
+    </bean>
+</beans>

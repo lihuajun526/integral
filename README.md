@@ -1,2 +1,2 @@
-# integral
-demo of integral
+# operational-platform
+demo of operational-platform

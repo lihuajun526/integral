@@ -3,21 +3,29 @@ package com.operational.platform.spider.util;
 import com.operational.platform.spider.exception.RequestException;
 import com.operational.platform.spider.constant.ExceptionTypeEnum;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.NameValuePair;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.AuthCache;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.*;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
@@ -27,9 +35,14 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-6-21.
@@ -81,9 +94,30 @@ public class XHttpClient {
                     .build();
             PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
             HttpClients.custom().setConnectionManager(connManager);
+
+            ////////////////////////////////
+            HttpHost target = new HttpHost("proxy.abuyun.com", 9020, "http");
+            CredentialsProvider credsProvider = new BasicCredentialsProvider();
+            credsProvider.setCredentials(
+                    new AuthScope("proxy.abuyun.com", 9020),
+                    new UsernamePasswordCredentials("H448WW3T6G0ODEQD", "C9D3ACC71EC5C04D"));
+
             //创建自定义的httpclient对象
-            httpClient = HttpClients.custom().setConnectionManager(connManager).build();
-            response = httpClient.execute(httpUriRequest);
+            httpClient = HttpClients.custom().setConnectionManager(connManager)
+                    .setDefaultCredentialsProvider(credsProvider)
+                    .build();
+
+
+            AuthCache authCache = new BasicAuthCache();
+            BasicScheme basicAuth = new BasicScheme();
+            authCache.put(target, basicAuth);
+            HttpClientContext localContext = HttpClientContext.create();
+            localContext.setAuthCache(authCache);
+            response = httpClient.execute(httpUriRequest, localContext);
+            ///////////////////////////////
+
+
+            //response = httpClient.execute(httpUriRequest);
             //获取结果实体
             HttpEntity entity = response.getEntity();
             if (entity != null) {
@@ -143,7 +177,20 @@ public class XHttpClient {
     }
 
     public static void main(String[] args) {
+        try {
+            HttpPost httpPost = new HttpPost("https://www.zhihu.com/node/TopicsPlazzaListV2");
+            //设置表单参数
+            List<NameValuePair> params = new ArrayList<>();
+            params.add(new BasicNameValuePair("method", "next"));
+            params.add(new BasicNameValuePair("params", "{\"topic_id\":285,\"offset\":20,\"hash_id\":\"f5cb8680c6458f09fc21f3e1e716aa94\"}"));
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
 
+            String response = XHttpClient.doRequest(httpPost);
+            //String response = IHttpClient.doRequest(httpPost);
+            System.out.println(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
