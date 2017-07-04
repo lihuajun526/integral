@@ -38,7 +38,10 @@
     </mvc:annotation-driven>
 
     <!-- scan package -->
-    <context:component-scan base-package="com.vip"/>
+    <context:component-scan base-package="com.operational.platform.vip.controller"/>
+    <context:component-scan base-package="com.operational.platform.vip.service"/>
+    <context:component-scan base-package="com.operational.platform.dbservice.service.impl"/>
+    <context:component-scan base-package="com.operational.platform.dbservice.dao"/>
     <context:annotation-config/>
 
     <import resource="classpath*:spring/app-config.xml"/>

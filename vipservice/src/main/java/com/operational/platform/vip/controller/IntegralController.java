@@ -7,10 +7,9 @@ import com.operational.platform.vip.base.BaseController;
 import com.operational.platform.vip.base.Result;
 import com.operational.platform.vip.constant.Constant;
 import com.operational.platform.vip.exception.RequestException;
-import com.operational.platform.vip.util.AppConfig;
+import com.operational.platform.vip.service.AppConfig;
 import com.operational.platform.vip.util.StrUtil;
 import com.operational.platform.vip.util.XHttpClient;
-
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.springframework.beans.factory.annotation.Autowired;

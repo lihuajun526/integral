@@ -1,6 +1,6 @@
 package com.operational.platform.vip.listener;
 
-import com.operational.platform.vip.task.WechatConstant;
+import com.operational.platform.vip.service.WechatConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;

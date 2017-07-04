@@ -1,4 +1,4 @@
-package com.operational.platform.vip.util;
+package com.operational.platform.vip.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

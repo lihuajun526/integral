@@ -1,10 +1,14 @@
 # maven ignore
+
 target/
+generator/
+*.properties
 *.jar
 *.war
 *.zip
 *.tar
 *.tar.gz
+
 
 # eclipse ignore
 .settings/
@@ -23,6 +27,7 @@ target/
 *.diff
 *.patch
 *.tmp
+*.gitignore
 
 # system ignore
 .DS_Store

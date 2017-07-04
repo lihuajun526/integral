@@ -9,10 +9,9 @@ import com.operational.platform.dbservice.model.VipAccount;
 import com.operational.platform.dbservice.service.ConfigService;
 import com.operational.platform.dbservice.service.GoodsService;
 import com.operational.platform.dbservice.service.UserService;
-
 import com.operational.platform.vip.base.BaseController;
 import com.operational.platform.vip.exception.RequestException;
-import com.operational.platform.vip.util.AppConfig;
+import com.operational.platform.vip.service.AppConfig;
 import com.operational.platform.vip.util.XHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;

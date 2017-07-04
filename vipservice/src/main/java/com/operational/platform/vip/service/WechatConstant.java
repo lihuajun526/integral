@@ -1,9 +1,9 @@
-package com.operational.platform.vip.task;
+package com.operational.platform.vip.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.vip.constant.Constant;
 import com.operational.platform.vip.exception.RequestException;
-import com.operational.platform.vip.util.AppConfig;
+import com.operational.platform.vip.service.AppConfig;
 import com.operational.platform.vip.util.XHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
