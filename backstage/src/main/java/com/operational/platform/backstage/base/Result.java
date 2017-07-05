@@ -50,10 +50,6 @@ public class Result<T> {
         this.set(code, message, null);
     }
 
-    public void set(int code, T data) {
-        this.set(code, null, data);
-    }
-
     public void set(String message, T data) {
         this.set(0, message, data);
     }

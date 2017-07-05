@@ -27,7 +27,11 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -76,6 +80,18 @@
                     <httpConnector>
                         <port>8060</port>
                     </httpConnector>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://127.0.0.1:8080/manager/text</url>
+                    <username>wutong</username>
+                    <password>wutong2017</password>
+                    <update>true</update>
+                    <path>/vipservice</path>
                 </configuration>
             </plugin>
         </plugins>

@@ -34,7 +34,8 @@ public class GoodsMgrController extends BaseController {
         } else if (goods.getId() > 0) {
             goodsService.update(goods);
         }
-        result.set(1, true);
+        result.setCode(1);
+        result.setData(true);
         return result.toString();
     }
 

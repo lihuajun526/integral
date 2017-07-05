@@ -45,7 +45,8 @@ public class VipAccountMgrController extends BaseController {
         } else if (vipAccount.getId() > 0) {
             vipAccountService.update(vipAccount);
         }
-        result.set(1, true);
+        result.setCode(1);
+        result.setData(true);
         return result.toString();
     }
 
