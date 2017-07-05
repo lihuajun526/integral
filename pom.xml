@@ -12,6 +12,7 @@
         <module>spider</module>
         <module>vipservice</module>
         <module>backstage</module>
+        <module>common</module>
     </modules>
 
     <properties>

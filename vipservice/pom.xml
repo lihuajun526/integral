@@ -88,8 +88,8 @@
                 <version>2.2</version>
                 <configuration>
                     <url>http://127.0.0.1:8080/manager/text</url>
-                    <username>wutong</username>
-                    <password>wutong2017</password>
+                    <username>vip</username>
+                    <password>vip2017</password>
                     <update>true</update>
                     <path>/vipservice</path>
                 </configuration>

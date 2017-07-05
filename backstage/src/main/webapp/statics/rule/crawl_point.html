@@ -160,7 +160,7 @@
                 return;
             }
             $("#nodeid").val(curNode.id);
-            $.get("/crawl/point/get?nodeid=" + curNode.id, function (data) {
+            $.get(appPath + "/crawl/point/get?nodeid=" + curNode.id, function (data) {
                 $("#id").val(data.data.id);
                 $("#url").val(data.data.url);
                 $("#urlCrClasspath").val(data.data.urlCrClasspath);
@@ -198,9 +198,9 @@
         var url;
         var id = $("#id").val();
         if (id > 0) {
-            url = "crawl/point/update";
+            url = appPath + "/crawl/point/update";
         } else {
-            url = "crawl/point/save";
+            url = appPath + "/crawl/point/save";
         }
         $('#crawlPointForm').form('submit', {
             url: url,

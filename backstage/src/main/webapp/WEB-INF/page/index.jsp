@@ -1,20 +1,26 @@
+<%@ page import="com.operational.platform.common.util.Config" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    String appPath = Config.get("app.path");
+%>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>配置管理系统</title>
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="/statics/jquery-easyui-1.4.5/demo/demo.css">
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.min.js"></script>
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/statics/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=appPath%>/jquery-easyui-1.4.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="<%=appPath%>/jquery-easyui-1.4.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="<%=appPath%>/jquery-easyui-1.4.5/demo/demo.css">
+    <script type="text/javascript" src="<%=appPath%>/jquery-easyui-1.4.5/jquery.min.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/jquery-easyui-1.4.5/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/js/common.js"></script>
+    <script type="text/javascript" src="<%=appPath%>/js/config.js"></script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">爬虫规则管理系统</div>
 <div data-options="region:'west',split:true,title:'导航'" style="width:200px;padding:10px;">
     <div class="easyui-panel" style="padding:5px" title="采集点">
-        <ul id="tree" class="easyui-tree" url="./tree/tree"></ul>
+        <ul id="tree" class="easyui-tree" url="<%=appPath%>/tree/tree"></ul>
     </div>
     <br/>
 
@@ -51,7 +57,7 @@
     var curNode = null;
     //加载页面
     function loadPage(path) {
-        $('#p').panel('refresh', 'statics/' + path);
+        $('#p').panel('refresh', '<%=appPath%>/' + path);
     }
     //添加节点
     function append() {
@@ -108,7 +114,7 @@
 
     $(function () {
         $(document).ready(function () {
-            $.get("/statics/data/back_tree_data.json", function (data) {
+            $.get("<%=appPath%>/data/back_tree_data.json", function (data) {
                 $("#tt").tree({
                     data: data
                 });

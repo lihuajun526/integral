@@ -41,9 +41,9 @@
         var url;
         var id = $("#id").val();
         if (id > 0) {
-            url = "tree/modify";
+            url = appPath + "/tree/modify";
         } else {
-            url = "tree/add";
+            url = appPath + "/tree/add";
         }
         $('#treeNodeForm').form('submit', {
             url: url,
@@ -60,7 +60,7 @@
     if (curNode != null) {
         $("#pid").val(curNode.pid);
         $.ajax({
-            url: '/tree/get?id=' + curNode.id,
+            url: appPath + '/tree/get?id=' + curNode.id,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -74,7 +74,7 @@
         });
     } else if (pNode != null) {
         $("#pid").val(pNode.id);
-    }else{
+    } else {
         $("#pid").val(0);
     }
 

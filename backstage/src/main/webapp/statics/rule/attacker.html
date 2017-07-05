@@ -89,7 +89,7 @@
             }
             $("#account").val(curNode.text);
             $("#nodeid").val(curNode.id);
-            $.get("attack/param/get?nodeid=" + curNode.id, function (data) {
+            $.get(appPath + "/attack/param/get?nodeid=" + curNode.id, function (data) {
                 $("#id").val(data.data.id);
                 $("#data").val(data.data.data);
                 $("#cookies").val(data.data.cookies);
@@ -109,9 +109,9 @@
         var url;
         var id = $("#id").val();
         if (id > 0) {
-            url = "attack/param/update";
+            url = appPath + "/attack/param/update";
         } else {
-            url = "attack/param/save";
+            url = appPath + "/attack/param/save";
         }
         $('#attackParamForm').form('submit', {
             url: url,

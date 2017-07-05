@@ -81,7 +81,7 @@
         fitColumns: true,
         singleSelect: true,
         pagination: true,
-        url: '/sys/goods/list',
+        url: appPath + '/sys/goods/list',
         columns: [[
             {
                 field: 'title', title: '名称', width: 22
@@ -133,7 +133,7 @@
     //确定
     function fix() {
         $.ajax({
-            url: '/sys/goods/fix',
+            url: appPath + '/sys/goods/fix',
             type: 'post',
             data: {
                 "id": $("#id").val(),
@@ -161,7 +161,7 @@
 
     function openUpdate(id) {
         $.ajax({
-            url: '/sys/goods/get?id=' + id,
+            url: appPath + '/sys/goods/get?id=' + id,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -191,7 +191,7 @@
         else if (status == 0)
             status = 1;
         $.ajax({
-            url: '/sys/goods/status/update?id=' + id + "&status=" + status,
+            url: appPath + '/sys/goods/status/update?id=' + id + "&status=" + status,
             type: 'get',
             dataType: 'json',
             success: function (result) {

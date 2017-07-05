@@ -58,7 +58,7 @@
         fitColumns: true,
         singleSelect: true,
         pagination: true,
-        url: '/sys/account/list',
+        url: appPath + '/sys/account/list',
         columns: [[
             {
                 field: 'account', title: '账号', width: 20
@@ -101,7 +101,7 @@
                     $.messager.confirm('提示框', '你确定重置会员及商品数量吗?', function (r) {
                         if (r) {
                             $.ajax({
-                                url: '/sys/account/count/reset',
+                                url: appPath + '/sys/account/count/reset',
                                 type: 'get',
                                 dataType: 'json',
                                 success: function (result) {
@@ -121,7 +121,7 @@
     //确定
     function fix() {
         $.ajax({
-            url: '/sys/account/fix',
+            url: appPath + '/sys/account/fix',
             type: 'post',
             data: {
                 "id": $("#id").val(),
@@ -145,7 +145,7 @@
 
     function openUpdate(id) {
         $.ajax({
-            url: '/sys/account/get?id=' + id,
+            url: appPath + '/sys/account/get?id=' + id,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -167,7 +167,7 @@
 
     function del(id) {
         $.ajax({
-            url: '/sys/account/del?id=' + id,
+            url: appPath + '/sys/account/del?id=' + id,
             type: 'get',
             dataType: 'json',
             success: function (result) {
