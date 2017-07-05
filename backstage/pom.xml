@@ -76,7 +76,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <url>http://127.0.0.1:8080/manager/text</url>
+                    <url>http://127.0.0.1:8090/manager/text</url>
                     <username>vip</username>
                     <password>vip2017</password>
                     <update>true</update>
