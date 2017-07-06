@@ -1,14 +1,14 @@
-package com.operational.platform.backstage.controller;
+package com.operational.platform.vip.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.operational.platform.backstage.base.BaseController;
-import com.operational.platform.backstage.base.Result;
+
 import com.operational.platform.common.constant.AttackType;
 import com.operational.platform.common.constant.ExceptionCode;
 import com.operational.platform.common.constant.VipPlatform;
-import com.operational.platform.dbservice.model.AttackParam;
 import com.operational.platform.dbservice.model.AttackParamWithBLOBs;
 import com.operational.platform.dbservice.service.AttackParamService;
+import com.operational.platform.vip.base.BaseController;
+import com.operational.platform.vip.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;

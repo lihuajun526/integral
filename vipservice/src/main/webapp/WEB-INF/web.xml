@@ -32,9 +32,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <listener>
+    <!--<listener>
         <listener-class>com.operational.platform.vip.listener.ApplicationInit</listener-class>
-    </listener>
+    </listener>-->
 
     <!-- spring mvc configure file location -->
     <servlet>

@@ -29,7 +29,8 @@ public class UserController extends BaseController {
     public String getUser(User user) {
         Result<User> result = new Result<>();
 
-        result.set(0, userService.getByOpenid(user.getOpenid()));
+        result.setCode(0);
+        result.setData(userService.getByOpenid(user.getOpenid()));
 
         return result.toString();
     }
@@ -45,7 +46,8 @@ public class UserController extends BaseController {
     public String listSpreads(User user) {
         Result<User> result = new Result<>();
 
-        result.set(0, userService.getByOpenid(user.getOpenid()));
+        result.setCode(0);
+        result.setData(userService.getByOpenid(user.getOpenid()));
 
         return result.toString();
     }
