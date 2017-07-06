@@ -13,23 +13,21 @@ public class AttackParam {
 
     private String requestMethod;
 
+    private String header;
+
     private Integer status;
 
     private String charset;
 
     private String action;
 
+    private String actionType;
+
     private String attr;
 
     private Date createTime;
 
     private Date updateTime;
-
-    private String data;
-
-    private String cookies;
-
-    private String header;
 
     public Integer getId() {
         return id;
@@ -71,6 +69,14 @@ public class AttackParam {
         this.requestMethod = requestMethod == null ? null : requestMethod.trim();
     }
 
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header == null ? null : header.trim();
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -95,6 +101,22 @@ public class AttackParam {
         this.action = action == null ? null : action.trim();
     }
 
+    public String getActionType() {
+        return actionType;
+    }
+
+    public void setActionType(String actionType) {
+        this.actionType = actionType == null ? null : actionType.trim();
+    }
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr == null ? null : attr.trim();
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -109,37 +131,5 @@ public class AttackParam {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data == null ? null : data.trim();
-    }
-
-    public String getCookies() {
-        return cookies;
-    }
-
-    public void setCookies(String cookies) {
-        this.cookies = cookies;
-    }
-
-    public String getAttr() {
-        return attr;
-    }
-
-    public void setAttr(String attr) {
-        this.attr = attr;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
-    public String getHeader() {
-        return header;
     }
 }

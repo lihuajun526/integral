@@ -24,6 +24,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>攻击类型</td>
+                    <td>
+                        <select id="actionType" name="actionType">
+                            <option value="player">视频播放</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td>开关</td>
                     <td>
                         <input name="status" type="radio" value="1" checked/>启用
@@ -97,6 +105,7 @@
                 $("#header").val(data.data.header);
                 $("#attr").val(data.data.attr);
                 $("#belong").val(data.data.belong);
+                $("#actionType").val(data.data.actionType);
                 $("input[name='status'][value='" + data.data.status + "']").attr("checked", true);
                 $("input[name='method'][value='" + data.data.method + "']").attr("checked", true);
                 $("input[name='charset'][value='" + data.data.charset + "']").attr("checked", true);

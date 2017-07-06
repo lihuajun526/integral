@@ -5,7 +5,8 @@ package com.operational.platform.common.constant;
  */
 public enum ExceptionCode {
     SUCCESS(1, "成功"),
-    PARAM_IS_NULL_ERROR(-10000, "参数为空"),;
+    PARAM_IS_NULL_ERROR(-10000, "参数为空"),
+    Result_IS_NULL_ERROR(-10001, "结果为空"),;
 
     public final int code;
 

@@ -3,6 +3,7 @@ package com.operational.platform.backstage.controller;
 import com.operational.platform.backstage.base.BaseController;
 import com.operational.platform.backstage.base.Result;
 import com.operational.platform.dbservice.model.AttackParam;
+import com.operational.platform.dbservice.model.AttackParamWithBLOBs;
 import com.operational.platform.dbservice.service.AttackParamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class AttackParamController extends BaseController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public String save(AttackParam attackParam) {
+    public String save(AttackParamWithBLOBs attackParam) {
 
         Result<Boolean> result = new Result<>();
 
@@ -46,7 +47,7 @@ public class AttackParamController extends BaseController {
 
     @RequestMapping("/update")
     @ResponseBody
-    public String update(AttackParam attackParam) {
+    public String update(AttackParamWithBLOBs attackParam) {
 
         Result<Boolean> result = new Result<>();
 
