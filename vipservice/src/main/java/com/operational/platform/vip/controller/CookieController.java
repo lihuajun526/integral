@@ -15,6 +15,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -36,6 +38,11 @@ public class CookieController extends BaseController {
             result.set(ExceptionCode.PARAM_IS_NULL_ERROR.code, "url不能为空");
             return result.toString();
         }
+        try {
+            url = URLDecoder.decode(url,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         List<AttackParamWithBLOBs> list = null;
         if (url.indexOf(VipPlatform.Iqy.domain) != -1) {
             list  = attackParamService.listByBelongAndAttackType(VipPlatform.Iqy.name, AttackType.Player.value);
@@ -51,6 +58,16 @@ public class CookieController extends BaseController {
         AttackParamWithBLOBs attackParam = list.get(0);
         result.setData(JSONObject.parseObject(attackParam.getCookies()).getString(AttackType.Player.value));
         return result.toString();
+    }
+
+    public static void main(String[]args){
+        String url = "http://119.23.39.149:8090/vipservice/cookie/get?url=http%253A%252F%252Fwww.iqiyi.com%252Fv_19rr7sz5b8.html%253Ffc%253D87bbded392d221f5";
+        try {
+            url = URLDecoder.decode(url,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(url);
     }
 
 

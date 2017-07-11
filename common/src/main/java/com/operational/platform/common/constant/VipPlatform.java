@@ -3,7 +3,7 @@ package com.operational.platform.common.constant;
 public enum VipPlatform {
 
     Youku("youku", "youku.com"),
-    Iqy("iqy", "iqyi.com"),
+    Iqy("iqy", "iqiyi.com"),
     Txsp("txsp", "qq.com"),;
 
     public final String name;
