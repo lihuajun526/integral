@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -39,19 +40,20 @@ public class CookieController extends BaseController {
             return result.toString();
         }
         try {
-            url = URLDecoder.decode(url,"utf-8");
+            logger.debug("url={}", url);
+            url = URLDecoder.decode(url, "utf-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            logger.error("error:", e);
         }
         List<AttackParamWithBLOBs> list = null;
         if (url.indexOf(VipPlatform.Iqy.domain) != -1) {
-            list  = attackParamService.listByBelongAndAttackType(VipPlatform.Iqy.name, AttackType.Player.value);
+            list = attackParamService.listByBelongAndAttackType(VipPlatform.Iqy.name, AttackType.Player.value);
         } else if (url.indexOf(VipPlatform.Youku.domain) != -1) {
-            list  = attackParamService.listByBelongAndAttackType(VipPlatform.Youku.name, AttackType.Player.value);
+            list = attackParamService.listByBelongAndAttackType(VipPlatform.Youku.name, AttackType.Player.value);
         } else if (url.indexOf(VipPlatform.Txsp.domain) != -1) {
-            list  = attackParamService.listByBelongAndAttackType(VipPlatform.Txsp.name, AttackType.Player.value);
+            list = attackParamService.listByBelongAndAttackType(VipPlatform.Txsp.name, AttackType.Player.value);
         }
-        if(list==null|| list.size()==0){
+        if (list == null || list.size() == 0) {
             result.set(ExceptionCode.Result_IS_NULL_ERROR.code, "结果为空");
             return result.toString();
         }
@@ -60,14 +62,16 @@ public class CookieController extends BaseController {
         return result.toString();
     }
 
-    public static void main(String[]args){
-        String url = "http://119.23.39.149:8090/vipservice/cookie/get?url=http%253A%252F%252Fwww.iqiyi.com%252Fv_19rr7sz5b8.html%253Ffc%253D87bbded392d221f5";
+    public static void main(String[] args) {
+        String url = "http://119.23.39.149:8090/vipservice/cookie/get?url=http://www.iqiyi.com/v_19rr7sz5b8.html?fc=87bbded392d221f5";
         try {
-            url = URLDecoder.decode(url,"utf-8");
+            url = URLEncoder.encode(url, "UTF-8");
+            System.out.println(url);
+            System.out.println(URLDecoder.decode(url, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        System.out.println(url);
+
     }
 
 
