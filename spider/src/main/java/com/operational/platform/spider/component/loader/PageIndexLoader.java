@@ -24,7 +24,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class PageIndexLoader {
 
@@ -41,6 +43,7 @@ public abstract class PageIndexLoader {
     protected boolean isStartZero = false;//页面导航是否从0开始
     private HttpPost httpPost;
     private HttpGet httpGet;
+    private Map<String, String> paramMap = new HashMap<>();
 
     /**
      * 初始化
@@ -56,6 +59,15 @@ public abstract class PageIndexLoader {
             //设置post参数
             String postParam = crawlPointAttr.getPostParam();
             if (!StringUtils.isEmpty(postParam)) {
+                String[] kvs = postParam.split("&");
+                for (String kv : kvs) {
+                    String[] strs = kv.split("=");
+                    paramMap.put(strs[0].trim(), strs[1].trim());
+                }
+            }
+
+            /*String postParam = crawlPointAttr.getPostParam();
+            if (!StringUtils.isEmpty(postParam)) {
                 List<NameValuePair> params = new ArrayList<>();
                 String[] kvs = postParam.split("&");
                 for (String kv : kvs) {
@@ -63,7 +75,7 @@ public abstract class PageIndexLoader {
                     params.add(new BasicNameValuePair(strs[0].trim(), strs[1].trim()));
                 }
                 httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
-            }
+            }*/
 
             httpUriRequest = httpPost;
         } else if ("GET".equalsIgnoreCase(crawlPointAttr.getMethod())) {
@@ -104,10 +116,19 @@ public abstract class PageIndexLoader {
      * @throws URISyntaxException
      * @throws RequestException
      */
-    public String next() throws URISyntaxException, RequestException, ElementNotExistException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public String next() throws URISyntaxException, RequestException, ElementNotExistException, ClassNotFoundException, IllegalAccessException, InstantiationException, UnsupportedEncodingException {
 
         if ("POST".equalsIgnoreCase(crawlPointAttr.getMethod())) {// POST请求
-
+            curCount++;
+            List<NameValuePair> params = new ArrayList<>();
+            for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+                if (entry.getKey().startsWith("$")) {
+                    params.add(new BasicNameValuePair(entry.getKey().replaceFirst("\\$", ""), curCount.toString()));
+                } else {
+                    params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+                }
+            }
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
         } else if ("GET".equalsIgnoreCase(httpUriRequest.getMethod())) {// GET请求
 
             if (pageIndexUrl != null) {

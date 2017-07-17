@@ -59,7 +59,7 @@ public class CrawlTask implements Runnable {
                             break;
                         }
                     }
-                    for (ParseResult parseResult : parseResultList) {
+                    for (ParseResult parseResult : parseResultList.subList(5,9)) {
                         if (!isCrawl(parseResult)) {
                             isNeedSpider = false;
                             parseResultList.subList(parseResultList.indexOf(parseResult), parseResultList.size()).clear();
@@ -75,9 +75,10 @@ public class CrawlTask implements Runnable {
 
                         //保存到数据库
                         saveToDb(parseResult);
-                        LOGGER.info(JSON.toJSONString(parseResult));
+                        LOGGER.debug(JSON.toJSONString(parseResult));
                         // 追加数据
                         //allParseResultList.add(parseResult);
+                        Thread.sleep(2000);
                     }
                     if (!isNeedSpider) {
                         break;
@@ -90,7 +91,7 @@ public class CrawlTask implements Runnable {
                     LOGGER.error("", e);
                 }
             }
-            LOGGER.info("任务{}完成{},共采集点{}页{}条数据", crawlPointAttr.getTaskid(), crawlPointAttr.getCategory(),
+            LOGGER.debug("任务{}完成{},共采集点{}页{}条数据", crawlPointAttr.getTaskid(), crawlPointAttr.getCategory(),
                     pageIndexLoader.getCurCount(), allParseResultList.size());
 
         } catch (Exception e) {

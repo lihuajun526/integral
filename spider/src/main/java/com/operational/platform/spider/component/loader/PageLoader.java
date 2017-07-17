@@ -5,6 +5,8 @@ import com.operational.platform.spider.bean.CrawlPointAttr;
 import com.operational.platform.spider.bean.PageRule;
 import com.operational.platform.spider.bean.PageRuleKV;
 import com.operational.platform.spider.bean.ParseResult;
+import com.operational.platform.spider.component.Downloader;
+import com.operational.platform.spider.constant.ListParamsKey;
 import com.operational.platform.spider.exception.RequestException;
 import com.operational.platform.spider.util.StrUtil;
 import com.operational.platform.spider.util.XHttpClient;
@@ -123,6 +125,8 @@ public class PageLoader {
                 value = targetElement.text().trim();
             } else if ("html".equalsIgnoreCase(attrRule.getAttr())) {
                 value = targetElement.outerHtml();
+            } else if ("inner".equalsIgnoreCase(attrRule.getAttr())) {
+                value = targetElement.html();
             } else {
                 value = targetElement.attr(attrRule.getAttr());
             }
@@ -131,7 +135,15 @@ public class PageLoader {
                 List<String> strList = filterStr(value, attrRule.getRegex());
                 value = strList.size() == 0 ? "" : strList.get(0);
             }
-
+            if (ListParamsKey.PICTURE.equalsIgnoreCase(attrRule.getKey())) {
+                if (value.indexOf("lookResumes.jpg") != -1) {
+                    continue;
+                }
+                String picUrl = StrUtil.handleLink(parseResult.getLink(), value);
+                if (!StringUtils.isEmpty(picUrl)) {
+                    value = Downloader.downloadPic(picUrl);
+                }
+            }
             parseResult.getAttr().put(attrRule.getKey(), value);
         }
     }

@@ -122,6 +122,7 @@ public class ListParser {
                         parseResult.getAttr().put(listParam.getKey(), value);
                     }
                 } catch (Exception e) {
+                    LOGGER.info(element.toString());
                     LOGGER.error("解析列表属性错误[id={},key={}]:", crawlPointAttr.getId(), JSON.toJSONString(listParam), e);
                     throw new ListParamsParseException(ExceptionTypeEnum.LIST_PARAMS_PARSE_ERROR);
                 }

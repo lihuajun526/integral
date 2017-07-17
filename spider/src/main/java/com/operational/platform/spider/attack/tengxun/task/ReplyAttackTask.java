@@ -1,6 +1,7 @@
 package com.operational.platform.spider.attack.tengxun.task;
 
 import com.alibaba.fastjson.JSONObject;
+import com.operational.platform.common.util.Config;
 import com.operational.platform.spider.attack.tengxun.TxxwCommenter;
 import com.operational.platform.spider.attack.tengxun.bean.TxxwComment;
 import com.operational.platform.spider.bean.SpringContext;
@@ -10,7 +11,6 @@ import com.operational.platform.dbservice.model.AttackPage;
 import com.operational.platform.dbservice.model.AttackParam;
 import com.operational.platform.dbservice.service.AttackPageService;
 import com.operational.platform.dbservice.service.AttackParamService;
-import com.operational.platform.spider.util.Config;
 import com.operational.platform.spider.util.XHttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;

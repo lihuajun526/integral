@@ -17,11 +17,11 @@ public class AttackPage {
 
     private Integer count;
 
-    private String attr;
+    private Date updateTime;
 
     private Date createTime;
 
-    private Date updateTime;
+    private String attr;
 
     public Integer getId() {
         return id;
@@ -79,12 +79,12 @@ public class AttackPage {
         this.count = count;
     }
 
-    public String getAttr() {
-        return attr;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setAttr(String attr) {
-        this.attr = attr;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public Date getCreateTime() {
@@ -95,11 +95,11 @@ public class AttackPage {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public String getAttr() {
+        return attr;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setAttr(String attr) {
+        this.attr = attr == null ? null : attr.trim();
     }
 }

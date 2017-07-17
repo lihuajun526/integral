@@ -10,6 +10,7 @@ public enum Belong {
     TXXW("txxw"),
     QZONE("qzone"),
     ZHIHU("zhihu"),
+    ZLZP("zlzp"),
     ;
 
     private String value;

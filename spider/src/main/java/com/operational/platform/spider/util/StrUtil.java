@@ -69,6 +69,8 @@ public class StrUtil {
             }
             sb.append(strs[strs.length - 1]);
             childLink = sb.toString();
+        } else if (link.indexOf("//") == 0) {
+            childLink = protocol + ":" + link;
         } else if (link.indexOf("/") == 0) {
             String str = pLink.replaceFirst(protocol + "://", "");
             if ("http".equals(protocol)) {
@@ -190,19 +192,20 @@ public class StrUtil {
 
     /**
      * 将unicode编码转成中文
+     *
      * @param utfString
      * @return
      */
-    public static String convert(String utfString){
+    public static String convert(String utfString) {
         StringBuilder sb = new StringBuilder();
         int i = -1;
         int pos = 0;
 
-        while((i=utfString.indexOf("\\u", pos)) != -1){
+        while ((i = utfString.indexOf("\\u", pos)) != -1) {
             sb.append(utfString.substring(pos, i));
-            if(i+5 < utfString.length()){
-                pos = i+6;
-                sb.append((char)Integer.parseInt(utfString.substring(i+2, i+6), 16));
+            if (i + 5 < utfString.length()) {
+                pos = i + 6;
+                sb.append((char) Integer.parseInt(utfString.substring(i + 2, i + 6), 16));
             }
         }
 
@@ -232,6 +235,28 @@ public class StrUtil {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }*/
+    }
+
+    public static String encodeUrl(String str) throws UnsupportedEncodingException {
+
+        StringBuffer url = new StringBuffer();
+
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+            if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                    || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                    || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                    || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+                    || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+                    || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
+                    || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
+                url.append(URLEncoder.encode(String.valueOf(c), "utf-8"));
+            } else {
+                url.append(String.valueOf(c));
+            }
+        }
+        return url.toString();
     }
 
 }

@@ -21,5 +21,7 @@ public class ListParamsKey {
     public static String STARTDATE = "startDate";
     public static String ENDDATE = "endDate";
     public static String DISCOUNTRATE = "discountRate";
+    public static String PICTURE = "picture";// 图片
+    public static String PICTUREURL = "pictureUrl";// 图片地址
 
 }
