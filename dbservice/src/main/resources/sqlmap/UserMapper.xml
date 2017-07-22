@@ -536,4 +536,33 @@
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--自定义-->
+  <select id="getByOpenid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from t_user
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getByUnionid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from t_user
+    where unionid = #{unionid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getByIds" resultMap="BaseResultMap" parameterType="java.util.ArrayList">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user
+    where id in
+    <foreach item="item" index="index" collection="list"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
 </mapper>

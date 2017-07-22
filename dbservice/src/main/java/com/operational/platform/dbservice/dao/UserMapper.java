@@ -2,7 +2,9 @@ package com.operational.platform.dbservice.dao;
 
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.model.UserExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -34,7 +36,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-	User getByOpenid(String openid);
+    User getByOpenid(String openid);
+
+    User getByUnionid(String unionid);
 
     List<User> getByIds(List<Integer> ids);
 }

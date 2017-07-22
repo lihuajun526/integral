@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByUnionid(String unionid) {
-        return null;
+        return userMapper.getByUnionid(unionid);
     }
 
     @Override

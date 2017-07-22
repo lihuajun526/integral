@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -37,7 +39,12 @@ public class PlayRecordController extends BaseController {
         User loginUser = Constant.SessionMap.get(vipAccessToken);
 
         PlayRecord playRecord = new PlayRecord();
-        playRecord.setUrl(url);
+        try {
+            playRecord.setUrl(URLDecoder.decode(url, "utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            logger.error("解码失败[{}]", url);
+            playRecord.setUrl(url);
+        }
         playRecord.setUserid(loginUser.getId());
 
         playRecordService.save(playRecord);
@@ -52,11 +59,11 @@ public class PlayRecordController extends BaseController {
      */
     @RequestMapping("/list/latest")
     @ResponseBody
-    public String listLatest(String accessToken) {
+    public String listLatest(String vipAccessToken) {
 
         Result<List<PlayRecord>> result = new Result<>();
 
-        User loginUser = Constant.SessionMap.get(accessToken);
+        User loginUser = Constant.SessionMap.get(vipAccessToken);
 
         List<PlayRecord> list = playRecordService.listLatestByUser(loginUser);
         result.setData(list);

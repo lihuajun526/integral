@@ -151,6 +151,22 @@ public class UserController extends BaseController {
         return result.toString();
     }
 
+    @RequestMapping(value = "/login/wechat/temp")
+    @ResponseBody
+    public String loginTemp() {
+        Result<String> result = new Result<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 28);//让日期加28
+
+        User loginUser = userService.getByUnionid("ios");
+        loginUser.setVipAccessTokenExpires(calendar.getTime());
+        Constant.SessionMap.put(loginUser.getVipAccessToken(), loginUser);
+        result.setData("ios");
+        return result.toString();
+    }
+
     @RequestMapping(value = "/nologin")
     @ResponseBody
     public String nologin() {

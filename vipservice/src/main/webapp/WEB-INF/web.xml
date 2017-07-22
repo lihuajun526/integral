@@ -26,7 +26,7 @@
     </filter>
     <filter>
         <filter-name>AccessFilter</filter-name>
-        <filter-class>com.qheeshow.eway.wechart.filter.AuthFilter</filter-class>
+        <filter-class>com.operational.platform.vip.filter.AccessFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
