@@ -22,7 +22,7 @@ public class BaseController {
             return e.toString();
         } else { // unknown exception
             JSONObject error = new JSONObject();
-            error.put("code", "-1");
+            error.put("code", "-10000");
             error.put("message", e.toString());
             return error.toJSONString();
         }

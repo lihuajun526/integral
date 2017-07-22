@@ -1,7 +1,7 @@
 package com.operational.platform.vip.exception;
 
 
-import com.operational.platform.vip.constant.ExceptionTypeEnum;
+import com.operational.platform.common.constant.ExceptionTypeEnum;
 
 /**
  * 请求异常

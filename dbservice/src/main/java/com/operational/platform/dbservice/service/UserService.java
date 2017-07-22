@@ -29,4 +29,8 @@ public interface UserService {
 
     List<User> getByIds(List<Integer> ids);
 
+    User getByUnionid(String unionid);
+
+    User getByAccessToken(String accessToken);
+
 }

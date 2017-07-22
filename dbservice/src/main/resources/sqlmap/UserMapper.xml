@@ -1,220 +1,497 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.operational.platform.dbservice.dao.UserMapper">
-    <resultMap id="BaseResultMap" type="com.operational.platform.dbservice.model.User">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="openid" property="openid" jdbcType="VARCHAR"/>
-        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
-        <result column="sex" property="sex" jdbcType="INTEGER"/>
-        <result column="language" property="language" jdbcType="VARCHAR"/>
-        <result column="city" property="city" jdbcType="VARCHAR"/>
-        <result column="province" property="province" jdbcType="VARCHAR"/>
-        <result column="country" property="country" jdbcType="VARCHAR"/>
-        <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR"/>
-        <result column="subscribe_time" property="subscribeTime" jdbcType="TIMESTAMP"/>
-        <result column="status" property="status" jdbcType="INTEGER"/>
-        <result column="integral" property="integral" jdbcType="INTEGER"/>
-        <result column="populate_time" property="populateTime" jdbcType="TIMESTAMP"/>
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
-        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
-    </resultMap>
-    <resultMap id="ResultMapWithBLOBs" type="com.operational.platform.dbservice.model.User" extends="BaseResultMap">
-        <result column="spread_record" property="spreadRecord" jdbcType="LONGVARCHAR"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-    id, openid, nickname, sex, language, city, province, country, headimgurl, subscribe_time, 
-    status, integral, populate_time, create_time, modify_time
+<mapper namespace="com.operational.platform.dbservice.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.operational.platform.dbservice.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="subscribe_time" property="subscribeTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="populate_time" property="populateTime" jdbcType="TIMESTAMP" />
+    <result column="privilege" property="privilege" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="app_openid" property="appOpenid" jdbcType="VARCHAR" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="vip_access_token" property="vipAccessToken" jdbcType="VARCHAR" />
+    <result column="vip_access_token_expires" property="vipAccessTokenExpires" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.operational.platform.dbservice.model.User" extends="BaseResultMap" >
+    <result column="spread_record" property="spreadRecord" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
   </sql>
-    <sql id="Blob_Column_List">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, nickname, sex, language, city, province, country, headimgurl, subscribe_time, 
+    status, integral, populate_time, privilege, openid, app_openid, unionid, vip_access_token, 
+    vip_access_token_expires, create_time, modify_time
+  </sql>
+  <sql id="Blob_Column_List" >
     spread_record
   </sql>
-    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
-        from t_user
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.operational.platform.dbservice.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.operational.platform.dbservice.model.User">
-        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-            SELECT LAST_INSERT_ID() AS id
-        </selectKey>
-        insert into t_user (id, openid, nickname,
-        sex, language, city,
-        province, country, headimgurl,
-        subscribe_time, status, integral,
-        populate_time, create_time, modify_time,
-        spread_record)
-        values (#{id,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
-        #{sex,jdbcType=INTEGER}, #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
-        #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR},
-        NOW(), #{status,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER},
-        #{populateTime,jdbcType=TIMESTAMP}, NOW(), #{modifyTime,jdbcType=TIMESTAMP},
-        #{spreadRecord,jdbcType=LONGVARCHAR})
-    </insert>
-    <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.User">
-        insert into t_user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="openid != null">
-                openid,
-            </if>
-            <if test="nickname != null">
-                nickname,
-            </if>
-            <if test="sex != null">
-                sex,
-            </if>
-            <if test="language != null">
-                language,
-            </if>
-            <if test="city != null">
-                city,
-            </if>
-            <if test="province != null">
-                province,
-            </if>
-            <if test="country != null">
-                country,
-            </if>
-            <if test="headimgurl != null">
-                headimgurl,
-            </if>
-            <if test="subscribeTime != null">
-                subscribe_time,
-            </if>
-            <if test="status != null">
-                status,
-            </if>
-            <if test="integral != null">
-                integral,
-            </if>
-            <if test="populateTime != null">
-                populate_time,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="modifyTime != null">
-                modify_time,
-            </if>
-            <if test="spreadRecord != null">
-                spread_record,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="openid != null">
-                #{openid,jdbcType=VARCHAR},
-            </if>
-            <if test="nickname != null">
-                #{nickname,jdbcType=VARCHAR},
-            </if>
-            <if test="sex != null">
-                #{sex,jdbcType=INTEGER},
-            </if>
-            <if test="language != null">
-                #{language,jdbcType=VARCHAR},
-            </if>
-            <if test="city != null">
-                #{city,jdbcType=VARCHAR},
-            </if>
-            <if test="province != null">
-                #{province,jdbcType=VARCHAR},
-            </if>
-            <if test="country != null">
-                #{country,jdbcType=VARCHAR},
-            </if>
-            <if test="headimgurl != null">
-                #{headimgurl,jdbcType=VARCHAR},
-            </if>
-            <if test="subscribeTime != null">
-                #{subscribeTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="status != null">
-                #{status,jdbcType=INTEGER},
-            </if>
-            <if test="integral != null">
-                #{integral,jdbcType=INTEGER},
-            </if>
-            <if test="populateTime != null">
-                #{populateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="modifyTime != null">
-                #{modifyTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="spreadRecord != null">
-                #{spreadRecord,jdbcType=LONGVARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.operational.platform.dbservice.model.User">
-        update t_user
-        <set>
-            <if test="openid != null">
-                openid = #{openid,jdbcType=VARCHAR},
-            </if>
-            <if test="nickname != null">
-                nickname = #{nickname,jdbcType=VARCHAR},
-            </if>
-            <if test="sex != null">
-                sex = #{sex,jdbcType=INTEGER},
-            </if>
-            <if test="language != null">
-                language = #{language,jdbcType=VARCHAR},
-            </if>
-            <if test="city != null">
-                city = #{city,jdbcType=VARCHAR},
-            </if>
-            <if test="province != null">
-                province = #{province,jdbcType=VARCHAR},
-            </if>
-            <if test="country != null">
-                country = #{country,jdbcType=VARCHAR},
-            </if>
-            <if test="headimgurl != null">
-                headimgurl = #{headimgurl,jdbcType=VARCHAR},
-            </if>
-            <if test="subscribeTime != null">
-                subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="status != null">
-                status = #{status,jdbcType=INTEGER},
-            </if>
-            <if test="integral != null">
-                integral = #{integral,jdbcType=INTEGER},
-            </if>
-            <if test="populateTime != null">
-                populate_time = #{populateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="modifyTime != null">
-                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="spreadRecord != null">
-                spread_record = #{spreadRecord,jdbcType=LONGVARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.operational.platform.dbservice.model.User">
+  <delete id="deleteByExample" parameterType="com.operational.platform.dbservice.model.UserExample" >
+    delete from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.operational.platform.dbservice.model.User" >
+    insert into t_user (id, nickname, sex, 
+      language, city, province, 
+      country, headimgurl, subscribe_time, 
+      status, integral, populate_time, 
+      privilege, openid, app_openid, 
+      unionid, vip_access_token, vip_access_token_expires, 
+      create_time, modify_time, spread_record
+      )
+    values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER}, #{populateTime,jdbcType=TIMESTAMP}, 
+      #{privilege,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{appOpenid,jdbcType=VARCHAR}, 
+      #{unionid,jdbcType=VARCHAR}, #{vipAccessToken,jdbcType=VARCHAR}, #{vipAccessTokenExpires,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{spreadRecord,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="subscribeTime != null" >
+        subscribe_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="populateTime != null" >
+        populate_time,
+      </if>
+      <if test="privilege != null" >
+        privilege,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="appOpenid != null" >
+        app_openid,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="vipAccessToken != null" >
+        vip_access_token,
+      </if>
+      <if test="vipAccessTokenExpires != null" >
+        vip_access_token_expires,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="spreadRecord != null" >
+        spread_record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null" >
+        #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="populateTime != null" >
+        #{populateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="privilege != null" >
+        #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="appOpenid != null" >
+        #{appOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="vipAccessToken != null" >
+        #{vipAccessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="vipAccessTokenExpires != null" >
+        #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spreadRecord != null" >
+        #{spreadRecord,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.operational.platform.dbservice.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from t_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
     update t_user
-    set openid = #{openid,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null" >
+        headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribeTime != null" >
+        subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.integral != null" >
+        integral = #{record.integral,jdbcType=INTEGER},
+      </if>
+      <if test="record.populateTime != null" >
+        populate_time = #{record.populateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.privilege != null" >
+        privilege = #{record.privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appOpenid != null" >
+        app_openid = #{record.appOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionid != null" >
+        unionid = #{record.unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vipAccessToken != null" >
+        vip_access_token = #{record.vipAccessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vipAccessTokenExpires != null" >
+        vip_access_token_expires = #{record.vipAccessTokenExpires,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.spreadRecord != null" >
+        spread_record = #{record.spreadRecord,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_user
+    set id = #{record.id,jdbcType=INTEGER},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      language = #{record.language,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      integral = #{record.integral,jdbcType=INTEGER},
+      populate_time = #{record.populateTime,jdbcType=TIMESTAMP},
+      privilege = #{record.privilege,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      app_openid = #{record.appOpenid,jdbcType=VARCHAR},
+      unionid = #{record.unionid,jdbcType=VARCHAR},
+      vip_access_token = #{record.vipAccessToken,jdbcType=VARCHAR},
+      vip_access_token_expires = #{record.vipAccessTokenExpires,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      spread_record = #{record.spreadRecord,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user
+    set id = #{record.id,jdbcType=INTEGER},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      language = #{record.language,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      integral = #{record.integral,jdbcType=INTEGER},
+      populate_time = #{record.populateTime,jdbcType=TIMESTAMP},
+      privilege = #{record.privilege,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      app_openid = #{record.appOpenid,jdbcType=VARCHAR},
+      unionid = #{record.unionid,jdbcType=VARCHAR},
+      vip_access_token = #{record.vipAccessToken,jdbcType=VARCHAR},
+      vip_access_token_expires = #{record.vipAccessTokenExpires,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.operational.platform.dbservice.model.User" >
+    update t_user
+    <set >
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null" >
+        subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="populateTime != null" >
+        populate_time = #{populateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="privilege != null" >
+        privilege = #{privilege,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="appOpenid != null" >
+        app_openid = #{appOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="vipAccessToken != null" >
+        vip_access_token = #{vipAccessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="vipAccessTokenExpires != null" >
+        vip_access_token_expires = #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spreadRecord != null" >
+        spread_record = #{spreadRecord,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.operational.platform.dbservice.model.User" >
+    update t_user
+    set nickname = #{nickname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       language = #{language,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
@@ -225,15 +502,20 @@
       status = #{status,jdbcType=INTEGER},
       integral = #{integral,jdbcType=INTEGER},
       populate_time = #{populateTime,jdbcType=TIMESTAMP},
+      privilege = #{privilege,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      app_openid = #{appOpenid,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR},
+      vip_access_token = #{vipAccessToken,jdbcType=VARCHAR},
+      vip_access_token_expires = #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       spread_record = #{spreadRecord,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.User">
+  <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.User" >
     update t_user
-    set openid = #{openid,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
+    set nickname = #{nickname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       language = #{language,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
@@ -244,30 +526,14 @@
       status = #{status,jdbcType=INTEGER},
       integral = #{integral,jdbcType=INTEGER},
       populate_time = #{populateTime,jdbcType=TIMESTAMP},
+      privilege = #{privilege,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      app_openid = #{appOpenid,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR},
+      vip_access_token = #{vipAccessToken,jdbcType=VARCHAR},
+      vip_access_token_expires = #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-    <!--自定义-->
-    <select id="getByOpenid" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
-        select
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
-        from t_user
-        where openid = #{openid,jdbcType=VARCHAR}
-    </select>
-
-    <select id="getByIds" resultMap="BaseResultMap" parameterType="java.util.ArrayList">
-        select
-        <include refid="Base_Column_List"/>
-        from t_user
-        where id in
-        <foreach item="item" index="index" collection="list"
-                 open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
-
 </mapper>

@@ -2,6 +2,7 @@ package com.operational.platform.dbservice.service.impl;
 
 import com.operational.platform.dbservice.model.IntegralRecord;
 import com.operational.platform.dbservice.model.User;
+import com.operational.platform.dbservice.model.UserExample;
 import com.operational.platform.dbservice.service.UserService;
 import com.operational.platform.dbservice.dao.UserMapper;
 import com.operational.platform.dbservice.service.IntegralService;
@@ -82,6 +83,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getByIds(List<Integer> ids) {
         return userMapper.getByIds(ids);
+    }
+
+    @Override
+    public User getByUnionid(String unionid) {
+        return null;
+    }
+
+    @Override
+    public User getByAccessToken(String accessToken) {
+
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andVipAccessTokenEqualTo(accessToken);
+
+        List<User> list = userMapper.selectByExample(example);
+        if (list.size() == 0)
+            return null;
+        return list.get(0);
     }
 
 }

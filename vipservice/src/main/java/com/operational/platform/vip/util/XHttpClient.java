@@ -2,7 +2,7 @@ package com.operational.platform.vip.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.operational.platform.vip.constant.ExceptionTypeEnum;
+import com.operational.platform.common.constant.ExceptionTypeEnum;
 import com.operational.platform.vip.exception.RequestException;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
