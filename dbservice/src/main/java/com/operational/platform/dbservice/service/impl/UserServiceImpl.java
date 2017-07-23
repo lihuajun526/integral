@@ -69,10 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int save(User user) {
-        int i = userMapper.insert(user);
-        //奖励积分
-        integralService.encourageFromFocus(user.getId(), user.getIntegral());
-        return i;
+        return userMapper.insert(user);
     }
 
     @Override

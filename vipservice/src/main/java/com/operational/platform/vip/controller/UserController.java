@@ -7,6 +7,7 @@ import com.operational.platform.common.exception.CommonException;
 import com.operational.platform.common.exception.CryptoException;
 import com.operational.platform.common.exception.RequestException;
 import com.operational.platform.common.util.AESCryptoUtil;
+import com.operational.platform.common.util.StrUtil;
 import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.service.UserService;
@@ -124,7 +125,7 @@ public class UserController extends BaseController {
             user.setUnionid(jsonObject.getString("unionid"));
             user.setVipAccessTokenExpires(calendar.getTime());
             try {
-                user.setVipAccessToken(AESCryptoUtil.decrypt(accessToken));
+                user.setVipAccessToken(AESCryptoUtil.encrypt(StrUtil.getRandomString(32) + System.currentTimeMillis()));
             } catch (CryptoException e) {
                 logger.error("加密[{}]失败", accessToken);
                 user.setVipAccessToken(accessToken);
@@ -137,7 +138,7 @@ public class UserController extends BaseController {
             //更新DB中用户vipAccessToken及过期时间
             user.setVipAccessTokenExpires(calendar.getTime());
             try {
-                user.setVipAccessToken(AESCryptoUtil.decrypt(accessToken));
+                user.setVipAccessToken(AESCryptoUtil.encrypt(StrUtil.getRandomString(32) + System.currentTimeMillis()));
             } catch (CryptoException e) {
                 logger.error("加密[{}]失败", accessToken);
                 user.setVipAccessToken(accessToken);
