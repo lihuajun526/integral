@@ -46,7 +46,7 @@ public class Follower extends PageIndexLoader {
 
                 pageCount++;
 
-                HttpPost httpPost = (HttpPost) httpUriRequest;
+                HttpPost httpPost = (HttpPost) httpRequestBase;
                 List<NameValuePair> params = new ArrayList<>();
 
                 CrawlPoint crawlPoint = crawlPointService.selectByPrimaryKey(crawlPointAttr.getId());
@@ -62,7 +62,7 @@ public class Follower extends PageIndexLoader {
                 crawlPoint.setPostParam("offset=" + offset + "&start=" + id);
                 crawlPointService.update(crawlPoint);
 
-                httpUriRequest = httpPost;
+                httpRequestBase = httpPost;
             }
         } catch (Exception e) {
             LOGGER.error("更新页数错误[采集点id={},category={}]:", crawlPointAttr.getId(), crawlPointAttr.getCategory(), e);

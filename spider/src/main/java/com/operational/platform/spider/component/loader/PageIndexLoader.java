@@ -1,7 +1,9 @@
 package com.operational.platform.spider.component.loader;
 
+import com.operational.platform.common.bean.ReqSettings;
 import com.operational.platform.spider.exception.RequestException;
 import com.operational.platform.spider.util.StrUtil;
+import com.operational.platform.spider.util.WHttpClient;
 import com.operational.platform.spider.util.XHttpClient;
 import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.bean.CrawlPointAttr;
@@ -13,6 +15,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -35,7 +38,7 @@ public abstract class PageIndexLoader {
     protected Integer pageCount = 1;// 总页数
     protected Integer curCount = 0;// 当前页
     protected CrawlPointAttr crawlPointAttr;
-    public HttpUriRequest httpUriRequest;
+    public HttpRequestBase httpRequestBase;
     private List<NameValuePair> postParams = new ArrayList<NameValuePair>();
     protected String url;
     protected String pageIndexUrl;
@@ -77,28 +80,28 @@ public abstract class PageIndexLoader {
                 httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
             }*/
 
-            httpUriRequest = httpPost;
+            httpRequestBase = httpPost;
         } else if ("GET".equalsIgnoreCase(crawlPointAttr.getMethod())) {
             url = URLDecoder.decode(crawlPointAttr.getUrl(), "utf-8");
             url = url.replace("{pagenum}", "%s");
             httpGet = new HttpGet();
-            httpUriRequest = httpGet;
+            httpRequestBase = httpGet;
         }
         // 设置请求Header
         if (!StringUtils.isEmpty(crawlPointAttr.getAccept()))
-            httpUriRequest.setHeader("Accept", crawlPointAttr.getAccept());
+            httpRequestBase.setHeader("Accept", crawlPointAttr.getAccept());
         if (!StringUtils.isEmpty(crawlPointAttr.getReferer()))
-            httpUriRequest.setHeader("Referer", crawlPointAttr.getReferer());
+            httpRequestBase.setHeader("Referer", crawlPointAttr.getReferer());
         if (!StringUtils.isEmpty(crawlPointAttr.getCookies())) {
             List<HttpCookieEx> cookieList = new ArrayList<>();
             cookieList.addAll(FilterCookies.filter(crawlPointAttr.getCookies()));
-            CookieHelper.setCookies2(crawlPointAttr.getUrl(), httpUriRequest, cookieList);
+            CookieHelper.setCookies2(crawlPointAttr.getUrl(), httpRequestBase, cookieList);
         }
         if (!StringUtils.isEmpty(crawlPointAttr.getHeader())) {
-            String[] kvs = crawlPointAttr.getHeader().split(";");
+            String[] kvs = crawlPointAttr.getHeader().split("&");
             for (String kv : kvs) {
                 String[] strs = kv.split(":");
-                httpUriRequest.setHeader(strs[0].trim(), strs[1].trim());
+                httpRequestBase.setHeader(strs[0].trim(), strs[1].trim());
             }
         }
     }
@@ -116,7 +119,7 @@ public abstract class PageIndexLoader {
      * @throws URISyntaxException
      * @throws RequestException
      */
-    public String next() throws URISyntaxException, RequestException, ElementNotExistException, ClassNotFoundException, IllegalAccessException, InstantiationException, UnsupportedEncodingException {
+    public String next() throws URISyntaxException, RequestException, ElementNotExistException, ClassNotFoundException, IllegalAccessException, InstantiationException, UnsupportedEncodingException, com.operational.platform.common.exception.RequestException {
 
         if ("POST".equalsIgnoreCase(crawlPointAttr.getMethod())) {// POST请求
             curCount++;
@@ -129,7 +132,7 @@ public abstract class PageIndexLoader {
                 }
             }
             httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
-        } else if ("GET".equalsIgnoreCase(httpUriRequest.getMethod())) {// GET请求
+        } else if ("GET".equalsIgnoreCase(httpRequestBase.getMethod())) {// GET请求
 
             if (pageIndexUrl != null) {
                 if ("DESC".equalsIgnoreCase(order)) {
@@ -153,7 +156,7 @@ public abstract class PageIndexLoader {
                 httpGet.setURI(new URI(reqUri));
             }
         }
-        String response = XHttpClient.doRequest(httpUriRequest);
+        String response = WHttpClient.doRequest(httpRequestBase);
 
         //处理response
         if (!StringUtils.isEmpty(crawlPointAttr.getResponseHandler())) {
@@ -178,4 +181,5 @@ public abstract class PageIndexLoader {
     public Integer getCurCount() {
         return curCount;
     }
+
 }

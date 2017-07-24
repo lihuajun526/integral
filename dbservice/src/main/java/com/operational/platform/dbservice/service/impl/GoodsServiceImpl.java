@@ -72,11 +72,11 @@ public class GoodsServiceImpl implements GoodsService {
             LOGGER.warn("不在开售时间范围，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.NOT_IN_SELL_TIME_ERROR);
         }
-        if (goods.getCount() == 0) {
+        /*if (goods.getCount() == 0) {
             //库存不足
             LOGGER.warn("库存不足，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.STOCKS_LOW_ERROR);
-        }
+        }*/
 
         //用户积分余额是否足够
         if (user.getIntegral() < goods.getPrice()) {
@@ -100,9 +100,9 @@ public class GoodsServiceImpl implements GoodsService {
         }
 
         //减库存
-        goods.setCount(goods.getCount() - 1);
+        //goods.setCount(goods.getCount() - 1);
         goodsMapper.updateByPrimaryKeySelective(goods);
-        VipAccount vipAccount = vipAccountService.vote(goods.getVipType());
+        VipAccount vipAccount = null;//vipAccountService.vote(goods.getVipType());
         if (vipAccount == null || vipAccount.getCount() == 0) {
             LOGGER.error("VipAccount与Goods库存不同步，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.STOCK_NOT_SYN_ERROR);

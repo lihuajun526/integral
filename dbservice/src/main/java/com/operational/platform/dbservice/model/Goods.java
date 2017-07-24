@@ -12,15 +12,7 @@ public class Goods {
     private String description;
     private Integer sort;//排序
     private Integer price;//价格
-    private String img;//图片路径
-    /**
-     * 1:会员帐号,2:积分包
-     */
-    private Integer type;
-    //会员类型：1爱奇艺，2优酷，3腾讯视频，4乐视，5搜狐视频
-    private Integer vipType;
-    //数量
-    private Integer count;
+    private String photo;//图片路径
     //0:下架,1:上架
     private Integer status;
     private Date effectiveTime;
@@ -49,22 +41,6 @@ public class Goods {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
     }
 
     public Integer getStatus() {
@@ -107,14 +83,6 @@ public class Goods {
         this.sort = sort;
     }
 
-    public Integer getVipType() {
-        return vipType;
-    }
-
-    public void setVipType(Integer vipType) {
-        this.vipType = vipType;
-    }
-
     public Integer getPrice() {
         return price;
     }
@@ -123,11 +91,11 @@ public class Goods {
         this.price = price;
     }
 
-    public String getImg() {
-        return img;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

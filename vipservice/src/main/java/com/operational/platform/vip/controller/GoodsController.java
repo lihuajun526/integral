@@ -1,6 +1,5 @@
 package com.operational.platform.vip.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.dbservice.constant.ExceptionTypeEnum;
 import com.operational.platform.dbservice.exception.OrderException;
 import com.operational.platform.dbservice.model.Goods;
@@ -10,16 +9,16 @@ import com.operational.platform.dbservice.service.ConfigService;
 import com.operational.platform.dbservice.service.GoodsService;
 import com.operational.platform.dbservice.service.UserService;
 import com.operational.platform.vip.base.BaseController;
-import com.operational.platform.vip.exception.RequestException;
+import com.operational.platform.vip.base.Result;
 import com.operational.platform.vip.service.AppConfig;
-import com.operational.platform.vip.util.XHttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -43,29 +42,19 @@ public class GoodsController extends BaseController {
      * @return
      */
     @RequestMapping("/list")
-    public ModelAndView list(HttpServletRequest request, String code) throws RequestException {
+    @ResponseBody
+    public String list() {
 
-        ModelAndView modelAndView = new ModelAndView("home");
-
-        //获取openid
-        if (null == request.getSession().getAttribute("openid")) {
-            //临时测试
-            /*String openid = code;
-            request.getSession().setAttribute("openid", openid);*/
-
-            String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appConfig.wechatAppid + "&secret=" + appConfig.wechatSecret + "&code=" + code + "&grant_type=authorization_code";
-            HttpGet httpGet = new HttpGet(url);
-            JSONObject jsonObject = XHttpClient.doRequest(httpGet);
-            String openid = jsonObject.getString("openid");
-            request.getSession().setAttribute("openid", openid);
-            logger.debug("openid={}", openid);
-        }
+        Result<List<Goods>> result = new Result<>();
 
         //获取全部商品
         Goods goods = new Goods();
         goods.setStatus(1);
-        modelAndView.addObject("goodsList", goodsService.listByCondition(goods));
-        return modelAndView;
+
+        List<Goods> list = goodsService.listByCondition(goods);
+        result.setData(list);
+
+        return result.toString();
     }
 
     @RequestMapping("/get")

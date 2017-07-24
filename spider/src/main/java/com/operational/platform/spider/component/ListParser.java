@@ -103,6 +103,8 @@ public class ListParser {
                     if (".".equals(listParam.getJsoup())) {// 如果规则为 ‘.’ 则代表当前节点
                         targetElement = element;
                     } else {
+                        if (element.select(listParam.getJsoup()).size() == 0)
+                            continue;
                         targetElement = element.select(listParam.getJsoup()).get(0);
                     }
                     if (StringUtils.isEmpty(listParam.getAttr())) {// 默认取text属性
@@ -115,6 +117,12 @@ public class ListParser {
                     // 正则表达式过滤
                     if (!StringUtils.isEmpty(listParam.getRegex())) {
                         value = this.filterStr(value, listParam.getRegex());
+                    }
+                    if (!StringUtils.isEmpty(listParam.getSelfRule())) {// {'by':'js','method':'xxx'}
+                        JSONObject jsonObject = JSONObject.parseObject(listParam.getSelfRule());
+                        if ("js".equalsIgnoreCase(jsonObject.getString("by"))) {// js方式
+                            value = JsHelper.exe(jsonObject.getString("method"), value);
+                        }
                     }
                     if ("title".equalsIgnoreCase(listParam.getKey())) {
                         parseResult.setTitle(value);
@@ -236,6 +244,7 @@ class ListParam {
     private String jsoup;
     private String regex;
     private String attr;
+    private String selfRule;
 
     public String getKey() {
         return key;
@@ -272,6 +281,14 @@ class ListParam {
 
     public void setAttr(String attr) {
         this.attr = attr;
+    }
+
+    public String getSelfRule() {
+        return selfRule;
+    }
+
+    public void setSelfRule(String selfRule) {
+        this.selfRule = selfRule;
     }
 }
 

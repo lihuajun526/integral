@@ -54,7 +54,7 @@ public class PageLoader {
             CookieHelper.setCookies2(crawlPointAttr.getUrl(), httpGet, cookieList);
         }
         if (!StringUtils.isEmpty(crawlPointAttr.getHeader())) {
-            String[] kvs = crawlPointAttr.getHeader().split(";");
+            String[] kvs = crawlPointAttr.getHeader().split("&");
             for (String kv : kvs) {
                 String[] strs = kv.split(":");
                 httpGet.setHeader(strs[0].trim(), strs[1].trim());

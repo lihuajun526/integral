@@ -25,12 +25,8 @@
                     <td><input id="price" name="price" type="input"/></td>
                 </tr>
                 <tr>
-                    <td align="right">数量</td>
-                    <td><input id="count" name="count" type="input"/></td>
-                </tr>
-                <tr>
                     <td align="right">图片</td>
-                    <td><input id="img" name="img" type="input"/></td>
+                    <td><input id="photo" name="photo" type="input"/></td>
                 </tr>
                 <tr>
                     <td align="right">状态</td>
@@ -38,27 +34,6 @@
                         <select id="status" name="status">
                             <option value="1">上架</option>
                             <option value="0">下架</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">商品类型</td>
-                    <td>
-                        <select id="type" name="type">
-                            <option value="1">会员账号</option>
-                            <option value="2">积分包</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">会员类型</td>
-                    <td>
-                        <select id="vipType" name="vipType">
-                            <option value="1">爱奇艺</option>
-                            <option value="2">优酷</option>
-                            <option value="3">腾讯视频</option>
-                            <option value="4">乐视</option>
-                            <option value="5">搜狐视频</option>
                         </select>
                     </td>
                 </tr>
@@ -91,9 +66,6 @@
             },
             {
                 field: 'price', title: '价格', width: 16
-            },
-            {
-                field: 'count', title: '数量', width: 16
             },
             {
                 field: 'status', title: '状态', width: 16,
@@ -141,10 +113,7 @@
                 "description": $("#description").val(),
                 "sort": $("#sort").val(),
                 "price": $("#price").val(),
-                "img": $("#img").val(),
-                "type": $("#type").val(),
-                "vipType": $("#vipType").val(),
-                "count": $("#count").val(),
+                "img": $("#photo").val(),
                 "status": $("#status").val()
             },
             dataType: 'json',
@@ -172,10 +141,7 @@
                     $("#description").val(data.description);
                     $("#sort").val(data.sort);
                     $("#price").val(data.price);
-                    $("#img").val(data.img);
-                    $("#type").val(data.type);
-                    $("#vipType").val(data.vipType);
-                    $("#count").val(data.count);
+                    $("#photo").val(data.img);
                     $("#status").val(data.status);
                     $('#w').window('open');
                 } else {

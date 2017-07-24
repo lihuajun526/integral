@@ -48,12 +48,9 @@ public class VipAccountServiceImpl implements VipAccountService {
 
         //更新商品数量
         Goods goods = new Goods();
-            goods.setType(1);
-            goods.setVipType(vipAccount.getType());
-            goods = goodsMapper.selectByTypeAndVipType(goods);
-            if (goods != null) {
-                goods.setCount(goods.getCount() + vipAccount.getCount());
-                goodsMapper.updateByPrimaryKey(goods);
+        goods = goodsMapper.selectByTypeAndVipType(goods);
+        if (goods != null) {
+            goodsMapper.updateByPrimaryKey(goods);
         }
 
         return vipAccountMapper.insert(vipAccount);
@@ -93,10 +90,7 @@ public class VipAccountServiceImpl implements VipAccountService {
         //更新商品数量
         for (Integer vipType : map.keySet()) {
             Goods goods = new Goods();
-            goods.setType(1);
-            goods.setVipType(vipType);
             goods = goodsMapper.selectByTypeAndVipType(goods);
-            goods.setCount(vipSellCount * map.get(vipType));
             goodsMapper.updateByPrimaryKey(goods);
         }
     }

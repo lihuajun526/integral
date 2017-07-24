@@ -59,7 +59,7 @@ public class CrawlTask implements Runnable {
                             break;
                         }
                     }
-                    for (ParseResult parseResult : parseResultList.subList(5,9)) {
+                    for (ParseResult parseResult : parseResultList) {
                         if (!isCrawl(parseResult)) {
                             isNeedSpider = false;
                             parseResultList.subList(parseResultList.indexOf(parseResult), parseResultList.size()).clear();
