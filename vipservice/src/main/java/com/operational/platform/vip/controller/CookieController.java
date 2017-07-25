@@ -52,6 +52,10 @@ public class CookieController extends BaseController {
             list = attackParamService.listByBelongAndAttackType(VipPlatform.Youku.name, AttackType.Player.value);
         } else if (url.indexOf(VipPlatform.Txsp.domain) != -1) {
             list = attackParamService.listByBelongAndAttackType(VipPlatform.Txsp.name, AttackType.Player.value);
+        } else if (url.indexOf(VipPlatform.PPLive.domain) != -1) {
+            list = attackParamService.listByBelongAndAttackType(VipPlatform.PPLive.name, AttackType.Player.value);
+        } else if (url.indexOf(VipPlatform.Mgtv.domain) != -1) {
+            list = attackParamService.listByBelongAndAttackType(VipPlatform.Mgtv.name, AttackType.Player.value);
         }
         if (list == null || list.size() == 0) {
             result.set(ExceptionCode.Result_IS_NULL_ERROR.code, "结果为空");
