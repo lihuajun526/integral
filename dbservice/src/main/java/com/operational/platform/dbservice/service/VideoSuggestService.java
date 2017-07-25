@@ -10,6 +10,12 @@ import java.util.List;
 public interface VideoSuggestService {
 
 
-    List<VideoSuggest> list();
+    List<VideoSuggest> listAll();
+
+    void save(VideoSuggest videoSuggest);
+
+    void update(VideoSuggest videoSuggest);
+
+    List<VideoSuggest> listByStatus(Integer status);
 
 }

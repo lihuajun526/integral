@@ -20,6 +20,7 @@
     <result column="unionid" property="unionid" jdbcType="VARCHAR" />
     <result column="vip_access_token" property="vipAccessToken" jdbcType="VARCHAR" />
     <result column="vip_access_token_expires" property="vipAccessTokenExpires" jdbcType="TIMESTAMP" />
+    <result column="vip_expires" property="vipExpires" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -85,9 +86,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, nickname, sex, language, city, province, country, headimgurl, subscribe_time, 
-    status, integral, populate_time, privilege, openid, app_openid, unionid, vip_access_token, 
-    vip_access_token_expires, create_time, modify_time
+    id, nickname, sex, language, city, province, country, headimgurl, subscribe_time,
+    status, integral, populate_time, privilege, openid, app_openid, unionid, vip_access_token,
+    vip_access_token_expires, vip_expires, create_time, modify_time
   </sql>
   <sql id="Blob_Column_List" >
     spread_record
@@ -125,7 +126,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -143,22 +144,25 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.operational.platform.dbservice.model.User" >
-    insert into t_user (id, nickname, sex, 
-      language, city, province, 
-      country, headimgurl, subscribe_time, 
-      status, integral, populate_time, 
-      privilege, openid, app_openid, 
-      unionid, vip_access_token, vip_access_token_expires, 
-      create_time, modify_time, spread_record
-      )
-    values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
-      #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
-      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER}, #{populateTime,jdbcType=TIMESTAMP}, 
-      #{privilege,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{appOpenid,jdbcType=VARCHAR}, 
-      #{unionid,jdbcType=VARCHAR}, #{vipAccessToken,jdbcType=VARCHAR}, #{vipAccessTokenExpires,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{spreadRecord,jdbcType=LONGVARCHAR}
-      )
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    insert into t_user (id, nickname, sex,
+    language, city, province,
+    country, headimgurl, subscribe_time,
+    status, integral, populate_time,
+    privilege, openid, app_openid,
+    unionid, vip_access_token, vip_access_token_expires,
+    vip_expires, create_time, modify_time,
+    spread_record)
+    values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
+    #{language,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
+    #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{subscribeTime,jdbcType=TIMESTAMP},
+    #{status,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER}, #{populateTime,jdbcType=TIMESTAMP},
+    #{privilege,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{appOpenid,jdbcType=VARCHAR},
+    #{unionid,jdbcType=VARCHAR}, #{vipAccessToken,jdbcType=VARCHAR}, #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
+    #{vipExpires,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},
+    #{spreadRecord,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.User" >
     insert into t_user
@@ -216,6 +220,9 @@
       </if>
       <if test="vipAccessTokenExpires != null" >
         vip_access_token_expires,
+      </if>
+      <if test="vipExpires != null" >
+        vip_expires,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -281,6 +288,9 @@
       </if>
       <if test="vipAccessTokenExpires != null" >
         #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vipExpires != null" >
+        #{vipExpires,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -356,6 +366,9 @@
       <if test="record.vipAccessTokenExpires != null" >
         vip_access_token_expires = #{record.vipAccessTokenExpires,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.vipExpires != null" >
+        vip_expires = #{record.vipExpires,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -373,26 +386,27 @@
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update t_user
     set id = #{record.id,jdbcType=INTEGER},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
-      sex = #{record.sex,jdbcType=INTEGER},
-      language = #{record.language,jdbcType=VARCHAR},
-      city = #{record.city,jdbcType=VARCHAR},
-      province = #{record.province,jdbcType=VARCHAR},
-      country = #{record.country,jdbcType=VARCHAR},
-      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
-      subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER},
-      integral = #{record.integral,jdbcType=INTEGER},
-      populate_time = #{record.populateTime,jdbcType=TIMESTAMP},
-      privilege = #{record.privilege,jdbcType=VARCHAR},
-      openid = #{record.openid,jdbcType=VARCHAR},
-      app_openid = #{record.appOpenid,jdbcType=VARCHAR},
-      unionid = #{record.unionid,jdbcType=VARCHAR},
-      vip_access_token = #{record.vipAccessToken,jdbcType=VARCHAR},
-      vip_access_token_expires = #{record.vipAccessTokenExpires,jdbcType=TIMESTAMP},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
-      spread_record = #{record.spreadRecord,jdbcType=LONGVARCHAR}
+    nickname = #{record.nickname,jdbcType=VARCHAR},
+    sex = #{record.sex,jdbcType=INTEGER},
+    language = #{record.language,jdbcType=VARCHAR},
+    city = #{record.city,jdbcType=VARCHAR},
+    province = #{record.province,jdbcType=VARCHAR},
+    country = #{record.country,jdbcType=VARCHAR},
+    headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+    subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
+    status = #{record.status,jdbcType=INTEGER},
+    integral = #{record.integral,jdbcType=INTEGER},
+    populate_time = #{record.populateTime,jdbcType=TIMESTAMP},
+    privilege = #{record.privilege,jdbcType=VARCHAR},
+    openid = #{record.openid,jdbcType=VARCHAR},
+    app_openid = #{record.appOpenid,jdbcType=VARCHAR},
+    unionid = #{record.unionid,jdbcType=VARCHAR},
+    vip_access_token = #{record.vipAccessToken,jdbcType=VARCHAR},
+    vip_access_token_expires = #{record.vipAccessTokenExpires,jdbcType=TIMESTAMP},
+    vip_expires = #{record.vipExpires,jdbcType=TIMESTAMP},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+    spread_record = #{record.spreadRecord,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -400,25 +414,26 @@
   <update id="updateByExample" parameterType="map" >
     update t_user
     set id = #{record.id,jdbcType=INTEGER},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
-      sex = #{record.sex,jdbcType=INTEGER},
-      language = #{record.language,jdbcType=VARCHAR},
-      city = #{record.city,jdbcType=VARCHAR},
-      province = #{record.province,jdbcType=VARCHAR},
-      country = #{record.country,jdbcType=VARCHAR},
-      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
-      subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER},
-      integral = #{record.integral,jdbcType=INTEGER},
-      populate_time = #{record.populateTime,jdbcType=TIMESTAMP},
-      privilege = #{record.privilege,jdbcType=VARCHAR},
-      openid = #{record.openid,jdbcType=VARCHAR},
-      app_openid = #{record.appOpenid,jdbcType=VARCHAR},
-      unionid = #{record.unionid,jdbcType=VARCHAR},
-      vip_access_token = #{record.vipAccessToken,jdbcType=VARCHAR},
-      vip_access_token_expires = #{record.vipAccessTokenExpires,jdbcType=TIMESTAMP},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+    nickname = #{record.nickname,jdbcType=VARCHAR},
+    sex = #{record.sex,jdbcType=INTEGER},
+    language = #{record.language,jdbcType=VARCHAR},
+    city = #{record.city,jdbcType=VARCHAR},
+    province = #{record.province,jdbcType=VARCHAR},
+    country = #{record.country,jdbcType=VARCHAR},
+    headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+    subscribe_time = #{record.subscribeTime,jdbcType=TIMESTAMP},
+    status = #{record.status,jdbcType=INTEGER},
+    integral = #{record.integral,jdbcType=INTEGER},
+    populate_time = #{record.populateTime,jdbcType=TIMESTAMP},
+    privilege = #{record.privilege,jdbcType=VARCHAR},
+    openid = #{record.openid,jdbcType=VARCHAR},
+    app_openid = #{record.appOpenid,jdbcType=VARCHAR},
+    unionid = #{record.unionid,jdbcType=VARCHAR},
+    vip_access_token = #{record.vipAccessToken,jdbcType=VARCHAR},
+    vip_access_token_expires = #{record.vipAccessTokenExpires,jdbcType=TIMESTAMP},
+    vip_expires = #{record.vipExpires,jdbcType=TIMESTAMP},
+    create_time = #{record.createTime,jdbcType=TIMESTAMP},
+    modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -477,6 +492,9 @@
       <if test="vipAccessTokenExpires != null" >
         vip_access_token_expires = #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
       </if>
+      <if test="vipExpires != null" >
+        vip_expires = #{vipExpires,jdbcType=TIMESTAMP},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -492,48 +510,50 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.operational.platform.dbservice.model.User" >
     update t_user
     set nickname = #{nickname,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      language = #{language,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      province = #{province,jdbcType=VARCHAR},
-      country = #{country,jdbcType=VARCHAR},
-      headimgurl = #{headimgurl,jdbcType=VARCHAR},
-      subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER},
-      integral = #{integral,jdbcType=INTEGER},
-      populate_time = #{populateTime,jdbcType=TIMESTAMP},
-      privilege = #{privilege,jdbcType=VARCHAR},
-      openid = #{openid,jdbcType=VARCHAR},
-      app_openid = #{appOpenid,jdbcType=VARCHAR},
-      unionid = #{unionid,jdbcType=VARCHAR},
-      vip_access_token = #{vipAccessToken,jdbcType=VARCHAR},
-      vip_access_token_expires = #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      spread_record = #{spreadRecord,jdbcType=LONGVARCHAR}
+    sex = #{sex,jdbcType=INTEGER},
+    language = #{language,jdbcType=VARCHAR},
+    city = #{city,jdbcType=VARCHAR},
+    province = #{province,jdbcType=VARCHAR},
+    country = #{country,jdbcType=VARCHAR},
+    headimgurl = #{headimgurl,jdbcType=VARCHAR},
+    subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+    status = #{status,jdbcType=INTEGER},
+    integral = #{integral,jdbcType=INTEGER},
+    populate_time = #{populateTime,jdbcType=TIMESTAMP},
+    privilege = #{privilege,jdbcType=VARCHAR},
+    openid = #{openid,jdbcType=VARCHAR},
+    app_openid = #{appOpenid,jdbcType=VARCHAR},
+    unionid = #{unionid,jdbcType=VARCHAR},
+    vip_access_token = #{vipAccessToken,jdbcType=VARCHAR},
+    vip_access_token_expires = #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
+    vip_expires = #{vipExpires,jdbcType=TIMESTAMP},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+    spread_record = #{spreadRecord,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.User" >
     update t_user
     set nickname = #{nickname,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      language = #{language,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      province = #{province,jdbcType=VARCHAR},
-      country = #{country,jdbcType=VARCHAR},
-      headimgurl = #{headimgurl,jdbcType=VARCHAR},
-      subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER},
-      integral = #{integral,jdbcType=INTEGER},
-      populate_time = #{populateTime,jdbcType=TIMESTAMP},
-      privilege = #{privilege,jdbcType=VARCHAR},
-      openid = #{openid,jdbcType=VARCHAR},
-      app_openid = #{appOpenid,jdbcType=VARCHAR},
-      unionid = #{unionid,jdbcType=VARCHAR},
-      vip_access_token = #{vipAccessToken,jdbcType=VARCHAR},
-      vip_access_token_expires = #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    sex = #{sex,jdbcType=INTEGER},
+    language = #{language,jdbcType=VARCHAR},
+    city = #{city,jdbcType=VARCHAR},
+    province = #{province,jdbcType=VARCHAR},
+    country = #{country,jdbcType=VARCHAR},
+    headimgurl = #{headimgurl,jdbcType=VARCHAR},
+    subscribe_time = #{subscribeTime,jdbcType=TIMESTAMP},
+    status = #{status,jdbcType=INTEGER},
+    integral = #{integral,jdbcType=INTEGER},
+    populate_time = #{populateTime,jdbcType=TIMESTAMP},
+    privilege = #{privilege,jdbcType=VARCHAR},
+    openid = #{openid,jdbcType=VARCHAR},
+    app_openid = #{appOpenid,jdbcType=VARCHAR},
+    unionid = #{unionid,jdbcType=VARCHAR},
+    vip_access_token = #{vipAccessToken,jdbcType=VARCHAR},
+    vip_access_token_expires = #{vipAccessTokenExpires,jdbcType=TIMESTAMP},
+    vip_expires = #{vipExpires,jdbcType=TIMESTAMP},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!--自定义-->

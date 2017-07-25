@@ -16,7 +16,7 @@ public interface GoodsService {
 
     Goods selectByPrimaryKey(Integer id);
 
-    VipAccount order(User user, Goods goods) throws OrderException;
+    void order(User user, Goods goods) throws OrderException;
 
     int save(Goods goods);
 

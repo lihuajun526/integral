@@ -8,6 +8,8 @@
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="order_no" property="orderNo" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -70,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, photo, url, status, order_no, create_time, update_time
+    id, title, photo, url, status, order_no, score, description, create_time, update_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.VideoSuggestExample" >
     select
@@ -106,10 +108,12 @@
   <insert id="insert" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
     insert into t_video_suggest (id, title, photo, 
       url, status, order_no, 
-      create_time, update_time)
+      score, description, create_time, 
+      update_time)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{orderNo,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{score,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
     insert into t_video_suggest
@@ -131,6 +135,12 @@
       </if>
       <if test="orderNo != null" >
         order_no,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="description != null" >
+        description,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -157,6 +167,12 @@
       </if>
       <if test="orderNo != null" >
         #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -193,6 +209,12 @@
       <if test="record.orderNo != null" >
         order_no = #{record.orderNo,jdbcType=INTEGER},
       </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -212,6 +234,8 @@
       url = #{record.url,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       order_no = #{record.orderNo,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -236,6 +260,12 @@
       <if test="orderNo != null" >
         order_no = #{orderNo,jdbcType=INTEGER},
       </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -252,6 +282,8 @@
       url = #{url,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       order_no = #{orderNo,jdbcType=INTEGER},
+      score = #{score,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

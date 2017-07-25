@@ -18,10 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by lihuajun on 2016/8/15.
@@ -62,56 +59,22 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public VipAccount order(User user, Goods goods) throws OrderException {
+    public void order(User user, Goods goods) throws OrderException {
 
         Calendar calendar = Calendar.getInstance();
-        int curHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int curMinute = calendar.get(Calendar.MINUTE);
-        if (curHour < configService.getInt("goods.begin.sell.time") && curHour >= configService.getInt("goods.end.sell.time")) {
-            //不在开售时间范围
-            LOGGER.warn("不在开售时间范围，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
-            throw new OrderException(ExceptionTypeEnum.NOT_IN_SELL_TIME_ERROR);
-        }
-        /*if (goods.getCount() == 0) {
-            //库存不足
-            LOGGER.warn("库存不足，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
-            throw new OrderException(ExceptionTypeEnum.STOCKS_LOW_ERROR);
-        }*/
-
         //用户积分余额是否足够
         if (user.getIntegral() < goods.getPrice()) {
             //账户余额不足
-            LOGGER.warn("账户余额不足，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
+            LOGGER.warn("账户余额不足，用户[id={}]试图买[title={}]的商品", user.getId(), goods.getTitle());
             throw new OrderException(ExceptionTypeEnum.BALANCE_LOW_ERROR);
         }
-
-        //此商品用户今日是否买过
-        calendar.set(Calendar.HOUR_OF_DAY, configService.getInt("goods.begin.sell.time"));
-
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("startTime", calendar.getTime());
-        paramMap.put("goodsid", goods.getId());
-        paramMap.put("userid", user.getId());
-        List<IntegralRecord> records = integralRecordMapper.selectByBeginTime(paramMap);
-        if (records != null && records.size() > 0) {
-            //该用户今日已买过该商品，不能再次购买
-            LOGGER.warn("不能再次购买，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
-            throw new OrderException(ExceptionTypeEnum.TODAY_HAS_BUY_ERROR);
-        }
-
-        //减库存
-        //goods.setCount(goods.getCount() - 1);
-        goodsMapper.updateByPrimaryKeySelective(goods);
-        VipAccount vipAccount = null;//vipAccountService.vote(goods.getVipType());
-        if (vipAccount == null || vipAccount.getCount() == 0) {
-            LOGGER.error("VipAccount与Goods库存不同步，用户[id={}]在{}点{}分试图买[title={}]的商品", user.getId(), curHour, curMinute, goods.getTitle());
-            throw new OrderException(ExceptionTypeEnum.STOCK_NOT_SYN_ERROR);
-        } else {
-            vipAccount.setCount(vipAccount.getCount() - 1);
-            vipAccountService.update(vipAccount);
-        }
-        //减积分
+        //减积分，加会员权益期限
         user.setIntegral(user.getIntegral() - goods.getPrice());
+        if (user.getVipExpires() == null || user.getVipExpires().getTime() < System.currentTimeMillis())
+            user.setVipExpires(new Date());
+        calendar.setTime(user.getVipExpires());
+        calendar.add(Calendar.DAY_OF_YEAR, goods.getDays());
+        user.setVipExpires(calendar.getTime());
         userMapper.updateByPrimaryKeySelective(user);
         //新增积分记录
         IntegralRecord integralRecord = new IntegralRecord();
@@ -120,9 +83,7 @@ public class GoodsServiceImpl implements GoodsService {
         integralRecord.setDes("购买了商品[title=" + goods.getTitle() + "]");
         integralRecord.setUserid(user.getId());
         integralRecord.setGoodsid(goods.getId());
-        integralRecord.setVipAccountId(vipAccount.getId());
         integralRecordMapper.insert(integralRecord);
-        return vipAccount;
     }
 
     @Override

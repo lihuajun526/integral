@@ -15,6 +15,10 @@ public class VideoSuggest {
 
     private Integer orderNo;
 
+    private String score;
+
+    private String description;
+
     private Date createTime;
 
     private Date updateTime;
@@ -65,6 +69,22 @@ public class VideoSuggest {
 
     public void setOrderNo(Integer orderNo) {
         this.orderNo = orderNo;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score == null ? null : score.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public Date getCreateTime() {

@@ -27,7 +27,7 @@ public class VideoSuggestController extends BaseController {
 
         Result<List<VideoSuggest>> result = new Result<>();
 
-        List<VideoSuggest> list = videoSuggestService.list();
+        List<VideoSuggest> list = videoSuggestService.listByStatus(1);
 
         result.setData(list);
 

@@ -85,7 +85,7 @@ public class CrawlTask implements Runnable {
                     }
                     pageNum++;
 
-                    Thread.sleep(crawlPointAttr.getSleepTime());
+                    Thread.sleep(crawlPointAttr.getSleepTime() == null ? 10 : crawlPointAttr.getSleepTime());
 
                 } catch (Exception e) {
                     LOGGER.error("", e);

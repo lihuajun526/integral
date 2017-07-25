@@ -2,6 +2,7 @@ package com.operational.platform.dbservice.service.impl;
 
 import com.operational.platform.dbservice.dao.AttackPageMapper;
 import com.operational.platform.dbservice.model.AttackPage;
+import com.operational.platform.dbservice.model.AttackPageExample;
 import com.operational.platform.dbservice.service.AttackPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,25 @@ public class AttackPageServiceImpl implements AttackPageService {
     @Autowired
     private AttackPageMapper attackPageMapper;
 
-    @Override public int save(AttackPage attackPage) {
+    @Override
+    public int save(AttackPage attackPage) {
         return attackPageMapper.insert(attackPage);
     }
 
-    @Override public List<AttackPage> listByBelong(String belong) {
+    @Override
+    public List<AttackPage> listByBelong(String belong) {
         return attackPageMapper.listByBelong(belong);
+    }
+
+    @Override
+    public List<AttackPage> listByBelongs(List<String> belongs) {
+
+        if (belongs == null || belongs.size() == 0)
+            return null;
+        AttackPageExample example = new AttackPageExample();
+        AttackPageExample.Criteria criteria = example.createCriteria();
+        criteria.andBelongIn(belongs);
+        return attackPageMapper.selectByExampleWithBLOBs(example);
     }
 
     @Override

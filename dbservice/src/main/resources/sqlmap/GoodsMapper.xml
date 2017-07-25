@@ -10,6 +10,7 @@
         <result column="photo" property="photo" jdbcType="VARCHAR" />
         <result column="status" property="status" jdbcType="INTEGER" />
         <result column="effective_time" property="effectiveTime" jdbcType="TIMESTAMP" />
+        <result column="days" property="days" jdbcType="INTEGER" />
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
@@ -72,7 +73,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List" >
-        id, title, description, sort, price, photo, status, effective_time, create_time,
+        id, title, description, sort, price, photo, status, effective_time, days, create_time,
         update_time
     </sql>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.GoodsExample" >
@@ -109,12 +110,12 @@
     <insert id="insert" parameterType="com.operational.platform.dbservice.model.Goods" >
         insert into t_goods (id, title, description,
         sort, price, photo,
-        status, effective_time, create_time,
-        update_time)
+        status, effective_time, days,
+        create_time, update_time)
         values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
         #{sort,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR},
-        #{status,jdbcType=INTEGER}, #{effectiveTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
-        #{updateTime,jdbcType=TIMESTAMP})
+        #{status,jdbcType=INTEGER}, #{effectiveTime,jdbcType=TIMESTAMP}, #{days,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.Goods" >
         insert into t_goods
@@ -142,6 +143,9 @@
             </if>
             <if test="effectiveTime != null" >
                 effective_time,
+            </if>
+            <if test="days != null" >
+                days,
             </if>
             <if test="createTime != null" >
                 create_time,
@@ -174,6 +178,9 @@
             </if>
             <if test="effectiveTime != null" >
                 #{effectiveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="days != null" >
+                #{days,jdbcType=INTEGER},
             </if>
             <if test="createTime != null" >
                 #{createTime,jdbcType=TIMESTAMP},
@@ -216,6 +223,9 @@
             <if test="record.effectiveTime != null" >
                 effective_time = #{record.effectiveTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="record.days != null" >
+                days = #{record.days,jdbcType=INTEGER},
+            </if>
             <if test="record.createTime != null" >
                 create_time = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
@@ -237,6 +247,7 @@
         photo = #{record.photo,jdbcType=VARCHAR},
         status = #{record.status,jdbcType=INTEGER},
         effective_time = #{record.effectiveTime,jdbcType=TIMESTAMP},
+        days = #{record.days,jdbcType=INTEGER},
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP}
         <if test="_parameter != null" >
@@ -267,6 +278,9 @@
             <if test="effectiveTime != null" >
                 effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="days != null" >
+                days = #{days,jdbcType=INTEGER},
+            </if>
             <if test="createTime != null" >
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
@@ -285,6 +299,7 @@
         photo = #{photo,jdbcType=VARCHAR},
         status = #{status,jdbcType=INTEGER},
         effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+        days = #{days,jdbcType=INTEGER},
         create_time = #{createTime,jdbcType=TIMESTAMP},
         update_time = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}

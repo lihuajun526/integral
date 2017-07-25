@@ -1,15 +1,15 @@
 package com.operational.platform.vip.controller;
 
-import com.operational.platform.dbservice.constant.ExceptionTypeEnum;
+import com.operational.platform.common.constant.ExceptionCode;
 import com.operational.platform.dbservice.exception.OrderException;
 import com.operational.platform.dbservice.model.Goods;
 import com.operational.platform.dbservice.model.User;
-import com.operational.platform.dbservice.model.VipAccount;
 import com.operational.platform.dbservice.service.ConfigService;
 import com.operational.platform.dbservice.service.GoodsService;
 import com.operational.platform.dbservice.service.UserService;
 import com.operational.platform.vip.base.BaseController;
 import com.operational.platform.vip.base.Result;
+import com.operational.platform.vip.constant.Constant;
 import com.operational.platform.vip.service.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -75,37 +74,23 @@ public class GoodsController extends BaseController {
     }
 
     @RequestMapping("/order")
-    public ModelAndView order(Integer goodsid, HttpServletRequest request) {
+    @ResponseBody
+    public String order(Integer goodsid, String vipAccessToken) {
 
-        String openid = (String) request.getSession().getAttribute("openid");
+        Result result = new Result();
 
-        ModelAndView modelAndView = new ModelAndView("order_success");
-
-        User user = userService.getByOpenid(openid);
+        User loginUser = userService.getByAccessToken(vipAccessToken);
         Goods goods = goodsService.selectByPrimaryKey(goodsid);
-
-        VipAccount vipAccount = null;
         try {
-            vipAccount = goodsService.order(user, goods);
+            goodsService.order(loginUser, goods);
         } catch (OrderException e) {
             logger.error("错误编码：{}，错误描述：{}", e.getCode(), e.getDescription());
-            if (e.getCode().equals(ExceptionTypeEnum.NOT_IN_SELL_TIME_ERROR.code)) {
-                modelAndView.addObject("errMsg", "对不起，请您在早上" + configService.getString("goods.begin.sell.time") + "点到次日凌晨" + configService.getString("goods.end.sell.time") + "点之间购买会员");
-            } else if (e.getCode().equals(ExceptionTypeEnum.STOCKS_LOW_ERROR.code)) {
-                modelAndView.addObject("errMsg", "对不起，该商品已售完");
-            } else if (e.getCode().equals(ExceptionTypeEnum.BALANCE_LOW_ERROR.code)) {
-                modelAndView.addObject("errMsg", "对不起，您的余额不足");
-            } else if (e.getCode().equals(ExceptionTypeEnum.TODAY_HAS_BUY_ERROR.code)) {
-                modelAndView.addObject("errMsg", "对不起，您今天已买过该商品，一天只能买一次哦");
-            } else if (e.getCode().equals(ExceptionTypeEnum.STOCK_NOT_SYN_ERROR.code)) {
-                modelAndView.addObject("errMsg", "对不起，系统异常，工程师正在玩命解决");
-            }
-            modelAndView.addObject("errCode", e.getCode());
-            modelAndView.setViewName("order_fail");
-            return modelAndView;
+            result.setCode(ExceptionCode.INTEGRAL_NOT_ENOUGH_ERROR.code);
+            result.setMessage("对不起，您的余额不足，请充值");
+            return result.toString();
         }
 
-        modelAndView.addObject("vipAccount", vipAccount);
-        return modelAndView;
+        result.setMessage("购买成功");
+        return result.toString();
     }
 }

@@ -29,6 +29,10 @@
                     <td><input id="photo" name="photo" type="input"/></td>
                 </tr>
                 <tr>
+                    <td align="right">天数</td>
+                    <td><input id="days" name="days" type="input" value="1"/></td>
+                </tr>
+                <tr>
                     <td align="right">状态</td>
                     <td>
                         <select id="status" name="status">
@@ -113,6 +117,7 @@
                 "description": $("#description").val(),
                 "sort": $("#sort").val(),
                 "price": $("#price").val(),
+                "days": $("#days").val(),
                 "img": $("#photo").val(),
                 "status": $("#status").val()
             },

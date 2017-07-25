@@ -78,7 +78,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public String loginFromWechat(String accessToken, String openid, String unionid) throws CommonException {
 
-        Result<String> result = new Result<>();
+        Result<User> result = new Result<>();
         if (StringUtils.isEmpty(accessToken)) {
             result.set(ExceptionCode.PARAM_IS_NULL_ERROR.code, "access_token参数为空");
             return result.toString();
@@ -148,14 +148,14 @@ public class UserController extends BaseController {
             Constant.SessionMap.remove(oldVipAccessToken);
             Constant.SessionMap.put(user.getVipAccessToken(), user);
         }
-        result.setData(user.getVipAccessToken());
+        result.setData(user);
         return result.toString();
     }
 
     @RequestMapping(value = "/login/wechat/temp")
     @ResponseBody
     public String loginTemp() {
-        Result<String> result = new Result<>();
+        Result<User> result = new Result<>();
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -164,7 +164,7 @@ public class UserController extends BaseController {
         User loginUser = userService.getByUnionid("ios");
         loginUser.setVipAccessTokenExpires(calendar.getTime());
         Constant.SessionMap.put(loginUser.getVipAccessToken(), loginUser);
-        result.setData("ios");
+        result.setData(loginUser);
         return result.toString();
     }
 

@@ -39,6 +39,8 @@ public class User {
 
     private Date vipAccessTokenExpires;
 
+    private Date vipExpires;
+
     private Date createTime;
 
     private Date modifyTime;
@@ -211,5 +213,13 @@ public class User {
 
     public void setSpreadRecord(String spreadRecord) {
         this.spreadRecord = spreadRecord == null ? null : spreadRecord.trim();
+    }
+
+    public Date getVipExpires() {
+        return vipExpires;
+    }
+
+    public void setVipExpires(Date vipExpires) {
+        this.vipExpires = vipExpires;
     }
 }

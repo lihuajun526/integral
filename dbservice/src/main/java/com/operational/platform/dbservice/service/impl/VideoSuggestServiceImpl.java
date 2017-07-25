@@ -19,11 +19,30 @@ public class VideoSuggestServiceImpl implements VideoSuggestService {
     private VideoSuggestMapper videoSuggestMapper;
 
     @Override
-    public List<VideoSuggest> list() {
+    public List<VideoSuggest> listAll() {
+
+        VideoSuggestExample example = new VideoSuggestExample();
+        example.setOrderByClause("order_no");
+
+        return videoSuggestMapper.selectByExample(example);
+    }
+
+    @Override
+    public void save(VideoSuggest videoSuggest) {
+        videoSuggestMapper.insert(videoSuggest);
+    }
+
+    @Override
+    public void update(VideoSuggest videoSuggest) {
+        videoSuggestMapper.updateByPrimaryKeySelective(videoSuggest);
+    }
+
+    @Override
+    public List<VideoSuggest> listByStatus(Integer status) {
 
         VideoSuggestExample example = new VideoSuggestExample();
         VideoSuggestExample.Criteria criteria = example.createCriteria();
-        criteria.andStatusEqualTo(1);
+        criteria.andStatusEqualTo(status);
         example.setOrderByClause("order_no");
 
         return videoSuggestMapper.selectByExample(example);

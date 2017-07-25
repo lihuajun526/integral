@@ -109,6 +109,8 @@
                 loadPage('back/goods/goods_list.html');
             else if (node.id == 2)
                 loadPage('back/vipaccount/vip_account_list.html');
+            else if (node.id == 3)
+                loadPage('back/suggest/video_suggest_list.html');
         }
     });
 

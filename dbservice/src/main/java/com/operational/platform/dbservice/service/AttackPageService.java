@@ -13,6 +13,8 @@ public interface AttackPageService {
 
     List<AttackPage> listByBelong(String belong);
 
+    List<AttackPage> listByBelongs(List<String> belongs);
+
     AttackPage selectByPrimaryKey(Integer id);
 
     List<AttackPage> listByCondition(AttackPage attackPage);

@@ -16,6 +16,7 @@ public class Goods {
     //0:下架,1:上架
     private Integer status;
     private Date effectiveTime;
+    private Integer days;
     private Date createTime;
     private Date updateTime;
 
@@ -97,5 +98,13 @@ public class Goods {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
     }
 }
