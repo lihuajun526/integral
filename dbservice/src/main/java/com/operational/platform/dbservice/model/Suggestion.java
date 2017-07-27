@@ -9,6 +9,7 @@ public class Suggestion {
 
     private Integer id;
     private String openid;
+    private Integer userid;
     //1建议,2投诉
     private Integer type;
     //状态，默认为1
@@ -71,5 +72,13 @@ public class Suggestion {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 }

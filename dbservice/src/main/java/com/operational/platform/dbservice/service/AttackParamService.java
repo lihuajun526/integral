@@ -20,4 +20,6 @@ public interface AttackParamService {
 
     List<AttackParamWithBLOBs> listByBelongAndAttackType(String belong,String attackType);
 
+    AttackParamWithBLOBs get(Integer id);
+
 }

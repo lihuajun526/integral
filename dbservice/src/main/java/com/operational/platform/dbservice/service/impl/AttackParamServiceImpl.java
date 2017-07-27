@@ -46,7 +46,13 @@ public class AttackParamServiceImpl implements AttackParamService {
         AttackParamExample.Criteria criteria = example.createCriteria();
         criteria.andBelongEqualTo(belong);
         criteria.andActionTypeEqualTo(attackType);
+        example.setOrderByClause("num");
 
         return attackParamMapper.selectByExampleWithBLOBs(example);
+    }
+
+    @Override
+    public AttackParamWithBLOBs get(Integer id) {
+        return attackParamMapper.selectByPrimaryKey(id);
     }
 }
