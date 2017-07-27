@@ -25,9 +25,7 @@ public class AttackParam {
 
     private String attr;
 
-    private String data;
-
-    private String cookies;
+    private Integer num;
 
     private Date createTime;
 
@@ -121,6 +119,14 @@ public class AttackParam {
         this.attr = attr == null ? null : attr.trim();
     }
 
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -135,21 +141,5 @@ public class AttackParam {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getCookies() {
-        return cookies;
-    }
-
-    public void setCookies(String cookies) {
-        this.cookies = cookies;
     }
 }

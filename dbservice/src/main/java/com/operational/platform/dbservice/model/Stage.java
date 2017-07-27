@@ -9,6 +9,8 @@ public class Stage {
 
     private String logo;
 
+    private String slogan;
+
     private String navUrl;
 
     private Integer orderNo;
@@ -41,6 +43,14 @@ public class Stage {
 
     public void setLogo(String logo) {
         this.logo = logo == null ? null : logo.trim();
+    }
+
+    public String getSlogan() {
+        return slogan;
+    }
+
+    public void setSlogan(String slogan) {
+        this.slogan = slogan == null ? null : slogan.trim();
     }
 
     public String getNavUrl() {

@@ -1,23 +1,25 @@
 package com.operational.platform.vip.controller;
 
 import com.alibaba.fastjson.JSONObject;
-
 import com.operational.platform.common.constant.AttackType;
 import com.operational.platform.common.constant.ExceptionCode;
 import com.operational.platform.common.constant.VipPlatform;
 import com.operational.platform.dbservice.model.AttackParamWithBLOBs;
+import com.operational.platform.dbservice.model.UserCookieMap;
 import com.operational.platform.dbservice.service.AttackParamService;
+import com.operational.platform.dbservice.service.UserCookieMapService;
 import com.operational.platform.vip.base.BaseController;
 import com.operational.platform.vip.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +31,8 @@ public class CookieController extends BaseController {
 
     @Autowired
     private AttackParamService attackParamService;
+    @Autowired
+    private UserCookieMapService userCookieMapService;
 
     @RequestMapping("/get")
     @ResponseBody
@@ -66,16 +70,21 @@ public class CookieController extends BaseController {
         return result.toString();
     }
 
-    public static void main(String[] args) {
-        String url = "http://119.23.39.149:8090/vipservice/cookie/get?url=http://www.iqiyi.com/v_19rr7sz5b8.html?fc=87bbded392d221f5";
-        try {
-            url = URLEncoder.encode(url, "UTF-8");
-            System.out.println(url);
-            System.out.println(URLDecoder.decode(url, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
+    @RequestMapping("/time/update/{userid}/{cookieid}")
+    @ResponseBody
+    public String updateTime(@PathVariable Integer userid, @PathVariable Integer cookieid) {
+
+        Result result = new Result();
+
+        UserCookieMap userCookieMap = new UserCookieMap();
+        userCookieMap.setUserid(userid);
+        userCookieMap.setCookieid(cookieid);
+        userCookieMap.setUpdateTime(new Date());
+
+        userCookieMapService.updateByUserAndCookie(userCookieMap);
+
+        return result.toString();
     }
 
 

@@ -13,6 +13,7 @@
     <result column="action" property="action" jdbcType="VARCHAR" />
     <result column="action_type" property="actionType" jdbcType="VARCHAR" />
     <result column="attr" property="attr" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -79,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, nodeid, account, belong, request_method, header, status, charset, action, action_type,
-    attr, create_time, update_time
+    id, nodeid, account, belong, request_method, header, status, charset, action, action_type, 
+    attr, num, create_time, update_time
   </sql>
   <sql id="Blob_Column_List" >
     data, cookies
@@ -118,7 +119,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select
+    select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -136,21 +137,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.operational.platform.dbservice.model.AttackParamWithBLOBs" >
-    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
       SELECT LAST_INSERT_ID() AS id
     </selectKey>
-    insert into t_attack_param (id, nodeid, account,
-    belong, request_method, header,
-    status, charset, action,
-    action_type, attr, create_time,
-    update_time, data, cookies
-    )
-    values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR},
-    #{belong,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR}, #{header,jdbcType=VARCHAR},
-    #{status,jdbcType=INTEGER}, #{charset,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR},
-    #{actionType,jdbcType=VARCHAR}, #{attr,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-    #{updateTime,jdbcType=TIMESTAMP}, #{data,jdbcType=LONGVARCHAR}, #{cookies,jdbcType=LONGVARCHAR}
-    )
+    insert into t_attack_param (id, nodeid, account, 
+      belong, request_method, header, 
+      status, charset, action, 
+      action_type, attr, num, 
+      create_time, update_time, data, 
+      cookies)
+    values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
+      #{belong,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR}, #{header,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{charset,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, 
+      #{actionType,jdbcType=VARCHAR}, #{attr,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{data,jdbcType=LONGVARCHAR}, 
+      #{cookies,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.AttackParamWithBLOBs" >
     insert into t_attack_param
@@ -187,6 +188,9 @@
       </if>
       <if test="attr != null" >
         attr,
+      </if>
+      <if test="num != null" >
+        num,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -234,6 +238,9 @@
       </if>
       <if test="attr != null" >
         #{attr,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -291,6 +298,9 @@
       <if test="record.attr != null" >
         attr = #{record.attr,jdbcType=VARCHAR},
       </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -311,20 +321,21 @@
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update t_attack_param
     set id = #{record.id,jdbcType=INTEGER},
-    nodeid = #{record.nodeid,jdbcType=INTEGER},
-    account = #{record.account,jdbcType=VARCHAR},
-    belong = #{record.belong,jdbcType=VARCHAR},
-    request_method = #{record.requestMethod,jdbcType=VARCHAR},
-    header = #{record.header,jdbcType=VARCHAR},
-    status = #{record.status,jdbcType=INTEGER},
-    charset = #{record.charset,jdbcType=VARCHAR},
-    action = #{record.action,jdbcType=VARCHAR},
-    action_type = #{record.actionType,jdbcType=VARCHAR},
-    attr = #{record.attr,jdbcType=VARCHAR},
-    create_time = #{record.createTime,jdbcType=TIMESTAMP},
-    update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-    data = #{record.data,jdbcType=LONGVARCHAR},
-    cookies = #{record.cookies,jdbcType=LONGVARCHAR}
+      nodeid = #{record.nodeid,jdbcType=INTEGER},
+      account = #{record.account,jdbcType=VARCHAR},
+      belong = #{record.belong,jdbcType=VARCHAR},
+      request_method = #{record.requestMethod,jdbcType=VARCHAR},
+      header = #{record.header,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      charset = #{record.charset,jdbcType=VARCHAR},
+      action = #{record.action,jdbcType=VARCHAR},
+      action_type = #{record.actionType,jdbcType=VARCHAR},
+      attr = #{record.attr,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      data = #{record.data,jdbcType=LONGVARCHAR},
+      cookies = #{record.cookies,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -332,18 +343,19 @@
   <update id="updateByExample" parameterType="map" >
     update t_attack_param
     set id = #{record.id,jdbcType=INTEGER},
-    nodeid = #{record.nodeid,jdbcType=INTEGER},
-    account = #{record.account,jdbcType=VARCHAR},
-    belong = #{record.belong,jdbcType=VARCHAR},
-    request_method = #{record.requestMethod,jdbcType=VARCHAR},
-    header = #{record.header,jdbcType=VARCHAR},
-    status = #{record.status,jdbcType=INTEGER},
-    charset = #{record.charset,jdbcType=VARCHAR},
-    action = #{record.action,jdbcType=VARCHAR},
-    action_type = #{record.actionType,jdbcType=VARCHAR},
-    attr = #{record.attr,jdbcType=VARCHAR},
-    create_time = #{record.createTime,jdbcType=TIMESTAMP},
-    update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      nodeid = #{record.nodeid,jdbcType=INTEGER},
+      account = #{record.account,jdbcType=VARCHAR},
+      belong = #{record.belong,jdbcType=VARCHAR},
+      request_method = #{record.requestMethod,jdbcType=VARCHAR},
+      header = #{record.header,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      charset = #{record.charset,jdbcType=VARCHAR},
+      action = #{record.action,jdbcType=VARCHAR},
+      action_type = #{record.actionType,jdbcType=VARCHAR},
+      attr = #{record.attr,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -381,6 +393,9 @@
       <if test="attr != null" >
         attr = #{attr,jdbcType=VARCHAR},
       </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -399,38 +414,39 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.operational.platform.dbservice.model.AttackParamWithBLOBs" >
     update t_attack_param
     set nodeid = #{nodeid,jdbcType=INTEGER},
-    account = #{account,jdbcType=VARCHAR},
-    belong = #{belong,jdbcType=VARCHAR},
-    request_method = #{requestMethod,jdbcType=VARCHAR},
-    header = #{header,jdbcType=VARCHAR},
-    status = #{status,jdbcType=INTEGER},
-    charset = #{charset,jdbcType=VARCHAR},
-    action = #{action,jdbcType=VARCHAR},
-    action_type = #{actionType,jdbcType=VARCHAR},
-    attr = #{attr,jdbcType=VARCHAR},
-    create_time = #{createTime,jdbcType=TIMESTAMP},
-    update_time = #{updateTime,jdbcType=TIMESTAMP},
-    data = #{data,jdbcType=LONGVARCHAR},
-    cookies = #{cookies,jdbcType=LONGVARCHAR}
+      account = #{account,jdbcType=VARCHAR},
+      belong = #{belong,jdbcType=VARCHAR},
+      request_method = #{requestMethod,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      charset = #{charset,jdbcType=VARCHAR},
+      action = #{action,jdbcType=VARCHAR},
+      action_type = #{actionType,jdbcType=VARCHAR},
+      attr = #{attr,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      data = #{data,jdbcType=LONGVARCHAR},
+      cookies = #{cookies,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.AttackParam" >
     update t_attack_param
     set nodeid = #{nodeid,jdbcType=INTEGER},
-    account = #{account,jdbcType=VARCHAR},
-    belong = #{belong,jdbcType=VARCHAR},
-    request_method = #{requestMethod,jdbcType=VARCHAR},
-    header = #{header,jdbcType=VARCHAR},
-    status = #{status,jdbcType=INTEGER},
-    charset = #{charset,jdbcType=VARCHAR},
-    action = #{action,jdbcType=VARCHAR},
-    action_type = #{actionType,jdbcType=VARCHAR},
-    attr = #{attr,jdbcType=VARCHAR},
-    create_time = #{createTime,jdbcType=TIMESTAMP},
-    update_time = #{updateTime,jdbcType=TIMESTAMP}
+      account = #{account,jdbcType=VARCHAR},
+      belong = #{belong,jdbcType=VARCHAR},
+      request_method = #{requestMethod,jdbcType=VARCHAR},
+      header = #{header,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      charset = #{charset,jdbcType=VARCHAR},
+      action = #{action,jdbcType=VARCHAR},
+      action_type = #{actionType,jdbcType=VARCHAR},
+      attr = #{attr,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <!--根据所属源获取攻击者参数-->
   <select id="listByBelong" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select

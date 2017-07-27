@@ -35,7 +35,7 @@ public interface AttackParamMapper {
 
     int updateByPrimaryKey(AttackParam record);
 
-    AttackParam getByNode(Integer nodeid);
+	AttackParam getByNode(Integer nodeid);
 
     List<AttackParam> listByBelong(String belong);
 }
