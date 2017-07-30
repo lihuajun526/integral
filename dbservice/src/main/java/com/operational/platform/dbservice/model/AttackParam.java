@@ -27,6 +27,10 @@ public class AttackParam {
 
     private Integer num;
 
+    private String data;
+
+    private String cookies;
+
     private Date createTime;
 
     private Date updateTime;
@@ -141,5 +145,21 @@ public class AttackParam {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(String cookies) {
+        this.cookies = cookies;
     }
 }

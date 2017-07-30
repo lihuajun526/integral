@@ -1,14 +1,12 @@
 package com.operational.platform.spider.component.loader;
 
-import com.operational.platform.common.bean.ReqSettings;
-import com.operational.platform.spider.exception.RequestException;
-import com.operational.platform.spider.util.StrUtil;
-import com.operational.platform.spider.util.WHttpClient;
-import com.operational.platform.spider.util.XHttpClient;
-import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.bean.CrawlPointAttr;
 import com.operational.platform.spider.component.handler.response.ResponseHandler;
 import com.operational.platform.spider.exception.ElementNotExistException;
+import com.operational.platform.spider.exception.RequestException;
+import com.operational.platform.spider.util.StrUtil;
+import com.operational.platform.spider.util.WHttpClient;
+import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.util.cookie.FilterCookies;
 import com.operational.platform.spider.util.cookie.HttpCookieEx;
 import org.apache.http.NameValuePair;
@@ -16,7 +14,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -78,7 +78,6 @@ public class CrawlTask implements Runnable {
                         LOGGER.debug(JSON.toJSONString(parseResult));
                         // 追加数据
                         //allParseResultList.add(parseResult);
-                        Thread.sleep(2000);
                     }
                     if (!isNeedSpider) {
                         break;
