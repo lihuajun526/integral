@@ -2,7 +2,10 @@ package com.operational.platform.dbservice.dao;
 
 import com.operational.platform.dbservice.model.VideoSuggest;
 import com.operational.platform.dbservice.model.VideoSuggestExample;
+
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface VideoSuggestMapper {
@@ -27,4 +30,8 @@ public interface VideoSuggestMapper {
     int updateByPrimaryKeySelective(VideoSuggest record);
 
     int updateByPrimaryKey(VideoSuggest record);
+
+    List<VideoSuggest> listByChnlAndPage(Map<String, Integer> condition);
+
+    Long countByChnlAndPage(Integer channelid);
 }

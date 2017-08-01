@@ -575,6 +575,136 @@ public class AttackPageExample {
             return (Criteria) this;
         }
 
+        public Criteria andMd5IsNull() {
+            addCriterion("md5 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5IsNotNull() {
+            addCriterion("md5 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5EqualTo(String value) {
+            addCriterion("md5 =", value, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5NotEqualTo(String value) {
+            addCriterion("md5 <>", value, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5GreaterThan(String value) {
+            addCriterion("md5 >", value, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5GreaterThanOrEqualTo(String value) {
+            addCriterion("md5 >=", value, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5LessThan(String value) {
+            addCriterion("md5 <", value, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5LessThanOrEqualTo(String value) {
+            addCriterion("md5 <=", value, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5Like(String value) {
+            addCriterion("md5 like", value, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5NotLike(String value) {
+            addCriterion("md5 not like", value, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5In(List<String> values) {
+            addCriterion("md5 in", values, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5NotIn(List<String> values) {
+            addCriterion("md5 not in", values, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5Between(String value1, String value2) {
+            addCriterion("md5 between", value1, value2, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andMd5NotBetween(String value1, String value2) {
+            addCriterion("md5 not between", value1, value2, "md5");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagIsNull() {
+            addCriterion("flag is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagIsNotNull() {
+            addCriterion("flag is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagEqualTo(Integer value) {
+            addCriterion("flag =", value, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagNotEqualTo(Integer value) {
+            addCriterion("flag <>", value, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagGreaterThan(Integer value) {
+            addCriterion("flag >", value, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagGreaterThanOrEqualTo(Integer value) {
+            addCriterion("flag >=", value, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagLessThan(Integer value) {
+            addCriterion("flag <", value, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagLessThanOrEqualTo(Integer value) {
+            addCriterion("flag <=", value, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagIn(List<Integer> values) {
+            addCriterion("flag in", values, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagNotIn(List<Integer> values) {
+            addCriterion("flag not in", values, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagBetween(Integer value1, Integer value2) {
+            addCriterion("flag between", value1, value2, "flag");
+            return (Criteria) this;
+        }
+
+        public Criteria andFlagNotBetween(Integer value1, Integer value2) {
+            addCriterion("flag not between", value1, value2, "flag");
+            return (Criteria) this;
+        }
+
         public Criteria andUpdateTimeIsNull() {
             addCriterion("update_time is null");
             return (Criteria) this;

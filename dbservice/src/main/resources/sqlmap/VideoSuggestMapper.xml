@@ -1,291 +1,370 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.operational.platform.dbservice.dao.VideoSuggestMapper" >
-  <resultMap id="BaseResultMap" type="com.operational.platform.dbservice.model.VideoSuggest" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="photo" property="photo" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="order_no" property="orderNo" jdbcType="INTEGER" />
-    <result column="score" property="score" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.operational.platform.dbservice.model.VideoSuggest" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="photo" property="photo" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="order_no" property="orderNo" jdbcType="INTEGER" />
+        <result column="score" property="score" jdbcType="VARCHAR" />
+        <result column="overall_score" property="overallScore" jdbcType="REAL" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="src_id" property="srcId" jdbcType="INTEGER" />
+        <result column="channel" property="channel" jdbcType="INTEGER" />
+        <result column="manual" property="manual" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+        id, title, photo, url, status, order_no, score, overall_score, description, src_id,
+        channel, manual, create_time, update_time
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.VideoSuggestExample" >
+        select
+        <if test="distinct" >
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    id, title, photo, url, status, order_no, score, description, create_time, update_time
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.VideoSuggestExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from t_video_suggest
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_video_suggest
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_video_suggest
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.operational.platform.dbservice.model.VideoSuggestExample" >
-    delete from t_video_suggest
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
-    insert into t_video_suggest (id, title, photo, 
-      url, status, order_no, 
-      score, description, create_time, 
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{orderNo,jdbcType=INTEGER}, 
-      #{score,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
-    insert into t_video_suggest
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="photo != null" >
-        photo,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="orderNo != null" >
-        order_no,
-      </if>
-      <if test="score != null" >
-        score,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="photo != null" >
-        #{photo,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="orderNo != null" >
-        #{orderNo,jdbcType=INTEGER},
-      </if>
-      <if test="score != null" >
-        #{score,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.operational.platform.dbservice.model.VideoSuggestExample" resultType="java.lang.Integer" >
-    select count(*) from t_video_suggest
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_video_suggest
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.title != null" >
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from t_video_suggest
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_video_suggest
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from t_video_suggest
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.operational.platform.dbservice.model.VideoSuggestExample" >
+        delete from t_video_suggest
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
+        insert into t_video_suggest (id, title, photo,
+        url, status, order_no,
+        score, overall_score, description,
+        src_id, channel, manual,
+        create_time, update_time)
+        values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR},
+        #{url,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{orderNo,jdbcType=INTEGER},
+        #{score,jdbcType=VARCHAR}, #{overallScore,jdbcType=REAL}, #{description,jdbcType=VARCHAR},
+        #{srcId,jdbcType=INTEGER}, #{channel,jdbcType=INTEGER}, #{manual,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
+        insert into t_video_suggest
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="photo != null" >
+                photo,
+            </if>
+            <if test="url != null" >
+                url,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="orderNo != null" >
+                order_no,
+            </if>
+            <if test="score != null" >
+                score,
+            </if>
+            <if test="overallScore != null" >
+                overall_score,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="srcId != null" >
+                src_id,
+            </if>
+            <if test="channel != null" >
+                channel,
+            </if>
+            <if test="manual != null" >
+                manual,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null" >
+                #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null" >
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="orderNo != null" >
+                #{orderNo,jdbcType=INTEGER},
+            </if>
+            <if test="score != null" >
+                #{score,jdbcType=VARCHAR},
+            </if>
+            <if test="overallScore != null" >
+                #{overallScore,jdbcType=REAL},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="srcId != null" >
+                #{srcId,jdbcType=INTEGER},
+            </if>
+            <if test="channel != null" >
+                #{channel,jdbcType=INTEGER},
+            </if>
+            <if test="manual != null" >
+                #{manual,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.operational.platform.dbservice.model.VideoSuggestExample" resultType="java.lang.Integer" >
+        select count(*) from t_video_suggest
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        update t_video_suggest
+        <set >
+            <if test="record.id != null" >
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.title != null" >
+                title = #{record.title,jdbcType=VARCHAR},
+            </if>
+            <if test="record.photo != null" >
+                photo = #{record.photo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.url != null" >
+                url = #{record.url,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null" >
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.orderNo != null" >
+                order_no = #{record.orderNo,jdbcType=INTEGER},
+            </if>
+            <if test="record.score != null" >
+                score = #{record.score,jdbcType=VARCHAR},
+            </if>
+            <if test="record.overallScore != null" >
+                overall_score = #{record.overallScore,jdbcType=REAL},
+            </if>
+            <if test="record.description != null" >
+                description = #{record.description,jdbcType=VARCHAR},
+            </if>
+            <if test="record.srcId != null" >
+                src_id = #{record.srcId,jdbcType=INTEGER},
+            </if>
+            <if test="record.channel != null" >
+                channel = #{record.channel,jdbcType=INTEGER},
+            </if>
+            <if test="record.manual != null" >
+                manual = #{record.manual,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null" >
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null" >
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        update t_video_suggest
+        set id = #{record.id,jdbcType=INTEGER},
         title = #{record.title,jdbcType=VARCHAR},
-      </if>
-      <if test="record.photo != null" >
         photo = #{record.photo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.orderNo != null" >
         order_no = #{record.orderNo,jdbcType=INTEGER},
-      </if>
-      <if test="record.score != null" >
         score = #{record.score,jdbcType=VARCHAR},
-      </if>
-      <if test="record.description != null" >
+        overall_score = #{record.overallScore,jdbcType=REAL},
         description = #{record.description,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null" >
+        src_id = #{record.srcId,jdbcType=INTEGER},
+        channel = #{record.channel,jdbcType=INTEGER},
+        manual = #{record.manual,jdbcType=INTEGER},
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateTime != null" >
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update t_video_suggest
-    set id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      photo = #{record.photo,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
-      order_no = #{record.orderNo,jdbcType=INTEGER},
-      score = #{record.score,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
-    update t_video_suggest
-    <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="photo != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
+        update t_video_suggest
+        <set >
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null" >
+                photo = #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null" >
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="orderNo != null" >
+                order_no = #{orderNo,jdbcType=INTEGER},
+            </if>
+            <if test="score != null" >
+                score = #{score,jdbcType=VARCHAR},
+            </if>
+            <if test="overallScore != null" >
+                overall_score = #{overallScore,jdbcType=REAL},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="srcId != null" >
+                src_id = #{srcId,jdbcType=INTEGER},
+            </if>
+            <if test="channel != null" >
+                channel = #{channel,jdbcType=INTEGER},
+            </if>
+            <if test="manual != null" >
+                manual = #{manual,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
+        update t_video_suggest
+        set title = #{title,jdbcType=VARCHAR},
         photo = #{photo,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="orderNo != null" >
         order_no = #{orderNo,jdbcType=INTEGER},
-      </if>
-      <if test="score != null" >
         score = #{score,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
+        overall_score = #{overallScore,jdbcType=REAL},
         description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
+        src_id = #{srcId,jdbcType=INTEGER},
+        channel = #{channel,jdbcType=INTEGER},
+        manual = #{manual,jdbcType=INTEGER},
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.VideoSuggest" >
-    update t_video_suggest
-    set title = #{title,jdbcType=VARCHAR},
-      photo = #{photo,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      order_no = #{orderNo,jdbcType=INTEGER},
-      score = #{score,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 自定义 -->
+    <select id="listByChnlAndPage" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_video_suggest
+        where channel = #{channelid,jdbcType=INTEGER} and status = 1
+        order by manual desc,overall_score desc
+        limit #{start,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
+    </select>
+
+    <select id="countByChnlAndPage" resultType="java.lang.Long" parameterType="java.lang.Integer">
+        select count(*)
+        from t_video_suggest
+        where channel = #{channelid,jdbcType=INTEGER} and status = 1
+    </select>
 </mapper>

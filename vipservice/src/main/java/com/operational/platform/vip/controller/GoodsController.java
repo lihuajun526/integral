@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -77,7 +79,8 @@ public class GoodsController extends BaseController {
     @ResponseBody
     public String order(Integer goodsid, String vipAccessToken) {
 
-        Result result = new Result();
+        Result<Map<String,Object>> result = new Result();
+        Map<String, Object> map = new HashMap<>();
 
         User loginUser = userService.getByAccessToken(vipAccessToken);
         Goods goods = goodsService.selectByPrimaryKey(goodsid);
@@ -90,6 +93,8 @@ public class GoodsController extends BaseController {
             return result.toString();
         }
 
+        map.put("vipExpires", loginUser.getVipExpires());
+        result.setData(map);
         result.setMessage("购买成功");
         return result.toString();
     }

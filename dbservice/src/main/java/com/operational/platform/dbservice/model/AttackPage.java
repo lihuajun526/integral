@@ -17,6 +17,10 @@ public class AttackPage {
 
     private Integer count;
 
+    private String md5;
+
+    private Integer flag;
+
     private Date updateTime;
 
     private Date createTime;
@@ -77,6 +81,22 @@ public class AttackPage {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public String getMd5() {
+        return md5;
+    }
+
+    public void setMd5(String md5) {
+        this.md5 = md5 == null ? null : md5.trim();
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
     }
 
     public Date getUpdateTime() {

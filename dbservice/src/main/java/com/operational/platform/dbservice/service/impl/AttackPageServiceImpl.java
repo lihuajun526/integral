@@ -20,7 +20,10 @@ public class AttackPageServiceImpl implements AttackPageService {
 
     @Override
     public int save(AttackPage attackPage) {
-        return attackPageMapper.insert(attackPage);
+        if (attackPage.getId() == null)
+            return attackPageMapper.insert(attackPage);
+        else
+            return attackPageMapper.updateByPrimaryKeySelective(attackPage);
     }
 
     @Override
@@ -52,5 +55,25 @@ public class AttackPageServiceImpl implements AttackPageService {
     @Override
     public int addCount(AttackPage attackPage) {
         return attackPageMapper.updateByPrimaryKeySelective(attackPage);
+    }
+
+    @Override
+    public void del(Integer id) {
+        attackPageMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void recoverFlag(List<String> belongs) {
+        if (belongs == null || belongs.size() == 0)
+            return;
+
+        AttackPageExample example = new AttackPageExample();
+        AttackPageExample.Criteria criteria = example.createCriteria();
+        criteria.andBelongIn(belongs);
+
+        AttackPage attackPage = new AttackPage();
+        attackPage.setFlag(0);
+
+        attackPageMapper.updateByExampleSelective(attackPage, example);
     }
 }

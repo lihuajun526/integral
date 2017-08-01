@@ -17,6 +17,14 @@ public class VideoSuggest {
 
     private String score;
 
+    private Integer srcId;
+
+    private float overallScore;
+
+    private Integer manual;
+
+    private Integer channel;
+
     private String description;
 
     private Date createTime;
@@ -101,5 +109,37 @@ public class VideoSuggest {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public float getOverallScore() {
+        return overallScore;
+    }
+
+    public void setOverallScore(float overallScore) {
+        this.overallScore = overallScore;
+    }
+
+    public Integer getManual() {
+        return manual;
+    }
+
+    public void setManual(Integer manual) {
+        this.manual = manual;
+    }
+
+    public Integer getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Integer channel) {
+        this.channel = channel;
+    }
+
+    public Integer getSrcId() {
+        return srcId;
+    }
+
+    public void setSrcId(Integer srcId) {
+        this.srcId = srcId;
     }
 }

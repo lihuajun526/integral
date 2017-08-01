@@ -21,4 +21,8 @@ public interface AttackPageService {
 
     int addCount(AttackPage attackPage);
 
+    void del(Integer id);
+
+    void recoverFlag(List<String> belongs);
+
 }

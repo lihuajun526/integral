@@ -7,7 +7,9 @@ import com.operational.platform.dbservice.service.VideoSuggestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2017/7/11.
@@ -46,5 +48,32 @@ public class VideoSuggestServiceImpl implements VideoSuggestService {
         example.setOrderByClause("order_no");
 
         return videoSuggestMapper.selectByExample(example);
+    }
+
+    @Override
+    public void delBySrc(Integer srcId) {
+        VideoSuggestExample example = new VideoSuggestExample();
+        VideoSuggestExample.Criteria criteria = example.createCriteria();
+    }
+
+    @Override
+    public VideoSuggest getBySrc(Integer srcId) {
+        return null;
+    }
+
+    @Override
+    public List<VideoSuggest> listByChnlAndPage(Integer channelid, Integer pagesize, Integer pageindex) {
+
+        Map<String, Integer> condition = new HashMap<>();
+        condition.put("channelid", channelid);
+        condition.put("pagesize", pagesize);
+        condition.put("start", (pageindex - 1) * pagesize);
+
+        return videoSuggestMapper.listByChnlAndPage(condition);
+    }
+
+    @Override
+    public Long countByChnlAndPage(Integer channelid) {
+        return videoSuggestMapper.countByChnlAndPage(channelid);
     }
 }

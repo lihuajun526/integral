@@ -1,6 +1,7 @@
 package com.operational.platform.spider;
 
 import com.alibaba.fastjson.JSON;
+import com.operational.platform.common.util.StrUtil;
 import com.operational.platform.spider.bean.ParseResult;
 import com.operational.platform.spider.component.ComponentBuilder;
 import com.operational.platform.spider.component.loader.PageIndexLoader;
@@ -71,7 +72,7 @@ public class CrawlTask implements Runnable {
                         }
                         parseResult.setCategory(crawlPointAttr.getCategory());
                         parseResult.setBelong(crawlPointAttr.getBelong());
-                        parseResult.setPointLink(crawlPointAttr.getUrl());
+                        parseResult.setPointLink(crawlPointAttr.getUrl().replaceAll("\\{pagenum\\}", String.valueOf(pageNum + 1)));
 
                         //保存到数据库
                         saveToDb(parseResult);
@@ -133,17 +134,30 @@ public class CrawlTask implements Runnable {
 
         AttackPage attackPage = new AttackPage();
         attackPage.setLink(parseResult.getLink());
-
         //判断数据库中是否已存在
-        if (attackPageService.listByCondition(attackPage).size() > 0)
+        List<AttackPage> list = attackPageService.listByCondition(attackPage);
+        attackPage.setAttr(JSON.toJSONString(parseResult.getAttr()));
+        attackPage.setMd5(StrUtil.md5(attackPage.getAttr()));
+        if (list.size() > 0) {
+            AttackPage attackPageDb = list.get(0);
+            if (attackPageDb.getMd5().equals(attackPage.getMd5()))
+                attackPageDb.setFlag(3);//没有变化
+            else {
+                attackPageDb.setFlag(2);//更新
+                attackPageDb.setAttr(attackPage.getAttr());
+                attackPageDb.setMd5(attackPage.getMd5());
+            }
+            attackPage.setUpdateTime(new Date());
+            attackPageService.save(attackPage);
             return;
-
+        }
+        attackPage.setFlag(1);//新增
         attackPage.setBelong(parseResult.getBelong());
         attackPage.setCategory(parseResult.getCategory());
         attackPage.setCount(0);
-        attackPage.setPointLink(parseResult.getPointLink().replace("{pagenum}", "1"));
+        //attackPage.setPointLink(parseResult.getPointLink().replace("{pagenum}", "1"));
+        attackPage.setPointLink(parseResult.getPointLink());
         attackPage.setTitle(parseResult.getTitle());
-        attackPage.setAttr(JSON.toJSONString(parseResult.getAttr()));
         attackPage.setCreateTime(new Date());
         attackPage.setUpdateTime(new Date());
 
