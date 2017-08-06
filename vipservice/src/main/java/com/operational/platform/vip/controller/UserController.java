@@ -124,6 +124,7 @@ public class UserController extends BaseController {
             user.setUnionid(jsonObject.getString("unionid"));
             user.setVipAccessTokenExpires(calendar.getTime());
             user.setVipExpires(new Date());
+            user.setIntegral(0);
             try {
                 user.setVipAccessToken(AESCryptoUtil.encrypt(StrUtil.getRandomString(32) + System.currentTimeMillis()));
             } catch (CryptoException e) {
