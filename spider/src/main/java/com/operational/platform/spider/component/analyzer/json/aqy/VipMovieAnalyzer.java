@@ -65,8 +65,11 @@ public class VipMovieAnalyzer extends JsonAnalyzer {
             if (isExclusive != null && isExclusive) {
                 attr.put("isExclusive", isExclusive.toString());
             }
+            Boolean homeMade = obj.getBoolean("is_qiyi_produced");//是否自制
+            if (homeMade != null && homeMade) {
+                attr.put("homeMade", homeMade.toString());
+            }
             parseResult.setAttr(attr);
-
             list.add(parseResult);
         }
 

@@ -25,20 +25,6 @@ public class VipTvAnalyzer extends JsonAnalyzer {
         List<ParseResult> list = new ArrayList<>();
         JSONArray docs = JSONObject.parseObject(jsonResponse).getJSONObject("data").getJSONArray("docinfos");
         for (int i = 0; i < docs.size(); i++) {
-            /*JSONObject obj = docs.getJSONObject(i).getJSONObject("albumDocInfo");
-            ParseResult parseResult = new ParseResult();
-            parseResult.setTitle(obj.getString("albumTitle"));
-            JSONArray videoinfos = obj.getJSONArray("videoinfos");
-            parseResult.setLink(videoinfos.getJSONObject(0).getString("itemLink"));
-            Map<String, String> attr = new HashMap<>();
-            attr.put("desc", obj.getJSONObject("video_lib_meta").getString("description"));
-            attr.put("logo", obj.getString("albumVImage").replace(".jpg", "_195_260.jpg"));
-            attr.put("score", obj.getString("score"));
-            attr.put("threeCategory", obj.getString("threeCategory"));
-            parseResult.setAttr(attr);
-            list.add(parseResult);*/
-
-
             JSONObject obj = docs.getJSONObject(i).getJSONObject("albumDocInfo");
             ParseResult parseResult = new ParseResult();
             parseResult.setTitle(obj.getString("albumTitle"));
@@ -69,18 +55,17 @@ public class VipTvAnalyzer extends JsonAnalyzer {
             }
 
             attr.put("score", obj.getString("score"));
-            //attr.put("threeCategory", obj.getString("threeCategory"));
             attr.put("releaseDate", obj.getString("releaseDate"));//发行日期
-            Boolean isPay = obj.getBoolean("on_demand");//付费/用券
-            if (isPay != null && isPay) {
-                attr.put("isPay", isPay.toString());
-            }
+            attr.put("itemTotalNumber", obj.getString("itemTotalNumber"));//集数
             Boolean isExclusive = obj.getBoolean("is_exclusive");//是否独播
             if (isExclusive != null && isExclusive) {
                 attr.put("isExclusive", isExclusive.toString());
             }
+            Boolean homeMade = obj.getBoolean("is_qiyi_produced");//是否自制
+            if (homeMade != null && homeMade) {
+                attr.put("homeMade", homeMade.toString());
+            }
             parseResult.setAttr(attr);
-
             list.add(parseResult);
         }
 

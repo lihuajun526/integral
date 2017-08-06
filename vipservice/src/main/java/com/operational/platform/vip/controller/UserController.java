@@ -101,7 +101,6 @@ public class UserController extends BaseController {
             HttpGet httpGet = new HttpGet(url);
             String response = null;
             try {
-
                 response = XHttpClient.doRequest(httpGet);
             } catch (RequestException e) {
                 logger.error("请求获取微信用户基本信息失败");
@@ -124,6 +123,7 @@ public class UserController extends BaseController {
             user.setPrivilege(jsonObject.getString("privilege"));
             user.setUnionid(jsonObject.getString("unionid"));
             user.setVipAccessTokenExpires(calendar.getTime());
+            user.setVipExpires(new Date());
             try {
                 user.setVipAccessToken(AESCryptoUtil.encrypt(StrUtil.getRandomString(32) + System.currentTimeMillis()));
             } catch (CryptoException e) {
