@@ -125,10 +125,12 @@ public class UserController extends BaseController {
             user.setVipAccessTokenExpires(calendar.getTime());
             user.setVipExpires(new Date());
             user.setIntegral(0);
+
+            String vipAccessToken = StrUtil.getRandomString(32) + System.currentTimeMillis();
             try {
-                user.setVipAccessToken(AESCryptoUtil.encrypt(StrUtil.getRandomString(32) + System.currentTimeMillis()));
+                user.setVipAccessToken(AESCryptoUtil.encrypt(vipAccessToken));
             } catch (CryptoException e) {
-                logger.error("加密[{}]失败", accessToken);
+                logger.error("加密[{}]失败", vipAccessToken);
                 user.setVipAccessToken(accessToken);
             }
             userService.save(user);

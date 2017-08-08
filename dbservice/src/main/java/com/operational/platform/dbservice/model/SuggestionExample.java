@@ -485,6 +485,76 @@ public class SuggestionExample {
             return (Criteria) this;
         }
 
+        public Criteria andAppInfoIsNull() {
+            addCriterion("app_info is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoIsNotNull() {
+            addCriterion("app_info is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoEqualTo(String value) {
+            addCriterion("app_info =", value, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoNotEqualTo(String value) {
+            addCriterion("app_info <>", value, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoGreaterThan(String value) {
+            addCriterion("app_info >", value, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoGreaterThanOrEqualTo(String value) {
+            addCriterion("app_info >=", value, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoLessThan(String value) {
+            addCriterion("app_info <", value, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoLessThanOrEqualTo(String value) {
+            addCriterion("app_info <=", value, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoLike(String value) {
+            addCriterion("app_info like", value, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoNotLike(String value) {
+            addCriterion("app_info not like", value, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoIn(List<String> values) {
+            addCriterion("app_info in", values, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoNotIn(List<String> values) {
+            addCriterion("app_info not in", values, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoBetween(String value1, String value2) {
+            addCriterion("app_info between", value1, value2, "appInfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppInfoNotBetween(String value1, String value2) {
+            addCriterion("app_info not between", value1, value2, "appInfo");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

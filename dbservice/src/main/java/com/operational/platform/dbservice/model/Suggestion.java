@@ -2,20 +2,23 @@ package com.operational.platform.dbservice.model;
 
 import java.util.Date;
 
-/**
- * Created by lihuajun on 2016/8/15.
- */
 public class Suggestion {
-
     private Integer id;
-    private String openid;
+
     private Integer userid;
-    //1建议,2投诉
+
+    private String openid;
+
     private Integer type;
-    //状态，默认为1
+
     private Integer status;
+
     private String content;
+
+    private String appInfo;
+
     private Date createTime;
+
     private Date updateTime;
 
     public Integer getId() {
@@ -26,12 +29,20 @@ public class Suggestion {
         this.id = id;
     }
 
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
     public String getOpenid() {
         return openid;
     }
 
     public void setOpenid(String openid) {
-        this.openid = openid;
+        this.openid = openid == null ? null : openid.trim();
     }
 
     public Integer getType() {
@@ -55,7 +66,15 @@ public class Suggestion {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content == null ? null : content.trim();
+    }
+
+    public String getAppInfo() {
+        return appInfo;
+    }
+
+    public void setAppInfo(String appInfo) {
+        this.appInfo = appInfo == null ? null : appInfo.trim();
     }
 
     public Date getCreateTime() {
@@ -72,13 +91,5 @@ public class Suggestion {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
     }
 }
