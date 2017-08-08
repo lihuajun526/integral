@@ -31,10 +31,15 @@ public class AccessFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
+        String url = request.getRequestURI();
         String vipAccessToken = request.getParameter("vipAccessToken");
-        if (StringUtils.isEmpty(vipAccessToken)) {//该请求不需要登录
+
+        if (url.indexOf("/v_login") == -1) {//该请求不需要登录
             chain.doFilter(request, response);
+            return;
+        }
+        if (StringUtils.isEmpty(vipAccessToken)) {//vipAccessToken参数未传
+            request.getRequestDispatcher("/user/notoken").forward(request, response);
             return;
         }
         if (Constant.SessionMap.get(vipAccessToken) == null) {//未登录

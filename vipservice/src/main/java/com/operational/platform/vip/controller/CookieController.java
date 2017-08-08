@@ -37,7 +37,7 @@ public class CookieController extends BaseController {
     @Autowired
     private UserCookieMapService userCookieMapService;
 
-    @RequestMapping("/get")
+    @RequestMapping("/get/v_login")
     @ResponseBody
     public String get(String url, String vipAccessToken) {
 
@@ -107,7 +107,7 @@ public class CookieController extends BaseController {
     }
 
 
-    @RequestMapping("/time/update")
+    @RequestMapping("/time/update/v_login")
     @ResponseBody
     public String updateTime(String vipAccessToken, Integer cookieid) {
 

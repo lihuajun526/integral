@@ -75,7 +75,7 @@ public class GoodsController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping("/order")
+    @RequestMapping("/order/v_login")
     @ResponseBody
     public String order(Integer goodsid, String vipAccessToken) {
 

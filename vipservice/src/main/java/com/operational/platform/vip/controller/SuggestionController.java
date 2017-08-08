@@ -24,7 +24,7 @@ public class SuggestionController extends BaseController {
     private SuggestionService suggestionService;
 
     @ResponseBody
-    @RequestMapping("/save")
+    @RequestMapping("/save/v_login")
     public String save(Suggestion suggestion, String vipAccessionToken) {
 
         Result<Boolean> result = new Result<>();

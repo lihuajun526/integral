@@ -41,7 +41,8 @@ public class BaseInfoController extends BaseController {
         data.put("regulars", regulars);
         if (!StringUtils.isEmpty(vipAccessToken)) {
             User loginUser = Constant.SessionMap.get(vipAccessToken);
-            data.put("vipExpires", loginUser.getVipExpires());
+            if (loginUser != null)
+                data.put("vipExpires", loginUser.getVipExpires());
         }
 
         result.setData(data);

@@ -30,7 +30,7 @@ public class PlayRecordController extends BaseController {
      *
      * @return
      */
-    @RequestMapping("/save")
+    @RequestMapping("/save/v_login")
     @ResponseBody
     public String save(String url, String vipAccessToken) {
 
@@ -57,7 +57,7 @@ public class PlayRecordController extends BaseController {
      *
      * @return
      */
-    @RequestMapping("/list/latest")
+    @RequestMapping("/list/latest/v_login")
     @ResponseBody
     public String listLatest(String vipAccessToken) {
 

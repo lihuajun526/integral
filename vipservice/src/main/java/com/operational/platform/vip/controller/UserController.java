@@ -179,4 +179,14 @@ public class UserController extends BaseController {
 
     }
 
+    @RequestMapping(value = "/notoken")
+    @ResponseBody
+    public String notoken() {
+
+        Result result = new Result();
+        result.set(ExceptionCode.PARAM_IS_NULL_ERROR.code, "vipAccessToken为必传参数");
+        return result.toString();
+
+    }
+
 }
