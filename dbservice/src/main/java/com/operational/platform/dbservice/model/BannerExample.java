@@ -295,6 +295,76 @@ public class BannerExample {
             return (Criteria) this;
         }
 
+        public Criteria andGoUrlIsNull() {
+            addCriterion("go_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlIsNotNull() {
+            addCriterion("go_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlEqualTo(String value) {
+            addCriterion("go_url =", value, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlNotEqualTo(String value) {
+            addCriterion("go_url <>", value, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlGreaterThan(String value) {
+            addCriterion("go_url >", value, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("go_url >=", value, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlLessThan(String value) {
+            addCriterion("go_url <", value, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlLessThanOrEqualTo(String value) {
+            addCriterion("go_url <=", value, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlLike(String value) {
+            addCriterion("go_url like", value, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlNotLike(String value) {
+            addCriterion("go_url not like", value, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlIn(List<String> values) {
+            addCriterion("go_url in", values, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlNotIn(List<String> values) {
+            addCriterion("go_url not in", values, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlBetween(String value1, String value2) {
+            addCriterion("go_url between", value1, value2, "goUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andGoUrlNotBetween(String value1, String value2) {
+            addCriterion("go_url not between", value1, value2, "goUrl");
+            return (Criteria) this;
+        }
+
         public Criteria andOrderNoIsNull() {
             addCriterion("order_no is null");
             return (Criteria) this;

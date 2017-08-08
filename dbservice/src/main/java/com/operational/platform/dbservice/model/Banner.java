@@ -9,6 +9,8 @@ public class Banner {
 
     private Integer forum;
 
+    private String goUrl;
+
     private Integer orderNo;
 
     private Integer status;
@@ -39,6 +41,14 @@ public class Banner {
 
     public void setForum(Integer forum) {
         this.forum = forum;
+    }
+
+    public String getGoUrl() {
+        return goUrl;
+    }
+
+    public void setGoUrl(String goUrl) {
+        this.goUrl = goUrl == null ? null : goUrl.trim();
     }
 
     public Integer getOrderNo() {

@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="forum" property="forum" jdbcType="INTEGER" />
+    <result column="go_url" property="goUrl" jdbcType="VARCHAR" />
     <result column="order_no" property="orderNo" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, url, forum, order_no, status, update_time, create_time
+    id, url, forum, go_url, order_no, status, update_time, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.BannerExample" >
     select
@@ -104,11 +105,11 @@
   </delete>
   <insert id="insert" parameterType="com.operational.platform.dbservice.model.Banner" >
     insert into t_banner (id, url, forum, 
-      order_no, status, update_time, 
-      create_time)
+      go_url, order_no, status, 
+      update_time, create_time)
     values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{forum,jdbcType=INTEGER}, 
-      #{orderNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP})
+      #{goUrl,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.Banner" >
     insert into t_banner
@@ -121,6 +122,9 @@
       </if>
       <if test="forum != null" >
         forum,
+      </if>
+      <if test="goUrl != null" >
+        go_url,
       </if>
       <if test="orderNo != null" >
         order_no,
@@ -144,6 +148,9 @@
       </if>
       <if test="forum != null" >
         #{forum,jdbcType=INTEGER},
+      </if>
+      <if test="goUrl != null" >
+        #{goUrl,jdbcType=VARCHAR},
       </if>
       <if test="orderNo != null" >
         #{orderNo,jdbcType=INTEGER},
@@ -177,6 +184,9 @@
       <if test="record.forum != null" >
         forum = #{record.forum,jdbcType=INTEGER},
       </if>
+      <if test="record.goUrl != null" >
+        go_url = #{record.goUrl,jdbcType=VARCHAR},
+      </if>
       <if test="record.orderNo != null" >
         order_no = #{record.orderNo,jdbcType=INTEGER},
       </if>
@@ -199,6 +209,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       url = #{record.url,jdbcType=VARCHAR},
       forum = #{record.forum,jdbcType=INTEGER},
+      go_url = #{record.goUrl,jdbcType=VARCHAR},
       order_no = #{record.orderNo,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -215,6 +226,9 @@
       </if>
       <if test="forum != null" >
         forum = #{forum,jdbcType=INTEGER},
+      </if>
+      <if test="goUrl != null" >
+        go_url = #{goUrl,jdbcType=VARCHAR},
       </if>
       <if test="orderNo != null" >
         order_no = #{orderNo,jdbcType=INTEGER},
@@ -235,6 +249,7 @@
     update t_banner
     set url = #{url,jdbcType=VARCHAR},
       forum = #{forum,jdbcType=INTEGER},
+      go_url = #{goUrl,jdbcType=VARCHAR},
       order_no = #{orderNo,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

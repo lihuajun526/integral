@@ -24,7 +24,7 @@ public class SuggestionController extends BaseController {
     private SuggestionService suggestionService;
 
     @ResponseBody
-    @RequestMapping("/save/v_login")
+    @RequestMapping("/save")
     public String save(Suggestion suggestion, String vipAccessionToken) {
 
         Result<Boolean> result = new Result<>();
@@ -34,8 +34,12 @@ public class SuggestionController extends BaseController {
             return result.toString();
         }
 
-        User loginUser = Constant.SessionMap.get(vipAccessionToken);
-        suggestion.setUserid(loginUser.getId());
+        if (!StringUtils.isEmpty(vipAccessionToken)) {
+            User loginUser = Constant.SessionMap.get(vipAccessionToken);
+            if (loginUser != null)
+                suggestion.setUserid(loginUser.getId());
+        }
+
         suggestion.setType(1);
         suggestion.setStatus(1);
 
