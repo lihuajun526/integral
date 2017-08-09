@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface ScoreService {
 
-    void score(List<String> belongs);
+    void score(List<Integer> pointids);
 
 
 }

@@ -23,6 +23,8 @@ public interface AttackPageService {
 
     void del(Integer id);
 
-    void recoverFlag(List<String> belongs);
+    void recoverFlag(List<Integer> pointids);
+
+    List<AttackPage> listByPoints(List<Integer> pointids);
 
 }

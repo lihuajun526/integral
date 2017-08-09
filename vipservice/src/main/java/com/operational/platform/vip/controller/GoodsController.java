@@ -79,7 +79,7 @@ public class GoodsController extends BaseController {
     @ResponseBody
     public String order(Integer goodsid, String vipAccessToken) {
 
-        Result<Map<String,Object>> result = new Result();
+        Result<Map<String, Object>> result = new Result();
         Map<String, Object> map = new HashMap<>();
 
         User loginUser = userService.getByAccessToken(vipAccessToken);
@@ -92,7 +92,7 @@ public class GoodsController extends BaseController {
             result.setMessage("对不起，您的余额不足，请充值");
             return result.toString();
         }
-
+        Constant.SessionMap.put(vipAccessToken, loginUser);
         map.put("vipExpires", loginUser.getVipExpires());
         result.setData(map);
         result.setMessage("购买成功");

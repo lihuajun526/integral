@@ -37,8 +37,8 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void score(List<String> belongs) {
-        List<AttackPage> attackPageList = attackPageService.listByBelongs(belongs);
+    public void score(List<Integer> pointids) {
+        List<AttackPage> attackPageList = attackPageService.listByPoints(pointids);
         for (AttackPage attackPage : attackPageList) {
             int flag = attackPage.getFlag().intValue();
             JSONObject attr = JSON.parseObject(attackPage.getAttr());
@@ -48,6 +48,7 @@ public class ScoreServiceImpl implements ScoreService {
                 continue;
 
             if (flag == 0) {//已不在会员片库
+                LOGGER.info("已不在会员片库[{}]", attackPage.getAttr());
                 videoSuggestService.delBySrc(attackPage.getId());
                 attackPageService.del(attackPage.getId());
                 continue;
@@ -74,7 +75,7 @@ public class ScoreServiceImpl implements ScoreService {
             }
         }
         //恢复attackPage中flag的默认值
-        attackPageService.recoverFlag(belongs);
+        attackPageService.recoverFlag(pointids);
     }
 
     private float getOverallScore(JSONObject attr) {

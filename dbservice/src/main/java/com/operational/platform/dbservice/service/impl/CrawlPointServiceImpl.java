@@ -1,6 +1,7 @@
 package com.operational.platform.dbservice.service.impl;
 
 import com.operational.platform.dbservice.model.CrawlPoint;
+import com.operational.platform.dbservice.model.CrawlPointExample;
 import com.operational.platform.dbservice.service.CrawlPointService;
 import com.operational.platform.dbservice.dao.CrawlPointMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,11 @@ public class CrawlPointServiceImpl implements CrawlPointService {
     public CrawlPoint selectByPrimaryKey(Integer id) {
         return crawlPointMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public List<CrawlPoint> listByExample(CrawlPointExample example) {
+        return crawlPointMapper.selectByExample(example);
+    }
+
+
 }

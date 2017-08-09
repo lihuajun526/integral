@@ -12,6 +12,7 @@ public class ParseResult {
     private String link;
     private String title;
     private String belong;//所属源
+    private Integer pointid;//采集点id
     private String pointLink;//采集点链接
 
     public String getBelong() {
@@ -62,5 +63,13 @@ public class ParseResult {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getPointid() {
+        return pointid;
+    }
+
+    public void setPointid(Integer pointid) {
+        this.pointid = pointid;
     }
 }

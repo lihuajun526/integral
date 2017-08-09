@@ -305,6 +305,66 @@ public class AttackPageExample {
             return (Criteria) this;
         }
 
+        public Criteria andPointidIsNull() {
+            addCriterion("pointid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidIsNotNull() {
+            addCriterion("pointid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidEqualTo(Integer value) {
+            addCriterion("pointid =", value, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidNotEqualTo(Integer value) {
+            addCriterion("pointid <>", value, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidGreaterThan(Integer value) {
+            addCriterion("pointid >", value, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("pointid >=", value, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidLessThan(Integer value) {
+            addCriterion("pointid <", value, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidLessThanOrEqualTo(Integer value) {
+            addCriterion("pointid <=", value, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidIn(List<Integer> values) {
+            addCriterion("pointid in", values, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidNotIn(List<Integer> values) {
+            addCriterion("pointid not in", values, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidBetween(Integer value1, Integer value2) {
+            addCriterion("pointid between", value1, value2, "pointid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPointidNotBetween(Integer value1, Integer value2) {
+            addCriterion("pointid not between", value1, value2, "pointid");
+            return (Criteria) this;
+        }
+
         public Criteria andPointLinkIsNull() {
             addCriterion("point_link is null");
             return (Criteria) this;

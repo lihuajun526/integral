@@ -9,6 +9,8 @@ public class AttackPage {
 
     private String link;
 
+    private Integer pointid;
+
     private String pointLink;
 
     private String belong;
@@ -121,5 +123,13 @@ public class AttackPage {
 
     public void setAttr(String attr) {
         this.attr = attr == null ? null : attr.trim();
+    }
+
+    public Integer getPointid() {
+        return pointid;
+    }
+
+    public void setPointid(Integer pointid) {
+        this.pointid = pointid;
     }
 }

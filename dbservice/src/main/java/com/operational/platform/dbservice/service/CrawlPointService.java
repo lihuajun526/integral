@@ -1,6 +1,7 @@
 package com.operational.platform.dbservice.service;
 
 import com.operational.platform.dbservice.model.CrawlPoint;
+import com.operational.platform.dbservice.model.CrawlPointExample;
 
 import java.util.List;
 
@@ -22,5 +23,7 @@ public interface CrawlPointService {
     CrawlPoint getByNode(Integer nodeid);
 
     CrawlPoint selectByPrimaryKey(Integer id);
+
+    List<CrawlPoint> listByExample(CrawlPointExample example);
 
 }

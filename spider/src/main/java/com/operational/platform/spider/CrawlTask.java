@@ -72,6 +72,7 @@ public class CrawlTask implements Runnable {
                         }
                         parseResult.setCategory(crawlPointAttr.getCategory());
                         parseResult.setBelong(crawlPointAttr.getBelong());
+                        parseResult.setPointid(crawlPointAttr.getId());
                         parseResult.setPointLink(crawlPointAttr.getUrl().replaceAll("\\{pagenum\\}", String.valueOf(pageNum + 1)));
 
                         //保存到数据库
@@ -140,12 +141,16 @@ public class CrawlTask implements Runnable {
         attackPage.setMd5(StrUtil.md5(attackPage.getAttr()));
         if (list.size() > 0) {
             AttackPage attackPageDb = list.get(0);
+            if (attackPageDb == null || attackPageDb.getMd5() == null) {
+                return;
+            }
             if (attackPageDb.getMd5().equals(attackPage.getMd5()))
                 attackPageDb.setFlag(3);//没有变化
             else {
                 attackPageDb.setFlag(2);//更新
                 attackPageDb.setAttr(attackPage.getAttr());
                 attackPageDb.setMd5(attackPage.getMd5());
+                LOGGER.info("有更新[{}]", attackPage.getAttr());
             }
             attackPage.setUpdateTime(new Date());
             attackPageService.save(attackPage);
@@ -155,13 +160,14 @@ public class CrawlTask implements Runnable {
         attackPage.setBelong(parseResult.getBelong());
         attackPage.setCategory(parseResult.getCategory());
         attackPage.setCount(0);
-        //attackPage.setPointLink(parseResult.getPointLink().replace("{pagenum}", "1"));
+        attackPage.setPointid(parseResult.getPointid());
         attackPage.setPointLink(parseResult.getPointLink());
         attackPage.setTitle(parseResult.getTitle());
         attackPage.setCreateTime(new Date());
         attackPage.setUpdateTime(new Date());
 
         attackPageService.save(attackPage);
+        LOGGER.info("新的视频[{}]", attackPage.getAttr());
     }
 
     /**

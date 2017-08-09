@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="link" property="link" jdbcType="VARCHAR" />
+    <result column="pointid" property="pointid" jdbcType="INTEGER" />
     <result column="point_link" property="pointLink" jdbcType="VARCHAR" />
     <result column="belong" property="belong" jdbcType="VARCHAR" />
     <result column="category" property="category" jdbcType="VARCHAR" />
@@ -76,7 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, link, point_link, belong, category, count, md5, flag, update_time, create_time
+    id, title, link, pointid, point_link, belong, category, count, md5, flag, update_time,
+    create_time
   </sql>
   <sql id="Blob_Column_List" >
     attr
@@ -133,13 +135,15 @@
   </delete>
   <insert id="insert" parameterType="com.operational.platform.dbservice.model.AttackPage" >
     insert into t_attack_page (id, title, link,
-    point_link, belong, category,
-    count, md5, flag, update_time,
-    create_time, attr)
+    pointid, point_link, belong,
+    category, count, md5,
+    flag, update_time, create_time,
+    attr)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR},
-    #{pointLink,jdbcType=VARCHAR}, #{belong,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
-    #{count,jdbcType=INTEGER}, #{md5,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP},
-    #{createTime,jdbcType=TIMESTAMP}, #{attr,jdbcType=LONGVARCHAR})
+    #{pointid,jdbcType=INTEGER}, #{pointLink,jdbcType=VARCHAR}, #{belong,jdbcType=VARCHAR},
+    #{category,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{md5,jdbcType=VARCHAR},
+    #{flag,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},
+    #{attr,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.AttackPage" >
     insert into t_attack_page
@@ -152,6 +156,9 @@
       </if>
       <if test="link != null" >
         link,
+      </if>
+      <if test="pointid != null" >
+        pointid,
       </if>
       <if test="pointLink != null" >
         point_link,
@@ -190,6 +197,9 @@
       </if>
       <if test="link != null" >
         #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="pointid != null" >
+        #{pointid,jdbcType=INTEGER},
       </if>
       <if test="pointLink != null" >
         #{pointLink,jdbcType=VARCHAR},
@@ -238,6 +248,9 @@
       <if test="record.link != null" >
         link = #{record.link,jdbcType=VARCHAR},
       </if>
+      <if test="record.pointid != null" >
+        pointid = #{record.pointid,jdbcType=INTEGER},
+      </if>
       <if test="record.pointLink != null" >
         point_link = #{record.pointLink,jdbcType=VARCHAR},
       </if>
@@ -275,6 +288,7 @@
     set id = #{record.id,jdbcType=INTEGER},
     title = #{record.title,jdbcType=VARCHAR},
     link = #{record.link,jdbcType=VARCHAR},
+    pointid = #{record.pointid,jdbcType=INTEGER},
     point_link = #{record.pointLink,jdbcType=VARCHAR},
     belong = #{record.belong,jdbcType=VARCHAR},
     category = #{record.category,jdbcType=VARCHAR},
@@ -293,6 +307,7 @@
     set id = #{record.id,jdbcType=INTEGER},
     title = #{record.title,jdbcType=VARCHAR},
     link = #{record.link,jdbcType=VARCHAR},
+    pointid = #{record.pointid,jdbcType=INTEGER},
     point_link = #{record.pointLink,jdbcType=VARCHAR},
     belong = #{record.belong,jdbcType=VARCHAR},
     category = #{record.category,jdbcType=VARCHAR},
@@ -313,6 +328,9 @@
       </if>
       <if test="link != null" >
         link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="pointid != null" >
+        pointid = #{pointid,jdbcType=INTEGER},
       </if>
       <if test="pointLink != null" >
         point_link = #{pointLink,jdbcType=VARCHAR},
@@ -348,6 +366,7 @@
     update t_attack_page
     set title = #{title,jdbcType=VARCHAR},
     link = #{link,jdbcType=VARCHAR},
+    pointid = #{pointid,jdbcType=INTEGER},
     point_link = #{pointLink,jdbcType=VARCHAR},
     belong = #{belong,jdbcType=VARCHAR},
     category = #{category,jdbcType=VARCHAR},
@@ -362,15 +381,16 @@
   <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.AttackPage" >
     update t_attack_page
     set title = #{title,jdbcType=VARCHAR},
-    link = #{link,jdbcType=VARCHAR},
-    point_link = #{pointLink,jdbcType=VARCHAR},
-    belong = #{belong,jdbcType=VARCHAR},
-    category = #{category,jdbcType=VARCHAR},
-    count = #{count,jdbcType=INTEGER},
-    md5 = #{md5,jdbcType=VARCHAR},
-    flag = #{flag,jdbcType=INTEGER},
-    update_time = #{updateTime,jdbcType=TIMESTAMP},
-    create_time = #{createTime,jdbcType=TIMESTAMP}
+      link = #{link,jdbcType=VARCHAR},
+      pointid = #{pointid,jdbcType=INTEGER},
+      point_link = #{pointLink,jdbcType=VARCHAR},
+      belong = #{belong,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      md5 = #{md5,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!-- 自定义 -->
