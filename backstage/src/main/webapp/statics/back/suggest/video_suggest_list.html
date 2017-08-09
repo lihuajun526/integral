@@ -16,6 +16,7 @@
         <td><input id="keyword" placeholder="请输入标题"/>&nbsp;
             <button onclick="search();">搜索</button>
         </td>
+        <td><button onclick="search();">已推荐</button></td>
     </tr>
 </table>
 <table id="datagrid"></table>
@@ -95,6 +96,10 @@
     list('');
     function search() {
         list($("#keyword").val());
+    }
+
+    function suggest(){
+
     }
 </script>
 </body>
