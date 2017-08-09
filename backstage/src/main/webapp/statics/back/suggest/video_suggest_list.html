@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<table>
+<!--<table>
     <tr>
         <td>
             <button onclick="syn();">同步</button>
+        </td>
+    </tr>
+</table>-->
+<table>
+    <tr>
+        <td><input id="keyword" placeholder="请输入标题"/>&nbsp;
+            <button onclick="search();">搜索</button>
         </td>
     </tr>
 </table>
@@ -17,44 +24,47 @@
         return date.getFullYear() + '-' + (date.getMonth() + 1) + '-'
                 + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
     }
-    var list = $('#datagrid').datagrid({
-        border: false,
-        fitColumns: true,
-        singleSelect: true,
-        pagination: true,
-        url: appPath + '/video/suggest/list',
-        columns: [[
-            {
-                field: 'title', title: '标题', width: 20
-            },
-            {
-                field: 'url', title: '地址', width: 20,
-                formatter: function (value, rec) {
-                    var str = "<a target='_blank' href='" + value + "'>源地址</a>"
-                    return str;
-                }
-            },
-            {
-                field: 'score', title: '评分', width: 20
-            },
-            {
-                field: 'opt', title: '操作', width: 20, align: 'center',
-                formatter: function (value, rec) {
-                    var btn = "";
-                    if (rec.status == 0)
-                        btn = "<a class='editcls' onclick='updateStatus(" + rec.id + ",1)' href='javascript:void(0)'>推荐</a>&nbsp&nbsp";
-                    else if (rec.status == 1)
-                        btn = "<a class='editcls' onclick='updateStatus(" + rec.id + ",0)' href='javascript:void(0)'>取消推荐</a>";
-                    return btn;
-                }
-            }
-        ]]
-    });
-    var pager = list.datagrid('getPager');
 
-    function updateStatus(id, status) {
+    function list(keyword) {
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: true,
+            pagination: true,
+            url: appPath + '/video/suggest/list?channel=' + videoChnl + "&keyword=" + keyword,
+            columns: [[
+                {
+                    field: 'title', title: '标题', width: 20
+                },
+                {
+                    field: 'url', title: '地址', width: 20,
+                    formatter: function (value, rec) {
+                        var str = "<a target='_blank' href='" + value + "'>源地址</a>"
+                        return str;
+                    }
+                },
+                {
+                    field: 'score', title: '评分', width: 20
+                },
+                {
+                    field: 'opt', title: '操作', width: 20, align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = "";
+                        if (rec.manual == 0)
+                            btn = "<a class='editcls' onclick='updateStatus(" + rec.id + ",1)' href='javascript:void(0)'>推荐</a>&nbsp&nbsp";
+                        else if (rec.manual == 1)
+                            btn = "<a class='editcls' onclick='updateStatus(" + rec.id + ",0)' href='javascript:void(0)'>取消推荐</a>";
+                        return btn;
+                    }
+                }
+            ]]
+        });
+        var pager = list.datagrid('getPager');
+    }
+
+    function updateStatus(id, manual) {
         $.ajax({
-            url: appPath + '/video/suggest/status/update?id=' + id + '&status=' + status,
+            url: appPath + '/video/suggest/manual/update?id=' + id + '&manual=' + manual,
             type: 'get',
             dataType: 'json',
             success: function (result) {
@@ -80,6 +90,11 @@
                 }
             }
         });
+    }
+
+    list('');
+    function search() {
+        list($("#keyword").val());
     }
 </script>
 </body>

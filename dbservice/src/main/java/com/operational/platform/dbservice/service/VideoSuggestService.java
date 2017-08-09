@@ -23,8 +23,8 @@ public interface VideoSuggestService {
 
     VideoSuggest getBySrc(Integer srcId);
 
-    List<VideoSuggest> listByChnlAndPage(Integer channelid,Integer pagesize,Integer pageindex);
+    List<VideoSuggest> listByChnlAndPage(Integer channelid,Integer pagesize,Integer pageindex,String keyword);
 
-    Long countByChnlAndPage(Integer channelid);
+    Long countByChnlAndPage(Integer channelid,String keyword);
 
 }

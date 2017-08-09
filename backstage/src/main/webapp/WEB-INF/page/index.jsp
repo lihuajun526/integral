@@ -103,14 +103,22 @@
         }
     });
 
+    var videoChnl = 0;
+
     $('#tt').tree({
         onClick: function (node) {
             if (node.id == 1)
                 loadPage('back/goods/goods_list.html');
             else if (node.id == 2)
                 loadPage('back/vipaccount/vip_account_list.html');
-            else if (node.id == 3)
+            else if (node.id == 31){
+                videoChnl = node.attributes.channel;
                 loadPage('back/suggest/video_suggest_list.html');
+            }else if (node.id == 32){
+                videoChnl = node.attributes.channel;
+                loadPage('back/suggest/video_suggest_list.html');
+            }
+
         }
     });
 

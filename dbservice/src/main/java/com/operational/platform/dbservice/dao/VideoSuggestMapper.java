@@ -31,7 +31,7 @@ public interface VideoSuggestMapper {
 
     int updateByPrimaryKey(VideoSuggest record);
 
-    List<VideoSuggest> listByChnlAndPage(Map<String, Integer> condition);
+    List<VideoSuggest> listByChnlAndPage(Map<String, Object> condition);
 
-    Long countByChnlAndPage(Integer channelid);
+    Long countByChnlAndPage(Map<String, Object> condition);
 }

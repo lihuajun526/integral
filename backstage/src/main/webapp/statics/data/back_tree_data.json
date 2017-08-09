@@ -9,7 +9,24 @@
   },
   {
     "id": 3,
-    "text": "视频推荐"
+    "text": "视频推荐",
+    "state": "closed",
+    "children": [
+      {
+        "id": 31,
+        "text": "电影",
+        "attributes": {
+          "channel": 1
+        }
+      },
+      {
+        "id": 32,
+        "text": "电视剧",
+        "attributes": {
+          "channel": 2
+        }
+      }
+    ]
   }
 ]
 

@@ -32,8 +32,8 @@ public class VideoSuggestController extends BaseController {
         Map<String, Object> data = new HashMap<>();
         Result<Map<String, Object>> result = new Result<>();
 
-        List<VideoSuggest> list = videoSuggestService.listByChnlAndPage(channelid, pagesize, pageindex);
-        long total = videoSuggestService.countByChnlAndPage(channelid);
+        List<VideoSuggest> list = videoSuggestService.listByChnlAndPage(channelid, pagesize, pageindex, null);
+        long total = videoSuggestService.countByChnlAndPage(channelid, null);
         long pageCount = total % pagesize == 0 ? total / pagesize : (total / pagesize + 1);
 
         data.put("pageCount", pageCount);
@@ -51,13 +51,13 @@ public class VideoSuggestController extends BaseController {
         Result<List<IndexSuggest>> result = new Result<>();
         List<IndexSuggest> list = new ArrayList<>();
 
-        List<VideoSuggest> dyList = videoSuggestService.listByChnlAndPage(1, count, 1);
+        List<VideoSuggest> dyList = videoSuggestService.listByChnlAndPage(1, count, 1, null);
         IndexSuggest indexSuggest1 = new IndexSuggest();
         indexSuggest1.setChannelid(1);
         indexSuggest1.setChannel("精选电影");
         indexSuggest1.setVideos(dyList);
 
-        List<VideoSuggest> dsjList = videoSuggestService.listByChnlAndPage(2, count, 1);
+        List<VideoSuggest> dsjList = videoSuggestService.listByChnlAndPage(2, count, 1, null);
         IndexSuggest indexSuggest2 = new IndexSuggest();
         indexSuggest2.setChannelid(2);
         indexSuggest2.setChannel("精选电视剧");

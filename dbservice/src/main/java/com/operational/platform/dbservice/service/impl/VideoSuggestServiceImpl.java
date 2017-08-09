@@ -62,18 +62,24 @@ public class VideoSuggestServiceImpl implements VideoSuggestService {
     }
 
     @Override
-    public List<VideoSuggest> listByChnlAndPage(Integer channelid, Integer pagesize, Integer pageindex) {
+    public List<VideoSuggest> listByChnlAndPage(Integer channelid, Integer pagesize, Integer pageindex, String keyword) {
 
-        Map<String, Integer> condition = new HashMap<>();
+        Map<String, Object> condition = new HashMap<>();
         condition.put("channelid", channelid);
         condition.put("pagesize", pagesize);
         condition.put("start", (pageindex - 1) * pagesize);
+        condition.put("keyword", keyword);
 
         return videoSuggestMapper.listByChnlAndPage(condition);
     }
 
     @Override
-    public Long countByChnlAndPage(Integer channelid) {
-        return videoSuggestMapper.countByChnlAndPage(channelid);
+    public Long countByChnlAndPage(Integer channelid, String keyword) {
+
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("channelid", channelid);
+        condition.put("keyword", keyword);
+
+        return videoSuggestMapper.countByChnlAndPage(condition);
     }
 }

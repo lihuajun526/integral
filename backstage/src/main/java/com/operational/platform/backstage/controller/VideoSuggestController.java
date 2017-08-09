@@ -32,18 +32,18 @@ public class VideoSuggestController extends BaseController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public String list() {
+    public String list(Integer channel, Integer page, Integer rows, String keyword) {
 
         ResultDg<List<VideoSuggest>> resultDg = new ResultDg<>();
 
-        List<VideoSuggest> list = videoSuggestService.listAll();
-        resultDg.setTotal(list.size());
+        List<VideoSuggest> list = videoSuggestService.listByChnlAndPage(channel, rows, page, keyword);
+        resultDg.setTotal(videoSuggestService.countByChnlAndPage(channel, keyword).intValue());
         resultDg.setRows(list);
 
         return JSON.toJSONString(resultDg);
     }
 
-    @RequestMapping("/status/update")
+    @RequestMapping("/manual/update")
     @ResponseBody
     public String updateStatus(VideoSuggest videoSuggest) {
 

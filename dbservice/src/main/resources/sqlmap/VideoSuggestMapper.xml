@@ -357,14 +357,22 @@
         select
         <include refid="Base_Column_List"/>
         from t_video_suggest
-        where channel = #{channelid,jdbcType=INTEGER} and status = 1
+        where channel = #{channelid,jdbcType=INTEGER}
+        and status = 1
+        <if test="keyword != null" >
+            and title like CONCAT('%','${keyword}','%')
+        </if>
         order by manual desc,overall_score desc
         limit #{start,jdbcType=INTEGER},#{pagesize,jdbcType=INTEGER}
     </select>
 
-    <select id="countByChnlAndPage" resultType="java.lang.Long" parameterType="java.lang.Integer">
+    <select id="countByChnlAndPage" resultType="java.lang.Long" parameterType="java.util.HashMap">
         select count(*)
         from t_video_suggest
-        where channel = #{channelid,jdbcType=INTEGER} and status = 1
+        where channel = #{channelid,jdbcType=INTEGER}
+        and status = 1
+        <if test="keyword != null" >
+            and title like CONCAT('%','${keyword}','%')
+        </if>
     </select>
 </mapper>
