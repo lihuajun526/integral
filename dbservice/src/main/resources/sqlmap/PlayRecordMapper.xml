@@ -103,6 +103,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.operational.platform.dbservice.model.PlayRecord" >
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
     insert into t_play_recorcd (id, userid, url, 
       title, image, create_time, 
       update_time)

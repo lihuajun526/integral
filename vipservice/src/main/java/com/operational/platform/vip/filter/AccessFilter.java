@@ -42,11 +42,19 @@ public class AccessFilter implements Filter {
             request.getRequestDispatcher("/user/notoken").forward(request, response);
             return;
         }
-        if (Constant.SessionMap.get(vipAccessToken) == null) {//未登录
-            request.getRequestDispatcher("/user/nologin").forward(request, response);
-            return;
+
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletRequest.getServletContext());
+        UserService userService = (UserService) webApplicationContext.getBean("userService");
+        User loginUser = null;
+        if (Constant.SessionMap.get(vipAccessToken) == null) {
+            loginUser = userService.getByAccessToken(vipAccessToken);
+            if (loginUser == null) {
+                request.getRequestDispatcher("/user/nologin").forward(request, response);
+                return;
+            } else {
+                Constant.SessionMap.put(vipAccessToken, loginUser);
+            }
         }
-        User loginUser = Constant.SessionMap.get(vipAccessToken);
         if (loginUser.getVipAccessTokenExpires().getTime() <= System.currentTimeMillis()) {//vipAccessToken过期
             request.getRequestDispatcher("/user/nologin").forward(request, response);
             return;

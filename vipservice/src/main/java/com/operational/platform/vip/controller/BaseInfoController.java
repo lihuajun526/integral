@@ -1,19 +1,21 @@
 package com.operational.platform.vip.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.dbservice.model.AppVersion;
 import com.operational.platform.dbservice.model.Regular;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.service.BaseInfoService;
+import com.operational.platform.dbservice.service.ConfigService;
 import com.operational.platform.vip.base.BaseController;
 import com.operational.platform.vip.base.Result;
 import com.operational.platform.vip.constant.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,8 @@ public class BaseInfoController extends BaseController {
 
     @Autowired
     private BaseInfoService baseInfoService;
+    @Autowired
+    private ConfigService configService;
 
     @ResponseBody
     @RequestMapping("/base/info")
@@ -41,9 +45,20 @@ public class BaseInfoController extends BaseController {
         data.put("regulars", regulars);
         if (!StringUtils.isEmpty(vipAccessToken)) {
             User loginUser = Constant.SessionMap.get(vipAccessToken);
-            if (loginUser != null)
+            if (loginUser != null) {
                 data.put("vipExpires", loginUser.getVipExpires());
+                data.put("integral", loginUser.getIntegral());
+            }
         }
+        List<String> descList = new ArrayList<>();
+        String buyDesc = configService.getString("buy.desc");
+        for (String desc : buyDesc.split("#")) {
+            descList.add(desc);
+        }
+        data.put("buyDesc", descList);
+
+        String linkWay = configService.getString("link.way");
+        data.put("linkWay", JSONObject.parseObject(linkWay));
 
         result.setData(data);
         return result.toString();

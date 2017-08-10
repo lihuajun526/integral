@@ -94,6 +94,7 @@ public class GoodsController extends BaseController {
         }
         Constant.SessionMap.put(vipAccessToken, loginUser);
         map.put("vipExpires", loginUser.getVipExpires());
+        map.put("integral", loginUser.getIntegral());
         result.setData(map);
         result.setMessage("购买成功");
         return result.toString();

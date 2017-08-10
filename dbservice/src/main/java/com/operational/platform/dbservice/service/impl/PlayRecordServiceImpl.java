@@ -21,7 +21,10 @@ public class PlayRecordServiceImpl implements PlayRecordService {
 
     @Override
     public void save(PlayRecord playRecord) {
-        playRecordMapper.insert(playRecord);
+        if (playRecord.getId() == null)
+            playRecordMapper.insert(playRecord);
+        else
+            playRecordMapper.updateByPrimaryKeySelective(playRecord);
     }
 
     @Override
