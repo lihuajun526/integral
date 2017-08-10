@@ -21,9 +21,9 @@ public class ApplicationInit implements ServletContextListener {
 
         LOGGER.info("##############################系统初始化开始##############################");
 
-        /*WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContextEvent.getServletContext());
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContextEvent.getServletContext());
         WechatConstant wechatConstant = (WechatConstant) webApplicationContext.getBean("wechatConstant");
-        wechatConstant.init();*/
+        wechatConstant.init();
 
         LOGGER.info("##############################系统初始化结束##############################");
     }

@@ -54,6 +54,12 @@ public class CookieController extends BaseController {
         }
 
         User loginUser = Constant.SessionMap.get(vipAccessToken);
+
+        if (loginUser.getVipExpires().getTime() <= System.currentTimeMillis()) {//会员权益过期
+            result.set(ExceptionCode.VIP_EXPIRES_OUT_ERROR.code, ExceptionCode.VIP_EXPIRES_OUT_ERROR.description);
+            return result.toString();
+        }
+
         String belong = "";
         if (url.indexOf(VipPlatform.Iqy.domain) != -1) {
             belong = VipPlatform.Iqy.name;

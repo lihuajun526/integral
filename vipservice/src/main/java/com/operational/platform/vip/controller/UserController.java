@@ -148,7 +148,8 @@ public class UserController extends BaseController {
             }
             userService.update(user);
             //更新sessionMap中vipAccessToken及过期时间
-            Constant.SessionMap.remove(oldVipAccessToken);
+            if (!StringUtils.isEmpty(oldVipAccessToken))
+                Constant.SessionMap.remove(oldVipAccessToken);
             Constant.SessionMap.put(user.getVipAccessToken(), user);
         }
         result.setData(user);

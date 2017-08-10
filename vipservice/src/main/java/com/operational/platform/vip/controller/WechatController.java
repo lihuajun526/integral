@@ -2,7 +2,6 @@ package com.operational.platform.vip.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.dbservice.model.User;
-import com.operational.platform.dbservice.model.VipAccount;
 import com.operational.platform.dbservice.model.WechatMsg;
 import com.operational.platform.dbservice.service.*;
 import com.operational.platform.vip.constant.Constant;
@@ -23,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -73,88 +71,68 @@ public class WechatController {
             //正常的微信处理流程
             WechatMsg wechatMsg = new WechatProcess().processWechatMag(xml);
             String openid = wechatMsg.getFromUserName();
-            User user = userService.getByOpenid(openid);
+            WechatMsg reply = new WechatMsg();
             if ("subscribe".equalsIgnoreCase(wechatMsg.getEvent())) {//关注
-                if (null == user) {//添加用户
+                //获取用户基本信息
+                HttpGet httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + Constant.ACCESS_TOKEN + "&openid=" + openid + "&lang=zh_CN");
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = XHttpClient.doRequest(httpGet);
+                } catch (Exception e) {
+                    LOGGER.error("获取用户基本信息错误：", e);
+                }
+                String unionid = jsonObject.getString("unionid");
+                User user = userService.getByUnionid(unionid);
+                if (user == null) {//第一次关注公众号，且没在app中登录过
+                    int integral = configService.getInt("integral.subscribe.encourage");
                     user = new User();
                     user.setStatus(1);
-                    user.setIntegral(configService.getInt("integral.subscribe.encourage"));
+                    user.setIntegral(integral);
                     user.setOpenid(openid);
-                    //获取用户基本信息
-                    HttpGet httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + Constant.ACCESS_TOKEN + "&openid=" + openid + "&lang=zh_CN");
-                    try {
-                        JSONObject jsonObject = XHttpClient.doRequest(httpGet);
-                        user.setNickname(jsonObject.getString("nickname"));
-                        user.setSex(jsonObject.getInteger("sex"));
-                        user.setLanguage(jsonObject.getString("language"));
-                        user.setCity(jsonObject.getString("city"));
-                        user.setProvince(jsonObject.getString("province"));
-                        user.setCountry(jsonObject.getString("country"));
-                        user.setHeadimgurl(jsonObject.getString("headimgurl"));
-                    } catch (Exception e) {
-                        LOGGER.error("获取用户基本信息错误：", e);
-                    }
+                    user.setNickname(jsonObject.getString("nickname"));
+                    user.setSex(jsonObject.getInteger("sex"));
+                    user.setLanguage(jsonObject.getString("language"));
+                    user.setCity(jsonObject.getString("city"));
+                    user.setProvince(jsonObject.getString("province"));
+                    user.setCountry(jsonObject.getString("country"));
+                    user.setHeadimgurl(jsonObject.getString("headimgurl"));
+                    user.setSubscribeTime(new Date());
+                    user.setUnionid(unionid);
+                    user.setVipExpires(new Date());
                     userService.save(user);
-                    LOGGER.info("新用户[{}]关注成功", user.getNickname());
-                    //奖励推广者积分
-                    String key = wechatMsg.getEventKey();
-                    if (!StringUtils.isEmpty(key)) {
-                        integralService.encourageFromPopularize(Integer.parseInt(key.split("_")[1]), user.getId(), configService.getInt("integral.spread.encourage"));
+                    reply.setContent("欢迎关注黑眼圈365，已赠送给您" + integral + "积分，下载APP后您可在爱奇艺、乐视、芒果TV中享受7天vip会员权益");
+                } else {
+                    if (StringUtils.isEmpty(user.getOpenid())) {//在app中登录过
+                        int integral = configService.getInt("integral.subscribe.encourage");
+                        reply.setContent("欢迎关注黑眼圈365，已赠送给您" + integral + "积分，下载APP后您可在爱奇艺、乐视、芒果TV中享受7天vip会员权益");
+                        user.setIntegral(user.getIntegral() + integral);
+                    } else {//取消关注后再次关注
+                        reply.setContent("欢迎回来");
                     }
-                } else {//更新用户状态
-                    User updateUser = new User();
-                    updateUser.setId(user.getId());
-                    updateUser.setStatus(1);
-                    userService.update(updateUser);
-                    LOGGER.info("老用户[{}]重新关注成功", user.getNickname());
+                    user.setOpenid(openid);
+                    user.setStatus(1);
+                    userService.update(user);
                 }
-                WechatMsg reply = new WechatMsg();
                 reply.setToUserName(openid);
                 reply.setFromUserName(appConfig.wechatAccount);
                 reply.setCreateTime(new Date());
                 reply.setMsgType("text");
-                reply.setContent("欢迎关注黑眼圈365");
+
                 result = reply.toXml();
                 LOGGER.info("关注后的返回数据：" + result);
             } else if ("unsubscribe".equalsIgnoreCase(wechatMsg.getEvent())) {//取消关注
                 User updateUser = new User();
-                updateUser.setId(user.getId());
-                updateUser.setStatus(0);
-                userService.update(updateUser);
-                LOGGER.info("用户[{}]取消关注成功", user.getNickname());
-            } else if ("scan".equalsIgnoreCase(wechatMsg.getEvent())) {
-                LOGGER.info("已关注的用户[{}]扫描二维码不做任何处理", user.getNickname());
-            } else if ("click".equalsIgnoreCase(wechatMsg.getEvent())) {//点击菜单
-                if ("getVip".equalsIgnoreCase(wechatMsg.getEventKey())) {//获取vip
-                    List<VipAccount> list = vipAccountService.listVip(user);
-                    String content = null;
-                    if (list != null && list.size() > 0) {
-                        StringBuffer vips = new StringBuffer();
-                        boolean isFirst = true;
-                        for (VipAccount vipAccount : list) {
-                            if (isFirst) {
-                                vips.append(vipAccount.getTypeName()).append("账号/密码：\n")
-                                        .append(vipAccount.getAccount()).append(" / ")
-                                        .append(vipAccount.getPassword());
-                                isFirst = false;
-                                continue;
-                            }
-                            vips.append("\n\n").append(vipAccount.getTypeName()).append("账号/密码：\n")
-                                    .append(vipAccount.getAccount()).append(" / ")
-                                    .append(vipAccount.getPassword());
-                        }
-                        content = vips.toString();
-                    } else {
-                        content = "没有购买记录";
-                    }
-                    WechatMsg reply = new WechatMsg();
-                    reply.setToUserName(openid);
-                    reply.setFromUserName(appConfig.wechatAccount);
-                    reply.setCreateTime(new Date());
-                    reply.setMsgType("text");
-                    reply.setContent(content);
-                    result = reply.toXml();
+                User dbUser = userService.getByOpenid(openid);
+                if (dbUser != null) {
+                    updateUser.setId(dbUser.getId());
+                    updateUser.setStatus(0);
+                    userService.update(updateUser);
+                    LOGGER.info("用户[{}]取消关注成功", dbUser.getNickname());
                 }
+            } else if ("scan".equalsIgnoreCase(wechatMsg.getEvent())) {
+                LOGGER.info("已关注的用户[{}]扫描二维码不做任何处理");
+            } else if ("click".equalsIgnoreCase(wechatMsg.getEvent())) {//点击菜单
+
             }
         }
         PrintWriter writer = response.getWriter();
