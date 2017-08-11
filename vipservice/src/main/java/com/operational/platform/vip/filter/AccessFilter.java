@@ -45,8 +45,8 @@ public class AccessFilter implements Filter {
 
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletRequest.getServletContext());
         UserService userService = (UserService) webApplicationContext.getBean("userService");
-        User loginUser = null;
-        if (Constant.SessionMap.get(vipAccessToken) == null) {
+        User loginUser = Constant.SessionMap.get(vipAccessToken);
+        if (loginUser == null) {
             loginUser = userService.getByAccessToken(vipAccessToken);
             if (loginUser == null) {
                 request.getRequestDispatcher("/user/nologin").forward(request, response);
