@@ -82,4 +82,16 @@ public class VideoSuggestServiceImpl implements VideoSuggestService {
 
         return videoSuggestMapper.countByChnlAndPage(condition);
     }
+
+    @Override
+    public VideoSuggest getByUrl(String url) {
+        VideoSuggestExample example = new VideoSuggestExample();
+        VideoSuggestExample.Criteria criteria = example.createCriteria();
+        criteria.andUrlEqualTo(url);
+
+        List<VideoSuggest> list = videoSuggestMapper.selectByExample(example);
+        if (list.size() > 0)
+            return list.get(0);
+        return null;
+    }
 }

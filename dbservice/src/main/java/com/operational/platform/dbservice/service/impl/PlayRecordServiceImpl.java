@@ -33,10 +33,24 @@ public class PlayRecordServiceImpl implements PlayRecordService {
         PlayRecordExample example = new PlayRecordExample();
         PlayRecordExample.Criteria criteria = example.createCriteria();
         criteria.andUseridEqualTo(user.getId());
-        example.setOrderByClause("create_time desc");
+        example.setOrderByClause("update_time desc");
         List<PlayRecord> list = playRecordMapper.selectByExample(example);
         if (list.size() > 10)
             return list.subList(0, 10);
         return list;
+    }
+
+    @Override
+    public List<PlayRecord> listByUserAndUrl(PlayRecord playRecord) {
+        PlayRecordExample example = new PlayRecordExample();
+        PlayRecordExample.Criteria criteria = example.createCriteria();
+        criteria.andUseridEqualTo(playRecord.getUserid());
+        criteria.andUrlEqualTo(playRecord.getUrl());
+        return playRecordMapper.selectByExample(example);
+    }
+
+    @Override
+    public void update(PlayRecord playRecord) {
+        playRecordMapper.updateByPrimaryKeySelective(playRecord);
     }
 }

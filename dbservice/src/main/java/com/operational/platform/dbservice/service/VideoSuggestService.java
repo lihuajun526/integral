@@ -27,4 +27,6 @@ public interface VideoSuggestService {
 
     Long countByChnlAndPage(Integer channelid,String keyword);
 
+    VideoSuggest getByUrl(String url);
+
 }

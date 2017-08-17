@@ -15,4 +15,8 @@ public interface PlayRecordService {
 
     List<PlayRecord> listLatestByUser(User user);
 
+    List<PlayRecord> listByUserAndUrl(PlayRecord playRecord);
+
+    void update(PlayRecord playRecord);
+
 }

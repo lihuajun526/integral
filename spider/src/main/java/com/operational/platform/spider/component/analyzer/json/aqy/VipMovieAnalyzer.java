@@ -28,7 +28,7 @@ public class VipMovieAnalyzer extends JsonAnalyzer {
             JSONObject obj = docs.getJSONObject(i).getJSONObject("albumDocInfo");
             ParseResult parseResult = new ParseResult();
             parseResult.setTitle(obj.getString("albumTitle"));
-            parseResult.setLink(obj.getString("albumLink"));
+            parseResult.setLink(obj.getString("albumLink").replaceFirst("www.", "m.").replaceFirst("vip.","m."));
             Map<String, String> attr = new HashMap<>();
             attr.put("desc", obj.getJSONObject("video_lib_meta").getString("description"));
             String logo = obj.getString("albumVImage").replace(".jpg", "_195_260.jpg");
