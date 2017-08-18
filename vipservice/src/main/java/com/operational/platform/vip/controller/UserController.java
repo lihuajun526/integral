@@ -117,6 +117,7 @@ public class UserController extends BaseController {
             user.setAppOpenid(jsonObject.getString("openid"));
             user.setNickname(jsonObject.getString("nickname"));
             user.setSex(jsonObject.getInteger("sex"));
+            user.setLanguage(jsonObject.getString("language"));
             user.setProvince(jsonObject.getString("province"));
             user.setCity(jsonObject.getString("city"));
             user.setCountry(jsonObject.getString("country"));
@@ -128,6 +129,8 @@ public class UserController extends BaseController {
             calendar.add(Calendar.DAY_OF_MONTH, 1);//让日期加1
             user.setVipExpires(calendar.getTime());
             user.setIntegral(Config.getInt("user.regist.integral.encourage"));
+            user.setCreateTime(new Date());
+
 
             String vipAccessToken = StrUtil.getRandomString(32) + System.currentTimeMillis();
             try {
