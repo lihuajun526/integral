@@ -1,7 +1,9 @@
 package com.operational.platform.vip.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.common.constant.VipPlatform;
 import com.operational.platform.common.exception.RequestException;
+import com.operational.platform.common.util.StrUtil;
 import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.dbservice.model.PlayRecord;
 import com.operational.platform.dbservice.model.User;
@@ -150,9 +152,10 @@ class CrawlVideo implements Runnable {
 
     private Map<String, String> aqy() {
         Map<String, String> map = new HashMap<>();
-
         try {
-            String response = XHttpClient.doRequest(new HttpGet(playRecord.getUrl()));
+            HttpGet httpGet = new HttpGet(playRecord.getUrl());
+            httpGet.setHeader("User-Agent", "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7");
+            String response = XHttpClient.doRequest(httpGet);
             Document doc = Jsoup.parse(response);
             Elements elements = doc.select("html>head>title");
             String videoType = "";
@@ -171,12 +174,12 @@ class CrawlVideo implements Runnable {
                 } else
                     LOGGER.error("提取图片链接错误[{}]", playRecord.getUrl());
             } else if (videoType.equals("电影")) {
-                elements = doc.select("div#videoZone>div.m-video-fullScreenWrap>div.m-video-poster>img");
-                if (elements != null && elements.size() > 0) {
-                    String image = elements.get(0).attr("src");
-                    map.put("image", "http:" + image);
-                } else
+                String image = StrUtil.getMatcher("playInfo.vpic.*=.*\"http:.*\\.jpg\"", response);
+                if (StringUtils.isEmpty(image)) {
                     LOGGER.error("提取图片链接错误[{}]", playRecord.getUrl());
+                }
+                image = image.replaceAll("\\\\", "").replaceAll("playInfo.vpic", "").replaceAll("=", "").replaceAll("\"", "").replaceAll(" ", "");
+                map.put("image", image);
             } else {
                 LOGGER.error("无法判断视频类型[{}]", playRecord.getUrl());
             }
@@ -189,15 +192,11 @@ class CrawlVideo implements Runnable {
     private Map<String, String> mgtv() {
         Map<String, String> map = new HashMap<>();
         try {
-            String response = XHttpClient.doRequest(new HttpGet(playRecord.getUrl()));
-            Document doc = Jsoup.parse(response);
-            Elements elements = doc.select("div.v5-area-bar>div.hd>span.vtit");
-            if (elements != null && elements.size() > 0) {
-                String title = elements.get(0).text();
-                map.put("title", title);
-            } else {
-                LOGGER.error("提取标题错误[{}]", playRecord.getUrl());
-            }
+            String[] strs = playRecord.getUrl().split("/");
+            String response = XHttpClient.doRequest(new HttpGet("http://v5m.api.mgtv.com/remaster/vrs/getByPartId?abroad=0&partId=" + strs[strs.length - 1] + "&clipId=" + strs[strs.length - 2]));
+            JSONObject data = JSONObject.parseObject(response).getJSONObject("data");
+            map.put("title", data.getString("clipName"));
+            map.put("image", data.getString("image"));
         } catch (RequestException e) {
             LOGGER.error("提取标题或图片错误[{}]:", playRecord.getUrl(), e);
         }
@@ -207,20 +206,22 @@ class CrawlVideo implements Runnable {
     private Map<String, String> ls() {
         Map<String, String> map = new HashMap<>();
         try {
-            String response = XHttpClient.doRequest(new HttpGet(playRecord.getUrl()));
+            HttpGet httpGet = new HttpGet(playRecord.getUrl());
+            httpGet.setHeader("User-Agent", "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7");
+            String response = XHttpClient.doRequest(httpGet);
             Document doc = Jsoup.parse(response);
-            Elements elements = doc.select("div#j-player>div>div.hv_play_poster");
+
+            Elements elements = doc.select("meta[name=twitter:image]");
             if (elements != null && elements.size() > 0) {
-                String image = elements.get(0).attr("style");
-                image = image.substring(image.indexOf("url(\"") + 5, image.indexOf("\");"));
+                String image = elements.get(0).attr("content");
                 map.put("image", image);
             } else {
                 LOGGER.error("提取图片链接错误[{}]", playRecord.getUrl());
             }
-            elements = doc.select("section#j-introduction>div.column_box>dl.intro_cnt>dt>h2");
+            elements = doc.select("title");
             if (elements != null && elements.size() > 0) {
                 String title = elements.get(0).text();
-                map.put("title", title);
+                map.put("title", title.split(" ")[0]);
             } else {
                 LOGGER.error("提取标题错误[{}]", playRecord.getUrl());
             }

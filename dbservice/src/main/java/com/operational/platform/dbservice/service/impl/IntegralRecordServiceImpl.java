@@ -21,4 +21,14 @@ public class IntegralRecordServiceImpl implements IntegralRecordService {
     public List<IntegralRecord> selectBySelective(IntegralRecord integralRecord) {
         return integralRecordMapper.selectBySelective(integralRecord);
     }
+
+    @Override
+    public List<IntegralRecord> selectByUserAndType(IntegralRecord integralRecord) {
+        return null;
+    }
+
+    @Override
+    public void save(IntegralRecord integralRecord) {
+        integralRecordMapper.insert(integralRecord);
+    }
 }

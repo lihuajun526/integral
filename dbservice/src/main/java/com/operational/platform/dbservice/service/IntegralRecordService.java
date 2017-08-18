@@ -12,4 +12,8 @@ public interface IntegralRecordService {
 
     List<IntegralRecord> selectBySelective(IntegralRecord integralRecord);
 
+    List<IntegralRecord> selectByUserAndType(IntegralRecord integralRecord);
+
+    void save(IntegralRecord integralRecord);
+
 }

@@ -79,8 +79,8 @@ public class GoodsServiceImpl implements GoodsService {
         //新增积分记录
         IntegralRecord integralRecord = new IntegralRecord();
         integralRecord.setType(20);//消费
-        integralRecord.setCount(0 - goods.getPrice());
-        integralRecord.setDes("购买了商品[title=" + goods.getTitle() + "]");
+        integralRecord.setIntegral(0 - goods.getPrice());
+        integralRecord.setDescription("购买了商品[title=" + goods.getTitle() + "]");
         integralRecord.setUserid(user.getId());
         integralRecord.setGoodsid(goods.getId());
         integralRecordMapper.insert(integralRecord);

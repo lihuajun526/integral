@@ -2,28 +2,23 @@ package com.operational.platform.dbservice.model;
 
 import java.util.Date;
 
-/**
- * Created by lihuajun on 16-7-6.
- */
 public class IntegralRecord {
-
     private Integer id;
+
     private Integer userid;
-    private Integer vipAccountId;
+
     private Integer goodsid;
-    private Integer count;
-    /**
-     * 10:奖励(关注公众号)
-     * 11:奖励(分享到微信朋友圈)
-     * 12:奖励(分享到qq空间)
-     * 13:奖励(推广)
-     * 20:消费
-     * 30:充值
-     */
+
+    private Integer integral;
+
     private Integer type;
+
     private String tag;
-    private String des;
+
+    private String description;
+
     private Date createTime;
+
     private Date updateTime;
 
     public Integer getId() {
@@ -42,12 +37,20 @@ public class IntegralRecord {
         this.userid = userid;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getGoodsid() {
+        return goodsid;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setGoodsid(Integer goodsid) {
+        this.goodsid = goodsid;
+    }
+
+    public Integer getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
     }
 
     public Integer getType() {
@@ -56,6 +59,22 @@ public class IntegralRecord {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag == null ? null : tag.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public Date getCreateTime() {
@@ -72,37 +91,5 @@ public class IntegralRecord {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getDes() {
-        return des;
-    }
-
-    public void setDes(String des) {
-        this.des = des;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public Integer getGoodsid() {
-        return goodsid;
-    }
-
-    public void setGoodsid(Integer goodsid) {
-        this.goodsid = goodsid;
-    }
-
-    public Integer getVipAccountId() {
-        return vipAccountId;
-    }
-
-    public void setVipAccountId(Integer vipAccountId) {
-        this.vipAccountId = vipAccountId;
     }
 }

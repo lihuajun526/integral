@@ -10,6 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lihuajun on 2016/9/12.
@@ -147,6 +149,17 @@ public class StrUtil {
             sb.append("&").append(entry.getKey()).append("=").append(value);
         }
         return url + "?" + sb.substring(1);
+    }
+
+
+    public static String getMatcher(String regex, String source) {
+        String result = "";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(source);
+        while (matcher.find()) {
+            result = matcher.group();
+        }
+        return result;
     }
 
     public static void main(String[] args) {

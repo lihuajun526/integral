@@ -7,6 +7,7 @@ import com.operational.platform.common.exception.CommonException;
 import com.operational.platform.common.exception.CryptoException;
 import com.operational.platform.common.exception.RequestException;
 import com.operational.platform.common.util.AESCryptoUtil;
+import com.operational.platform.common.util.Config;
 import com.operational.platform.common.util.StrUtil;
 import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.dbservice.model.User;
@@ -93,7 +94,7 @@ public class UserController extends BaseController {
         }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 28);//让日期加28
+        calendar.add(Calendar.DAY_OF_MONTH, 28);//让日期加28
         User user = userService.getByUnionid(unionid);
         if (user == null) {
             //获取用户基本信息
@@ -123,8 +124,10 @@ public class UserController extends BaseController {
             user.setPrivilege(jsonObject.getString("privilege"));
             user.setUnionid(jsonObject.getString("unionid"));
             user.setVipAccessTokenExpires(calendar.getTime());
-            user.setVipExpires(new Date());
-            user.setIntegral(0);
+            calendar.setTime(new Date());
+            calendar.add(Calendar.DAY_OF_MONTH, 1);//让日期加1
+            user.setVipExpires(calendar.getTime());
+            user.setIntegral(Config.getInt("user.regist.integral.encourage"));
 
             String vipAccessToken = StrUtil.getRandomString(32) + System.currentTimeMillis();
             try {

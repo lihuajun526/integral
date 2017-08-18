@@ -4,30 +4,92 @@
     <resultMap id="BaseResultMap" type="com.operational.platform.dbservice.model.IntegralRecord">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="userid" property="userid" jdbcType="INTEGER"/>
-        <result column="vip_account_id" property="vipAccountId" jdbcType="INTEGER"/>
-        <result column="goodsid" property="goodsid" jdbcType="INTEGER"/>
-        <result column="count" property="count" jdbcType="INTEGER"/>
+        <result column="integral" property="integral" jdbcType="INTEGER"/>
         <result column="type" property="type" jdbcType="INTEGER"/>
         <result column="tag" property="tag" jdbcType="VARCHAR"/>
-        <result column="des" property="des" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <resultMap id="ResultMap" type="com.operational.platform.dbservice.model.IntegralRecord">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="userid" property="userid" jdbcType="INTEGER"/>
-        <result column="vip_account_id" property="vipAccountId" jdbcType="INTEGER"/>
-        <result column="goodsid" property="goodsid" jdbcType="INTEGER"/>
-        <result column="count" property="count" jdbcType="INTEGER"/>
-        <result column="type" property="type" jdbcType="INTEGER"/>
-        <result column="tag" property="tag" jdbcType="VARCHAR"/>
-        <result column="des" property="des" jdbcType="VARCHAR"/>
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
-    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
     <sql id="Base_Column_List">
-    id, userid, vip_account_id, goodsid, count, type, tag, des, create_time, update_time
-  </sql>
+        id, userid, integral, type, tag, description, create_time, update_time
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.operational.platform.dbservice.model.IntegralRecordExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from t_integral_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -35,19 +97,23 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_integral_record
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete from t_integral_record
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.operational.platform.dbservice.model.IntegralRecordExample">
+        delete from t_integral_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
     <insert id="insert" parameterType="com.operational.platform.dbservice.model.IntegralRecord">
-    insert into t_integral_record (id, userid, vip_account_id, 
-      goodsid, count, type, 
-      tag, des, create_time,
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{vipAccountId,jdbcType=INTEGER}, 
-      #{goodsid,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
-      #{tag,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, NOW(),
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
+        insert into t_integral_record (id, userid, integral,
+        type, tag, description,
+        create_time, update_time)
+        values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER},
+        #{type,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
     <insert id="insertSelective" parameterType="com.operational.platform.dbservice.model.IntegralRecord">
         insert into t_integral_record
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -57,14 +123,8 @@
             <if test="userid != null">
                 userid,
             </if>
-            <if test="vipAccountId != null">
-                vip_account_id,
-            </if>
-            <if test="goodsid != null">
-                goodsid,
-            </if>
-            <if test="count != null">
-                count,
+            <if test="integral != null">
+                integral,
             </if>
             <if test="type != null">
                 type,
@@ -72,8 +132,8 @@
             <if test="tag != null">
                 tag,
             </if>
-            <if test="des != null">
-                des,
+            <if test="description != null">
+                description,
             </if>
             <if test="createTime != null">
                 create_time,
@@ -89,14 +149,8 @@
             <if test="userid != null">
                 #{userid,jdbcType=INTEGER},
             </if>
-            <if test="vipAccountId != null">
-                #{vipAccountId,jdbcType=INTEGER},
-            </if>
-            <if test="goodsid != null">
-                #{goodsid,jdbcType=INTEGER},
-            </if>
-            <if test="count != null">
-                #{count,jdbcType=INTEGER},
+            <if test="integral != null">
+                #{integral,jdbcType=INTEGER},
             </if>
             <if test="type != null">
                 #{type,jdbcType=INTEGER},
@@ -104,8 +158,8 @@
             <if test="tag != null">
                 #{tag,jdbcType=VARCHAR},
             </if>
-            <if test="des != null">
-                #{des,jdbcType=VARCHAR},
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
@@ -115,20 +169,67 @@
             </if>
         </trim>
     </insert>
+    <select id="countByExample" parameterType="com.operational.platform.dbservice.model.IntegralRecordExample"
+            resultType="java.lang.Integer">
+        select count(*) from t_integral_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_integral_record
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.userid != null">
+                userid = #{record.userid,jdbcType=INTEGER},
+            </if>
+            <if test="record.integral != null">
+                integral = #{record.integral,jdbcType=INTEGER},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=INTEGER},
+            </if>
+            <if test="record.tag != null">
+                tag = #{record.tag,jdbcType=VARCHAR},
+            </if>
+            <if test="record.description != null">
+                description = #{record.description,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_integral_record
+        set id = #{record.id,jdbcType=INTEGER},
+        userid = #{record.userid,jdbcType=INTEGER},
+        integral = #{record.integral,jdbcType=INTEGER},
+        type = #{record.type,jdbcType=INTEGER},
+        tag = #{record.tag,jdbcType=VARCHAR},
+        description = #{record.description,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
     <update id="updateByPrimaryKeySelective" parameterType="com.operational.platform.dbservice.model.IntegralRecord">
         update t_integral_record
         <set>
             <if test="userid != null">
                 userid = #{userid,jdbcType=INTEGER},
             </if>
-            <if test="vipAccountId != null">
-                vip_account_id = #{vipAccountId,jdbcType=INTEGER},
-            </if>
-            <if test="goodsid != null">
-                goodsid = #{goodsid,jdbcType=INTEGER},
-            </if>
-            <if test="count != null">
-                count = #{count,jdbcType=INTEGER},
+            <if test="integral != null">
+                integral = #{integral,jdbcType=INTEGER},
             </if>
             <if test="type != null">
                 type = #{type,jdbcType=INTEGER},
@@ -136,8 +237,8 @@
             <if test="tag != null">
                 tag = #{tag,jdbcType=VARCHAR},
             </if>
-            <if test="des != null">
-                des = #{des,jdbcType=VARCHAR},
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -149,31 +250,19 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.operational.platform.dbservice.model.IntegralRecord">
-    update t_integral_record
-    set userid = #{userid,jdbcType=INTEGER},
-      vip_account_id = #{vipAccountId,jdbcType=INTEGER},
-      goodsid = #{goodsid,jdbcType=INTEGER},
-      count = #{count,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER},
-      tag = #{tag,jdbcType=VARCHAR},
-      des = #{des,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-
+        update t_integral_record
+        set userid = #{userid,jdbcType=INTEGER},
+        integral = #{integral,jdbcType=INTEGER},
+        type = #{type,jdbcType=INTEGER},
+        tag = #{tag,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
     <!-- 自定义 -->
-    <select id="selectByBeginTime" resultMap="BaseResultMap" parameterType="java.util.HashMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_integral_record
-        where type = 20
-        and goodsid = #{goodsid,jdbcType=INTEGER}
-        and create_time >= #{startTime,jdbcType=DATE}
-        and userid = #{userid,jdbcType=INTEGER}
-    </select>
-
-    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.IntegralRecord">
+    <select id="selectByCondition" resultMap="BaseResultMap"
+            parameterType="com.operational.platform.dbservice.model.IntegralRecord">
         select
         <include refid="Base_Column_List"/>
         from t_integral_record
@@ -185,8 +274,8 @@
             and type = #{type,jdbcType=INTEGER}
         </if>
     </select>
-
-    <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.IntegralRecord">
+    <select id="selectBySelective" resultMap="BaseResultMap"
+            parameterType="com.operational.platform.dbservice.model.IntegralRecord">
         select
         <include refid="Base_Column_List"/>
         from t_integral_record

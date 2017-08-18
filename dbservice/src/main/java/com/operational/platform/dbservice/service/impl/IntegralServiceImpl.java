@@ -46,8 +46,8 @@ public class IntegralServiceImpl implements IntegralService {
             str = "到qq空间";
         }
         integralRecord.setTag("分享" + str);
-        integralRecord.setDes(desc);
-        integralRecord.setCount(count);
+        integralRecord.setDescription(desc);
+        integralRecord.setIntegral(count);
         integralRecord.setType(type);
         //todo 积分记录表添加记录
         user.setIntegral(user.getIntegral() + count);
@@ -100,8 +100,8 @@ public class IntegralServiceImpl implements IntegralService {
         userMapper.updateByPrimaryKeySelective(updateUser);
 
         IntegralRecord integralRecord = new IntegralRecord();
-        integralRecord.setCount(count);
-        integralRecord.setDes("用户[" + friendid + "]通过扫描你的二维码关注了公众号");
+        integralRecord.setIntegral(count);
+        integralRecord.setDescription("用户[" + friendid + "]通过扫描你的二维码关注了公众号");
         integralRecord.setTag("推广");
         integralRecord.setUserid(userid);
         integralRecord.setType(13);
@@ -123,8 +123,8 @@ public class IntegralServiceImpl implements IntegralService {
         IntegralRecord integralRecord = new IntegralRecord();
         integralRecord.setUserid(userid);
         integralRecord.setTag("关注");
-        integralRecord.setDes("关注公众号");
-        integralRecord.setCount(count);
+        integralRecord.setDescription("关注公众号");
+        integralRecord.setIntegral(count);
         integralRecord.setType(10);
         integralRecordMapper.insert(integralRecord);
         return true;

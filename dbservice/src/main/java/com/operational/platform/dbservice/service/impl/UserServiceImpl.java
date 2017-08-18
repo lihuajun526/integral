@@ -1,13 +1,16 @@
 package com.operational.platform.dbservice.service.impl;
 
+import com.operational.platform.dbservice.dao.IntegralRecordMapper;
 import com.operational.platform.dbservice.model.IntegralRecord;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.model.UserExample;
+import com.operational.platform.dbservice.service.IntegralRecordService;
 import com.operational.platform.dbservice.service.UserService;
 import com.operational.platform.dbservice.dao.UserMapper;
 import com.operational.platform.dbservice.service.IntegralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -23,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private IntegralService integralService;
+    @Autowired
+    private IntegralRecordService integralRecordService;
 
     @Override
     public User getByOpenid(String openid) {
@@ -67,9 +72,17 @@ public class UserServiceImpl implements UserService {
         return list;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int save(User user) {
-        return userMapper.insert(user);
+        int i = userMapper.insert(user);
+        IntegralRecord integralRecord = new IntegralRecord();
+        integralRecord.setUserid(user.getId());
+        integralRecord.setDescription("新用户注册");
+        integralRecord.setGoodsid(0);
+        integralRecord.setType(14);
+        integralRecordService.save(integralRecord);
+        return i;
     }
 
     @Override
