@@ -63,14 +63,14 @@ public class CookieController extends BaseController {
         String belong = "";
         if (url.indexOf(VipPlatform.Iqy.domain) != -1) {
             belong = VipPlatform.Iqy.name;
+        } else if (url.indexOf(VipPlatform.Mgtv.domain) != -1) {
+            belong = VipPlatform.Ls.name;
         } else if (url.indexOf(VipPlatform.Youku.domain) != -1) {
             belong = VipPlatform.Youku.name;
         } else if (url.indexOf(VipPlatform.Txsp.domain) != -1) {
             belong = VipPlatform.Txsp.name;
         } else if (url.indexOf(VipPlatform.PPLive.domain) != -1) {
             belong = VipPlatform.PPLive.name;
-        } else if (url.indexOf(VipPlatform.Mgtv.domain) != -1) {
-            belong = VipPlatform.Mgtv.name;
         }
         if (StringUtils.isEmpty(belong)) {
             logger.error("无法判断该url所属平台[{}]", url);
