@@ -38,8 +38,6 @@ public class VideoSuggestController extends BaseController {
 
     @Autowired
     private VideoSuggestService videoSuggestService;
-    @Autowired
-    private StageService stageService;
 
     @RequestMapping("/list/{channelid}/{pagesize}/{pageindex}")
     @ResponseBody
@@ -90,7 +88,7 @@ public class VideoSuggestController extends BaseController {
     @ResponseBody
     public String search(@PathVariable String keyword) {
 
-        Result<Map<String, Object>> result = new Result<>();
+        Result<List<SearchResult>> result = new Result<>();
 
         if (StringUtils.isEmpty(keyword))
             return result.toString();
@@ -132,14 +130,7 @@ public class VideoSuggestController extends BaseController {
         } catch (Exception e) {
             logger.error("error:", e);
         }
-
-        List<Stage> stageList = stageService.list();
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("videos", searchResults);
-        data.put("stages", stageList);
-
-        result.setData(data);
+        result.setData(searchResults);
         return result.toString();
     }
 
