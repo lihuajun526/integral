@@ -13,6 +13,8 @@ public class Stage {
 
     private String navUrl;
 
+    private String searchUrl;
+
     private Integer orderNo;
 
     private Integer status;
@@ -59,6 +61,14 @@ public class Stage {
 
     public void setNavUrl(String navUrl) {
         this.navUrl = navUrl == null ? null : navUrl.trim();
+    }
+
+    public String getSearchUrl() {
+        return searchUrl;
+    }
+
+    public void setSearchUrl(String searchUrl) {
+        this.searchUrl = searchUrl == null ? null : searchUrl.trim();
     }
 
     public Integer getOrderNo() {
