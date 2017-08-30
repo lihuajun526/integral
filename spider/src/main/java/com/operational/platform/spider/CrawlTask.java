@@ -45,6 +45,7 @@ public class CrawlTask implements Runnable {
             boolean isFirst = true;
             List<ParseResult> allParseResultList = new ArrayList<>();
             while (pageIndexLoader.isNext() && pageNum < crawlPointAttr.getMaxPage()) {
+                LOGGER.info("==========================>爬取第{}页数据", pageNum);
                 try {
                     String response = pageIndexLoader.next();
                     List<ParseResult> parseResultList = listParser.parse(response);
@@ -152,8 +153,7 @@ public class CrawlTask implements Runnable {
                 attackPageDb.setMd5(attackPage.getMd5());
                 LOGGER.info("有更新[{}]", attackPage.getAttr());
             }
-            attackPage.setUpdateTime(new Date());
-            attackPageService.save(attackPage);
+            attackPageService.save(attackPageDb);
             return;
         }
         attackPage.setFlag(1);//新增
@@ -167,7 +167,7 @@ public class CrawlTask implements Runnable {
         attackPage.setUpdateTime(new Date());
 
         attackPageService.save(attackPage);
-        LOGGER.info("新的视频[{}]", attackPage.getAttr());
+        LOGGER.debug("新的视频[{}]", attackPage.getAttr());
     }
 
     /**

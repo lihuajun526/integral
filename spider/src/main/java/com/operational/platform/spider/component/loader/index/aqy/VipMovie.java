@@ -17,9 +17,10 @@ public class VipMovie extends PageIndexLoader {
         Integer code = 0;
         try {
             result = JSONObject.parseObject(response);
-            String rCode = result.getString("code");
-            if (rCode != null && rCode.equalsIgnoreCase("A00000"))//没有数据了
+
+            if(result.getString("data").contains("search result is empty"))
                 return;
+
             code = result.getJSONObject("data").getInteger("code");
             if (code == 0) {
                 pageCount++;

@@ -1,6 +1,7 @@
 package com.operational.platform.spider;
 
 import com.operational.platform.spider.bean.SpringContext;
+import com.operational.platform.spider.timedtask.VideoUpdate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ public class Application {
 
         LOGGER.info("======================>应用已启动");
 
+        VideoUpdate.execute();
     }
 
 }

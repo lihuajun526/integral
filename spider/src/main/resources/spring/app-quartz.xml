@@ -15,7 +15,7 @@
     <bean id="VideoUpdateTaskCronTriggerBean"
           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="VideoUpdateTaskQtzJobMethod"/>
-        <property name="cronExpression" value="0 59 13 ? * *"/>
+        <property name="cronExpression" value="0 0 3 ? * *"/>
     </bean>
 
     <!-- ======================== 调度工厂 ======================== -->

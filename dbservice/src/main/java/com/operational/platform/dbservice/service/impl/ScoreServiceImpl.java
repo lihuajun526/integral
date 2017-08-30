@@ -40,38 +40,40 @@ public class ScoreServiceImpl implements ScoreService {
     public void score(List<Integer> pointids) {
         List<AttackPage> attackPageList = attackPageService.listByPoints(pointids);
         for (AttackPage attackPage : attackPageList) {
-            int flag = attackPage.getFlag().intValue();
-            JSONObject attr = JSON.parseObject(attackPage.getAttr());
-            VideoSuggest videoSuggest = videoSuggestService.getBySrc(attackPage.getId());
-
-            if ("true".equals(attr.getString("isPay")))//付费/用券
-                continue;
-
-            if (flag == 0) {//已不在会员片库
-                LOGGER.info("已不在会员片库[{}]", attackPage.getAttr());
-                videoSuggestService.delBySrc(attackPage.getId());
-                attackPageService.del(attackPage.getId());
-                continue;
-            } else if (flag == 1) {
-                videoSuggest = new VideoSuggest();
-                videoSuggest.setStatus(1);
-                videoSuggest.setDescription(attr.getString("desc"));
-                videoSuggest.setScore(attr.getString("score"));
-                videoSuggest.setPhoto(attr.getString("logo"));
-                videoSuggest.setUrl(attackPage.getLink());
-                videoSuggest.setTitle(attackPage.getTitle());
-                videoSuggest.setSrcId(attackPage.getId());
-                videoSuggest.setManual(0);
-                if (attackPage.getCategory().contains("电影"))
-                    videoSuggest.setChannel(1);
-                else if (attackPage.getCategory().contains("电视剧"))
-                    videoSuggest.setChannel(2);
-                videoSuggest.setOverallScore(getOverallScore(attr));
-                videoSuggestService.save(videoSuggest);
-            } else if (flag == 2) {
-                videoSuggest.setScore(attr.getString("score"));
-                videoSuggest.setOverallScore(getOverallScore(attr));
-                videoSuggestService.update(videoSuggest);
+            try {
+                int flag = attackPage.getFlag().intValue();
+                JSONObject attr = JSON.parseObject(attackPage.getAttr());
+                VideoSuggest videoSuggest = videoSuggestService.getBySrc(attackPage.getId());
+                if ("true".equals(attr.getString("isPay")))//付费/用券
+                    continue;
+                if (flag == 0) {//已不在会员片库
+                    LOGGER.info("已不在会员片库[{}]", attackPage.getAttr());
+                    videoSuggestService.delBySrc(attackPage.getId());
+                    attackPageService.del(attackPage.getId());
+                    continue;
+                } else if (flag == 1) {
+                    videoSuggest = new VideoSuggest();
+                    videoSuggest.setStatus(1);
+                    videoSuggest.setDescription(attr.getString("desc"));
+                    videoSuggest.setScore(attr.getString("score"));
+                    videoSuggest.setPhoto(attr.getString("logo"));
+                    videoSuggest.setUrl(attackPage.getLink());
+                    videoSuggest.setTitle(attackPage.getTitle());
+                    videoSuggest.setSrcId(attackPage.getId());
+                    videoSuggest.setManual(0);
+                    if (attackPage.getCategory().contains("电影"))
+                        videoSuggest.setChannel(1);
+                    else if (attackPage.getCategory().contains("电视剧"))
+                        videoSuggest.setChannel(2);
+                    videoSuggest.setOverallScore(getOverallScore(attr));
+                    videoSuggestService.save(videoSuggest);
+                } else if (flag == 2) {
+                    videoSuggest.setScore(attr.getString("score"));
+                    videoSuggest.setOverallScore(getOverallScore(attr));
+                    videoSuggestService.update(videoSuggest);
+                }
+            } catch (Exception e) {
+                LOGGER.error("对[{}]进行评分失败", attackPage.getId(), e);
             }
         }
         //恢复attackPage中flag的默认值
@@ -81,9 +83,9 @@ public class ScoreServiceImpl implements ScoreService {
     private float getOverallScore(JSONObject attr) {
         /**
          * 评分规则，总分100
-         * 1、平台的评分占80%
+         * 1、平台的评分占90%
          * 2、是否独播占5%
-         * 3、上映日期占15%（
+         * 3、上映日期占5%（
          最近二个月100%
          最近四个月%60%
          最近半年40%
@@ -94,27 +96,29 @@ public class ScoreServiceImpl implements ScoreService {
         if (!StringUtils.isEmpty(attr.getString("score")))
             score = attr.getString("score");
         float overAllScore = 0f;
-        overAllScore = Float.valueOf(score) * 10 * 80 / 100;
+        overAllScore = Float.valueOf(score) * 10 * 90 / 100;
         String releaseDate = attr.getString("releaseDate");
         if (!StringUtils.isEmpty(releaseDate)) {
             try {
+                if (releaseDate.length() == 4)
+                    releaseDate = releaseDate + "0101";
                 Date dReleaseDate = sdf.parse(releaseDate);
                 c.setTime(new Date());
                 c.add(Calendar.MONTH, -2);
                 if (dReleaseDate.getTime() >= c.getTime().getTime()) {//近两个月
-                    overAllScore += 15;
+                    overAllScore += 5;
                 } else {
                     c.add(Calendar.MONTH, -2);
                     if (dReleaseDate.getTime() >= c.getTime().getTime()) {//近四个月
-                        overAllScore += 15 * 3 / 5;
+                        overAllScore += 5 * 3 / 5;
                     } else {
                         c.add(Calendar.MONTH, -2);
                         if (dReleaseDate.getTime() >= c.getTime().getTime()) {//近半年
-                            overAllScore += 15 * 2 / 5;
+                            overAllScore += 5 * 2 / 5;
                         } else {
                             c.add(Calendar.MONTH, -6);
                             if (dReleaseDate.getTime() >= c.getTime().getTime()) {//近一年
-                                overAllScore += 15 * 1 / 5;
+                                overAllScore += 5 * 1 / 5;
                             }
                         }
                     }
