@@ -41,7 +41,8 @@ public class VipTvAnalyzer extends JsonAnalyzer {
                 if(StringUtils.isEmpty(link)){
                     link = obj.getJSONObject("video_lib_meta").getString("link");
                 }
-                parseResult.setLink(link.replaceFirst("www.", "m.").replaceFirst("vip.", "m."));
+                //parseResult.setLink(link.replaceFirst("www.", "m.").replaceFirst("vip.", "m."));
+                parseResult.setLink(link);
                 Map<String, String> attr = new HashMap<>();
                 attr.put("desc", obj.getJSONObject("video_lib_meta").getString("description"));
                 String logo = obj.getString("albumVImage").replace(".jpg", "_195_260.jpg");

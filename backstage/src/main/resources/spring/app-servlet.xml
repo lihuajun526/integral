@@ -8,6 +8,7 @@
     <mvc:resources mapping="jquery-easyui-1.4.5/**" location="/statics/jquery-easyui-1.4.5/"/>
     <mvc:resources mapping="rule/**" location="/statics/rule/"/>
     <mvc:resources mapping="js/**" location="/statics/js/"/>
+    <mvc:resources mapping="css/**" location="/statics/css/"/>
 
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
