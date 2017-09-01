@@ -106,6 +106,23 @@ public class VideoSuggestController extends BaseController {
                 searchResult.setTitle(data.getString("name"));
                 searchResult.setChnl(data.getString("cname"));
                 searchResult.setLink(data.getString("link"));
+                searchResult.setRegion(data.getString("region"));
+                searchResult.setYear(data.getString("year"));
+
+                JSONArray array1 = data.getJSONArray("director");
+                StringBuffer directors = new StringBuffer();
+                for (int j = 0; array1 != null && j < array1.size(); j++) {
+                    directors.append(array1.get(i).toString()).append(" ");
+                }
+                searchResult.setDirectors(directors.toString());
+
+                JSONArray array2 = data.getJSONArray("main_actor");
+                StringBuffer actors = new StringBuffer();
+                for (int j = 0; array2 != null && j < array2.size(); j++) {
+                    actors.append(array2.get(i).toString()).append(" ");
+                }
+                searchResult.setActors(actors.toString());
+
                 String pictureLink = data.getString("picture_url").replace(".jpg", "_195_260.jpg");
 
                 CloseableHttpClient httpClient = HttpClients.custom()
@@ -169,6 +186,10 @@ public class VideoSuggestController extends BaseController {
         private String pictrue;
         private String chnl;
         private String link;
+        private String directors;
+        private String actors;
+        private String region;
+        private String year;
 
         public String getTitle() {
             return title;
@@ -200,6 +221,38 @@ public class VideoSuggestController extends BaseController {
 
         public void setLink(String link) {
             this.link = link;
+        }
+
+        public String getDirectors() {
+            return directors;
+        }
+
+        public void setDirectors(String directors) {
+            this.directors = directors;
+        }
+
+        public String getActors() {
+            return actors;
+        }
+
+        public void setActors(String actors) {
+            this.actors = actors;
+        }
+
+        public String getRegion() {
+            return region;
+        }
+
+        public void setRegion(String region) {
+            this.region = region;
+        }
+
+        public String getYear() {
+            return year;
+        }
+
+        public void setYear(String year) {
+            this.year = year;
         }
     }
 

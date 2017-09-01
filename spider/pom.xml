@@ -130,6 +130,7 @@
                         <unix>.sh</unix>
                     </binFileExtensions>
                     <platforms>
+                        <platform>windows</platform>
                         <platform>unix</platform>
                     </platforms>
                     <repositoryName>lib</repositoryName>

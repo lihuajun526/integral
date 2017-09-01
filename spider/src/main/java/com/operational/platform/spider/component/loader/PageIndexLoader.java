@@ -62,7 +62,10 @@ public abstract class PageIndexLoader {
                 String[] kvs = postParam.split("&");
                 for (String kv : kvs) {
                     String[] strs = kv.split("=");
-                    paramMap.put(strs[0].trim(), strs[1].trim());
+                    if (strs.length < 2)
+                        paramMap.put(strs[0].trim(), "");
+                    else
+                        paramMap.put(strs[0].trim(), strs[1].trim());
                 }
             }
 

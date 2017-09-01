@@ -45,7 +45,7 @@ public class CrawlTask implements Runnable {
             boolean isFirst = true;
             List<ParseResult> allParseResultList = new ArrayList<>();
             while (pageIndexLoader.isNext() && pageNum < crawlPointAttr.getMaxPage()) {
-                LOGGER.info("==========================>爬取第{}页数据", pageNum);
+                LOGGER.info("==========================>爬取第{}页数据", ++pageNum);
                 try {
                     String response = pageIndexLoader.next();
                     List<ParseResult> parseResultList = listParser.parse(response);
@@ -124,7 +124,7 @@ public class CrawlTask implements Runnable {
             attackPage.setAttr(JSON.toJSONString(parseResult.getAttr()));
             attackPage.setCreateTime(new Date());
             attackPage.setUpdateTime(new Date());
-
+            LOGGER.info("爬取了一个新用户{}", attackPage.getAttr());
             attackPageService.save(attackPage);
         }
     }
