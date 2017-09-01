@@ -112,14 +112,14 @@ public class VideoSuggestController extends BaseController {
                 JSONArray array1 = data.getJSONArray("director");
                 StringBuffer directors = new StringBuffer();
                 for (int j = 0; array1 != null && j < array1.size(); j++) {
-                    directors.append(array1.get(i).toString()).append(" ");
+                    directors.append(array1.get(j).toString()).append(" ");
                 }
                 searchResult.setDirectors(directors.toString());
 
                 JSONArray array2 = data.getJSONArray("main_actor");
                 StringBuffer actors = new StringBuffer();
                 for (int j = 0; array2 != null && j < array2.size(); j++) {
-                    actors.append(array2.get(i).toString()).append(" ");
+                    actors.append(array2.get(j).toString()).append(" ");
                 }
                 searchResult.setActors(actors.toString());
 
