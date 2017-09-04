@@ -18,8 +18,6 @@ public class Application {
         SpringContext.init("classpath:spring/spring.xml");
 
         LOGGER.info("======================>应用已启动");
-
-        VideoUpdate.execute();
     }
 
 }

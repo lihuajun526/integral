@@ -81,7 +81,7 @@ public class WHttpClient {
                 handleResponse(httpResponse);
                 HttpEntity httpEntity = httpResponse.getEntity();
                 InputStream in = httpEntity.getContent();
-                response = IOUtils.toString(in);
+                response = IOUtils.toString(in,"utf-8");
                 in.close();
             }
         } catch (Exception e) {

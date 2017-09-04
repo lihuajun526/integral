@@ -28,7 +28,7 @@ public class VideoUpdate {
     public static void execute() {
 
         LOGGER.info("=====================>开始执行任务");
-        List<Integer> ids = new ArrayList<>(Arrays.asList(31));
+        List<Integer> ids = new ArrayList<>(Arrays.asList(31, 32));
         List<CrawlPointAttr> list = listCrawlPointAttr(ids);
         //采集
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);

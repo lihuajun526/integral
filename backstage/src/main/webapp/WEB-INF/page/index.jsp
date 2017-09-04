@@ -117,6 +117,8 @@
             }else if (node.id == 32){
                 videoChnl = node.attributes.channel;
                 loadPage('back/suggest/video_suggest_list.html');
+            }else if (node.id == 4){
+                loadPage('back/email/email_account_list.html');
             }
 
         }
