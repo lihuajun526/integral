@@ -54,6 +54,8 @@ public class VideoSuggestServiceImpl implements VideoSuggestService {
     public void delBySrc(Integer srcId) {
         VideoSuggestExample example = new VideoSuggestExample();
         VideoSuggestExample.Criteria criteria = example.createCriteria();
+        criteria.andSrcIdEqualTo(srcId);
+        videoSuggestMapper.deleteByExample(example);
     }
 
     @Override

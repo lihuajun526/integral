@@ -1,19 +1,23 @@
 package com.operational.platform.dbservice.service.impl;
 
-import com.operational.platform.dbservice.dao.IntegralRecordMapper;
+import com.operational.platform.dbservice.dao.UserMapper;
 import com.operational.platform.dbservice.model.IntegralRecord;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.model.UserExample;
+import com.operational.platform.dbservice.model.UserTask;
 import com.operational.platform.dbservice.service.IntegralRecordService;
-import com.operational.platform.dbservice.service.UserService;
-import com.operational.platform.dbservice.dao.UserMapper;
 import com.operational.platform.dbservice.service.IntegralService;
+import com.operational.platform.dbservice.service.UserService;
+import com.operational.platform.dbservice.service.UserTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +32,8 @@ public class UserServiceImpl implements UserService {
     private IntegralService integralService;
     @Autowired
     private IntegralRecordService integralRecordService;
+    @Autowired
+    private UserTaskService userTaskService;
 
     @Override
     public User getByOpenid(String openid) {
@@ -35,11 +41,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean encourageIntegral(Integer userid, IntegralRecord integralRecord) {
-
-
-        return null;
+    @Transactional(rollbackFor = Exception.class)
+    public void encourageIntegral(User user, IntegralRecord integralRecord) {
+        user.setIntegral(user.getIntegral().intValue() + integralRecord.getIntegral().intValue());
+        userMapper.updateByPrimaryKeySelective(user);
+        integralRecordService.save(integralRecord);
     }
+
 
     @Override
     public List<User> listSpreads(Integer userid) {
@@ -111,6 +119,45 @@ public class UserServiceImpl implements UserService {
         if (list.size() == 0)
             return null;
         return list.get(0);
+    }
+
+    @Override
+    public List<User> listIntegralNotEnough() {
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DAY_OF_YEAR, 1);
+
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andIntegralLessThan(100);
+        criteria.andVipExpiresLessThan(c.getTime());
+
+        return userMapper.selectByExample(example);
+    }
+
+    @Override
+    public String encourageFromShare(User user, int days) {
+        if (userTaskService.listByUserAndType(user.getId(), 2).size() > 0) {//只有第一次分享才奖励
+            return null;
+        }
+        //延迟会员期限
+        Calendar c = Calendar.getInstance();
+        if (user.getVipExpires().getTime() > System.currentTimeMillis())
+            c.setTime(user.getVipExpires());
+        else
+            c.setTime(new Date());
+        c.add(Calendar.DAY_OF_YEAR, days);
+        user.setVipExpires(c.getTime());
+        userMapper.updateByPrimaryKeySelective(user);
+        //添加任务
+        UserTask userTask = new UserTask();
+        userTask.setType(2);
+        userTask.setUserid(user.getId());
+        userTask.setDescription("分享朋友圈奖励" + days + "天会员权益");
+        userTaskService.save(userTask);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return sdf.format(user.getVipExpires());
     }
 
 }

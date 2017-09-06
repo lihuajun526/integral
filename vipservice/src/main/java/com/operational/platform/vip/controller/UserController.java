@@ -1,5 +1,6 @@
 package com.operational.platform.vip.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.common.constant.ExceptionCode;
 import com.operational.platform.common.constant.ExceptionTypeEnum;
@@ -10,14 +11,14 @@ import com.operational.platform.common.util.AESCryptoUtil;
 import com.operational.platform.common.util.Config;
 import com.operational.platform.common.util.StrUtil;
 import com.operational.platform.common.util.XHttpClient;
-import com.operational.platform.dbservice.model.AppVersion;
-import com.operational.platform.dbservice.model.Regular;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.service.UserService;
 import com.operational.platform.vip.base.BaseController;
 import com.operational.platform.vip.base.Result;
 import com.operational.platform.vip.constant.Constant;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -26,7 +27,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.net.URLEncoder;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -231,6 +236,70 @@ public class UserController extends BaseController {
         result.set(ExceptionCode.PARAM_IS_NULL_ERROR.code, "vipAccessToken为必传参数");
         return result.toString();
 
+    }
+
+    /**
+     * 分享到朋友圈/朋友获得奖励
+     *
+     * @param vipAccessToken
+     * @return
+     */
+    @RequestMapping("/share/encourage/v_login")
+    @ResponseBody
+    public String encourageFromShare(String vipAccessToken) {
+
+        Result<String> result = new Result();
+
+        User loginUser = Constant.SessionMap.get(vipAccessToken);
+        String sDate = userService.encourageFromShare(loginUser, Config.getInt("user.share.days.encourage"));
+
+        if (sDate == null) {
+            result.setCode(1);
+            return result.toString();
+        }
+
+        loginUser = userService.getByAccessToken(vipAccessToken);
+        Constant.SessionMap.put(vipAccessToken, loginUser);
+        result.setCode(2);
+        result.setData(sDate);
+        return result.toString();
+
+    }
+
+    @RequestMapping("/page/share")
+    public ModelAndView sharePage(String token) {
+
+        User user = userService.getByAccessToken(token);
+        Map<String, String> map = buildQRCode(user.getId());
+        ModelAndView modelAndView = new ModelAndView("share");
+        modelAndView.addObject("ticket", map.get("ticket"));
+        modelAndView.addObject("url", map.get("url"));
+        return modelAndView;
+    }
+
+    /**
+     * 生成带参数二维码
+     *
+     * @param userid
+     * @return
+     */
+    private Map<String, String> buildQRCode(Integer userid) {
+
+        Map<String, String> map = new HashMap<>();
+        HttpPost httpPost = new HttpPost("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + Constant.ACCESS_TOKEN);
+        try {
+            StringEntity stringEntity = new StringEntity("{\"expire_seconds\": 2592000, \"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"share_" + userid + "\"}}}");
+            httpPost.setEntity(stringEntity);
+            String response = XHttpClient.doRequest(httpPost);
+            JSONObject jsonObject = JSON.parseObject(response);
+            map.put("ticket", URLEncoder.encode(jsonObject.getString("ticket"), "utf-8"));
+            return map;
+        } catch (Exception e) {
+            logger.error("error:", e);
+        }
+        //todo 返回不带参数的公众号二维码
+        map.put("url", "");
+        return map;
     }
 
 }

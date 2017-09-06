@@ -3,7 +3,7 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+    <!--定时更新视频-->
     <bean id="VideoUpdateTask" class="com.operational.platform.spider.timedtask.VideoUpdate">
     </bean>
     <bean id="VideoUpdateTaskQtzJobMethod"
@@ -17,6 +17,20 @@
         <property name="jobDetail" ref="VideoUpdateTaskQtzJobMethod"/>
         <property name="cronExpression" value="0 0 3 ? * *"/>
     </bean>
+    <!--定时赠送积分-->
+    <bean id="IntegralAddTask" class="com.operational.platform.spider.timedtask.IntegralAdd">
+    </bean>
+    <bean id="IntegralAddTaskQtzJobMethod"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="IntegralAddTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="IntegralAddTaskCronTriggerBean"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="IntegralAddTaskQtzJobMethod"/>
+        <property name="cronExpression" value="0 0 2 ? * *"/>
+    </bean>
 
     <!-- ======================== 调度工厂 ======================== -->
     <bean id="SpringJobSchedulerFactoryBean" autowire="no" lazy-init="false"
@@ -24,6 +38,7 @@
         <property name="triggers">
             <list>
                 <ref bean="VideoUpdateTaskCronTriggerBean"/>
+                <ref bean="IntegralAddTaskCronTriggerBean"/>
             </list>
         </property>
         <property name="taskExecutor" ref="executor"/>

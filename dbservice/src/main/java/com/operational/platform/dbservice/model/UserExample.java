@@ -1295,6 +1295,66 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andVipExpiresIsNull() {
+            addCriterion("vip_expires is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresIsNotNull() {
+            addCriterion("vip_expires is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresEqualTo(Date value) {
+            addCriterion("vip_expires =", value, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresNotEqualTo(Date value) {
+            addCriterion("vip_expires <>", value, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresGreaterThan(Date value) {
+            addCriterion("vip_expires >", value, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresGreaterThanOrEqualTo(Date value) {
+            addCriterion("vip_expires >=", value, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresLessThan(Date value) {
+            addCriterion("vip_expires <", value, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresLessThanOrEqualTo(Date value) {
+            addCriterion("vip_expires <=", value, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresIn(List<Date> values) {
+            addCriterion("vip_expires in", values, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresNotIn(List<Date> values) {
+            addCriterion("vip_expires not in", values, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresBetween(Date value1, Date value2) {
+            addCriterion("vip_expires between", value1, value2, "vipExpires");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipExpiresNotBetween(Date value1, Date value2) {
+            addCriterion("vip_expires not between", value1, value2, "vipExpires");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

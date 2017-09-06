@@ -142,10 +142,10 @@ public class CrawlTask implements Runnable {
         attackPage.setMd5(StrUtil.md5(attackPage.getAttr()));
         if (list.size() > 0) {
             AttackPage attackPageDb = list.get(0);
-            if (attackPageDb == null || attackPageDb.getMd5() == null) {
+            if (attackPageDb == null) {
                 return;
             }
-            if (attackPageDb.getMd5().equals(attackPage.getMd5()))
+            if (attackPage.getMd5().equals(attackPageDb.getMd5()))
                 attackPageDb.setFlag(3);//没有变化
             else {
                 attackPageDb.setFlag(2);//更新

@@ -565,6 +565,66 @@ public class VideoSuggestExample {
             return (Criteria) this;
         }
 
+        public Criteria andOverallScoreIsNull() {
+            addCriterion("overall_score is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreIsNotNull() {
+            addCriterion("overall_score is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreEqualTo(Float value) {
+            addCriterion("overall_score =", value, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreNotEqualTo(Float value) {
+            addCriterion("overall_score <>", value, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreGreaterThan(Float value) {
+            addCriterion("overall_score >", value, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreGreaterThanOrEqualTo(Float value) {
+            addCriterion("overall_score >=", value, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreLessThan(Float value) {
+            addCriterion("overall_score <", value, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreLessThanOrEqualTo(Float value) {
+            addCriterion("overall_score <=", value, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreIn(List<Float> values) {
+            addCriterion("overall_score in", values, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreNotIn(List<Float> values) {
+            addCriterion("overall_score not in", values, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreBetween(Float value1, Float value2) {
+            addCriterion("overall_score between", value1, value2, "overallScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andOverallScoreNotBetween(Float value1, Float value2) {
+            addCriterion("overall_score not between", value1, value2, "overallScore");
+            return (Criteria) this;
+        }
+
         public Criteria andDescriptionIsNull() {
             addCriterion("description is null");
             return (Criteria) this;
@@ -632,6 +692,186 @@ public class VideoSuggestExample {
 
         public Criteria andDescriptionNotBetween(String value1, String value2) {
             addCriterion("description not between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdIsNull() {
+            addCriterion("src_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdIsNotNull() {
+            addCriterion("src_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdEqualTo(Integer value) {
+            addCriterion("src_id =", value, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdNotEqualTo(Integer value) {
+            addCriterion("src_id <>", value, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdGreaterThan(Integer value) {
+            addCriterion("src_id >", value, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("src_id >=", value, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdLessThan(Integer value) {
+            addCriterion("src_id <", value, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdLessThanOrEqualTo(Integer value) {
+            addCriterion("src_id <=", value, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdIn(List<Integer> values) {
+            addCriterion("src_id in", values, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdNotIn(List<Integer> values) {
+            addCriterion("src_id not in", values, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdBetween(Integer value1, Integer value2) {
+            addCriterion("src_id between", value1, value2, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSrcIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("src_id not between", value1, value2, "srcId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelIsNull() {
+            addCriterion("channel is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelIsNotNull() {
+            addCriterion("channel is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelEqualTo(Integer value) {
+            addCriterion("channel =", value, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelNotEqualTo(Integer value) {
+            addCriterion("channel <>", value, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelGreaterThan(Integer value) {
+            addCriterion("channel >", value, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("channel >=", value, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelLessThan(Integer value) {
+            addCriterion("channel <", value, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelLessThanOrEqualTo(Integer value) {
+            addCriterion("channel <=", value, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelIn(List<Integer> values) {
+            addCriterion("channel in", values, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelNotIn(List<Integer> values) {
+            addCriterion("channel not in", values, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelBetween(Integer value1, Integer value2) {
+            addCriterion("channel between", value1, value2, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andChannelNotBetween(Integer value1, Integer value2) {
+            addCriterion("channel not between", value1, value2, "channel");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualIsNull() {
+            addCriterion("manual is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualIsNotNull() {
+            addCriterion("manual is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualEqualTo(Integer value) {
+            addCriterion("manual =", value, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualNotEqualTo(Integer value) {
+            addCriterion("manual <>", value, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualGreaterThan(Integer value) {
+            addCriterion("manual >", value, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualGreaterThanOrEqualTo(Integer value) {
+            addCriterion("manual >=", value, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualLessThan(Integer value) {
+            addCriterion("manual <", value, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualLessThanOrEqualTo(Integer value) {
+            addCriterion("manual <=", value, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualIn(List<Integer> values) {
+            addCriterion("manual in", values, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualNotIn(List<Integer> values) {
+            addCriterion("manual not in", values, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualBetween(Integer value1, Integer value2) {
+            addCriterion("manual between", value1, value2, "manual");
+            return (Criteria) this;
+        }
+
+        public Criteria andManualNotBetween(Integer value1, Integer value2) {
+            addCriterion("manual not between", value1, value2, "manual");
             return (Criteria) this;
         }
 

@@ -14,12 +14,10 @@ public interface UserService {
 
     /**
      * 奖励积分
-     *
-     * @param userid
+     * @param user
      * @param integralRecord
-     * @return
      */
-    Boolean encourageIntegral(Integer userid, IntegralRecord integralRecord);
+    void encourageIntegral(User user, IntegralRecord integralRecord);
 
     List<User> listSpreads(Integer userid);
 
@@ -32,5 +30,9 @@ public interface UserService {
     User getByUnionid(String unionid);
 
     User getByAccessToken(String accessToken);
+
+    List<User> listIntegralNotEnough();
+
+    String encourageFromShare(User user,int days);
 
 }
