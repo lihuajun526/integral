@@ -60,7 +60,14 @@ public class VideoSuggestServiceImpl implements VideoSuggestService {
 
     @Override
     public VideoSuggest getBySrc(Integer srcId) {
-        return null;
+        VideoSuggestExample example = new VideoSuggestExample();
+        VideoSuggestExample.Criteria criteria = example.createCriteria();
+        criteria.andSrcIdEqualTo(srcId);
+
+        List<VideoSuggest> list = videoSuggestMapper.selectByExample(example);
+        if (list.size() == 0)
+            return null;
+        return list.get(0);
     }
 
     @Override

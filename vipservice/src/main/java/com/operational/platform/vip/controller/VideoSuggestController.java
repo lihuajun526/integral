@@ -96,7 +96,7 @@ public class VideoSuggestController extends BaseController {
 
         List<SearchResult> searchResults = new ArrayList<>();
         try {
-            String response = XHttpClient.doRequest(new HttpGet("http://suggest.video.iqiyi.com/?key=" + URLEncoder.encode(keyword, "utf-8") + "&if=mobile&platform=31&uid=332db807459cd886945c7e87df7965af&ppuid="));
+            String response = XHttpClient.doRequest(new HttpGet("http://suggest.video.iqiyi.com/?key=" + URLEncoder.encode(keyword, "utf-8") + "&platform=11&rltnum=10&uid=332db807459cd886945c7e87df7965af&ppuid="));
             JSONArray datas = JSONObject.parseObject(response).getJSONArray("data");
             for (int i = 0; datas != null && i < datas.size(); i++) {
                 SearchResult searchResult = new SearchResult();

@@ -5,9 +5,11 @@ import com.operational.platform.common.constant.AttackType;
 import com.operational.platform.common.constant.ExceptionCode;
 import com.operational.platform.common.constant.VipPlatform;
 import com.operational.platform.dbservice.model.AttackParamWithBLOBs;
+import com.operational.platform.dbservice.model.Log;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.model.UserCookieMap;
 import com.operational.platform.dbservice.service.AttackParamService;
+import com.operational.platform.dbservice.service.LogService;
 import com.operational.platform.dbservice.service.UserCookieMapService;
 import com.operational.platform.vip.base.BaseController;
 import com.operational.platform.vip.base.Result;
@@ -36,6 +38,8 @@ public class CookieController extends BaseController {
     private AttackParamService attackParamService;
     @Autowired
     private UserCookieMapService userCookieMapService;
+    @Autowired
+    private LogService logService;
 
     @RequestMapping("/get/v_login")
     @ResponseBody
@@ -77,6 +81,10 @@ public class CookieController extends BaseController {
         if (StringUtils.isEmpty(belong)) {
             logger.error("无法判断该url所属平台[{}]", url);
             result.set(ExceptionCode.GET_STAGE_TYPE_ERROR.code, "无法获得所属平台");
+            Log log = new Log();
+            log.setType(1);
+            log.setDescription("无法判断该url所属平台[" + url + "]");
+            logService.save(log);
             return result.toString();
         }
 

@@ -132,11 +132,9 @@ public class UserController extends BaseController {
             user.setUnionid(jsonObject.getString("unionid"));
             user.setVipAccessTokenExpires(calendar.getTime());
             calendar.setTime(new Date());
-            calendar.add(Calendar.DAY_OF_MONTH, 1);//让日期加1
+            calendar.add(Calendar.DAY_OF_MONTH, Config.getInt("user.regist.days.encourage"));
             user.setVipExpires(calendar.getTime());
             user.setIntegral(Config.getInt("user.regist.integral.encourage"));
-            user.setCreateTime(new Date());
-
 
             String vipAccessToken = StrUtil.getRandomString(32) + System.currentTimeMillis();
             try {
@@ -152,6 +150,7 @@ public class UserController extends BaseController {
             String oldVipAccessToken = user.getVipAccessToken();
             //更新DB中用户vipAccessToken及过期时间
             user.setVipAccessTokenExpires(calendar.getTime());
+            user.setAppOpenid("openid");
             try {
                 user.setVipAccessToken(AESCryptoUtil.encrypt(StrUtil.getRandomString(32) + System.currentTimeMillis()));
             } catch (CryptoException e) {

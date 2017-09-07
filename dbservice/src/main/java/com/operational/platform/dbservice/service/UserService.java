@@ -35,4 +35,6 @@ public interface UserService {
 
     String encourageFromShare(User user,int days);
 
+    User get(Integer id);
+
 }

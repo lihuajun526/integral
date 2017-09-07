@@ -160,4 +160,9 @@ public class UserServiceImpl implements UserService {
         return sdf.format(user.getVipExpires());
     }
 
+    @Override
+    public User get(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
 }
