@@ -17,6 +17,7 @@
         <property name="jobDetail" ref="VideoUpdateTaskQtzJobMethod"/>
         <property name="cronExpression" value="0 0 3 ? * *"/>
     </bean>
+
     <!--定时赠送积分-->
     <bean id="IntegralAddTask" class="com.operational.platform.spider.timedtask.IntegralAdd">
     </bean>
@@ -32,6 +33,21 @@
         <property name="cronExpression" value="0 0 2 ? * *"/>
     </bean>
 
+    <!--定时清理Cookie-->
+    <bean id="CookieCleanTask" class="com.operational.platform.spider.timedtask.CookieClearner">
+    </bean>
+    <bean id="CookieCleanTaskQtzJobMethod"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="CookieCleanTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="CookieCleanTaskCronTriggerBean"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="CookieCleanTaskQtzJobMethod"/>
+        <property name="cronExpression" value="0 0/1 * * * ?"/>
+    </bean>
+
     <!-- ======================== 调度工厂 ======================== -->
     <bean id="SpringJobSchedulerFactoryBean" autowire="no" lazy-init="false"
           class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
@@ -39,6 +55,7 @@
             <list>
                 <ref bean="VideoUpdateTaskCronTriggerBean"/>
                 <ref bean="IntegralAddTaskCronTriggerBean"/>
+                <ref bean="CookieCleanTaskCronTriggerBean"/>
             </list>
         </property>
         <property name="taskExecutor" ref="executor"/>

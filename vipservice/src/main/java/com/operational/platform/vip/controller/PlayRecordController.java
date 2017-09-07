@@ -77,7 +77,7 @@ public class PlayRecordController extends BaseController {
                 playRecord.setImage(videoSuggest.getPhoto());
                 playRecordService.save(playRecord);
             } else {
-                playRecordService.save(playRecord);
+                //playRecordService.save(playRecord);
                 //启动一个线程爬取视频的标题和图片
                 new Thread(new CrawlVideo(playRecordService, playRecord)).start();
             }
@@ -142,7 +142,7 @@ class CrawlVideo implements Runnable {
         if (StringUtils.isEmpty(title) || StringUtils.isEmpty(image)) {
             LOGGER.error("无法爬取标题或图片url=[{}]", playRecord.getUrl());
         }
-        if (StringUtils.isEmpty(title) || StringUtils.isEmpty(image))
+        if (StringUtils.isEmpty(title))
             return;
         playRecord.setTitle(title);
         playRecord.setImage(image);
