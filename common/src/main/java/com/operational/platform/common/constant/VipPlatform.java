@@ -4,6 +4,7 @@ public enum VipPlatform {
 
     Youku("youku", "youku.com"),
     Iqy("iqy", "iqiyi.com"),
+    Iqy1("iqy", "pps.tv"),
     Txsp("txsp", "qq.com"),
     PPLive("pplive", "pptv.com"),
     Mgtv("mgtv", "mgtv.com"),

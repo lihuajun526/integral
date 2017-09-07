@@ -22,6 +22,7 @@ import org.apache.http.entity.StringEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -238,7 +239,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 分享到朋友圈/朋友获得奖励
+     * 分享到朋友圈/分享给朋友获得奖励天数
      *
      * @param vipAccessToken
      * @return
@@ -265,8 +266,8 @@ public class UserController extends BaseController {
 
     }
 
-    @RequestMapping("/page/share")
-    public ModelAndView sharePage(String token) {
+    @RequestMapping("/page/share/{token}")
+    public ModelAndView sharePage(@PathVariable String token) {
 
         User user = userService.getByAccessToken(token);
         Map<String, String> map = buildQRCode(user.getId());

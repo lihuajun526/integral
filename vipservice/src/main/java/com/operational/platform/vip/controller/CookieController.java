@@ -65,7 +65,7 @@ public class CookieController extends BaseController {
         }
 
         String belong = "";
-        if (url.indexOf(VipPlatform.Iqy.domain) != -1) {
+        if (url.indexOf(VipPlatform.Iqy.domain) != -1 || url.indexOf(VipPlatform.Iqy1.domain) != -1) {
             belong = VipPlatform.Iqy.name;
         } else if (url.indexOf(VipPlatform.Mgtv.domain) != -1) {
             belong = VipPlatform.Mgtv.name;
