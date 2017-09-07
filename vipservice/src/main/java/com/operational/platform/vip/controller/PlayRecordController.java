@@ -152,7 +152,7 @@ class CrawlVideo implements Runnable {
     private Map<String, String> aqy() {
         Map<String, String> map = new HashMap<>();
         try {
-            HttpGet httpGet = new HttpGet(playRecord.getUrl().replaceFirst("://m\\.","://www\\."));
+            HttpGet httpGet = new HttpGet(playRecord.getUrl().replaceFirst("://www\\.", "://m\\."));
             httpGet.setHeader("User-Agent", "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7");
             String response = XHttpClient.doRequest(httpGet);
             Document doc = Jsoup.parse(response);
@@ -205,7 +205,7 @@ class CrawlVideo implements Runnable {
     private Map<String, String> ls() {
         Map<String, String> map = new HashMap<>();
         try {
-            HttpGet httpGet = new HttpGet(playRecord.getUrl());
+            HttpGet httpGet = new HttpGet(playRecord.getUrl().replaceFirst("://www\\.", "://m\\."));
             httpGet.setHeader("User-Agent", "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7");
             String response = XHttpClient.doRequest(httpGet);
             Document doc = Jsoup.parse(response);
