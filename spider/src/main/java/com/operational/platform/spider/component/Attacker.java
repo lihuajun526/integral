@@ -1,7 +1,7 @@
 package com.operational.platform.spider.component;
 
+import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.exception.RequestException;
-import com.operational.platform.spider.util.XHttpClient;
 import com.operational.platform.dbservice.model.AttackPage;
 import com.operational.platform.dbservice.model.AttackParam;
 import org.apache.http.NameValuePair;
@@ -39,7 +39,7 @@ public abstract class Attacker {
     protected String action;
 
     //初始化
-    protected void init() throws RequestException, UnsupportedEncodingException {
+    protected void init() throws RequestException, UnsupportedEncodingException, com.operational.platform.common.exception.RequestException {
         HttpGet httpGet = new HttpGet(attackPage.getLink());
         response = XHttpClient.doRequest(httpGet, attackParam.getCharset());
         action = attackParam.getAction();

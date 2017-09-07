@@ -3,6 +3,7 @@ package com.operational.platform.spider.attack.qzone;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.attack.qzone.bean.AttackAttr;
 import com.operational.platform.spider.attack.qzone.bean.QZoneComment;
 import com.operational.platform.spider.bean.Comment;
@@ -10,7 +11,6 @@ import com.operational.platform.spider.component.Commenter;
 import com.operational.platform.spider.constant.ExceptionTypeEnum;
 import com.operational.platform.spider.exception.CommentException;
 import com.operational.platform.spider.exception.RequestException;
-import com.operational.platform.spider.util.XHttpClient;
 import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.util.cookie.FilterCookies;
 import com.operational.platform.spider.util.cookie.HttpCookieEx;
@@ -58,7 +58,11 @@ public class QZoneCommenter extends Commenter {
         if (pubParams.size() > 0)
             return;
 
-        super.init();
+        try {
+            super.init();
+        } catch (com.operational.platform.common.exception.RequestException e) {
+            e.printStackTrace();
+        }
         //收集公共参数
 
     }

@@ -35,8 +35,8 @@ public class PlayRecordServiceImpl implements PlayRecordService {
         criteria.andUseridEqualTo(user.getId());
         example.setOrderByClause("update_time desc");
         List<PlayRecord> list = playRecordMapper.selectByExample(example);
-        if (list.size() > 10)
-            return list.subList(0, 10);
+        if (list.size() > 20)
+            return list.subList(0, 20);
         return list;
     }
 

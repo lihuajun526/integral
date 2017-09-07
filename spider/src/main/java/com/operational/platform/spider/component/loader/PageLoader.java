@@ -1,6 +1,7 @@
 package com.operational.platform.spider.component.loader;
 
 import com.alibaba.fastjson.JSONObject;
+import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.bean.CrawlPointAttr;
 import com.operational.platform.spider.bean.PageRule;
 import com.operational.platform.spider.bean.PageRuleKV;
@@ -9,7 +10,6 @@ import com.operational.platform.spider.component.Downloader;
 import com.operational.platform.spider.constant.ListParamsKey;
 import com.operational.platform.spider.exception.RequestException;
 import com.operational.platform.spider.util.StrUtil;
-import com.operational.platform.spider.util.XHttpClient;
 import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.util.cookie.FilterCookies;
 import com.operational.platform.spider.util.cookie.HttpCookieEx;
@@ -68,7 +68,7 @@ public class PageLoader {
      * @param parseResult
      * @throws IOException
      */
-    public void load(ParseResult parseResult) throws IOException, URISyntaxException, RequestException {
+    public void load(ParseResult parseResult) throws IOException, URISyntaxException, RequestException, com.operational.platform.common.exception.RequestException {
         PageRule pageRule = JSONObject.parseObject(crawlPointAttr.getPageRule(), PageRule.class);
         parse(parseResult, pageRule, parseResult.getLink());
     }
@@ -80,7 +80,7 @@ public class PageLoader {
      * @param pageRule
      * @throws IOException
      */
-    private void parse(ParseResult parseResult, PageRule pageRule, String nextLevelLink) throws IOException, URISyntaxException, RequestException {
+    private void parse(ParseResult parseResult, PageRule pageRule, String nextLevelLink) throws IOException, URISyntaxException, RequestException, com.operational.platform.common.exception.RequestException {
 
         if (StringUtils.isEmpty(parseResult.getLink()))
             return;

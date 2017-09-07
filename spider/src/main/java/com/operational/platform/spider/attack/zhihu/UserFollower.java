@@ -2,11 +2,11 @@ package com.operational.platform.spider.attack.zhihu;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.component.Attacker;
 import com.operational.platform.spider.constant.ExceptionTypeEnum;
 import com.operational.platform.spider.exception.CommentException;
 import com.operational.platform.spider.exception.UserFollowException;
-import com.operational.platform.spider.util.XHttpClient;
 import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.util.cookie.FilterCookies;
 import com.operational.platform.spider.util.cookie.HttpCookieEx;

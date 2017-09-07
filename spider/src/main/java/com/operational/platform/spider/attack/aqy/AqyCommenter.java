@@ -2,9 +2,9 @@ package com.operational.platform.spider.attack.aqy;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.component.Commenter;
 import com.operational.platform.spider.exception.RequestException;
-import com.operational.platform.spider.util.XHttpClient;
 import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.attack.aqy.bean.AqyComment;
 import com.operational.platform.spider.bean.Comment;
@@ -45,7 +45,11 @@ public class AqyCommenter extends Commenter {
     @Override public void init() throws RequestException, UnsupportedEncodingException {
 
         //if (pubParams.size() == 0)
-        super.init();
+        try {
+            super.init();
+        } catch (com.operational.platform.common.exception.RequestException e) {
+            e.printStackTrace();
+        }
 
         //收集公共参数
         //设置categoryid

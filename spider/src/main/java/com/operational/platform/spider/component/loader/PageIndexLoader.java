@@ -1,11 +1,11 @@
 package com.operational.platform.spider.component.loader;
 
+import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.bean.CrawlPointAttr;
 import com.operational.platform.spider.component.handler.response.ResponseHandler;
 import com.operational.platform.spider.exception.ElementNotExistException;
 import com.operational.platform.spider.exception.RequestException;
 import com.operational.platform.spider.util.StrUtil;
-import com.operational.platform.spider.util.WHttpClient;
 import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.util.cookie.FilterCookies;
 import com.operational.platform.spider.util.cookie.HttpCookieEx;
@@ -156,7 +156,7 @@ public abstract class PageIndexLoader {
                 httpGet.setURI(new URI(reqUri));
             }
         }
-        String response = WHttpClient.doRequest(httpRequestBase);
+        String response = XHttpClient.doRequest(httpRequestBase);
 
         //处理response
         if (!StringUtils.isEmpty(crawlPointAttr.getResponseHandler())) {

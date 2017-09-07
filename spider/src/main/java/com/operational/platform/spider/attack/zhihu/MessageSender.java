@@ -2,8 +2,8 @@ package com.operational.platform.spider.attack.zhihu;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.exception.MessageSendException;
-import com.operational.platform.spider.util.XHttpClient;
 import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.dbservice.model.AttackPage;
 import com.operational.platform.dbservice.service.AttackPageService;

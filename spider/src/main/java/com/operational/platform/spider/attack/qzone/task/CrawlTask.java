@@ -1,6 +1,7 @@
 package com.operational.platform.spider.attack.qzone.task;
 
 import com.alibaba.fastjson.JSON;
+import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.exception.NotLoginException;
 import com.operational.platform.spider.util.cookie.CookieHelper;
 import com.operational.platform.spider.constant.Belong;
@@ -14,7 +15,6 @@ import com.operational.platform.dbservice.model.AttackPage;
 import com.operational.platform.dbservice.model.CrawlPoint;
 import com.operational.platform.dbservice.service.AttackPageService;
 import com.operational.platform.dbservice.service.CrawlPointService;
-import com.operational.platform.spider.util.XHttpClient;
 import com.operational.platform.spider.util.cookie.FilterCookies;
 import com.operational.platform.spider.util.cookie.HttpCookieEx;
 import org.apache.http.client.methods.HttpGet;
