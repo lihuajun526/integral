@@ -156,7 +156,7 @@ public abstract class PageIndexLoader {
                 httpGet.setURI(new URI(reqUri));
             }
         }
-        String response = XHttpClient.doRequest(httpRequestBase);
+        String response = XHttpClient.doRequest(httpRequestBase, crawlPointAttr.getSleepTime());
 
         //处理response
         if (!StringUtils.isEmpty(crawlPointAttr.getResponseHandler())) {

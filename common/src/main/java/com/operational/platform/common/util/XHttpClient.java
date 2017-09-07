@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by lihuajun on 16-6-21.
@@ -36,6 +38,7 @@ import java.security.cert.CertificateException;
 public class XHttpClient {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(XHttpClient.class);
+    private static Lock lock = new ReentrantLock();
 
     private static CloseableHttpClient httpClient;
 
@@ -54,14 +57,26 @@ public class XHttpClient {
 
     public static String doRequest(HttpUriRequest httpUriRequest) throws RequestException {
 
-        return doRequest(httpUriRequest, "utf-8");
+        return doRequest(httpUriRequest, "utf-8", 0);
     }
 
-    public static String doRequest(HttpUriRequest httpUriRequest, String charset) throws RequestException {
+    public static String doRequest(HttpUriRequest httpUriRequest, long sleepTime) throws RequestException {
+
+        return doRequest(httpUriRequest, "utf-8", sleepTime);
+    }
+
+    public static String doRequest(HttpUriRequest httpUriRequest, String charset, long sleepTime) throws RequestException {
 
         String result = null;
         CloseableHttpResponse response = null;
         try {
+
+            if (sleepTime > 0) {
+                lock.lock();
+                Thread.sleep(sleepTime);
+                lock.unlock();
+            }
+
             //HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
             //RequestConfig backstage = RequestConfig.custom().setProxy(proxy).build();
             RequestConfig config = RequestConfig.custom().build();

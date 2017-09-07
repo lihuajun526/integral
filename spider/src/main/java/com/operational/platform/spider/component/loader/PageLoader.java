@@ -87,7 +87,7 @@ public class PageLoader {
 
         // 请求当前页面
         httpGet.setURI(new URI(nextLevelLink));
-        String response = XHttpClient.doRequest(httpGet);
+        String response = XHttpClient.doRequest(httpGet, crawlPointAttr.getSleepTime());
         Document doc = Jsoup.parse(response);
 
         // 解析当前页面属性
