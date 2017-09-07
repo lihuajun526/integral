@@ -57,7 +57,7 @@ public class PlayRecordController extends BaseController {
         User loginUser = Constant.SessionMap.get(vipAccessToken);
         PlayRecord playRecord = new PlayRecord();
         try {
-            url = url.replaceFirst("m.", "www.");
+            url = url.replaceFirst("://m\\.", "://www\\.");
             playRecord.setUrl(URLDecoder.decode(url, "utf-8"));
         } catch (UnsupportedEncodingException e) {
             logger.error("解码失败[{}]", url);
