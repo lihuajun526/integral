@@ -65,6 +65,11 @@ public class XHttpClient {
         return doRequest(httpUriRequest, "utf-8", sleepTime);
     }
 
+    public static String doRequest(HttpUriRequest httpUriRequest, String charset) throws RequestException {
+
+        return doRequest(httpUriRequest, charset, 0);
+    }
+
     public static String doRequest(HttpUriRequest httpUriRequest, String charset, long sleepTime) throws RequestException {
 
         String result = null;
