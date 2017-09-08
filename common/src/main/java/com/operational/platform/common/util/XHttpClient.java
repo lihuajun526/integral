@@ -57,26 +57,26 @@ public class XHttpClient {
 
     public static String doRequest(HttpUriRequest httpUriRequest) throws RequestException {
 
-        return doRequest(httpUriRequest, "utf-8", 0);
+        return doRequest(httpUriRequest, "utf-8", 0L);
     }
 
-    public static String doRequest(HttpUriRequest httpUriRequest, long sleepTime) throws RequestException {
+    public static String doRequest(HttpUriRequest httpUriRequest, Long sleepTime) throws RequestException {
 
         return doRequest(httpUriRequest, "utf-8", sleepTime);
     }
 
     public static String doRequest(HttpUriRequest httpUriRequest, String charset) throws RequestException {
 
-        return doRequest(httpUriRequest, charset, 0);
+        return doRequest(httpUriRequest, charset, 0L);
     }
 
-    public static String doRequest(HttpUriRequest httpUriRequest, String charset, long sleepTime) throws RequestException {
+    public static String doRequest(HttpUriRequest httpUriRequest, String charset, Long sleepTime) throws RequestException {
 
         String result = null;
         CloseableHttpResponse response = null;
         try {
 
-            if (sleepTime > 0) {
+            if (sleepTime != null && sleepTime > 0) {
                 lock.lock();
                 Thread.sleep(sleepTime);
                 lock.unlock();
