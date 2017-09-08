@@ -32,7 +32,7 @@ public class QQUserAnalyzer extends JsonAnalyzer {
         for (int i = 0; datas != null && i < datas.size(); i++) {
             ParseResult parseResult = new ParseResult();
             JSONObject data = datas.getJSONObject(i);
-            parseResult.setLink(data.getString("url"));
+            parseResult.setLink(data.getString("uin"));
             try {
                 parseResult.setTitle(URLEncoder.encode(data.getString("nick"), "utf-8"));
             } catch (UnsupportedEncodingException e) {
@@ -45,7 +45,7 @@ public class QQUserAnalyzer extends JsonAnalyzer {
             attr.put("age", data.getString("age"));
             attr.put("province", data.getString("province"));
             attr.put("gender", data.getString("gender"));
-            attr.put("uin", data.getString("uin"));
+            attr.put("headimg", data.getString("url"));
             attr.put("stat", data.getString("stat"));
             attr.put("country", data.getString("country"));
             attr.put("city", data.getString("city"));

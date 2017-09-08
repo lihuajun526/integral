@@ -50,8 +50,11 @@ public class CrawlTask implements Runnable {
                     String response = pageIndexLoader.next();
                     List<ParseResult> parseResultList = listParser.parse(response);
 
-                    if (parseResultList == null || parseResultList.size() == 0) {//如果列表为空则认为没有下一页了，此时退出，如知乎
+                    /*if (parseResultList == null || parseResultList.size() == 0) {//如果列表为空则认为没有下一页了，此时退出，如知乎
                         break;
+                    }*/
+                    if (parseResultList == null || parseResultList.size() == 0) {
+                        continue;
                     }
 
                     //判断该爬取源是否需要爬取 策略：前N条记录DB中是否已存在
@@ -85,7 +88,6 @@ public class CrawlTask implements Runnable {
                     if (!isNeedSpider) {
                         break;
                     }
-                    pageNum++;
 
                     Thread.sleep(crawlPointAttr.getSleepTime() == null ? 10 : crawlPointAttr.getSleepTime());
 

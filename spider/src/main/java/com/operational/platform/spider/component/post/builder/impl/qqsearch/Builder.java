@@ -3,6 +3,8 @@ package com.operational.platform.spider.component.post.builder.impl.qqsearch;
 import com.operational.platform.spider.component.post.builder.PostBuilder;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Random;
@@ -12,6 +14,8 @@ import java.util.Random;
  */
 public class Builder implements PostBuilder {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(Builder.class);
+
     @Override
     public void setParams(List<NameValuePair> params) {
 
@@ -19,8 +23,12 @@ public class Builder implements PostBuilder {
         Random r = new Random();
         int i = r.nextInt(datas1.length);
 
+        int iR = r.nextInt(2);
+
         params.add(new BasicNameValuePair("province", datas1[i].split("-")[0]));
-        params.add(new BasicNameValuePair("page", String.valueOf(r.nextInt(4))));
+        params.add(new BasicNameValuePair("page", String.valueOf(iR)));
         params.add(new BasicNameValuePair("num", "30"));
+
+        //LOGGER.info(datas1[i].split("-")[0] + "#" + iR);
     }
 }
