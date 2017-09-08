@@ -111,6 +111,7 @@ public class CrawlApp {
                 crawlPointAttr.setMaxPage(crawlPoint.getMaxPage());
                 crawlPointAttr.setMethod(crawlPoint.getMethod());
                 crawlPointAttr.setPostParam(crawlPoint.getPostParam());
+                crawlPointAttr.setPostParamPath(crawlPoint.getPostParamPath());
                 crawlPointAttr.setHeader(crawlPoint.getHeader());
                 crawlPointAttr.setCookies(crawlPoint.getCookies());
                 crawlPointAttr.setSleepTime(crawlPoint.getSleepTime());

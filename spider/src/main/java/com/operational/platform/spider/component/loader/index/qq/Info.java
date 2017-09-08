@@ -12,7 +12,7 @@ public class Info extends PageIndexLoader {
     @Override
     public void updatePageCount(String response) throws ElementNotExistException {
         if (curCount == 1) {
-            pageCount = 1000;
+            pageCount = Integer.MAX_VALUE;
         }
     }
 }

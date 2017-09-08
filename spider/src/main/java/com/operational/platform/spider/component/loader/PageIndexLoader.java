@@ -3,6 +3,7 @@ package com.operational.platform.spider.component.loader;
 import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.spider.bean.CrawlPointAttr;
 import com.operational.platform.spider.component.handler.response.ResponseHandler;
+import com.operational.platform.spider.component.post.builder.PostBuilder;
 import com.operational.platform.spider.exception.ElementNotExistException;
 import com.operational.platform.spider.exception.RequestException;
 import com.operational.platform.spider.util.StrUtil;
@@ -69,17 +70,6 @@ public abstract class PageIndexLoader {
                 }
             }
 
-            /*String postParam = crawlPointAttr.getPostParam();
-            if (!StringUtils.isEmpty(postParam)) {
-                List<NameValuePair> params = new ArrayList<>();
-                String[] kvs = postParam.split("&");
-                for (String kv : kvs) {
-                    String[] strs = kv.split("=");
-                    params.add(new BasicNameValuePair(strs[0].trim(), strs[1].trim()));
-                }
-                httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
-            }*/
-
             httpRequestBase = httpPost;
         } else if ("GET".equalsIgnoreCase(crawlPointAttr.getMethod())) {
             url = URLDecoder.decode(crawlPointAttr.getUrl(), "utf-8");
@@ -131,6 +121,12 @@ public abstract class PageIndexLoader {
                     params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
                 }
             }
+
+            if(!StringUtils.isEmpty(crawlPointAttr.getPostParamPath())){//自定义post参数
+                PostBuilder postBuilder = (PostBuilder) Class.forName(crawlPointAttr.getPostParamPath()).newInstance();
+                postBuilder.setParams(params);
+            }
+
             httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
         } else if ("GET".equalsIgnoreCase(httpRequestBase.getMethod())) {// GET请求
 

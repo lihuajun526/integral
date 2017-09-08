@@ -78,6 +78,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>自定义POST参数</td>
+                    <td><input style="width: 500px;" id="postParamPath" name="postParamPath"/></td>
+                </tr>
+                <tr>
                     <td>请求头</td>
                     <td>
                         <textarea id="header" name="header" cols="68" rows="5"></textarea>
@@ -182,6 +186,7 @@
                 $("#pageRule").val(data.data.pageRule);
                 $("#belong").val(data.data.belong);
                 $("#postParam").val(data.data.postParam);
+                $("#postParamPath").val(data.data.postParamPath);
                 $("#cookies").val(data.data.cookies);
                 $("#sleepTime").val(data.data.sleepTime);
                 $("#header").val(data.data.header);

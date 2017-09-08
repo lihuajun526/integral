@@ -66,6 +66,8 @@ public class CrawlPointAttr {
 
     private String postParam;
 
+    private String postParamPath;
+
     private String header;
 
     private String cookies;
@@ -304,5 +306,21 @@ public class CrawlPointAttr {
 
     public Long getSleepTime() {
         return sleepTime;
+    }
+
+    public Boolean getIsCrawlDetail() {
+        return isCrawlDetail;
+    }
+
+    public void setIsCrawlDetail(Boolean isCrawlDetail) {
+        this.isCrawlDetail = isCrawlDetail;
+    }
+
+    public String getPostParamPath() {
+        return postParamPath;
+    }
+
+    public void setPostParamPath(String postParamPath) {
+        this.postParamPath = postParamPath;
     }
 }

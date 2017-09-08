@@ -955,6 +955,76 @@ public class CrawlPointExample {
             return (Criteria) this;
         }
 
+        public Criteria andPostParamPathIsNull() {
+            addCriterion("post_param_path is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathIsNotNull() {
+            addCriterion("post_param_path is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathEqualTo(String value) {
+            addCriterion("post_param_path =", value, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathNotEqualTo(String value) {
+            addCriterion("post_param_path <>", value, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathGreaterThan(String value) {
+            addCriterion("post_param_path >", value, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathGreaterThanOrEqualTo(String value) {
+            addCriterion("post_param_path >=", value, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathLessThan(String value) {
+            addCriterion("post_param_path <", value, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathLessThanOrEqualTo(String value) {
+            addCriterion("post_param_path <=", value, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathLike(String value) {
+            addCriterion("post_param_path like", value, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathNotLike(String value) {
+            addCriterion("post_param_path not like", value, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathIn(List<String> values) {
+            addCriterion("post_param_path in", values, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathNotIn(List<String> values) {
+            addCriterion("post_param_path not in", values, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathBetween(String value1, String value2) {
+            addCriterion("post_param_path between", value1, value2, "postParamPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostParamPathNotBetween(String value1, String value2) {
+            addCriterion("post_param_path not between", value1, value2, "postParamPath");
+            return (Criteria) this;
+        }
+
         public Criteria andHeaderIsNull() {
             addCriterion("header is null");
             return (Criteria) this;

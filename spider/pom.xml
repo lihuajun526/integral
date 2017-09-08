@@ -137,7 +137,7 @@
                     <programs>
                         <program>
                             <id>spider</id>
-                            <mainClass>com.operational.platform.spider.Application</mainClass>
+                            <mainClass>com.operational.platform.spider.CrawlApp</mainClass>
                         </program>
                     </programs>
                 </configuration>

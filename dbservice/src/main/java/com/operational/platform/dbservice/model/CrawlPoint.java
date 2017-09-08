@@ -29,6 +29,8 @@ public class CrawlPoint {
 
     private String postParam;
 
+    private String postParamPath;
+
     private String header;
 
     private String cookies;
@@ -321,5 +323,13 @@ public class CrawlPoint {
 
     public String getHeader() {
         return header;
+    }
+
+    public String getPostParamPath() {
+        return postParamPath;
+    }
+
+    public void setPostParamPath(String postParamPath) {
+        this.postParamPath = postParamPath;
     }
 }
