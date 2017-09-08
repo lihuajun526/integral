@@ -248,12 +248,12 @@ public class UserController extends BaseController {
     @ResponseBody
     public String encourageFromShare(String vipAccessToken) {
 
-        Result<String> result = new Result();
+        Result<Long> result = new Result();
 
         User loginUser = Constant.SessionMap.get(vipAccessToken);
-        String sDate = userService.encourageFromShare(loginUser, Config.getInt("user.share.days.encourage"));
+        Date date = userService.encourageFromShare(loginUser, Config.getInt("user.share.days.encourage"));
 
-        if (sDate == null) {
+        if (date == null) {
             result.setCode(1);
             return result.toString();
         }
@@ -261,7 +261,7 @@ public class UserController extends BaseController {
         loginUser = userService.getByAccessToken(vipAccessToken);
         Constant.SessionMap.put(vipAccessToken, loginUser);
         result.setCode(2);
-        result.setData(sDate);
+        result.setData(date.getTime());
         return result.toString();
 
     }

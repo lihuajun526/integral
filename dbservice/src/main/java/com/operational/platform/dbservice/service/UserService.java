@@ -1,8 +1,9 @@
 package com.operational.platform.dbservice.service;
 
-import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.model.IntegralRecord;
+import com.operational.platform.dbservice.model.User;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public interface UserService {
 
     List<User> listIntegralNotEnough();
 
-    String encourageFromShare(User user,int days);
+    Date encourageFromShare(User user,int days);
 
     User get(Integer id);
 

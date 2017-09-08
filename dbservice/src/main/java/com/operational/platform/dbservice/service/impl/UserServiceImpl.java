@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -137,7 +136,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String encourageFromShare(User user, int days) {
+    public Date encourageFromShare(User user, int days) {
         if (userTaskService.listByUserAndType(user.getId(), 2).size() > 0) {//只有第一次分享才奖励
             return null;
         }
@@ -156,8 +155,7 @@ public class UserServiceImpl implements UserService {
         userTask.setUserid(user.getId());
         userTask.setDescription("分享朋友圈奖励" + days + "天会员权益");
         userTaskService.save(userTask);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        return sdf.format(user.getVipExpires());
+        return user.getVipExpires();
     }
 
     @Override
