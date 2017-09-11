@@ -81,13 +81,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int save(User user) {
+    public int saveUserAndRecord(User user,IntegralRecord integralRecord) {
         int i = userMapper.insert(user);
-        IntegralRecord integralRecord = new IntegralRecord();
-        integralRecord.setUserid(user.getId());
-        integralRecord.setDescription("新用户注册");
-        integralRecord.setGoodsid(0);
-        integralRecord.setType(14);
         integralRecordService.save(integralRecord);
         return i;
     }

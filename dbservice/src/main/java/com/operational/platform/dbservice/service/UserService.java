@@ -22,7 +22,7 @@ public interface UserService {
 
     List<User> listSpreads(Integer userid);
 
-    int save(User user);
+    int saveUserAndRecord(User user,IntegralRecord integralRecord);
 
     int update(User user);
 

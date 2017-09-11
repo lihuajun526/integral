@@ -28,6 +28,7 @@ public class Builder implements PostBuilder {
         params.add(new BasicNameValuePair("province", datas1[i].split("-")[0]));
         params.add(new BasicNameValuePair("page", String.valueOf(iR)));
         params.add(new BasicNameValuePair("num", "30"));
+        params.add(new BasicNameValuePair("city", "" + r.nextInt(10)));
 
         //LOGGER.info(datas1[i].split("-")[0] + "#" + iR);
     }

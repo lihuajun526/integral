@@ -11,6 +11,7 @@ import com.operational.platform.common.util.AESCryptoUtil;
 import com.operational.platform.common.util.Config;
 import com.operational.platform.common.util.StrUtil;
 import com.operational.platform.common.util.XHttpClient;
+import com.operational.platform.dbservice.model.IntegralRecord;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.service.UserService;
 import com.operational.platform.vip.base.BaseController;
@@ -144,7 +145,14 @@ public class UserController extends BaseController {
                 logger.error("加密[{}]失败", vipAccessToken);
                 user.setVipAccessToken(accessToken);
             }
-            userService.save(user);
+
+            IntegralRecord integralRecord = new IntegralRecord();
+            integralRecord.setUserid(user.getId());
+            integralRecord.setDescription("新用户注册");
+            integralRecord.setGoodsid(0);
+            integralRecord.setType(14);
+            integralRecord.setIntegral(Config.getInt("user.regist.integral.encourage"));
+            userService.saveUserAndRecord(user, integralRecord);
             //保存用户到sessionMap
             Constant.SessionMap.put(user.getVipAccessToken(), user);
         } else {

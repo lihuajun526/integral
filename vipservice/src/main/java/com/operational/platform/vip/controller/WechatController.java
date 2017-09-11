@@ -2,6 +2,7 @@ package com.operational.platform.vip.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.common.util.Config;
+import com.operational.platform.dbservice.model.IntegralRecord;
 import com.operational.platform.dbservice.model.Log;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.model.WechatMsg;
@@ -119,7 +120,14 @@ public class WechatController {
                             c.setTime(new Date());
                             c.add(Calendar.DAY_OF_YEAR, Config.getInt("user.regist.days.encourage"));
                             user.setVipExpires(c.getTime());
-                            userService.save(user);
+
+                            IntegralRecord integralRecord = new IntegralRecord();
+                            integralRecord.setUserid(user.getId());
+                            integralRecord.setDescription("新用户注册");
+                            integralRecord.setGoodsid(0);
+                            integralRecord.setType(14);
+                            integralRecord.setIntegral(Config.getInt("user.regist.integral.encourage"));
+                            userService.saveUserAndRecord(user, integralRecord);
                             reply.setContent("欢迎关注影咔，已赠送您30天黄金会员，下载APP即可在爱奇艺、乐视、芒果TV中免费使用");
 
                             isNew = true;
