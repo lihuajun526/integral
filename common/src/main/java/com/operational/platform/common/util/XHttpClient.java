@@ -1,5 +1,6 @@
 package com.operational.platform.common.util;
 
+import com.operational.platform.common.bean.ReqSettings;
 import com.operational.platform.common.exception.RequestException;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
@@ -57,28 +58,26 @@ public class XHttpClient {
 
     public static String doRequest(HttpUriRequest httpUriRequest) throws RequestException {
 
-        return doRequest(httpUriRequest, "utf-8", 0L);
+        return doRequest(httpUriRequest, new ReqSettings());
     }
 
-    public static String doRequest(HttpUriRequest httpUriRequest, Long sleepTime) throws RequestException {
-
-        return doRequest(httpUriRequest, "utf-8", sleepTime);
-    }
 
     public static String doRequest(HttpUriRequest httpUriRequest, String charset) throws RequestException {
 
-        return doRequest(httpUriRequest, charset, 0L);
-    }
+        ReqSettings reqSettings = new ReqSettings();
+        reqSettings.setCharset(charset);
 
-    public static String doRequest(HttpUriRequest httpUriRequest, String charset, Long sleepTime) throws RequestException {
+        return doRequest(httpUriRequest, reqSettings);
+    }
+    public static String doRequest(HttpUriRequest httpUriRequest, ReqSettings reqSettings) throws RequestException {
 
         String result = null;
         CloseableHttpResponse response = null;
         try {
 
-            if (sleepTime != null && sleepTime > 0) {
+            if (reqSettings.getSleep() != null && reqSettings.getSleep() > 0) {
                 lock.lock();
-                Thread.sleep(sleepTime);
+                Thread.sleep(reqSettings.getSleep());
                 lock.unlock();
             }
 
@@ -107,7 +106,7 @@ public class XHttpClient {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 //按指定编码转换结果实体为String类型
-                result = EntityUtils.toString(entity, charset);
+                result = EntityUtils.toString(entity, reqSettings.getCharset());
             }
             //todo 这个有什么用?
             EntityUtils.consume(entity);

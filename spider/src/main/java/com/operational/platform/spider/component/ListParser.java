@@ -3,6 +3,7 @@ package com.operational.platform.spider.component;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.spider.bean.ParseResult;
+import com.operational.platform.spider.component.list.impl.Smt;
 import com.operational.platform.spider.exception.ListParamsParseException;
 import com.operational.platform.spider.util.JsHelper;
 import com.operational.platform.spider.util.StrUtil;
@@ -92,6 +93,7 @@ public class ListParser {
             LOGGER.error("获取列表记录错误[id={},规则={}]:", crawlPointAttr.getId(), listRecordRule, e);
             throw new ListRecordParseException(ExceptionTypeEnum.LIST_POSITION_PARSE_ERROR);
         }
+
         // 列表参数解析
         for (Element element : elements) {
             ParseResult parseResult = new ParseResult();
@@ -136,37 +138,43 @@ public class ListParser {
                 }
             }
             // link解析
-            try {
-                String link = null;
+            if (!StringUtils.isEmpty(linkRule)) {
+                try {
+                    String link = null;
 
-                LinkParam linkParam = JSONObject.parseObject(linkRule, LinkParam.class);
-                if (".".equals(linkParam.getJsoup())) {
-                    link = element.attr("href");
-                } else {
-                    link = element.select(linkParam.getJsoup()).get(0).attr("href");
-                }
-
-                //格式化链接
-                if (!StringUtils.isEmpty(linkParam.getFormat())) {
-                    link = String.format(linkParam.getFormat(), link);
-                }
-                // 需要自定义方式提取规则
-                if (!StringUtils.isEmpty(linkSelfRule)) {// {'by':'js','method':'xxx'}
-                    JSONObject jsonObject = JSONObject.parseObject(linkSelfRule);
-                    if ("js".equalsIgnoreCase(jsonObject.getString("by"))) {// js方式
-                        link = JsHelper.exe(jsonObject.getString("method"), link);
+                    LinkParam linkParam = JSONObject.parseObject(linkRule, LinkParam.class);
+                    if (".".equals(linkParam.getJsoup())) {
+                        link = element.attr("href");
+                    } else {
+                        link = element.select(linkParam.getJsoup()).get(0).attr("href");
                     }
-                }
 
-                parseResult.setLink(StrUtil.handleLink(crawlPointAttr.getUrl(), StrUtil.cleanUrl(link)));
-            } catch (Exception e) {
-                LOGGER.error("解析链接错误[id={}]", crawlPointAttr.getId(), e);
-                throw new FavourUrlParseException(ExceptionTypeEnum.FAVOUR_URL_PARSE_ERROR);
+                    //格式化链接
+                    if (!StringUtils.isEmpty(linkParam.getFormat())) {
+                        link = String.format(linkParam.getFormat(), link);
+                    }
+                    // 需要自定义方式提取规则
+                    if (!StringUtils.isEmpty(linkSelfRule)) {// {'by':'js','method':'xxx'}
+                        JSONObject jsonObject = JSONObject.parseObject(linkSelfRule);
+                        if ("js".equalsIgnoreCase(jsonObject.getString("by"))) {// js方式
+                            link = JsHelper.exe(jsonObject.getString("method"), link);
+                        }
+                    }
+
+                    parseResult.setLink(StrUtil.handleLink(crawlPointAttr.getUrl(), StrUtil.cleanUrl(link)));
+                } catch (Exception e) {
+                    LOGGER.error("解析链接错误[id={}]", crawlPointAttr.getId(), e);
+                    throw new FavourUrlParseException(ExceptionTypeEnum.FAVOUR_URL_PARSE_ERROR);
+                }
             }
 
             LOGGER.debug("ParseResult:" + JSONObject.toJSONString(parseResult));
 
             list.add(parseResult);
+        }
+
+        if (crawlPointAttr.getId() == 35 || crawlPointAttr.getId() == 38) {//私募通特殊处理
+            list = new Smt().handle(content, list);
         }
 
         return list;

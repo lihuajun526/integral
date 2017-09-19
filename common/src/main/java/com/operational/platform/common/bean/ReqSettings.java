@@ -16,7 +16,7 @@ public class ReqSettings {
     private String acceptLanguage;
     private String accept;
     private String cookies;
-    private Integer sleep;
+    private Long sleep;
     private String urlencoded;
     private String host;
     private String origin;
@@ -96,14 +96,6 @@ public class ReqSettings {
         this.cookies = cookies;
     }
 
-    public Integer getSleep() {
-        return sleep;
-    }
-
-    public void setSleep(Integer sleep) {
-        this.sleep = sleep;
-    }
-
     public String getUrlencoded() {
         return urlencoded;
     }
@@ -150,5 +142,13 @@ public class ReqSettings {
 
     public void setAttrs(Map<String, String> attrs) {
         this.attrs = attrs;
+    }
+
+    public Long getSleep() {
+        return sleep;
+    }
+
+    public void setSleep(Long sleep) {
+        this.sleep = sleep;
     }
 }

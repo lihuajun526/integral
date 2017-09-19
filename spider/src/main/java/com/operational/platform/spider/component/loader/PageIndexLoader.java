@@ -122,7 +122,7 @@ public abstract class PageIndexLoader {
                 }
             }
 
-            if(!StringUtils.isEmpty(crawlPointAttr.getPostParamPath())){//自定义post参数
+            if (!StringUtils.isEmpty(crawlPointAttr.getPostParamPath())) {//自定义post参数
                 PostBuilder postBuilder = (PostBuilder) Class.forName(crawlPointAttr.getPostParamPath()).newInstance();
                 postBuilder.setParams(params);
             }
@@ -152,7 +152,7 @@ public abstract class PageIndexLoader {
                 httpGet.setURI(new URI(reqUri));
             }
         }
-        String response = XHttpClient.doRequest(httpRequestBase, crawlPointAttr.getSleepTime());
+        String response = XHttpClient.doRequest(httpRequestBase, crawlPointAttr.getReqSettings());
 
         //处理response
         if (!StringUtils.isEmpty(crawlPointAttr.getResponseHandler())) {

@@ -1,5 +1,7 @@
 package com.operational.platform.spider.bean;
 
+import com.operational.platform.common.bean.ReqSettings;
+
 /**
  * 采集点
  *
@@ -322,5 +324,11 @@ public class CrawlPointAttr {
 
     public void setPostParamPath(String postParamPath) {
         this.postParamPath = postParamPath;
+    }
+
+    public ReqSettings getReqSettings() {
+        ReqSettings reqSettings = new ReqSettings();
+        reqSettings.setSleep(this.getSleepTime());
+        return reqSettings;
     }
 }
