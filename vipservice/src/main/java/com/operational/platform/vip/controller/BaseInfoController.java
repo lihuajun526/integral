@@ -64,5 +64,27 @@ public class BaseInfoController extends BaseController {
         return result.toString();
     }
 
+    /**
+     * 是否显示小红点
+     * @param vipAccessToken
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/other/info/reddot")
+    public String getBaseInfo(String vipAccessToken) {
+
+        Result<Boolean> result = new Result<>();
+        result.setData(false);
+
+        if (StringUtils.isEmpty(vipAccessToken)) {
+            return result.toString();
+        }
+
+        User loginUser = Constant.SessionMap.get(vipAccessToken);
+
+        result.setData(true);
+        return result.toString();
+    }
+
 
 }
