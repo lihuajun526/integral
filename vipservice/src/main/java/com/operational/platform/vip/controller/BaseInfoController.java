@@ -6,6 +6,7 @@ import com.operational.platform.dbservice.model.Regular;
 import com.operational.platform.dbservice.model.User;
 import com.operational.platform.dbservice.service.BaseInfoService;
 import com.operational.platform.dbservice.service.ConfigService;
+import com.operational.platform.dbservice.service.UserService;
 import com.operational.platform.vip.base.BaseController;
 import com.operational.platform.vip.base.Result;
 import com.operational.platform.vip.constant.Constant;
@@ -30,6 +31,8 @@ public class BaseInfoController extends BaseController {
     private BaseInfoService baseInfoService;
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private UserService userService;
 
     @ResponseBody
     @RequestMapping("/base/info")
@@ -45,6 +48,7 @@ public class BaseInfoController extends BaseController {
         data.put("regulars", regulars);
         if (!StringUtils.isEmpty(vipAccessToken)) {
             User loginUser = Constant.SessionMap.get(vipAccessToken);
+            loginUser = userService.get(loginUser.getId());
             if (loginUser != null) {
                 data.put("vipExpires", loginUser.getVipExpires());
                 data.put("integral", loginUser.getIntegral());
