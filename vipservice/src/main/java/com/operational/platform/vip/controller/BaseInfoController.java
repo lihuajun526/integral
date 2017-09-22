@@ -48,10 +48,15 @@ public class BaseInfoController extends BaseController {
         data.put("regulars", regulars);
         if (!StringUtils.isEmpty(vipAccessToken)) {
             User loginUser = Constant.SessionMap.get(vipAccessToken);
-            loginUser = userService.get(loginUser.getId());
+            if (loginUser == null)
+                loginUser = userService.getByAccessToken(vipAccessToken);
             if (loginUser != null) {
-                data.put("vipExpires", loginUser.getVipExpires());
-                data.put("integral", loginUser.getIntegral());
+                loginUser = userService.get(loginUser.getId());
+                if (loginUser != null) {
+                    data.put("vipExpires", loginUser.getVipExpires());
+                    data.put("integral", loginUser.getIntegral());
+                    Constant.SessionMap.put(vipAccessToken, loginUser);
+                }
             }
         }
         List<String> descList = new ArrayList<>();
@@ -70,6 +75,7 @@ public class BaseInfoController extends BaseController {
 
     /**
      * 是否显示小红点
+     *
      * @param vipAccessToken
      * @return
      */
