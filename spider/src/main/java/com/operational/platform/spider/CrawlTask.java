@@ -153,7 +153,7 @@ public class CrawlTask implements Runnable {
                 attackPageDb.setFlag(2);//更新
                 attackPageDb.setAttr(attackPage.getAttr());
                 attackPageDb.setMd5(attackPage.getMd5());
-                LOGGER.info("有更新[{}]", attackPage.getAttr());
+                LOGGER.debug("有更新[{}]", attackPage.getAttr());
             }
             attackPageService.save(attackPageDb);
             return;

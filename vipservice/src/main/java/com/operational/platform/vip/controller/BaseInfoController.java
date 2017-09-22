@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.dbservice.model.AppVersion;
 import com.operational.platform.dbservice.model.Regular;
 import com.operational.platform.dbservice.model.User;
+import com.operational.platform.dbservice.service.BannerService;
 import com.operational.platform.dbservice.service.BaseInfoService;
 import com.operational.platform.dbservice.service.ConfigService;
 import com.operational.platform.dbservice.service.UserService;
@@ -33,6 +34,8 @@ public class BaseInfoController extends BaseController {
     private ConfigService configService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private BannerService bannerService;
 
     @ResponseBody
     @RequestMapping("/base/info")
@@ -46,6 +49,7 @@ public class BaseInfoController extends BaseController {
 
         data.put("version", appVersion);
         data.put("regulars", regulars);
+        data.put("banners", bannerService.listByForum(1));
         if (!StringUtils.isEmpty(vipAccessToken)) {
             User loginUser = Constant.SessionMap.get(vipAccessToken);
             if (loginUser == null)
