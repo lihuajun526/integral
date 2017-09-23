@@ -48,6 +48,7 @@ public class BaseInfoController extends BaseController {
         List<Regular> regulars = baseInfoService.listAll();
 
         data.put("version", appVersion);
+        data.put("forceUpdate", false);
         data.put("regulars", regulars);
         data.put("banners", bannerService.listByForum(1));
         if (!StringUtils.isEmpty(vipAccessToken)) {
