@@ -212,8 +212,23 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/login/wechat/temp")
     @ResponseBody
-    public String loginTemp() {
+    public String loginTemp(String username, String password) {
         Result<User> result = new Result<>();
+
+        if (StringUtils.isEmpty(username)) {
+            result.set(ExceptionCode.PARAM_IS_NULL_ERROR.code, "用户名不能为空");
+            return result.toString();
+        }
+
+        if (StringUtils.isEmpty(password)) {
+            result.set(ExceptionCode.PARAM_IS_NULL_ERROR.code, "密码不能为空");
+            return result.toString();
+        }
+
+        if (!username.equals("super") || !password.equals("Password")) {
+            result.set(ExceptionCode.USER_OR_PASSWORD_ERROR);
+            return result.toString();
+        }
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());

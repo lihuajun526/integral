@@ -11,7 +11,10 @@ public enum ExceptionCode {
     NOT_LOGIN_ERROR(-11002, "未登录"),
     INTEGRAL_NOT_ENOUGH_ERROR(-11003, "积分不足"),
     GET_STAGE_TYPE_ERROR(-11004, "无法获得所属平台"),
-    VIP_EXPIRES_OUT_ERROR(-11005, "会员权益过期"),;
+    VIP_EXPIRES_OUT_ERROR(-11005, "会员权益过期"),
+    USER_OR_PASSWORD_ERROR(-11006, "账号或密码错误"),
+
+    ;
 
     public final int code;
 

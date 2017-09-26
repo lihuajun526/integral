@@ -1,6 +1,8 @@
 package com.operational.platform.vip.base;
 
 import com.alibaba.fastjson.JSON;
+import com.operational.platform.common.constant.ExceptionCode;
+import com.operational.platform.common.constant.ExceptionTypeEnum;
 
 public class Result<T> {
 
@@ -48,6 +50,10 @@ public class Result<T> {
 
     public void set(int code, String message) {
         this.set(code, message, null);
+    }
+
+    public void set(ExceptionCode exceptionCode) {
+        this.set(exceptionCode.code, exceptionCode.description, null);
     }
 
 
