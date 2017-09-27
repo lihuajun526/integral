@@ -1,18 +1,19 @@
-package com.operational.plaform.taskbreak.bean;
+package com.operational.platform.taskbreak.bean;
 
 /**
  * Created by lihuajun on 2017/9/27.
  */
 public class BreakTask {
 
-    private Integer taskid;
+    private String taskid;
+    private Integer pointid;
     private String description;
 
-    public Integer getTaskid() {
+    public String getTaskid() {
         return taskid;
     }
 
-    public void setTaskid(Integer taskid) {
+    public void setTaskid(String taskid) {
         this.taskid = taskid;
     }
 
@@ -34,6 +35,11 @@ public class BreakTask {
 
     private Integer status;
 
+    public Integer getPointid() {
+        return pointid;
+    }
 
-
+    public void setPointid(Integer pointid) {
+        this.pointid = pointid;
+    }
 }
