@@ -81,7 +81,7 @@ public class WechatController {
                         //修改关注状态
                         user.setStatus(1);
                         userService.update(user);
-                        reply.setContent("感谢您再次关注影咔...");
+                        reply.setContent("感谢您再次关注影咖...");
                     } else {
                         //获取用户基本信息
                         HttpGet httpGet = new HttpGet("https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + Constant.ACCESS_TOKEN + "&openid=" + openid + "&lang=zh_CN");
@@ -99,7 +99,7 @@ public class WechatController {
                             c.add(Calendar.DAY_OF_YEAR, Config.getInt("user.share.days.encourage"));
                             user.setVipExpires(c.getTime());
                             userService.update(user);
-                            reply.setContent("欢迎关注影咔，已赠送您" + Config.get("user.subscribe.days.encourage") + "天会员权益，您的会员权益延迟至" + sdf.format(c.getTime()));
+                            reply.setContent("欢迎关注影咖，已赠送您" + Config.get("user.subscribe.days.encourage") + "天会员权益，您的会员权益延迟至" + sdf.format(c.getTime()));
 
                             isNew = true;
                         } else {//创建新用户，赠送会员天数+积分
@@ -128,7 +128,7 @@ public class WechatController {
                             integralRecord.setType(14);
                             integralRecord.setIntegral(Config.getInt("user.regist.integral.encourage"));
                             userService.saveUserAndRecord(user, integralRecord);
-                            reply.setContent("欢迎关注影咔，已赠送您30天黄金会员，下载APP即可在爱奇艺、乐视、芒果TV中免费使用");
+                            reply.setContent("欢迎关注影咖，已赠送您30天黄金会员，下载APP即可在爱奇艺、乐视、芒果TV中免费使用");
 
                             isNew = true;
                         }
