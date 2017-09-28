@@ -320,8 +320,6 @@ public class UserController extends BaseController {
         } catch (Exception e) {
             logger.error("error:", e);
         }
-        //todo 返回不带参数的公众号二维码
-        map.put("url", "");
         return map;
     }
 

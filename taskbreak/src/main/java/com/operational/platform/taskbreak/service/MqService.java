@@ -1,6 +1,6 @@
 package com.operational.platform.taskbreak.service;
 
-import com.operational.platform.taskbreak.bean.CrawlJob;
+import com.operational.platform.common.bean.MQCrawlJob;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +19,7 @@ public class MqService {
     @Value("${mq.job.exchange}")
     private String exchangeName;
 
-    public void saveToMq(CrawlJob crawlJob) {
+    public void saveToMq(MQCrawlJob crawlJob) {
         amqpTemplate.convertAndSend(exchangeName, "job.route", crawlJob);
     }
 }

@@ -27,4 +27,6 @@ public interface AttackPageService {
 
     List<AttackPage> listByPoints(List<Integer> pointids);
 
+    List<AttackPage> listByPointAndLink(AttackPage attackPage);
+
 }

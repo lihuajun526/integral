@@ -1,9 +1,9 @@
-package com.operational.platform.taskbreak.bean;
+package com.operational.platform.common.bean;
 
 /**
  * Created by lihuajun on 2017/9/27.
  */
-public class CrawlJob {
+public class MQCrawlJob {
 
     private String taskid;
     private Integer pointid;

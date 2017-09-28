@@ -11,7 +11,7 @@
             <mvc:mapping path="/*"/>
             &lt;!&ndash; 需排除拦截的地址 &ndash;&gt;
             <mvc:exclude-mapping path="404"/>
-            <bean class="SecurityInterceptor"/>
+            <component class="SecurityInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>-->
 

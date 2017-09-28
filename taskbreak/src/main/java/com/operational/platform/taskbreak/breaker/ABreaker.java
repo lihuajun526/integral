@@ -1,6 +1,6 @@
 package com.operational.platform.taskbreak.breaker;
 
-import com.operational.platform.taskbreak.bean.CrawlJob;
+import com.operational.platform.common.bean.MQCrawlJob;
 import com.operational.platform.taskbreak.bean.BreakTask;
 import com.operational.platform.taskbreak.bean.ListPage;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ public abstract class ABreaker {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ABreaker.class);
 
-    public List<CrawlJob> exe(BreakTask breakTask) {
+    public List<MQCrawlJob> exe(BreakTask breakTask) {
 
         List<ListPage> listPages = getListPage();
         if (listPages == null || listPages.size() == 0) {
@@ -24,9 +24,9 @@ public abstract class ABreaker {
             return null;
         }
 
-        List<CrawlJob> list = new ArrayList<>();
+        List<MQCrawlJob> list = new ArrayList<>();
         for (ListPage listPage : listPages) {
-            CrawlJob crawlJob = new CrawlJob();
+            MQCrawlJob crawlJob = new MQCrawlJob();
             crawlJob.setIsListPageEmpty(false);
             crawlJob.setListPage(listPage.getContent());
             crawlJob.setPageIndex(listPage.getPageIndex());

@@ -21,7 +21,7 @@ import java.util.Random;
 @Component("tzr")
 public class Tzr extends ABreaker {
 
-    private int sleepTime = 2000;
+    private int sleepTime = 3000;
 
     @Override
     protected List<ListPage> getListPage() {

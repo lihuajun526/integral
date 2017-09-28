@@ -84,4 +84,14 @@ public class AttackPageServiceImpl implements AttackPageService {
         criteria.andPointidIn(pointids);
         return attackPageMapper.selectByExampleWithBLOBs(example);
     }
+
+    @Override
+    public List<AttackPage> listByPointAndLink(AttackPage attackPage) {
+        AttackPageExample example = new AttackPageExample();
+        AttackPageExample.Criteria criteria = example.createCriteria();
+        criteria.andPointidEqualTo(attackPage.getPointid());
+        criteria.andLinkEqualTo(attackPage.getLink());
+
+        return attackPageMapper.selectByExample(example);
+    }
 }

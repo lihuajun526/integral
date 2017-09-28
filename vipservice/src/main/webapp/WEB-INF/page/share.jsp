@@ -3,18 +3,18 @@
 <%
     String appPath = Config.get("app.name");
     Object oTicket = request.getAttribute("ticket");
-    Object oUrl = request.getAttribute("url");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="renderer" content="webkit" />
+    <meta name="renderer" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0"/>
     <meta charset="UTF-8">
     <title>关注影咖 - 扫一扫二维码</title>
-    <link rel="stylesheet" href="<%=appPath%>/css/qrcode.css" />
-    <link rel="stylesheet" href="<%=appPath%>/css/animate.css" />
+    <link rel="stylesheet" href="<%=appPath%>/css/qrcode.css"/>
+    <link rel="stylesheet" href="<%=appPath%>/css/animate.css"/>
 </head>
 <body>
 <div class="main">
@@ -22,9 +22,9 @@
     <div class="section2 animated jackInTheBox"><img src="<%=appPath%>/images/img2.png"></div>
     <div class="section3 animated zoomInDown">
         <%
-            if(oTicket==null){
-        %><!--<img src="<%=oUrl%>">--><img src="<%=appPath%>/images/img3.png"/><%
-    }else{
+            if (oTicket == null) {
+        %><img src="<%=appPath%>/images/img3.png"/><%
+    } else {
     %><img src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=<%=oTicket%>"/><%
         }
     %>

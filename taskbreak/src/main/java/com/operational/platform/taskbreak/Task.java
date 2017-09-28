@@ -1,7 +1,7 @@
 package com.operational.platform.taskbreak;
 
+import com.operational.platform.common.bean.MQCrawlJob;
 import com.operational.platform.taskbreak.bean.BreakTask;
-import com.operational.platform.taskbreak.bean.CrawlJob;
 import com.operational.platform.taskbreak.bean.SpringContext;
 import com.operational.platform.taskbreak.breaker.ABreaker;
 import com.operational.platform.taskbreak.service.MqService;
@@ -22,9 +22,9 @@ public class Task {
 
         ABreaker aBreaker = (ABreaker) SpringContext.getContext().getBean("tzr");
         MqService mqService = (MqService) SpringContext.getContext().getBean("mqService");
-        List<CrawlJob> jobs = aBreaker.exe(breakTask);
+        List<MQCrawlJob> jobs = aBreaker.exe(breakTask);
 
-        for (CrawlJob job : jobs) {
+        for (MQCrawlJob job : jobs) {
             mqService.saveToMq(job);
         }
 

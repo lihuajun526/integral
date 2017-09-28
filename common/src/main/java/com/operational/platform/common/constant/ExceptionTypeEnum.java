@@ -13,6 +13,10 @@ public enum ExceptionTypeEnum {
     OPENID_NOT_EXIST_ERROR("000003", "openid不存在"),
     Get_Unionid_ERROR("000004", "获取微信unionid失败"),
     Get_User_Info_ERROR("000005", "获取用户基本信息失败"),
+    Get_Investor_Info_ERROR("000006","获取投资人信息失败"),
+    File_Download_ERROR("000007","文件下载失败"),
+    Get_Investor_Career_ERROR("000008","获取投资人职业生涯信息失败"),
+    Get_Investor_Case_ERROR("000009","获得投资人投资案例失败"),
     ;
 
     public final String code;
