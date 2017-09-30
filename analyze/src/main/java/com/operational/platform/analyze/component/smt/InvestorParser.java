@@ -45,17 +45,18 @@ public class InvestorParser extends ToJsonParser {
     private AttackPageService attackPageService;
 
     private List<String> cookies = new ArrayList<String>() {{
-        add("JSESSIONID=A65F934B502BF50A73758251B3B45A22; APP3_0Client=smtApp; quickLogonKey=18857107097$020EA7AC6CE1ED064320F99286B0C601");
+        //add("JSESSIONID=A65F934B502BF50A73758251B3B45A22; APP3_0Client=smtApp; quickLogonKey=18857107097$020EA7AC6CE1ED064320F99286B0C601");
+        add("JSESSIONID=52690298E7F588DC5476E2C6F4E2B50E; firstEnterUrlInSession=http%3A//pe.pedata.cn/addUserInfoMember.action; VisitorCapacity=1; USER_LOGIN_ID=59594077-8D22-4786-B16F-6C0C75B88A64; USER_LOGIN_NAME_KEY=13480138720; IS_CS_KEY=true; USER_LOGIN_NAME=13480138720; USER_LOGIN_LANGUAGE=zh_CN; USER_CLIENT_ID=\"\"; operatorId=31183; pageReferrInSession=http%3A//pe.pedata.cn/addUserInfoMember.action; request_locale=zh_CN");
     }};
     private List<String> iosUids = new ArrayList<String>() {{
-        add("7B75CB76-F2F2-46AA-885B-F1AD9461C3A7");
-        add("7B75C477-F0F1-45AA-835C-F1BD9461C2A7");
-        add("7B75C487-F3F1-45BA-836C-F1BD9461C2A8");
+        add("7B75CB76-F2F2-46AA-775B-F1AD9461C3A7");
+        add("7B75C477-F0F1-45AA-665C-F1BD9461C2A7");
+        add("7B75C487-F3F1-45BA-926C-F1BD9461C2A8");
     }};
     private List<String> iosIdfas = new ArrayList<String>() {{
-        add("0443D612-A352-4553-89D8-77682DA24F0C");
-        add("0443D611-A340-4443-89D8-99682DA24F0B");
-        add("0443D613-A362-4223-89D8-88682DA24F0C");
+        add("0443D612-A352-4553-98D8-77682DA24F0C");
+        add("0443D611-A340-4443-78D8-99682DA24F0B");
+        add("0443D613-A362-4223-87D8-88682DA24F0C");
     }};
 
     @Override

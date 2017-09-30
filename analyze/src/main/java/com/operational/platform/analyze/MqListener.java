@@ -30,12 +30,10 @@ public class MqListener implements ChannelAwareMessageListener {
         try {
             receiveMsg = new String(message.getBody(), "utf-8");
             MQCrawlJob crawlJob = JSONObject.parseObject(receiveMsg, MQCrawlJob.class);
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-
             LOGGER.info("收到JOB，pageIndex={}", crawlJob.getPageIndex());
             investorParser.exe(crawlJob);
 
-            CrawlJob crawlJobDb = new com.operational.platform.dbservice.model.CrawlJob();
+            CrawlJob crawlJobDb = new CrawlJob();
             crawlJobDb.setPageIndex(crawlJob.getPageIndex());
             crawlJobDb.setTaskid(crawlJob.getTaskid());
             crawlJobDb.setIsListPageEmpty(crawlJob.isListPageEmpty());
@@ -43,6 +41,7 @@ public class MqListener implements ChannelAwareMessageListener {
             crawlJobDb.setListPage(crawlJob.getListPage());
 
             crawlJobService.save(crawlJobDb);
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 
         } catch (Exception e) {
             channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);

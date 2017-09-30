@@ -30,7 +30,7 @@
     </dependencies>
 
     <build>
-        <finalName>taskbreak</finalName>
+        <finalName>analyze</finalName>
         <filters>
             <filter>src/main/filters/${env}/properties/mq-config.properties</filter>
         </filters>

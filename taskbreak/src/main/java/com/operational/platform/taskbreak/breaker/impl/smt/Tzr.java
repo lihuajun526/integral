@@ -27,7 +27,8 @@ public class Tzr extends ABreaker {
     protected List<ListPage> getListPage() {
 
         List<String> cookies = new ArrayList<String>() {{
-            add("quickLogonKey=18857107097$020EA7AC6CE1ED064320F99286B0C601;JSESSIONID=F0787F1981D86A93A84938A32C6093AA;APP3_0Client=smtApp;");
+            add("quickLogonKey=13148376469$020EA7AC6CE1ED064320F99286B0C601;JSESSIONID=F0787F1981D86A93A84938A32C6093AA;APP3_0Client=smtApp;");
+            //add("JSESSIONID=52690298E7F588DC5476E2C6F4E2B50E; firstEnterUrlInSession=http%3A//pe.pedata.cn/addUserInfoMember.action; VisitorCapacity=1; USER_LOGIN_ID=59594077-8D22-4786-B16F-6C0C75B88A64; USER_LOGIN_NAME_KEY=13480138720; IS_CS_KEY=true; USER_LOGIN_NAME=13480138720; USER_LOGIN_LANGUAGE=zh_CN; USER_CLIENT_ID=\"\"; operatorId=31183; pageReferrInSession=http%3A//pe.pedata.cn/addUserInfoMember.action; request_locale=zh_CN");
         }};
         List<String> iosUids = new ArrayList<String>() {{
             add("7B75CB76-F2F2-46AA-885B-F1AD9461C3A7");
