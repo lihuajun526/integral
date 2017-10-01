@@ -86,7 +86,7 @@ public class BaseInfoController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/other/info/reddot")
-    public String getBaseInfo(String vipAccessToken) {
+    public String getOtherInfo(String vipAccessToken) {
 
         Result<Boolean> result = new Result<>();
         result.setData(false);
