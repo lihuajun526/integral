@@ -182,7 +182,17 @@ public class WechatController {
                 } else if ("scan".equalsIgnoreCase(wechatMsg.getEvent())) {
                     LOGGER.info("已关注的用户[{}]扫描二维码不做任何处理");
                 } else if ("click".equalsIgnoreCase(wechatMsg.getEvent())) {//点击菜单
-
+                    WechatMsg r = new WechatMsg();
+                    reply.setToUserName(openid);
+                    reply.setFromUserName(appConfig.wechatAccount);
+                    reply.setCreateTime(new Date());
+                    reply.setMsgType("text");
+                    if ("NEW_ONLINE".equalsIgnoreCase(wechatMsg.getEventKey())) {
+                        reply.setContent("努力开发中，敬请期待");
+                    } else if ("GOOD_VIDEO".equalsIgnoreCase(wechatMsg.getEventKey())) {
+                        reply.setContent("努力开发中，敬请期待");
+                    }
+                    result = reply.toXml();
                 }
             }
         } catch (Exception e) {

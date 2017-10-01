@@ -277,6 +277,7 @@ public class UserController extends BaseController {
         Date date = userService.encourageFromShare(loginUser, Config.getInt("user.share.days.encourage"));
 
         if (date == null) {
+            result.setData(loginUser.getVipExpires().getTime());
             result.setCode(1);
             return result.toString();
         }
