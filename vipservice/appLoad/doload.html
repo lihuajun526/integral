@@ -1,0 +1,149 @@
+
+
+<html>
+<head>
+	<title>帝王宝盒下载页面</title>
+	<link rel="stylesheet" type="text/css" href="http://www.liniandpw.com/app/css/index.css?20150105">
+	<script type="text/javascript" src="http://www.liniandpw.com/app/jquery-1.9.1.min.js"></script>
+
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+	<meta charset="utf-8"/>
+</head>
+<style>
+	*{margin: 0;padding: 0;}
+	body{text-align: center;}
+.biejing{max-width: 640px;background:#15a066;background-size: 100% 100%; height:100%; margin: 0 auto;}
+
+.appheader{width: 65%;margin-left: 19.5%;}
+.tu img{
+max-width:100%;
+width:100%;
+width:e&shy;xpression(document.body.clientWidth>600?"600px":"auto");
+overflow:hidden;
+}
+.appcontent {
+  width: 100%;
+  
+  margin-bottom: 5%;
+  display: inline-block;
+}
+.app_android{width: 35%; cursor: pointer;float: left;margin-left: 12%;}
+
+.app_iphone{width: 35%;cursor: pointer;float: left;margin-left: 8%;}
+
+.muban{width: 100%;height: 100%;position: absolute;top: 0;left: 0;background-color: #000;opacity: 0.8;display: none;}
+.jiantou{width: 20%;float: right;margin-right: 5%;}
+.wenzi{font-size: 2rem;display: inline-block;color: #fff;font-family: "微软雅黑";margin: 0 auto;}
+.wenzi_liu{text-align: center;}
+.beijingshouji{width: 100%;display: inline-block;}
+.wxtip-txt{padding-top: 107px; color: #fff; font-size: 16px; line-height: 1.5;}
+</style>
+<script type="text/javascript">
+function getOs(){   
+	var OsObject = "";   
+	if(navigator.userAgent.indexOf("MSIE")>0) {   
+	     return "MSIE";   
+	}   
+	if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){   
+	     return "Firefox";   
+	}   
+	if(isSafari=navigator.userAgent.indexOf("Safari")>0) {   
+	     return "Safari";   
+	}    
+	if(isCamino=navigator.userAgent.indexOf("Camino")>0){   
+	     return "Camino";   
+	}   
+	if(isMozilla=navigator.userAgent.indexOf("Gecko/")>0){   
+	     return "Gecko";   
+	}   
+}   
+
+$(function(){
+	 if(getOs() == 'Safari'){
+	 	$('#back').show();
+	 }
+})
+</script>	
+<body>
+	<div class="biejing">
+		<div class="beijing_tou tu">
+			<img src="https://app.7kanba.com/images/logo03.png">
+		</div>
+		<div class="beijingshouji tu">
+			<img src="https://app.7kanba.com/images/logo04.png">
+		</div>
+		<div class="appcontent">
+			<div class="app_android tu">
+				<a href="https://app2.7kanba.com/app/app092001.apk"><img src="http://www.liniandpw.com/app/anzhuo.png"></a>
+			</div>
+			<div class="app_iphone tu">
+				<a href="itms-services://?action=download-manifest&url=https://app.7kanba.com/diwangbao.plist">
+					<img src="http://www.liniandpw.com/app/iPhone.png">
+				</a>
+			</div>
+		<div id="back" class="app_iphone tu" style="margin-left: 118px; margin-top: 25px; display: none;">
+	
+		</div>			
+
+		</div>
+		
+	</div>
+	<div class="muban">
+		<div class="jiantou tu">
+			<img src="https://app.7kanba.com/images/weixin-tip.png">
+		</div>
+		<div class="wenzi">
+			<div class="wenzi_liu">
+				<span>通过在[浏览器中打开]</span>
+			</div>
+			<div class="wenzi_liu">
+				<span>下载帝王宝盒吧！</span>
+			</div>
+			
+		</div>
+	</div>
+	<div style="padding:0 8px;background:rgba(255, 0, 0, 0.6);color:#fff;bottom: 0;
+
+    display: block;
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+    position: fixed;
+    width: 100%;">
+	<a href="http://app.7kanba.com/guide.html" style="text-decoration: none;    color: #fff;">
+		"苹果手机用户注意:应用未受信任"解决方法教程 >>
+		</a>
+	</div>
+	
+</body>
+<script>
+	$(function(){
+	$(".app_android").click(function(){
+		var link="https://app2.7kanba.com/app/app092001.apk";
+		isWeiXin(link);
+	})
+	$(".app_iphone").click(function(){
+		var link="itms-services://?action=download-manifest&url=https://app.7kanba.com/diwangbao.plist";
+		isWeiXin(link);
+	});
+	var rightwidth= $(window).width();
+	$(".wenzi_liu").css("width",rightwidth);
+	var zuidawidth=$(".beijingshouji").width();
+	var zuizongwidth=(rightwidth-zuidawidth)/2;
+
+	$(".beijingshouji").css("left",zuizongwidth);
+})
+
+function isWeiXin(link){ 
+	var ua = window.navigator.userAgent.toLowerCase(); 
+	if(ua.match(/MicroMessenger/i) == 'micromessenger'){ 
+		$(".muban").show();
+		$(".muban").click(function(){
+			$(this).hide();
+		})
+	}else{ 
+		window.location.href=link;
+	} 
+} 
+</script>
+</html>

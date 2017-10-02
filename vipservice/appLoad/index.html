@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+		<meta name="viewport" content="width=device-width" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no"/>
+		<title>影咖APP下载页</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<body>
+		<div id="phone">
+			<img src="images/phone.png" />
+		</div>
+		<div id="download">
+			<a class="android" id="download1" href="http://119.23.39.149/vipeo.apk">安卓版</a>
+			<a class="iphone" id="download2"  href="https://itunes.apple.com/us/app/%E5%BD%B1%E5%92%96/id1289067471?l=zh&ls=1&mt=8">苹果版</a>
+		</div>
+		<div class="wxtip" id="JweixinTip">
+			<span class="wxtip-icon"></span>
+			<p class="wxtip-txt">点击右上角<br/>选择在浏览器中打开</p>
+		</div>
+	</div>
+	</body>
+	<script>
+	function weixinTip(ele){
+		var ua = navigator.userAgent;
+		var isWeixin = !!/MicroMessenger/i.test(ua);
+		if(isWeixin){
+			ele.onclick=function(e){
+				window.event? window.event.returnValue = false : e.preventDefault();
+				document.getElementById('JweixinTip').style.display='block';
+			}
+			document.getElementById('JweixinTip').onclick=function(){
+				this.style.display='none';
+			}
+		}
+	}
+	var btn1 = document.getElementById('download1');//下载一
+	weixinTip(btn1);
+	var btn2 = document.getElementById('download2'); //下载二
+	weixinTip(btn2)
+
+	</script>
+</html>
