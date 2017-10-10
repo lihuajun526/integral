@@ -53,7 +53,7 @@
     <!-- mapper interface -->
     <!-- for user database -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.operational.platform.dbservice"/>
+        <property name="basePackage" value="com.operational.platform.dbservice.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryCommon"/>
     </bean>
 

@@ -2,6 +2,7 @@ package com.operational.platform.analyze;
 
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.analyze.component.smt.InvestorParser;
+import com.operational.platform.analyze.component.smt.OrgParser;
 import com.operational.platform.common.bean.MQCrawlJob;
 import com.operational.platform.dbservice.model.CrawlJob;
 import com.operational.platform.dbservice.service.CrawlJobService;
@@ -21,6 +22,8 @@ public class MqListener implements ChannelAwareMessageListener {
     @Autowired
     private InvestorParser investorParser;
     @Autowired
+    private OrgParser orgParser;
+    @Autowired
     private CrawlJobService crawlJobService;
 
     @Override
@@ -30,8 +33,9 @@ public class MqListener implements ChannelAwareMessageListener {
         try {
             receiveMsg = new String(message.getBody(), "utf-8");
             MQCrawlJob crawlJob = JSONObject.parseObject(receiveMsg, MQCrawlJob.class);
-            LOGGER.info("收到JOB，pageIndex={}", crawlJob.getPageIndex());
-            investorParser.exe(crawlJob);
+            LOGGER.debug("收到JOB，pageIndex={}", crawlJob.getPageIndex());
+            //investorParser.exe(crawlJob);
+            orgParser.exe(crawlJob);
 
             CrawlJob crawlJobDb = new CrawlJob();
             crawlJobDb.setPageIndex(crawlJob.getPageIndex());

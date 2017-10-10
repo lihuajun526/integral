@@ -7,7 +7,7 @@ public class MQCrawlJob {
 
     private String taskid;
     private Integer pointid;
-    private boolean isListPageEmpty = true;
+    private boolean listPageEmpty = true;
     private String listPage;
     private Integer pageIndex;
 
@@ -44,10 +44,10 @@ public class MQCrawlJob {
     }
 
     public boolean isListPageEmpty() {
-        return isListPageEmpty;
+        return listPageEmpty;
     }
 
-    public void setIsListPageEmpty(boolean isListPageEmpty) {
-        this.isListPageEmpty = isListPageEmpty;
+    public void setListPageEmpty(boolean listPageEmpty) {
+        this.listPageEmpty = listPageEmpty;
     }
 }

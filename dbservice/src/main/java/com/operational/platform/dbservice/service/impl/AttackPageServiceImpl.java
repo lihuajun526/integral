@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by lihuajun on 16-7-27.
  */
-@Service("attackPageService")
+@Service
 public class AttackPageServiceImpl implements AttackPageService {
 
     @Autowired

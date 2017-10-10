@@ -17,6 +17,14 @@ public enum ExceptionTypeEnum {
     File_Download_ERROR("000007","文件下载失败"),
     Get_Investor_Career_ERROR("000008","获取投资人职业生涯信息失败"),
     Get_Investor_Case_ERROR("000009","获得投资人投资案例失败"),
+    Get_Org_Info_ERROR("000010","获取机构信息失败"),
+    Get_Exit_Case_ERROR("000011","获取退出案例失败"),
+    Get_Contact_ERROR("000012","获取机构联系方式失败"),
+    Get_Managers_ERROR("000013","获取管理团队失败"),
+    Get_Statistics_ERROR("000014","获取统计信息失败"),
+    Get_Invest_Trend_ERROR("000015","获取投资趋势失败"),
+    Get_Exit_Trend_ERROR("000016","获取退出趋势失败"),
+    Get_Funds_ERROR("000017","获取管理基金失败"),
     ;
 
     public final String code;

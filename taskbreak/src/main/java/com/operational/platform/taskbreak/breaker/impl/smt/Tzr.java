@@ -78,6 +78,10 @@ public class Tzr extends ABreaker {
                             LOGGER.error("请求[页数={},投资人类型={},投资人所在地={},投资行业={}]错误", pageIndex, str1[1], str2[1], str3[1]);
                             continue;
                         }
+                        if (jsonObject.getIntValue("total") == 0) {
+                            LOGGER.info("[页数={},投资人类型={},投资人所在地={},投资行业={}]记录数为0", pageIndex, str1[1], str2[1], str3[1]);
+                            continue;
+                        }
                         ListPage listPage = new ListPage();
                         listPage.getAttr().put("投资人类型", str1[1]);
                         listPage.getAttr().put("投资人所在地", str2[1]);

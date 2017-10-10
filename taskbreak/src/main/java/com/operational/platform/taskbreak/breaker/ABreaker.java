@@ -27,7 +27,7 @@ public abstract class ABreaker {
         List<MQCrawlJob> list = new ArrayList<>();
         for (ListPage listPage : listPages) {
             MQCrawlJob crawlJob = new MQCrawlJob();
-            crawlJob.setIsListPageEmpty(false);
+            crawlJob.setListPageEmpty(false);
             crawlJob.setListPage(listPage.getContent());
             crawlJob.setPageIndex(listPage.getPageIndex());
             crawlJob.setPointid(breakTask.getPointid());
