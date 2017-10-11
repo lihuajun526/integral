@@ -104,23 +104,24 @@ public class OrgParser extends ToJsonParser {
             AttackPage attackPage = new AttackPage();
             attackPage.setLink(orgId);
             attackPage.setPointid(crawlJob.getPointid());
-            List<AttackPage> list = attackPageService.listByPointAndLink(attackPage);
 
+            /*List<AttackPage> list = attackPageService.listByPointAndLink(attackPage);
             if (list.size() > 0)
-                continue;
+                continue;*/
 
             Organise organise = getOrg(orgId);//获取机构基本信息
             organise.setCaseList(getCases(organise));//获取机构投资案例信息
             filterCase(organise);
             organise.setExitCaseList(getExitCases(organise));
             filterExitCase(organise);
-            organise.setOrgContact(getContact(organise));
+            organise.setOrgContactList(getContact(organise));
             organise.setManagerList(listManagers(organise));
             filterManager(organise);
             organise.setFundList(getFunds(organise));
             organise.setStatistics(getStatistics(organise));
             organise.setInvestTrend(getInvestTrend(organise));
             organise.setExitTrend(getExitTrend(organise));
+            organise.setAttr(crawlJob.getAttr());
 
             attackPage.setTitle(organise.getOrgNameCn());
             attackPage.setBelong("smt");
@@ -171,7 +172,7 @@ public class OrgParser extends ToJsonParser {
             String photoUrl = result.getString("orgLogo");
             if (!StringUtils.isEmpty(photoUrl)) {
                 try {
-                    String suffix = photoUrl.substring(photoUrl.lastIndexOf("."));
+                    String suffix = photoUrl.substring(photoUrl.lastIndexOf(".")).toLowerCase();
                     String fileName = System.currentTimeMillis() + suffix;
                     int rInt = r.nextInt(42);
                     String filePath = PIC_ROOT + rInt + File.separator + fileName;
@@ -276,7 +277,7 @@ public class OrgParser extends ToJsonParser {
             String photoUrl = investCase.getEpLogo();
             try {
                 Thread.sleep(1500);
-                String suffix = photoUrl.substring(photoUrl.lastIndexOf("."));
+                String suffix = photoUrl.substring(photoUrl.lastIndexOf(".")).toLowerCase();
                 String fileName = System.currentTimeMillis() + suffix;
                 int rInt = r.nextInt(42);
                 String filePath = PIC_ROOT + rInt + File.separator + fileName;
@@ -299,7 +300,7 @@ public class OrgParser extends ToJsonParser {
             String photoUrl = exitCase.getEpLogo();
             try {
                 Thread.sleep(1500);
-                String suffix = photoUrl.substring(photoUrl.lastIndexOf("."));
+                String suffix = photoUrl.substring(photoUrl.lastIndexOf(".")).toLowerCase();
                 String fileName = System.currentTimeMillis() + suffix;
                 int rInt = r.nextInt(42);
                 String filePath = PIC_ROOT + rInt + File.separator + fileName;
@@ -312,7 +313,7 @@ public class OrgParser extends ToJsonParser {
         }
     }
 
-    private OrgContact getContact(Organise organise) throws CommonException {
+    private List<OrgContact> getContact(Organise organise) throws CommonException {
         try {
             httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/eventContact/getList?eventId=" + organise.getOrgId() + "&eventType=1%2C5&entityType=org&_=1507600503100"));
 
@@ -321,7 +322,7 @@ public class OrgParser extends ToJsonParser {
             if (!jsonObject.getBoolean("success"))
                 throw new CommonException(ExceptionTypeEnum.Get_Contact_ERROR);
 
-            return JSON.parseObject(jsonObject.getString("result"), OrgContact.class);
+            return JSON.parseArray(jsonObject.getString("result"), OrgContact.class);
         } catch (Exception e) {
             LOGGER.error("获取机构[orgId={},nameCn={}]联系方式错误", organise.getOrgId(), organise.getOrgNameCn(), e);
             throw new CommonException(ExceptionTypeEnum.Get_Contact_ERROR);
@@ -383,7 +384,7 @@ public class OrgParser extends ToJsonParser {
             String photoUrl = manager.getPersonPhoto();
             try {
                 Thread.sleep(1500);
-                String suffix = photoUrl.substring(photoUrl.lastIndexOf("."));
+                String suffix = photoUrl.substring(photoUrl.lastIndexOf(".")).toLowerCase();
                 String fileName = System.currentTimeMillis() + suffix;
                 int rInt = r.nextInt(42);
                 String filePath = PIC_ROOT + rInt + File.separator + fileName;
@@ -398,11 +399,18 @@ public class OrgParser extends ToJsonParser {
 
     private List<Fund> getFunds(Organise organise) throws CommonException {
         List<Fund> funds = new ArrayList<>();
+
         int pageIndex = 1;
         try {
-            httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgFundList?orgId=" + organise.getOrgId() + "&_=1507600503096"));
-
-            String response = XHttpClient.doRequest(httpGet);
+            httpPost.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgFundList?platform=ios&app_name=smt_app&platversion=4.0.2&device_info=iPhone11.0.1&device_version=iPhone6&ios_uid=" + getRandom(iosUids) + "&ios_idfa=" + getRandom(iosIdfas)));
+            List<NameValuePair> params = new ArrayList<NameValuePair>() {{
+                add(new BasicNameValuePair("limit", "10"));
+                add(new BasicNameValuePair("orgId", organise.getOrgId()));
+                add(new BasicNameValuePair("start", "0"));
+                add(new BasicNameValuePair("page", "1"));
+            }};
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
+            String response = XHttpClient.doRequest(httpPost);
             JSONObject jsonObject = JSON.parseObject(response);
             if (!jsonObject.getBoolean("success"))
                 throw new CommonException(ExceptionTypeEnum.Get_Funds_ERROR);
@@ -410,9 +418,21 @@ public class OrgParser extends ToJsonParser {
             funds.addAll(JSON.parseArray(jsonObject.getString("result"), Fund.class));
 
             int total = jsonObject.getIntValue("total");
-            if (total > 10) {
-                LOGGER.error("管理的基金大于10[orgId={}]", organise.getOrgId());
-                throw new CommonException(ExceptionTypeEnum.Get_Funds_ERROR);
+            for (pageIndex = 2; pageIndex <= (total % 10 == 0 ? (total / 10) : (total / 10 + 1)); pageIndex++) {
+                try {
+                    Thread.sleep(sleepTime);
+                    params.set(params.size() - 2, new BasicNameValuePair("start", String.valueOf((pageIndex - 1) * 10)));
+                    params.set(params.size() - 1, new BasicNameValuePair("page", String.valueOf(pageIndex)));
+                    httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
+                    response = XHttpClient.doRequest(httpPost);
+                    jsonObject = JSON.parseObject(response);
+                    if (!jsonObject.getBoolean("success"))
+                        throw new CommonException(ExceptionTypeEnum.Get_Funds_ERROR);
+
+                    funds.addAll(JSON.parseArray(jsonObject.getString("result"), Fund.class));
+                } catch (Exception e) {
+                    LOGGER.error("获取基金[orgId={},nameCn={},pageIndex={}]错误", organise.getOrgId(), organise.getOrgNameCn(), pageIndex, e);
+                }
             }
         } catch (Exception e) {
             LOGGER.error("获取基金[orgId={},nameCn={},pageIndex={}]错误", organise.getOrgId(), organise.getOrgNameCn(), pageIndex, e);

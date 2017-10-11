@@ -30,6 +30,7 @@ public abstract class ABreaker {
             crawlJob.setListPageEmpty(false);
             crawlJob.setListPage(listPage.getContent());
             crawlJob.setPageIndex(listPage.getPageIndex());
+            crawlJob.setAttr(listPage.getAttr());
             crawlJob.setPointid(breakTask.getPointid());
             crawlJob.setTaskid(breakTask.getTaskid());
             list.add(crawlJob);

@@ -34,6 +34,7 @@ public class MqListener implements ChannelAwareMessageListener {
             receiveMsg = new String(message.getBody(), "utf-8");
             MQCrawlJob crawlJob = JSONObject.parseObject(receiveMsg, MQCrawlJob.class);
             LOGGER.debug("收到JOB，pageIndex={}", crawlJob.getPageIndex());
+
             //investorParser.exe(crawlJob);
             orgParser.exe(crawlJob);
 

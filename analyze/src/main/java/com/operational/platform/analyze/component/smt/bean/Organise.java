@@ -1,6 +1,7 @@
 package com.operational.platform.analyze.component.smt.bean;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2017/10/10.
@@ -36,7 +37,7 @@ public class Organise {
     private String orgWeb;
     private String orgDesc;
     private String orgLogo;
-    private OrgContact orgContact;
+    private List<OrgContact> orgContactList;
     private List<InvestCase> caseList;
     private List<ExitCase> exitCaseList;
     private List<Manager> managerList;
@@ -44,6 +45,7 @@ public class Organise {
     private Statistics statistics;
     private InvestTrend investTrend;
     private ExitTrend exitTrend;
+    private Map<String,String> attr;
 
     public InvestTrend getInvestTrend() {
         return investTrend;
@@ -85,12 +87,12 @@ public class Organise {
         this.managerList = managerList;
     }
 
-    public OrgContact getOrgContact() {
-        return orgContact;
+    public List<OrgContact> getOrgContactList() {
+        return orgContactList;
     }
 
-    public void setOrgContact(OrgContact orgContact) {
-        this.orgContact = orgContact;
+    public void setOrgContactList(List<OrgContact> orgContactList) {
+        this.orgContactList = orgContactList;
     }
 
     public List<ExitCase> getExitCaseList() {
@@ -219,5 +221,13 @@ public class Organise {
 
     public void setCaseList(List<InvestCase> caseList) {
         this.caseList = caseList;
+    }
+
+    public Map<String, String> getAttr() {
+        return attr;
+    }
+
+    public void setAttr(Map<String, String> attr) {
+        this.attr = attr;
     }
 }

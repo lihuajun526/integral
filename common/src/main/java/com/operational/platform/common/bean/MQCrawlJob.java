@@ -1,5 +1,8 @@
 package com.operational.platform.common.bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by lihuajun on 2017/9/27.
  */
@@ -10,6 +13,7 @@ public class MQCrawlJob {
     private boolean listPageEmpty = true;
     private String listPage;
     private Integer pageIndex;
+    private Map<String,String> attr;
 
     public String getTaskid() {
         return taskid;
@@ -49,5 +53,13 @@ public class MQCrawlJob {
 
     public void setListPageEmpty(boolean listPageEmpty) {
         this.listPageEmpty = listPageEmpty;
+    }
+
+    public Map<String, String> getAttr() {
+        return attr;
+    }
+
+    public void setAttr(Map<String, String> attr) {
+        this.attr = attr;
     }
 }
