@@ -114,15 +114,16 @@ public class InvestorParser extends ToJsonParser {
             AttackPage attackPage = new AttackPage();
             attackPage.setLink(personId);
             attackPage.setPointid(crawlJob.getPointid());
-            List<AttackPage> list = attackPageService.listByPointAndLink(attackPage);
 
+            /*List<AttackPage> list = attackPageService.listByPointAndLink(attackPage);
             if (list.size() > 0)
-                continue;
+                continue;*/
 
             Investor investor = getInvestor(personId);//获取投资人基本信息
             investor.setCareerList(getCareers(investor));//获取投资人职业生涯信息
             investor.setCaseList(getCases(investor));//获取投资人投资案例信息
             filterCase(investor);
+            investor.setAttr(crawlJob.getAttr());
 
             attackPage.setTitle(investor.getNameCn());
             attackPage.setBelong("smt");

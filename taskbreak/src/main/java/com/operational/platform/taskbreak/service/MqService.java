@@ -20,6 +20,6 @@ public class MqService {
     private String exchangeName;
 
     public void saveToMq(MQCrawlJob crawlJob) {
-        amqpTemplate.convertAndSend(exchangeName, "job.route", crawlJob);
+        amqpTemplate.convertAndSend(exchangeName, "job.tzr", crawlJob);
     }
 }

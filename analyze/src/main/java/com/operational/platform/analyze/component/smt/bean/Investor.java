@@ -1,6 +1,7 @@
 package com.operational.platform.analyze.component.smt.bean;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2017/9/28.
@@ -31,6 +32,15 @@ public class Investor {
     private String email;//电子邮箱
     private List<Career> careerList;//职业生涯
     private List<InvestCase> caseList;//投资案例
+    private Map<String,String> attr;
+
+    public Map<String, String> getAttr() {
+        return attr;
+    }
+
+    public void setAttr(Map<String, String> attr) {
+        this.attr = attr;
+    }
 
     public String getNameCn() {
         return nameCn;

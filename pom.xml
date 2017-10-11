@@ -450,6 +450,7 @@
     </dependencies>
 
     <build>
+        <directory>${project.basedir}/target</directory>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -528,7 +529,7 @@
             <id>dev</id>
             <properties>
                 <env>dev</env>
-                <spider.app.jvm>-server -Xmx512m -Xms512m -verbose:gc -Xloggc:./gc.log
+                <spider.app.jvm>-server -Xmx1024m -Xms512m -verbose:gc -Xloggc:./gc.log
                     -XX:ErrorFile=./hs_err_pid_att.log -XX:HeapDumpPath=./java_pid_att.hprof
                     -XX:+HeapDumpOnOutOfMemoryError -XX:+PerfDataSaveToFile -XX:+PrintGC -XX:+PrintGCDetails
                     -XX:+PrintGCTimeStamps
