@@ -53,6 +53,7 @@ public class OrgParser extends ToJsonParser {
         add("quickLogonKey=13113656998$36A838636E0328B88F0488FC69D6D228;JSESSIONID=DF16D09E7C7A3868D37418E1F3C81814;APP3_0Client=smtApp;");
         add("quickLogonKey=13603528142$55DAEC35E3E8ABBB0896F1A8C8375467;JSESSIONID=6B5D6B6AF11EE9D5A25AD3BBE0E423DB;APP3_0Client=smtApp;");
         add("quickLogonKey=13935206503$A428C3A4CA88C6F465FF70C1FA574B2D;JSESSIONID=14E538D766375A73B71E33F448798FBB;APP3_0Client=smtApp;");
+        add("quickLogonKey=cc70f88754c64d61bcc03754f4273735$3B11DE49CC270A15AFCAF4B93EDB10A9;JSESSIONID=FB4072FD1C7DDE7132639DC3B7002261;APP3_0Client=smtApp;");
     }};
     private List<String> iosUids = new ArrayList<String>() {{
         add("7B75CB76-F2F2-46AA-775B-F1AD9461C3A7");
@@ -104,19 +105,29 @@ public class OrgParser extends ToJsonParser {
             AttackPage attackPage = new AttackPage();
             attackPage.setLink(orgId);
             attackPage.setPointid(crawlJob.getPointid());
+            attackPage.setBelong("smt");
+            attackPage.setFlag(1);
+            attackPage.setCategory("移动端投资机构");
 
-            /*List<AttackPage> list = attackPageService.listByPointAndLink(attackPage);
-            if (list.size() > 0)
-                continue;*/
+            List<AttackPage> list = attackPageService.listByPointAndLink(attackPage);
+            if (list.size() > 0) {
+                Organise organise = new Organise();
+                organise.setAttr(crawlJob.getAttr());
+                attackPage.setAttr(JSON.toJSONString(organise));
+                attackPage.setMd5(StrUtil.md5(attackPage.getAttr()));
+
+                attackPageService.save(attackPage);
+                continue;
+            }
 
             Organise organise = getOrg(orgId);//获取机构基本信息
             organise.setCaseList(getCases(organise));//获取机构投资案例信息
-            filterCase(organise);
+            //filterCase(organise);
             organise.setExitCaseList(getExitCases(organise));
-            filterExitCase(organise);
+            //filterExitCase(organise);
             organise.setOrgContactList(getContact(organise));
             organise.setManagerList(listManagers(organise));
-            filterManager(organise);
+            //filterManager(organise);
             organise.setFundList(getFunds(organise));
             organise.setStatistics(getStatistics(organise));
             organise.setInvestTrend(getInvestTrend(organise));
@@ -124,10 +135,7 @@ public class OrgParser extends ToJsonParser {
             organise.setAttr(crawlJob.getAttr());
 
             attackPage.setTitle(organise.getOrgNameCn());
-            attackPage.setBelong("smt");
-            attackPage.setFlag(1);
             attackPage.setAttr(JSON.toJSONString(organise));
-            attackPage.setCategory("移动端投资机构");
             attackPage.setMd5(StrUtil.md5(attackPage.getAttr()));
 
             attackPageService.save(attackPage);
@@ -238,9 +246,15 @@ public class OrgParser extends ToJsonParser {
         List<ExitCase> cases = new ArrayList<>();
         int pageIndex = 1;
         try {
-            httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgExitList?orgId=" + organise.getOrgId() + "&_=1507600503088"));
-
-            String response = XHttpClient.doRequest(httpGet);
+            httpPost.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgExitList?platform=ios&app_name=smt_app&platversion=4.0.2&device_info=iPhone11.0.1&device_version=iPhone6&ios_uid="+getRandom(iosUids)+"&ios_idfa="+getRandom(iosIdfas)));
+            List<NameValuePair> params = new ArrayList<NameValuePair>() {{
+                add(new BasicNameValuePair("limit", "10"));
+                add(new BasicNameValuePair("orgId", organise.getOrgId()));
+                add(new BasicNameValuePair("start", "0"));
+                add(new BasicNameValuePair("page", "1"));
+            }};
+            httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
+            String response = XHttpClient.doRequest(httpPost);
             JSONObject jsonObject = JSON.parseObject(response);
             if (!jsonObject.getBoolean("success"))
                 throw new CommonException(ExceptionTypeEnum.Get_Exit_Case_ERROR);
@@ -248,9 +262,22 @@ public class OrgParser extends ToJsonParser {
             cases.addAll(JSON.parseArray(jsonObject.getString("result"), ExitCase.class));
 
             int total = jsonObject.getIntValue("total");
-            if (total > 10) {
-                LOGGER.warn("退出案例大于10[orgId={}]", organise.getOrgId());
-                throw new CommonException(ExceptionTypeEnum.Get_Exit_Case_ERROR);
+            for (pageIndex = 2; pageIndex <= (total % 10 == 0 ? (total / 10) : (total / 10 + 1)); pageIndex++) {
+                try {
+                    Thread.sleep(sleepTime);
+                    params.set(params.size() - 2, new BasicNameValuePair("start", String.valueOf((pageIndex - 1) * 10)));
+                    params.set(params.size() - 1, new BasicNameValuePair("page", String.valueOf(pageIndex)));
+                    httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
+                    response = XHttpClient.doRequest(httpPost);
+                    jsonObject = JSON.parseObject(response);
+                    if (!jsonObject.getBoolean("success"))
+                        throw new CommonException(ExceptionTypeEnum.Get_Exit_Case_ERROR);
+
+                    cases.addAll(JSON.parseArray(jsonObject.getString("result"), ExitCase.class));
+                } catch (Exception e) {
+                    LOGGER.error("获取机构[orgId={},nameCn={},pageIndex={}]退出案例错误", organise.getOrgId(), organise.getOrgNameCn(), pageIndex, e);
+                    throw new CommonException(ExceptionTypeEnum.Get_Exit_Case_ERROR);
+                }
             }
         } catch (Exception e) {
             LOGGER.error("获取机构[orgId={},nameCn={},pageIndex={}]退出案例错误", organise.getOrgId(), organise.getOrgNameCn(), pageIndex, e);
