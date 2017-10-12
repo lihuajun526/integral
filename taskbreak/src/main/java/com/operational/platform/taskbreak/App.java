@@ -13,7 +13,6 @@ public class App {
 
         SpringContext.init("classpath:spring/spring.xml");
 
-        TzrTask.exe();
     }
 
 }

@@ -3,6 +3,7 @@ package com.operational.platform.taskbreak.breaker.impl.smt;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.common.util.XHttpClient;
+import com.operational.platform.taskbreak.bean.BreakTask;
 import com.operational.platform.taskbreak.bean.ListPage;
 import com.operational.platform.taskbreak.breaker.ABreaker;
 import org.apache.http.NameValuePair;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -24,7 +26,7 @@ public class Tzjg extends ABreaker {
     private int sleepTime = 3000;
 
     @Override
-    protected List<ListPage> getListPage() {
+    public void exe(BreakTask breakTask, Map<String, String> attr) {
 
         List<String> cookies = new ArrayList<String>() {{
             add("quickLogonKey=13802271587$CF138B01DABBD084DB1F4D27C6F2986B;JSESSIONID=8F6D34C4D176EDFE3AEFE03715EC2489;APP3_0Client=smtApp;");
@@ -71,7 +73,6 @@ public class Tzjg extends ABreaker {
         String[] industrys = "1-移动互联网#112-汽车交通#13-医疗健康#27-文化娱乐#101-O2O#28-大数据#109-企业服务#111-云服务#31-教育#107-传媒#3-本地生活#14-旅游服务#5-社交网络#6-体育#15-游戏#8-P2P服务#17-可穿戴设备#23-工具软件#24-互联网金融#30-房产服务#39-金融#40-IT服务#12-装修装潢#102-B2C#103-食品饮料#104-环保#105-先进制造#106-传统硬件#108-新材料#110-电子设备#116-企业信息化#117-新能源#118-物联网#119-B2B#121-智能硬件#124-物流配送#125-影视动漫#128-母婴#129-C2C#130-招聘求职#148-家政服务#149-现代农业#172-生鲜#166-政府引导基金#176-VR/AR#181-人工智能#185-网络社区#186-机械制造#188-生物医药#16-广告营销#206-新三板#19-3D打印#0-全部".split("#");
 
         String url = "https://app.pedata.cn/PEDATA_APP_BACK/org/orgList?platform=ios&app_name=smt_app&platversion=4.0.2&device_info=iPhone11.0.1&device_version=iPhone6&ios_uid=%s&ios_idfa=%s";
-        List<ListPage> listPages = new ArrayList<>();
         for (String orgType : orgTypes) {
             String[] str1 = orgType.split("-");
             for (String area : areas) {
@@ -114,7 +115,7 @@ public class Tzjg extends ABreaker {
                         listPage.getAttr().put("投资行业", str3[1]);
                         listPage.setPageIndex(pageIndex);
                         listPage.setContent(jsonObject.getString("result"));
-                        listPages.add(listPage);
+                        saveToMq(listPage, breakTask);
 
                         int total = jsonObject.getIntValue("total");
                         pageIndex++;
@@ -134,7 +135,7 @@ public class Tzjg extends ABreaker {
                             listPage.getAttr().put("投资行业", str3[1]);
                             listPage.setPageIndex(pageIndex);
                             listPage.setContent(jsonObject.getString("result"));
-                            listPages.add(listPage);
+                            saveToMq(listPage, breakTask);
                         }
 
                     } catch (Exception e) {
@@ -143,8 +144,6 @@ public class Tzjg extends ABreaker {
                 }
             }
         }
-
-        return listPages;
     }
 
     private String getRandom(List<String> list) {

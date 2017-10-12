@@ -25,6 +25,7 @@ public enum ExceptionTypeEnum {
     Get_Invest_Trend_ERROR("000015","获取投资趋势失败"),
     Get_Exit_Trend_ERROR("000016","获取退出趋势失败"),
     Get_Funds_ERROR("000017","获取管理基金失败"),
+    Get_Investor_List_ERROR("000018","获取投资人列表信息失败"),
     ;
 
     public final String code;

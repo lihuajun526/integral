@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * @author: Zhou Xuanang
  * @Date: 13:19 16/8/1.
@@ -21,5 +23,9 @@ public class MqService {
 
     public void saveToMq(MQCrawlJob crawlJob) {
         amqpTemplate.convertAndSend(exchangeName, "job.tzr", crawlJob);
+    }
+
+    public void saveToMq(Map<String, String> map, String routeKey) {
+        amqpTemplate.convertAndSend(exchangeName, routeKey, map);
     }
 }

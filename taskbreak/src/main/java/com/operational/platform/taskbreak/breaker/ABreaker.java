@@ -1,13 +1,15 @@
 package com.operational.platform.taskbreak.breaker;
 
 import com.operational.platform.common.bean.MQCrawlJob;
+import com.operational.platform.common.exception.CommonException;
 import com.operational.platform.taskbreak.bean.BreakTask;
 import com.operational.platform.taskbreak.bean.ListPage;
+import com.operational.platform.taskbreak.service.MqService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 2017/9/27.
@@ -15,31 +17,20 @@ import java.util.List;
 public abstract class ABreaker {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ABreaker.class);
+    @Autowired
+    private MqService mqService;
 
-    public List<MQCrawlJob> exe(BreakTask breakTask) {
-
-        List<ListPage> listPages = getListPage();
-        if (listPages == null || listPages.size() == 0) {
-            LOGGER.info("分解任务[id={},pointid={}]没有分解出job", breakTask.getTaskid(), breakTask.getPointid());
-            return null;
-        }
-
-        List<MQCrawlJob> list = new ArrayList<>();
-        for (ListPage listPage : listPages) {
-            MQCrawlJob crawlJob = new MQCrawlJob();
-            crawlJob.setListPageEmpty(false);
-            crawlJob.setListPage(listPage.getContent());
-            crawlJob.setPageIndex(listPage.getPageIndex());
-            crawlJob.setAttr(listPage.getAttr());
-            crawlJob.setPointid(breakTask.getPointid());
-            crawlJob.setTaskid(breakTask.getTaskid());
-            list.add(crawlJob);
-        }
-
-        return list;
+    public void saveToMq(ListPage listPage, BreakTask breakTask) {
+        MQCrawlJob crawlJob = new MQCrawlJob();
+        crawlJob.setListPageEmpty(false);
+        crawlJob.setListPage(listPage.getContent());
+        crawlJob.setPageIndex(listPage.getPageIndex());
+        crawlJob.setAttr(listPage.getAttr());
+        crawlJob.setPointid(breakTask.getPointid());
+        crawlJob.setTaskid(breakTask.getTaskid());
+        mqService.saveToMq(crawlJob);
     }
 
-
-    protected abstract List<ListPage> getListPage();
+    public abstract void exe(BreakTask breakTask, Map<String, String> attr) throws CommonException;
 
 }

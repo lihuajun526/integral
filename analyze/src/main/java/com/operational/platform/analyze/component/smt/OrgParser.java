@@ -41,18 +41,18 @@ public class OrgParser extends ToJsonParser {
     private AttackPageService attackPageService;
 
     private List<String> cookies = new ArrayList<String>() {{
-        add("quickLogonKey=13802271587$CF138B01DABBD084DB1F4D27C6F2986B;JSESSIONID=8F6D34C4D176EDFE3AEFE03715EC2489;APP3_0Client=smtApp;");
-        add("quickLogonKey=13480138720$D7FFB59857129B266D5A3BC853C08265;JSESSIONID=2FFD56182ED4927BA52C196EC4372A0C;APP3_0Client=smtApp;");
-        add("quickLogonKey=13424192457$2DD52B43875D03D9BBF7211A4F1074DD;JSESSIONID=50262BFBF789E40442424E2AC0A2CCBD;APP3_0Client=smtApp;");
-        add("quickLogonKey=13148376469$33FCA19C09BFB92C02FC213A06AD0712;JSESSIONID=A4BDB3CC22E328A34F45421B25444A94;APP3_0Client=smtApp;");
-        add("quickLogonKey=9c4d3706223d4641abb1e3f99cbca1e3$771E24A64B9C525EE6CE4A5999E64913;JSESSIONID=7067AB9C118DADC4D9413506A8AB1740;APP3_0Client=smtApp;");
-        add("quickLogonKey=b9afc0c4fe7442de88ecf44b89903fc7$5A31DBD582F4B7E512ED360C3C0B0C0A;JSESSIONID=447657F88E4DE4700907AE30770FB413;APP3_0Client=smtApp;");
-        add("quickLogonKey=125f575461bb48a5bb0a2b2a89da0854$EAEC4903AAD5E8094D2A04346A174E2A;JSESSIONID=05F24D0E267CAB0BE8F13CB4FF9062A4;APP3_0Client=smtApp;");
-        add("quickLogonKey=2f1f163596e941daaa869a13257ba2e0$CCFAFA69AAC6D3D50A6AB47DAAE722D3;JSESSIONID=B6819C15864569BC417C82F0E407E403;APP3_0Client=smtApp;");
-        add("quickLogonKey=a438bf270d37491f87e819b7e1b6dd6e$EC6CF446B3714F5CC1C5CDEA403721F5;JSESSIONID=8663B5B98E92B23E601050405F4D3E82;APP3_0Client=smtApp;");
-        add("quickLogonKey=13113656998$36A838636E0328B88F0488FC69D6D228;JSESSIONID=DF16D09E7C7A3868D37418E1F3C81814;APP3_0Client=smtApp;");
-        add("quickLogonKey=13603528142$55DAEC35E3E8ABBB0896F1A8C8375467;JSESSIONID=6B5D6B6AF11EE9D5A25AD3BBE0E423DB;APP3_0Client=smtApp;");
-        add("quickLogonKey=13935206503$A428C3A4CA88C6F465FF70C1FA574B2D;JSESSIONID=14E538D766375A73B71E33F448798FBB;APP3_0Client=smtApp;");
+        //add("quickLogonKey=13802271587$CF138B01DABBD084DB1F4D27C6F2986B;JSESSIONID=8F6D34C4D176EDFE3AEFE03715EC2489;APP3_0Client=smtApp;");
+        //add("quickLogonKey=13480138720$D7FFB59857129B266D5A3BC853C08265;JSESSIONID=2FFD56182ED4927BA52C196EC4372A0C;APP3_0Client=smtApp;");
+        //add("quickLogonKey=13424192457$2DD52B43875D03D9BBF7211A4F1074DD;JSESSIONID=50262BFBF789E40442424E2AC0A2CCBD;APP3_0Client=smtApp;");
+        //add("quickLogonKey=13148376469$33FCA19C09BFB92C02FC213A06AD0712;JSESSIONID=A4BDB3CC22E328A34F45421B25444A94;APP3_0Client=smtApp;");
+        //*add("quickLogonKey=9c4d3706223d4641abb1e3f99cbca1e3$771E24A64B9C525EE6CE4A5999E64913;JSESSIONID=7067AB9C118DADC4D9413506A8AB1740;APP3_0Client=smtApp;");
+        //*add("quickLogonKey=b9afc0c4fe7442de88ecf44b89903fc7$5A31DBD582F4B7E512ED360C3C0B0C0A;JSESSIONID=447657F88E4DE4700907AE30770FB413;APP3_0Client=smtApp;");
+        //add("quickLogonKey=125f575461bb48a5bb0a2b2a89da0854$EAEC4903AAD5E8094D2A04346A174E2A;JSESSIONID=05F24D0E267CAB0BE8F13CB4FF9062A4;APP3_0Client=smtApp;");
+        //add("quickLogonKey=2f1f163596e941daaa869a13257ba2e0$CCFAFA69AAC6D3D50A6AB47DAAE722D3;JSESSIONID=B6819C15864569BC417C82F0E407E403;APP3_0Client=smtApp;");
+        //add("quickLogonKey=a438bf270d37491f87e819b7e1b6dd6e$EC6CF446B3714F5CC1C5CDEA403721F5;JSESSIONID=8663B5B98E92B23E601050405F4D3E82;APP3_0Client=smtApp;");
+        //*add("quickLogonKey=13113656998$36A838636E0328B88F0488FC69D6D228;JSESSIONID=DF16D09E7C7A3868D37418E1F3C81814;APP3_0Client=smtApp;");
+        //*add("quickLogonKey=13603528142$55DAEC35E3E8ABBB0896F1A8C8375467;JSESSIONID=6B5D6B6AF11EE9D5A25AD3BBE0E423DB;APP3_0Client=smtApp;");
+        //add("quickLogonKey=13935206503$A428C3A4CA88C6F465FF70C1FA574B2D;JSESSIONID=14E538D766375A73B71E33F448798FBB;APP3_0Client=smtApp;");
         add("quickLogonKey=cc70f88754c64d61bcc03754f4273735$3B11DE49CC270A15AFCAF4B93EDB10A9;JSESSIONID=FB4072FD1C7DDE7132639DC3B7002261;APP3_0Client=smtApp;");
     }};
     private List<String> iosUids = new ArrayList<String>() {{
@@ -152,12 +152,13 @@ public class OrgParser extends ToJsonParser {
     private Organise getOrg(String orgId) throws CommonException {
 
         try {
+            Thread.sleep(sleepTime);
             Organise organise = new Organise();
             httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgDetail4?encodeOrgId=" + orgId + "&_=1507600502887"));
             String response = XHttpClient.doRequest(httpGet);
             JSONObject jsonObject = JSON.parseObject(response);
             if (!jsonObject.getBoolean("success")) {
-                LOGGER.error("请求获取机构[id={}]信息失败", orgId);
+                LOGGER.error("请求获取机构[id={}]信息失败{}", orgId, jsonObject.getString("msg"));
                 throw new CommonException(ExceptionTypeEnum.Get_Org_Info_ERROR);
             }
 
@@ -177,7 +178,7 @@ public class OrgParser extends ToJsonParser {
             organise.setOrgType(result.getString("orgType"));
             organise.setOrgWeb(result.getString("orgWeb"));
 
-            String photoUrl = result.getString("orgLogo");
+            /*String photoUrl = result.getString("orgLogo");
             if (!StringUtils.isEmpty(photoUrl)) {
                 try {
                     String suffix = photoUrl.substring(photoUrl.lastIndexOf(".")).toLowerCase();
@@ -190,7 +191,8 @@ public class OrgParser extends ToJsonParser {
                     LOGGER.error("下载机构logo失败[机构id={},照片url=]", organise.getOrgId(), photoUrl, e);
                     organise.setOrgLogo(photoUrl);
                 }
-            }
+            }*/
+            organise.setOrgLogo(result.getString("orgLogo"));
             return organise;
         } catch (Exception e) {
             LOGGER.error("解析机构[id={}]信息失败", orgId, e);
@@ -202,6 +204,7 @@ public class OrgParser extends ToJsonParser {
         List<InvestCase> cases = new ArrayList<>();
         int pageIndex = 1;
         try {
+            Thread.sleep(sleepTime);
             httpPost.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgInvestList?platform=ios&app_name=smt_app&platversion=4.0.2&device_info=iPhone11.0.1&device_version=iPhone6&ios_uid=" + getRandom(iosUids) + "&ios_idfa=" + getRandom(iosIdfas)));
             List<NameValuePair> params = new ArrayList<NameValuePair>() {{
                 add(new BasicNameValuePair("limit", "10"));
@@ -246,7 +249,8 @@ public class OrgParser extends ToJsonParser {
         List<ExitCase> cases = new ArrayList<>();
         int pageIndex = 1;
         try {
-            httpPost.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgExitList?platform=ios&app_name=smt_app&platversion=4.0.2&device_info=iPhone11.0.1&device_version=iPhone6&ios_uid="+getRandom(iosUids)+"&ios_idfa="+getRandom(iosIdfas)));
+            Thread.sleep(sleepTime);
+            httpPost.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgExitList?platform=ios&app_name=smt_app&platversion=4.0.2&device_info=iPhone11.0.1&device_version=iPhone6&ios_uid=" + getRandom(iosUids) + "&ios_idfa=" + getRandom(iosIdfas)));
             List<NameValuePair> params = new ArrayList<NameValuePair>() {{
                 add(new BasicNameValuePair("limit", "10"));
                 add(new BasicNameValuePair("orgId", organise.getOrgId()));
@@ -342,6 +346,7 @@ public class OrgParser extends ToJsonParser {
 
     private List<OrgContact> getContact(Organise organise) throws CommonException {
         try {
+            Thread.sleep(sleepTime);
             httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/eventContact/getList?eventId=" + organise.getOrgId() + "&eventType=1%2C5&entityType=org&_=1507600503100"));
 
             String response = XHttpClient.doRequest(httpGet);
@@ -361,6 +366,7 @@ public class OrgParser extends ToJsonParser {
         List<Manager> managerList = new ArrayList<>();
         int pageIndex = 1;
         try {
+            Thread.sleep(sleepTime);
             httpPost.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgManageList?platform=ios&app_name=smt_app&platversion=4.0.2&device_info=iPhone11.0.1&device_version=iPhone6&ios_uid=" + getRandom(iosUids) + "&ios_idfa=" + getRandom(iosIdfas)));
             List<NameValuePair> params = new ArrayList<NameValuePair>() {{
                 add(new BasicNameValuePair("limit", "10"));
@@ -429,6 +435,7 @@ public class OrgParser extends ToJsonParser {
 
         int pageIndex = 1;
         try {
+            Thread.sleep(sleepTime);
             httpPost.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/orgFundList?platform=ios&app_name=smt_app&platversion=4.0.2&device_info=iPhone11.0.1&device_version=iPhone6&ios_uid=" + getRandom(iosUids) + "&ios_idfa=" + getRandom(iosIdfas)));
             List<NameValuePair> params = new ArrayList<NameValuePair>() {{
                 add(new BasicNameValuePair("limit", "10"));
@@ -470,6 +477,7 @@ public class OrgParser extends ToJsonParser {
 
     private Statistics getStatistics(Organise organise) throws CommonException {
         try {
+            Thread.sleep(sleepTime);
             httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/investStrategy?encodeOrgId=" + organise.getOrgId() + "&_=1507600503207"));
 
             String response = XHttpClient.doRequest(httpGet);
@@ -486,6 +494,7 @@ public class OrgParser extends ToJsonParser {
 
     private InvestTrend getInvestTrend(Organise organise) throws CommonException {
         try {
+            Thread.sleep(sleepTime);
             httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/statInvest?encodeOrgId=" + organise.getOrgId() + "&_=1507600503211"));
 
             String response = XHttpClient.doRequest(httpGet);
@@ -502,6 +511,7 @@ public class OrgParser extends ToJsonParser {
 
     private ExitTrend getExitTrend(Organise organise) throws CommonException {
         try {
+            Thread.sleep(sleepTime);
             httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/org/statExit?encodeOrgId=" + organise.getOrgId() + "&_=1507600503470"));
 
             String response = XHttpClient.doRequest(httpGet);
