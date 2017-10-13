@@ -1,5 +1,6 @@
 package com.operational.platform.analyze.component;
 
+import com.operational.platform.analyze.exception.RequestLimitException;
 import com.operational.platform.common.bean.MQCrawlJob;
 import com.operational.platform.common.exception.CommonException;
 import org.apache.http.client.methods.HttpGet;
@@ -16,6 +17,6 @@ public abstract class ToJsonParser {
     protected HttpGet httpGet;
     protected HttpPost httpPost;
 
-    public abstract void exe(MQCrawlJob crawlJob) throws CommonException;
+    public abstract void exe(MQCrawlJob crawlJob) throws CommonException, RequestLimitException;
 
 }

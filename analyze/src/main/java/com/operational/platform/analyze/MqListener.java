@@ -3,6 +3,7 @@ package com.operational.platform.analyze;
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.analyze.component.smt.InvestorParser;
 import com.operational.platform.analyze.component.smt.OrgParser;
+import com.operational.platform.analyze.exception.RequestLimitException;
 import com.operational.platform.common.bean.MQCrawlJob;
 import com.operational.platform.dbservice.model.CrawlJob;
 import com.operational.platform.dbservice.service.CrawlJobService;
@@ -48,6 +49,9 @@ public class MqListener implements ChannelAwareMessageListener {
             crawlJobService.save(crawlJobDb);
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 
+        } catch (RequestLimitException e) {
+            channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
+            LOGGER.error("请求次数用完");
         } catch (Exception e) {
             channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
             LOGGER.error("error:", e);

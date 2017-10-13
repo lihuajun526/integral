@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.analyze.component.ToJsonParser;
 import com.operational.platform.analyze.component.smt.bean.*;
+import com.operational.platform.analyze.exception.RequestLimitException;
 import com.operational.platform.common.bean.MQCrawlJob;
 import com.operational.platform.common.constant.ExceptionTypeEnum;
 import com.operational.platform.common.exception.CommonException;
@@ -37,14 +38,16 @@ public class OrgParser extends ToJsonParser {
     private final String PIC_ROOT = "C:\\workspace\\operational-platform\\analyze\\pics\\";
     private final Random r = new Random();
     private final Integer sleepTime = 2000;
+    private int count;
     @Autowired
     private AttackPageService attackPageService;
 
     private List<String> cookies = new ArrayList<String>() {{
-        //add("quickLogonKey=cc70f88754c64d61bcc03754f4273735$3B11DE49CC270A15AFCAF4B93EDB10A9;JSESSIONID=FB4072FD1C7DDE7132639DC3B7002261;APP3_0Client=smtApp;");
-        //add("quickLogonKey=e118f9f3480740fc88fb49ed99e5e854$8AD92830B3CB6F9EEE2460367707715F;JSESSIONID=49CBA38AC7903848DB691055B88E47FF;APP3_0Client=smtApp;");
+        add("quickLogonKey=e118f9f3480740fc88fb49ed99e5e854$8AD92830B3CB6F9EEE2460367707715F;JSESSIONID=49CBA38AC7903848DB691055B88E47FF;APP3_0Client=smtApp;");
         //add("quickLogonKey=e9ebc2e33c6040caaebfc98aaa2ac666$9B48E9054477ED2BC1A5A60686C2B612;JSESSIONID=4F7EA7E1220900ED87598F81DBCA4A48;APP3_0Client=smtApp;");
-        add("quickLogonKey=7c71defc7b304e2499f5380c01b9b243$707CD76CE4A8BF9F92DF09EB069908ED;JSESSIONID=AFC85CCB5A4FEAE6C591D3173771C9D5;APP3_0Client=smtApp;");
+        //add("quickLogonKey=7c71defc7b304e2499f5380c01b9b243$707CD76CE4A8BF9F92DF09EB069908ED;JSESSIONID=AFC85CCB5A4FEAE6C591D3173771C9D5;APP3_0Client=smtApp;");
+        //add("quickLogonKey=c82ad633c2594dc6b85e654c9026d9eb$D3793FEBAECBE1721F883B52038A5EB1;JSESSIONID=5F774D55CB34196F1B05AE46CC2853D3;APP3_0Client=smtApp;");
+        //add("quickLogonKey=92664c89df9b4db2835cd65e26331aa5$EC251A83CB79F5BC4C780D67E5D1FFAA;JSESSIONID=BA70ABBD2C866BE1E371D044B520164A;APP3_0Client=smtApp;");
     }};
     private List<String> iosUids = new ArrayList<String>() {{
         add("7B75CB76-F2F2-46AA-775B-F1AD9461C3A7");
@@ -72,14 +75,13 @@ public class OrgParser extends ToJsonParser {
     }};
 
     @Override
-    public void exe(MQCrawlJob crawlJob) throws CommonException {
+    public void exe(MQCrawlJob crawlJob) throws CommonException, RequestLimitException {
 
         if (StringUtils.isEmpty(crawlJob.getListPage()))
             return;
         if (crawlJob.getListPage().trim().equals("[]"))
             return;
 
-        init();
         String listPage = crawlJob.getListPage();
         if (StringUtils.isEmpty(listPage)) {
             LOGGER.error("列表页为空[taskid={},pointid={},pageIndex={},listPage={}]", crawlJob.getTaskid(), crawlJob.getPointid(), crawlJob.getPageIndex(), crawlJob.getListPage());
@@ -111,6 +113,10 @@ public class OrgParser extends ToJsonParser {
                 continue;
             }
 
+            if ((count++ % 200) == 0) {
+                init();
+            }
+
             Organise organise = getOrg(orgId);//获取机构基本信息
             organise.setCaseList(getCases(organise));//获取机构投资案例信息
             //filterCase(organise);
@@ -133,11 +139,17 @@ public class OrgParser extends ToJsonParser {
         }
     }
 
-    private void init() {
+    private void init() throws RequestLimitException {
         httpGet = new HttpGet();
         httpPost = new HttpPost();
-        httpGet.setHeader("Cookie", getRandom(cookies));
-        httpPost.setHeader("Cookie", getRandom(cookies));
+        //httpGet.setHeader("Cookie", getRandom(cookies));
+        //httpPost.setHeader("Cookie", getRandom(cookies));
+
+        if((count/200)==cookies.size())
+            throw new RequestLimitException();
+
+        httpGet.setHeader("Cookie", cookies.get(count / 200));
+        httpPost.setHeader("Cookie", cookies.get(count / 200));
     }
 
     private Organise getOrg(String orgId) throws CommonException {
