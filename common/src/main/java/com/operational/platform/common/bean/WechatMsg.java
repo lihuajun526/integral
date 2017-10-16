@@ -126,9 +126,23 @@ public class WechatMsg {
                     sb.append("<").append(key).append(">").append("<![CDATA[").append(value).append("]]></").append(key).append(">");
                 } else if (typeName.equalsIgnoreCase("Date")) {
                     Date value = (Date) method.invoke(this);
-                    if (StringUtils.isEmpty(value))
+                    if (value == null)
                         continue;
                     sb.append("<").append(key).append(">").append(value.getTime()).append("</").append(key).append(">");
+                } else if (typeName.equalsIgnoreCase("Integer")) {
+                    Integer value = (Integer) method.invoke(this);
+                    if (value == null)
+                        continue;
+                    sb.append("<").append(key).append(">").append(value).append("</").append(key).append(">");
+                } else if (typeName.equalsIgnoreCase("List")) {
+                    List<Article> articles = (List<Article>) method.invoke(this);
+                    if (articles == null || articles.size() == 0)
+                        continue;
+                    sb.append("<Articles>");
+                    for (Article article : articles) {
+                        sb.append(article.toString());
+                    }
+                    sb.append("</Articles>");
                 } else {
 
                 }
