@@ -1,5 +1,6 @@
 package com.operational.platform.dbservice.service;
 
+import com.operational.platform.dbservice.model.VideoGood;
 import com.operational.platform.dbservice.model.VideoSuggest;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface VideoSuggestService {
 
     VideoSuggest getByUrl(String url);
 
+    void setMaxManual(Integer id);
+
+    void setMinManual(Integer id);
 }

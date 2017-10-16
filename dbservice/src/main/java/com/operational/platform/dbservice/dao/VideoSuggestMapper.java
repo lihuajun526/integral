@@ -34,4 +34,6 @@ public interface VideoSuggestMapper {
     List<VideoSuggest> listByChnlAndPage(Map<String, Object> condition);
 
     Long countByChnlAndPage(Map<String, Object> condition);
+
+    Integer getMaxManual();
 }

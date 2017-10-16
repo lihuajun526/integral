@@ -27,9 +27,19 @@ public class VideoSuggest {
 
     private String description;
 
+    private String dbLink;
+
     private Date createTime;
 
     private Date updateTime;
+
+    public String getDbLink() {
+        return dbLink;
+    }
+
+    public void setDbLink(String dbLink) {
+        this.dbLink = dbLink;
+    }
 
     public Integer getId() {
         return id;

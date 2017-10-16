@@ -7,7 +7,7 @@ import com.operational.platform.backstage.base.ResultDg;
 import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.dbservice.model.VideoGood;
 import com.operational.platform.dbservice.model.VideoSuggest;
-import com.operational.platform.dbservice.service.AttackPageService;
+import com.operational.platform.dbservice.service.VideoGoodService;
 import com.operational.platform.dbservice.service.VideoSuggestService;
 import org.apache.http.client.methods.HttpGet;
 import org.jsoup.Jsoup;
@@ -29,6 +29,8 @@ public class VideoGoodController extends BaseController {
 
     @Autowired
     private VideoSuggestService videoSuggestService;
+    @Autowired
+    private VideoGoodService videoGoodService;
 
     @RequestMapping("/list")
     @ResponseBody
@@ -39,7 +41,11 @@ public class VideoGoodController extends BaseController {
         List<VideoSuggest> list = videoSuggestService.listByChnlAndPage(channel, rows, page, keyword);
 
         for (VideoSuggest videoSuggest : list) {
-
+            if (videoSuggest.getManual() == 0)
+                continue;
+            VideoGood videoGood = videoGoodService.getBySuggest(videoSuggest.getId());
+            if (videoGood != null)
+                videoSuggest.setDbLink(videoGood.getUrl());
         }
 
         resultDg.setTotal(videoSuggestService.countByChnlAndPage(channel, keyword).intValue());
@@ -52,36 +58,67 @@ public class VideoGoodController extends BaseController {
     @ResponseBody
     public String crawl(@PathVariable Integer suggestid, String link) {
 
-        Result result = new Result();
+        Result<VideoGood> result = new Result();
         result.setCode(-1);
 
-        List list = null;
-        if (list.size() > 0) {
-            result.setMessage("已提取");
-            return result.toString();
-        }
+        VideoGood videoGood = videoGoodService.getBySuggest(suggestid);
+        if (videoGood == null)
+            videoGood = new VideoGood();
 
-        VideoGood videoGood = new VideoGood();
         try {
-            String response = XHttpClient.doRequest(new HttpGet(link));
+            String response = XHttpClient.doRequest(new HttpGet(link.trim()));
             Document doc = Jsoup.parse(response);
             videoGood.setSuggestid(suggestid);
             videoGood.setTitle(doc.select("body>div.page>div.card>h1.title").get(0).text());
             videoGood.setScore(doc.select("body>div.page>div.card>section.subject-info>div.left>p.rating").get(0).html());
             videoGood.setMeta(doc.select("body>div.page>div.card>section.subject-info>div.left>p.meta").get(0).text());
-            videoGood.setImage(doc.select("body>div.page>div.card>section.subject-info>div.right>a>img").get(0).attr("src"));
+            videoGood.setImage(doc.select("body>div.page>div.card>section.subject-info>div.right>a>img").get(0).attr("data-src"));
             videoGood.setDescription(doc.select("body>div.page>div.card>section.subject-intro>div.bd>p").get(0).text());
-            //save
+            videoGood.setUrl(link);
+            videoGoodService.save(videoGood);
 
             result.setCode(0);
+            result.setData(videoGood);
         } catch (Exception e) {
             logger.error("提取豆瓣电影介绍失败[url={}]", link, e);
             result.setMessage("提取豆瓣电影信息失败");
         }
 
+        return result.toString();
+    }
+
+    @RequestMapping("/set/{id}")
+    @ResponseBody
+    public String setGood(@PathVariable Integer id) {
+
+        Result result = new Result();
+
+        videoSuggestService.setMaxManual(id);
 
         return result.toString();
     }
 
+    @RequestMapping("/no/{id}")
+    @ResponseBody
+    public String noGood(@PathVariable Integer id) {
 
+        Result result = new Result();
+
+        videoSuggestService.setMinManual(id);
+
+        return result.toString();
+    }
+
+    @RequestMapping("/getBySuggest/{id}")
+    @ResponseBody
+    public String getBySuggest(@PathVariable Integer id) {
+
+        Result<VideoGood> result = new Result();
+
+        VideoGood videoGood = videoGoodService.getBySuggest(id);
+        if (videoGood != null)
+            result.setData(videoGood);
+
+        return result.toString();
+    }
 }

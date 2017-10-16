@@ -375,4 +375,9 @@
             and title like CONCAT('%','${keyword}','%')
         </if>
     </select>
+
+    <select id="getMaxManual" resultType="java.lang.Integer">
+        select max(manual)
+        from t_video_suggest
+    </select>
 </mapper>

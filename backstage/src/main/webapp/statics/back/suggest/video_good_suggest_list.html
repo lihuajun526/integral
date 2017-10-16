@@ -26,7 +26,7 @@
                 <tr>
                     <td></td>
                     <td align="left">
-                        <button type="button" onclick="spider();">提取</button>
+                        <button type="button" onclick="crawl();">提取</button>
                         <button type="button" onclick="view();">预览</button>
                         <button type="button" onclick="fix();">确定</button>
                     </td>
@@ -47,7 +47,7 @@
             fitColumns: true,
             singleSelect: true,
             pagination: true,
-            url: appPath + '/video/suggest/list?channel=' + videoChnl + "&keyword=" + keyword,
+            url: appPath + '/video/good/list?channel=' + videoChnl + "&keyword=" + keyword,
             columns: [[
                 {
                     field: 'title', title: '标题', width: 20
@@ -66,10 +66,10 @@
                     field: 'opt', title: '操作', width: 20, align: 'center',
                     formatter: function (value, rec) {
                         var btn = "";
-                        if (rec.manual == 0)
-                            btn = "<a class='editcls' onclick='setGood(" + rec.id + ",1)' href='javascript:void(0)'>推荐</a>&nbsp&nbsp";
-                        else if (rec.manual == 1)
-                            btn = "<a class='editcls' onclick='noGood(" + rec.id + ",0)' href='javascript:void(0)'>取消推荐</a>";
+                        if (rec.dbLink == null)
+                            btn = "<a class='editcls' onclick='setGood(" + rec.id + ")' href='javascript:void(0)'>推荐</a>&nbsp&nbsp";
+                        else
+                            btn = "<a class='editcls' onclick='noGood(" + rec.id + ")' href='javascript:void(0)'>取消推荐</a>";
                         return btn;
                     }
                 }
@@ -92,49 +92,75 @@
             }
         });
     }
-
-    function syn() {
-        $.ajax({
-            url: appPath + '/video/suggest/syn',
-            type: 'get',
-            dataType: 'json',
-            success: function (result) {
-                if (result.code == 0) {
-                    $('#datagrid').datagrid('reload');
-                } else {
-                    $.messager.alert('Info', "失败", 'info');
-                }
-            }
-        });
-    }
-
     list('');
     function search() {
         list($("#keyword").val());
     }
 
+    var suggestid = 0;
+    var goodid = 0;
     function setGood(id) {
-        $('#w').window('open');
-        /*$.ajax({
-            url: appPath + '/sys/goods/get?id=' + id,
+        $.ajax({
+            url: appPath + '/video/good/getBySuggest/' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                suggestid = id;
+                if (result.data != null) {
+                    $("#db_link").val(result.data.url);
+                    goodid = result.data.id;
+                }
+                $('#w').window('open');
+            }
+        });
+    }
+    function crawl() {
+        var link = $("#db_link").val();
+        $.ajax({
+            url: appPath + '/video/good/crawl/' + suggestid + '?link=' + link,
             type: 'get',
             dataType: 'json',
             success: function (result) {
                 if (result.code == 0) {
-                    var data = result.data;
-                    $("#id").val(data.id);
-                    $("#title").val(data.title);
-                    $("#description").val(data.description);
-                    $("#sort").val(data.sort);
-                    $("#price").val(data.price);
-                    $("#photo").val(data.img);
-                    $("#status").val(data.status);
-                    $('#w').window('open');
+                    $.messager.alert('Info', "提取成功，请预览", 'info');
+                    goodid = result.data.id;
                 } else {
-                    $.messager.alert('Info', "失败", 'info');
+                    $.messager.alert('Info', result.message, 'info');
                 }
             }
-        });*/
+        });
+    }
+    function noGood(id) {
+        $.ajax({
+            url: appPath + '/video/good/no/' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                }
+            }
+        });
+    }
+    function view() {
+        if (goodid == 0)
+            return;
+        window.open("http://www.yka365.com/vipservice/video/good/get/" + goodid);
+    }
+    function fix() {
+        $.ajax({
+            url: appPath + '/video/good/set/' + suggestid,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#w').window('close');
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', result.message, 'info');
+                }
+            }
+        });
     }
 </script>
 </body>

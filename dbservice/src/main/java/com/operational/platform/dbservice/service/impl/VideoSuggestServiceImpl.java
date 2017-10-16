@@ -1,6 +1,7 @@
 package com.operational.platform.dbservice.service.impl;
 
 import com.operational.platform.dbservice.dao.VideoSuggestMapper;
+import com.operational.platform.dbservice.model.VideoGood;
 import com.operational.platform.dbservice.model.VideoSuggest;
 import com.operational.platform.dbservice.model.VideoSuggestExample;
 import com.operational.platform.dbservice.service.VideoSuggestService;
@@ -102,5 +103,21 @@ public class VideoSuggestServiceImpl implements VideoSuggestService {
         if (list.size() > 0)
             return list.get(0);
         return null;
+    }
+
+    @Override
+    public void setMaxManual(Integer id) {
+        VideoSuggest videoSuggest = videoSuggestMapper.selectByPrimaryKey(id);
+        Integer l = videoSuggestMapper.getMaxManual();
+        l++;
+        videoSuggest.setManual(l);
+        videoSuggestMapper.updateByPrimaryKeySelective(videoSuggest);
+    }
+
+    @Override
+    public void setMinManual(Integer id) {
+        VideoSuggest videoSuggest = videoSuggestMapper.selectByPrimaryKey(id);
+        videoSuggest.setManual(0);
+        videoSuggestMapper.updateByPrimaryKeySelective(videoSuggest);
     }
 }

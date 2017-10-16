@@ -2,19 +2,25 @@ package com.operational.platform.dbservice.model;
 
 import java.util.Date;
 
-/**
- * Created by lihuajun on 2017/10/15.
- */
 public class VideoGood {
-
     private Integer id;
+
+    private String url;
+
     private Integer suggestid;
+
     private String title;
+
     private String score;
+
     private String image;
+
     private String description;
+
     private String meta;
+
     private Date createTime;
+
     private Date updateTime;
 
     public Integer getId() {
@@ -38,7 +44,7 @@ public class VideoGood {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title == null ? null : title.trim();
     }
 
     public String getScore() {
@@ -46,7 +52,7 @@ public class VideoGood {
     }
 
     public void setScore(String score) {
-        this.score = score;
+        this.score = score == null ? null : score.trim();
     }
 
     public String getImage() {
@@ -54,7 +60,7 @@ public class VideoGood {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.image = image == null ? null : image.trim();
     }
 
     public String getDescription() {
@@ -62,7 +68,7 @@ public class VideoGood {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
 
     public String getMeta() {
@@ -70,7 +76,7 @@ public class VideoGood {
     }
 
     public void setMeta(String meta) {
-        this.meta = meta;
+        this.meta = meta == null ? null : meta.trim();
     }
 
     public Date getCreateTime() {
@@ -87,5 +93,13 @@ public class VideoGood {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
