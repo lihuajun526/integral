@@ -15,4 +15,5 @@ public interface VideoGoodService {
 
     VideoGood get(Integer id);
 
+    List<VideoGood> getLatest();
 }

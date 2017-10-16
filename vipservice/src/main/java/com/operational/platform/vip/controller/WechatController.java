@@ -1,12 +1,16 @@
 package com.operational.platform.vip.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.operational.platform.common.bean.Article;
+import com.operational.platform.common.bean.WechatMsg;
 import com.operational.platform.common.util.Config;
 import com.operational.platform.dbservice.model.IntegralRecord;
 import com.operational.platform.dbservice.model.Log;
 import com.operational.platform.dbservice.model.User;
-import com.operational.platform.dbservice.model.WechatMsg;
-import com.operational.platform.dbservice.service.*;
+import com.operational.platform.dbservice.model.VideoGood;
+import com.operational.platform.dbservice.service.LogService;
+import com.operational.platform.dbservice.service.UserService;
+import com.operational.platform.dbservice.service.VideoGoodService;
 import com.operational.platform.vip.constant.Constant;
 import com.operational.platform.vip.exception.OpenidNotExistException;
 import com.operational.platform.vip.service.AppConfig;
@@ -25,8 +29,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -43,6 +49,8 @@ public class WechatController {
     private LogService logService;
     @Autowired
     private AppConfig appConfig;
+    @Autowired
+    private VideoGoodService videoGoodService;
 
     @RequestMapping("/center")
     public void center(HttpServletRequest request, HttpServletResponse response) throws IOException, OpenidNotExistException {
@@ -190,7 +198,17 @@ public class WechatController {
                     if ("NEW_ONLINE".equalsIgnoreCase(wechatMsg.getEventKey())) {
                         reply.setContent("努力开发中，敬请期待");
                     } else if ("GOOD_VIDEO".equalsIgnoreCase(wechatMsg.getEventKey())) {
-                        reply.setContent("努力开发中，敬请期待");
+                        List<VideoGood> list = videoGoodService.getLatest();
+                        List<Article> articles = new ArrayList<>();
+                        for (VideoGood videoGood : list) {
+                            Article article = new Article();
+                            article.setTitle(videoGood.getTitle());
+                            article.setDescription(videoGood.getDescription());
+                            article.setPicurl(videoGood.getImage());
+                            article.setUrl("http://www.yka365.com/vipservice/video/good/get/" + videoGood.getId());
+                            articles.add(article);
+                            reply.setArticles(articles);
+                        }
                     }
                     result = reply.toXml();
                 }

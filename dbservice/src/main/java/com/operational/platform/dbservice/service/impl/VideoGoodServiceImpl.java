@@ -43,4 +43,9 @@ public class VideoGoodServiceImpl implements VideoGoodService {
     public VideoGood get(Integer id) {
         return videoGoodMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public List<VideoGood> getLatest() {
+        return videoGoodMapper.getLatest();
+    }
 }

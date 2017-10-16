@@ -27,4 +27,6 @@ public interface VideoGoodMapper {
     int updateByPrimaryKeySelective(VideoGood record);
 
     int updateByPrimaryKey(VideoGood record);
+
+    List<VideoGood> getLatest();
 }

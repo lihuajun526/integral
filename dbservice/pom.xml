@@ -11,5 +11,13 @@
 
     <artifactId>dbservice</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.operational.platform</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

@@ -1,6 +1,6 @@
 package com.operational.platform.dbservice.service.impl;
 
-import com.operational.platform.dbservice.model.WechatMsg;
+import com.operational.platform.common.bean.WechatMsg;
 import com.operational.platform.dbservice.service.ConfigService;
 import com.operational.platform.dbservice.service.WechatService;
 import com.operational.platform.dbservice.model.User;
