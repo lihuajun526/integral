@@ -82,7 +82,8 @@ public class VideoGoodController extends BaseController {
             String suffix = photoUrl.substring(photoUrl.lastIndexOf("."));
             String fileName = System.currentTimeMillis() + suffix;
             String filePath = Config.get("video.good.path") + File.separator + fileName;
-            videoGood.setImage(Downloader.file(videoSuggest.getPhoto(), filePath));
+            Downloader.file(videoSuggest.getPhoto(), filePath);
+            videoGood.setImage("http://www.yka365.com/upload/supervip/goodVideo/" + fileName);
 
             videoGood.setDescription(videoSuggest.getDescription());
             videoGood.setUrl(link);
