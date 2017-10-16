@@ -120,4 +120,9 @@ public class VideoSuggestServiceImpl implements VideoSuggestService {
         videoSuggest.setManual(0);
         videoSuggestMapper.updateByPrimaryKeySelective(videoSuggest);
     }
+
+    @Override
+    public VideoSuggest get(Integer id) {
+        return videoSuggestMapper.selectByPrimaryKey(id);
+    }
 }

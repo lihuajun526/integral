@@ -1,10 +1,8 @@
 package com.operational.platform.dbservice.service;
 
-import com.operational.platform.dbservice.model.VideoGood;
 import com.operational.platform.dbservice.model.VideoSuggest;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by lihuajun on 16-7-6.
@@ -33,4 +31,6 @@ public interface VideoSuggestService {
     void setMaxManual(Integer id);
 
     void setMinManual(Integer id);
+
+    VideoSuggest get(Integer id);
 }

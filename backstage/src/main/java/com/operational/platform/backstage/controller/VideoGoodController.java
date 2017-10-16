@@ -61,6 +61,8 @@ public class VideoGoodController extends BaseController {
         Result<VideoGood> result = new Result();
         result.setCode(-1);
 
+        VideoSuggest videoSuggest = videoSuggestService.get(suggestid);
+
         VideoGood videoGood = videoGoodService.getBySuggest(suggestid);
         if (videoGood == null)
             videoGood = new VideoGood();
@@ -69,11 +71,11 @@ public class VideoGoodController extends BaseController {
             String response = XHttpClient.doRequest(new HttpGet(link.trim()));
             Document doc = Jsoup.parse(response);
             videoGood.setSuggestid(suggestid);
-            videoGood.setTitle(doc.select("body>div.page>div.card>h1.title").get(0).text());
+            videoGood.setTitle(videoSuggest.getTitle());
             videoGood.setScore(doc.select("body>div.page>div.card>section.subject-info>div.left>p.rating").get(0).html());
             videoGood.setMeta(doc.select("body>div.page>div.card>section.subject-info>div.left>p.meta").get(0).text());
-            videoGood.setImage(doc.select("body>div.page>div.card>section.subject-info>div.right>a>img").get(0).attr("data-src"));
-            videoGood.setDescription(doc.select("body>div.page>div.card>section.subject-intro>div.bd>p").get(0).text());
+            videoGood.setImage(videoSuggest.getPhoto());
+            videoGood.setDescription(videoSuggest.getDescription());
             videoGood.setUrl(link);
             videoGoodService.save(videoGood);
 
