@@ -190,14 +190,15 @@ public class WechatController {
                 } else if ("scan".equalsIgnoreCase(wechatMsg.getEvent())) {
                     LOGGER.info("已关注的用户[{}]扫描二维码不做任何处理");
                 } else if ("click".equalsIgnoreCase(wechatMsg.getEvent())) {//点击菜单
-                    WechatMsg r = new WechatMsg();
                     reply.setToUserName(openid);
                     reply.setFromUserName(appConfig.wechatAccount);
                     reply.setCreateTime(new Date());
-                    reply.setMsgType("text");
                     if ("NEW_ONLINE".equalsIgnoreCase(wechatMsg.getEventKey())) {
+                        reply.setMsgType("text");
                         reply.setContent("努力开发中，敬请期待");
+                        result = reply.toXml();
                     } else if ("GOOD_VIDEO".equalsIgnoreCase(wechatMsg.getEventKey())) {
+                        reply.setMsgType("news");
                         List<VideoGood> list = videoGoodService.getLatest();
                         List<Article> articles = new ArrayList<>();
                         for (VideoGood videoGood : list) {
@@ -207,8 +208,9 @@ public class WechatController {
                             article.setPicurl(videoGood.getImage());
                             article.setUrl("http://www.yka365.com/vipservice/video/good/get/" + videoGood.getId());
                             articles.add(article);
-                            reply.setArticles(articles);
                         }
+                        reply.setArticles(articles);
+                        reply.setArticleCount(articles.size());
                     }
                     result = reply.toXml();
                 }

@@ -24,7 +24,16 @@ public class WechatMsg {
     private String eventKey;
     private String ticket;
     private String content;
+    private Integer articleCount;
     private List<Article> articles;
+
+    public Integer getArticleCount() {
+        return articleCount;
+    }
+
+    public void setArticleCount(Integer articleCount) {
+        this.articleCount = articleCount;
+    }
 
     public List<Article> getArticles() {
         return articles;
