@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.operational.platform.backstage.base.BaseController;
 import com.operational.platform.backstage.base.Result;
 import com.operational.platform.backstage.base.ResultDg;
+import com.operational.platform.common.util.Config;
+import com.operational.platform.common.util.Downloader;
 import com.operational.platform.common.util.XHttpClient;
 import com.operational.platform.dbservice.model.VideoGood;
 import com.operational.platform.dbservice.model.VideoSuggest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -74,7 +77,13 @@ public class VideoGoodController extends BaseController {
             videoGood.setTitle(videoSuggest.getTitle());
             videoGood.setScore(doc.select("body>div.page>div.card>section.subject-info>div.left>p.rating").get(0).html());
             videoGood.setMeta(doc.select("body>div.page>div.card>section.subject-info>div.left>p.meta").get(0).text());
-            videoGood.setImage(videoSuggest.getPhoto());
+
+            String photoUrl = videoSuggest.getPhoto();
+            String suffix = photoUrl.substring(photoUrl.lastIndexOf("."));
+            String fileName = System.currentTimeMillis() + suffix;
+            String filePath = Config.get("video.good.path") + File.separator + fileName;
+            videoGood.setImage(Downloader.file(videoSuggest.getPhoto(), filePath));
+
             videoGood.setDescription(videoSuggest.getDescription());
             videoGood.setUrl(link);
             videoGoodService.save(videoGood);
