@@ -119,6 +119,9 @@
                 loadPage('back/suggest/video_suggest_list.html');
             }else if (node.id == 4){
                 loadPage('back/email/email_account_list.html');
+            }else if(node.id == 33){
+                videoChnl = node.attributes.channel;
+                loadPage('back/suggest/video_good_suggest_list.html');
             }
 
         }

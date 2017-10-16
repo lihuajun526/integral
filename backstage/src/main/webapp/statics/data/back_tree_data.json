@@ -25,6 +25,13 @@
         "attributes": {
           "channel": 2
         }
+      },
+      {
+        "id": 33,
+        "text": "佳片推荐",
+        "attributes": {
+          "channel": 1
+        }
       }
     ]
   },

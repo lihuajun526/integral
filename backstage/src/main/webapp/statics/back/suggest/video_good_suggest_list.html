@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table>
+    <tr>
+        <td><input id="keyword" placeholder="请输入标题"/>&nbsp;
+            <button onclick="search();">搜索</button>
+        </td>
+    </tr>
+</table>
+<table id="datagrid"></table>
+<div id="w" class="easyui-window" title="佳片有约" data-options="modal:true,closed:true,iconCls:'icon-save'"
+     style="width:360px;height:220px;padding:10px;">
+    <div class="easyui-panel" style="width:320px;height:150px;padding:10px 30px;"
+         buttons="#dlg-buttons">
+        <form id="goodsForm" method="post">
+            <input type="hidden" id="id" name="id" value="0"/>
+            <table>
+                <tr>
+                    <td align="right">豆瓣链接</td>
+                    <td><input id="db_link" name="dbLink" type="input"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td align="left">
+                        <button type="button" onclick="spider();">提取</button>
+                        <button type="button" onclick="view();">预览</button>
+                        <button type="button" onclick="fix();">确定</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+    function dateFormatter(date) {
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-'
+                + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+    }
+
+    function list(keyword) {
+        var list = $('#datagrid').datagrid({
+            border: false,
+            fitColumns: true,
+            singleSelect: true,
+            pagination: true,
+            url: appPath + '/video/suggest/list?channel=' + videoChnl + "&keyword=" + keyword,
+            columns: [[
+                {
+                    field: 'title', title: '标题', width: 20
+                },
+                {
+                    field: 'url', title: '地址', width: 20,
+                    formatter: function (value, rec) {
+                        var str = "<a target='_blank' href='" + value + "'>源地址</a>"
+                        return str;
+                    }
+                },
+                {
+                    field: 'score', title: '评分', width: 20
+                },
+                {
+                    field: 'opt', title: '操作', width: 20, align: 'center',
+                    formatter: function (value, rec) {
+                        var btn = "";
+                        if (rec.manual == 0)
+                            btn = "<a class='editcls' onclick='setGood(" + rec.id + ",1)' href='javascript:void(0)'>推荐</a>&nbsp&nbsp";
+                        else if (rec.manual == 1)
+                            btn = "<a class='editcls' onclick='noGood(" + rec.id + ",0)' href='javascript:void(0)'>取消推荐</a>";
+                        return btn;
+                    }
+                }
+            ]]
+        });
+        var pager = list.datagrid('getPager');
+    }
+
+    function updateStatus(id, manual) {
+        $.ajax({
+            url: appPath + '/video/suggest/manual/update?id=' + id + '&manual=' + manual,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+
+    function syn() {
+        $.ajax({
+            url: appPath + '/video/suggest/syn',
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    $('#datagrid').datagrid('reload');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });
+    }
+
+    list('');
+    function search() {
+        list($("#keyword").val());
+    }
+
+    function setGood(id) {
+        $('#w').window('open');
+        /*$.ajax({
+            url: appPath + '/sys/goods/get?id=' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 0) {
+                    var data = result.data;
+                    $("#id").val(data.id);
+                    $("#title").val(data.title);
+                    $("#description").val(data.description);
+                    $("#sort").val(data.sort);
+                    $("#price").val(data.price);
+                    $("#photo").val(data.img);
+                    $("#status").val(data.status);
+                    $('#w').window('open');
+                } else {
+                    $.messager.alert('Info', "失败", 'info');
+                }
+            }
+        });*/
+    }
+</script>
+</body>
+</html>

@@ -7,6 +7,7 @@ import com.operational.platform.analyze.component.ToJsonParser;
 import com.operational.platform.analyze.component.smt.bean.Career;
 import com.operational.platform.analyze.component.smt.bean.InvestCase;
 import com.operational.platform.analyze.component.smt.bean.Investor;
+import com.operational.platform.analyze.exception.RequestLimitException;
 import com.operational.platform.common.bean.MQCrawlJob;
 import com.operational.platform.common.constant.ExceptionTypeEnum;
 import com.operational.platform.common.exception.CommonException;
@@ -38,33 +39,22 @@ public class InvestorParser extends ToJsonParser {
 
     private final String PIC_ROOT = "C:\\workspace\\operational-platform\\analyze\\pics\\";
     private final Random r = new Random();
-    private final Integer sleepTime = 2000;
+    private final Integer sleepTime = 1200;
+    private int count;
     @Autowired
     private AttackPageService attackPageService;
 
     private List<String> cookies = new ArrayList<String>() {{
-        add("quickLogonKey=13802271587$CF138B01DABBD084DB1F4D27C6F2986B;JSESSIONID=8F6D34C4D176EDFE3AEFE03715EC2489;APP3_0Client=smtApp;");
-        //add("quickLogonKey=13480138720$D7FFB59857129B266D5A3BC853C08265;JSESSIONID=2FFD56182ED4927BA52C196EC4372A0C;APP3_0Client=smtApp;");
-        //add("quickLogonKey=13424192457$2DD52B43875D03D9BBF7211A4F1074DD;JSESSIONID=50262BFBF789E40442424E2AC0A2CCBD;APP3_0Client=smtApp;");
-        //add("quickLogonKey=13148376469$33FCA19C09BFB92C02FC213A06AD0712;JSESSIONID=A4BDB3CC22E328A34F45421B25444A94;APP3_0Client=smtApp;");
-        // 13994443294 Password@123
-        //add("quickLogonKey=9c4d3706223d4641abb1e3f99cbca1e3$771E24A64B9C525EE6CE4A5999E64913;JSESSIONID=7067AB9C118DADC4D9413506A8AB1740;APP3_0Client=smtApp;");
-        // 15235204743 Password@123
-        //add("quickLogonKey=b9afc0c4fe7442de88ecf44b89903fc7$5A31DBD582F4B7E512ED360C3C0B0C0A;JSESSIONID=447657F88E4DE4700907AE30770FB413;APP3_0Client=smtApp;");
-        // 17081430696 Password@123
-        //add("quickLogonKey=125f575461bb48a5bb0a2b2a89da0854$EAEC4903AAD5E8094D2A04346A174E2A;JSESSIONID=05F24D0E267CAB0BE8F13CB4FF9062A4;APP3_0Client=smtApp;");
-        // 13738047929 Password@123
-        //add("quickLogonKey=2f1f163596e941daaa869a13257ba2e0$CCFAFA69AAC6D3D50A6AB47DAAE722D3;JSESSIONID=B6819C15864569BC417C82F0E407E403;APP3_0Client=smtApp;");
-        // 18516090513 Password@123
-        //add("quickLogonKey=a438bf270d37491f87e819b7e1b6dd6e$EC6CF446B3714F5CC1C5CDEA403721F5;JSESSIONID=8663B5B98E92B23E601050405F4D3E82;APP3_0Client=smtApp;");
-        // 13113656998 2012111zhang
-        add("quickLogonKey=13113656998$36A838636E0328B88F0488FC69D6D228;JSESSIONID=DF16D09E7C7A3868D37418E1F3C81814;APP3_0Client=smtApp;");
-        // 13603528142 2012111zhang
-        add("quickLogonKey=13603528142$55DAEC35E3E8ABBB0896F1A8C8375467;JSESSIONID=6B5D6B6AF11EE9D5A25AD3BBE0E423DB;APP3_0Client=smtApp;");
-        // 13935206503 2012111zhang
-        add("quickLogonKey=13935206503$A428C3A4CA88C6F465FF70C1FA574B2D;JSESSIONID=14E538D766375A73B71E33F448798FBB;APP3_0Client=smtApp;");
-        // 17376576730 Password@123
-        add("quickLogonKey=cc70f88754c64d61bcc03754f4273735$3B11DE49CC270A15AFCAF4B93EDB10A9;JSESSIONID=FB4072FD1C7DDE7132639DC3B7002261;APP3_0Client=smtApp;");
+        //add("quickLogonKey=327b48d47b1d4499b0dce39edd655398$436DC11901677FF37C36F86D0908B6E5;JSESSIONID=22DD85DC6A498F7C1E3AA0DD15E302A2;APP3_0Client=smtApp;");
+        //add("quickLogonKey=5c61ac042cf4408fa6565b7040872a04$49DEB94BD715D372C551EF46AB97D0F7;JSESSIONID=6DF2CA406F708FBECB43752F78A65C86;APP3_0Client=smtApp;");
+        //add("quickLogonKey=27f4b2892e0e47debc1d67d5cd66f3cb$6FD7091D8BD4D48CB33753733249791F;JSESSIONID=7C7D2C7FAB24FE3BD886839C2CA8BDC4;APP3_0Client=smtApp;");
+        add("quickLogonKey=92664c89df9b4db2835cd65e26331aa5$EC251A83CB79F5BC4C780D67E5D1FFAA;JSESSIONID=BA70ABBD2C866BE1E371D044B520164A;APP3_0Client=smtApp;");
+        add("quickLogonKey=c82ad633c2594dc6b85e654c9026d9eb$D3793FEBAECBE1721F883B52038A5EB1;JSESSIONID=5F774D55CB34196F1B05AE46CC2853D3;APP3_0Client=smtApp;");
+        add("quickLogonKey=7c71defc7b304e2499f5380c01b9b243$707CD76CE4A8BF9F92DF09EB069908ED;JSESSIONID=AFC85CCB5A4FEAE6C591D3173771C9D5;APP3_0Client=smtApp;");
+        add("quickLogonKey=e9ebc2e33c6040caaebfc98aaa2ac666$9B48E9054477ED2BC1A5A60686C2B612;JSESSIONID=4F7EA7E1220900ED87598F81DBCA4A48;APP3_0Client=smtApp;");
+        add("quickLogonKey=e118f9f3480740fc88fb49ed99e5e854$8AD92830B3CB6F9EEE2460367707715F;JSESSIONID=49CBA38AC7903848DB691055B88E47FF;APP3_0Client=smtApp;");
+        add("quickLogonKey=82c234d4e0c84775840a1bf246aa0d72$987A12981E86B237B64B8FBFE7877076;JSESSIONID=EF50F37E07E623E89F943582AC3A9A0A;APP3_0Client=smtApp;");
+        add("quickLogonKey=3d64ce12eb194695b4893fae15f11b1a$63CDCD0E54760D7E8D777BE9C4514323;JSESSIONID=D907F5FB72B0DC9BB28BD2B2CF205CAD;APP3_0Client=smtApp;");
     }};
     private List<String> iosUids = new ArrayList<String>() {{
         add("7B75CB76-F2F2-46AA-775B-F1AD9461C3A7");
@@ -92,14 +82,13 @@ public class InvestorParser extends ToJsonParser {
     }};
 
     @Override
-    public void exe(MQCrawlJob crawlJob) throws CommonException {
+    public void exe(MQCrawlJob crawlJob) throws CommonException, RequestLimitException {
 
         if (StringUtils.isEmpty(crawlJob.getListPage()))
             return;
         if (crawlJob.getListPage().trim().equals("[]"))
             return;
 
-        init();
         String listPage = crawlJob.getListPage();
         if (StringUtils.isEmpty(listPage)) {
             LOGGER.error("列表页为空[taskid={},pointid={},pageIndex={},listPage={}]", crawlJob.getTaskid(), crawlJob.getPointid(), crawlJob.getPageIndex(), crawlJob.getListPage());
@@ -117,14 +106,25 @@ public class InvestorParser extends ToJsonParser {
             attackPage.setLink(personId);
             attackPage.setPointid(crawlJob.getPointid());
 
-            /*List<AttackPage> list = attackPageService.listByPointAndLink(attackPage);
-            if (list.size() > 0)
-                continue;*/
+            List<AttackPage> list = attackPageService.listByPointAndLink(attackPage);
+            if (list.size() > 0) {
+                Investor investor = new Investor();
+                investor.setAttr(crawlJob.getAttr());
+                attackPage.setAttr(JSON.toJSONString(investor));
+                attackPage.setMd5(StrUtil.md5(attackPage.getAttr()));
+
+                attackPageService.save(attackPage);
+                continue;
+            }
+
+            if ((count++ % 200) == 0) {
+                init();
+            }
 
             Investor investor = getInvestor(personId);//获取投资人基本信息
             investor.setCareerList(getCareers(investor));//获取投资人职业生涯信息
             investor.setCaseList(getCases(investor));//获取投资人投资案例信息
-            filterCase(investor);
+            //filterCase(investor);
             investor.setAttr(crawlJob.getAttr());
 
             attackPage.setTitle(investor.getNameCn());
@@ -138,16 +138,20 @@ public class InvestorParser extends ToJsonParser {
         }
     }
 
-    private void init() {
+    private void init() throws RequestLimitException {
         httpGet = new HttpGet();
         httpPost = new HttpPost();
-        httpGet.setHeader("Cookie", getRandom(cookies));
-        httpPost.setHeader("Cookie", getRandom(cookies));
+        if ((count / 200) == cookies.size())
+            throw new RequestLimitException();
+
+        httpGet.setHeader("Cookie", cookies.get(count / 200));
+        httpPost.setHeader("Cookie", cookies.get(count / 200));
     }
 
     private Investor getInvestor(String personId) throws CommonException {
 
         try {
+            Thread.sleep(sleepTime);
             Investor investor = new Investor();
             httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/person/personDetail4?personId=" + personId + "&_=1506554198980"));
             String response = XHttpClient.doRequest(httpGet);
@@ -162,8 +166,8 @@ public class InvestorParser extends ToJsonParser {
             investor.setPersonId(personId);
             investor.setNameCn(result.getString("personNameCn"));
             investor.setNameEn(result.getString("personNameEn"));
-
-            String photoUrl = result.getString("personPhoto");
+            investor.setPhoto(result.getString("personPhoto"));
+            /*String photoUrl = result.getString("personPhoto");
             if (!StringUtils.isEmpty(photoUrl)) {
                 try {
                     String suffix = photoUrl.substring(photoUrl.lastIndexOf("."));
@@ -176,7 +180,7 @@ public class InvestorParser extends ToJsonParser {
                     LOGGER.error("下载投资人照片失败[投资人id={},照片url=]", investor.getPersonId(), photoUrl, e);
                     investor.setPhoto(photoUrl);
                 }
-            }
+            }*/
             String sPackInfo = result.getString("packInfo");
             if (!StringUtils.isEmpty(sPackInfo)) {
                 String[] packInfo = sPackInfo.split("::");
@@ -210,6 +214,7 @@ public class InvestorParser extends ToJsonParser {
     private List<Career> getCareers(Investor investor) {
         List<Career> careers = new ArrayList<>();
         try {
+            Thread.sleep(1000);
             httpGet.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/percar/list4?personId=" + investor.getPersonId() + "&_=1506554199066"));
             String response = XHttpClient.doRequest(httpGet);
             JSONObject jsonObject = JSON.parseObject(response);
@@ -219,6 +224,7 @@ public class InvestorParser extends ToJsonParser {
             JSONArray array = jsonObject.getJSONArray("result");
 
             for (int i = 0; i < array.size(); i++) {
+                Thread.sleep(500);
                 JSONObject object = array.getJSONObject(i);
                 Career career = new Career();
                 career.setCompany(object.getString("companyName"));
@@ -240,6 +246,7 @@ public class InvestorParser extends ToJsonParser {
         List<InvestCase> cases = new ArrayList<>();
         int pageIndex = 1;
         try {
+            Thread.sleep(1000);
             httpPost.setURI(new URI("https://app.pedata.cn/PEDATA_APP_BACK/person/personInvestList?platform=ios&app_name=smt_app&platversion=4.0.1&device_info=iPhone11.0&device_version=iPhone6&ios_uid=" + getRandom(iosUids) + "&ios_idfa=" + getRandom(iosIdfas)));
             List<NameValuePair> params = new ArrayList<NameValuePair>() {{
                 add(new BasicNameValuePair("limit", "10"));
@@ -258,7 +265,7 @@ public class InvestorParser extends ToJsonParser {
             int total = jsonObject.getIntValue("total");
             for (pageIndex = 2; pageIndex <= (total % 10 == 0 ? (total / 10) : (total / 10 + 1)); pageIndex++) {
                 try {
-                    Thread.sleep(sleepTime);
+                    Thread.sleep(500);
                     params.set(params.size() - 2, new BasicNameValuePair("start", String.valueOf((pageIndex - 1) * 10)));
                     params.set(params.size() - 1, new BasicNameValuePair("page", String.valueOf(pageIndex)));
                     httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));

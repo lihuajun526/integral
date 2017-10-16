@@ -145,9 +145,6 @@ public class OrgParser extends ToJsonParser {
     private void init() throws RequestLimitException {
         httpGet = new HttpGet();
         httpPost = new HttpPost();
-        //httpGet.setHeader("Cookie", getRandom(cookies));
-        //httpPost.setHeader("Cookie", getRandom(cookies));
-
         if((count/200)==cookies.size())
             throw new RequestLimitException();
 
