@@ -1,7 +1,6 @@
 package com.operational.platform.taskbreak;
 
 import com.alibaba.fastjson.JSONObject;
-import com.operational.platform.common.bean.MQCrawlJob;
 import com.operational.platform.taskbreak.service.MqService;
 import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Component("mqListener")
@@ -28,11 +26,9 @@ public class MqListener implements ChannelAwareMessageListener {
         try {
             receiveMsg = new String(message.getBody(), "utf-8");
 
-            System.out.println(receiveMsg);
+            Map<String, String> attr = JSONObject.parseObject(receiveMsg, Map.class);
 
-            MQCrawlJob mqCrawlJob = JSONObject.parseObject(receiveMsg, MQCrawlJob.class);
-
-            mqService.saveToMq(mqCrawlJob);
+            PcTzrTask.exe(attr);
 
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {

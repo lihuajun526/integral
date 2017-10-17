@@ -136,7 +136,7 @@ public class WechatController {
                             integralRecord.setType(14);
                             integralRecord.setIntegral(Config.getInt("user.regist.integral.encourage"));
                             userService.saveUserAndRecord(user, integralRecord);
-                            reply.setContent("欢迎关注影咖，已赠送您30天黄金会员，下载APP即可在爱奇艺、乐视、芒果TV中免费使用");
+                            reply.setContent("欢迎关注影咖，已赠送您30天黄金会员，下载APP即可同时享有爱奇艺、乐视、芒果TV会员资格，更多佳片好剧等你观赏，现在就开始吧！");
 
                             isNew = true;
                         }

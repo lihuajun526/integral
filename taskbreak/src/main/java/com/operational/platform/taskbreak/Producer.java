@@ -1,6 +1,5 @@
 package com.operational.platform.taskbreak;
 
-import com.alibaba.fastjson.JSON;
 import com.operational.platform.taskbreak.bean.SpringContext;
 import com.operational.platform.taskbreak.service.MqService;
 

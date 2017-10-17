@@ -42,11 +42,10 @@
             </div>
         </section>
         <div id="discussions-root">
-            <div data-reactroot="" class="loading"></div>
+            <div class="loading"></div>
         </div>
-        <div class="center">
-            <div id="dale_talion_subject_book_bottom" class="Advertisement" ad-status="loaded" data-sell-type="CPC"
-                 data-type="GDTRender" data-version="3.0.10"></div>
+        <div>
+            <div align="center"><div><strong style="font-size: larger">关注影咖365，免费看vip视频</strong></div><img src="http://www.yka365.com/upload/supervip/qrcode_8.jpg"/></div>
         </div>
     </div>
 </div>
