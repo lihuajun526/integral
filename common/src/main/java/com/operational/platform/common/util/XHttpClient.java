@@ -69,6 +69,7 @@ public class XHttpClient {
 
         return doRequest(httpUriRequest, reqSettings);
     }
+
     public static String doRequest(HttpUriRequest httpUriRequest, ReqSettings reqSettings) throws RequestException {
 
         String result = null;
@@ -102,6 +103,12 @@ public class XHttpClient {
             //创建自定义的httpclient对象
             httpClient = HttpClients.custom().setConnectionManager(connManager).build();
             response = httpClient.execute(httpUriRequest);
+
+            if (response.getStatusLine().getStatusCode() != 200) {
+                LOGGER.error("request error[errorCode = {}]", response.getStatusLine().getStatusCode());
+                throw new RequestException();
+            }
+
             //获取结果实体
             HttpEntity entity = response.getEntity();
             if (entity != null) {
