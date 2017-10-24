@@ -12,8 +12,7 @@
     <import resource="classpath*:spring/app-datasource.xml"/>
 
     <!-- scan package -->
-    <context:component-scan base-package="com.operational.platform.dbservice.service"/>
-    <context:component-scan base-package="com.operational.platform.dbservice.dao"/>
+    <context:component-scan base-package="com.operational.platform.dbservice"/>
     <context:component-scan base-package="com.operational.platform.spider.component"/>
     <context:annotation-config/>
 

@@ -9,6 +9,8 @@ public class VideoComment {
 
     private Integer userid;
 
+    private String nick;
+
     private String photo;
 
     private String content;
@@ -71,5 +73,13 @@ public class VideoComment {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 }

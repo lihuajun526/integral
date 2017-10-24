@@ -44,7 +44,7 @@ public class ScoreServiceImpl implements ScoreService {
                 int flag = attackPage.getFlag().intValue();
                 JSONObject attr = JSON.parseObject(attackPage.getAttr());
                 VideoSuggest videoSuggest = videoSuggestService.getBySrc(attackPage.getId());
-                if ("true".equals(attr.getString("isPay")))//付费/用券
+                /*if ("true".equals(attr.getString("isPay")))//付费/用券
                     continue;
                 if (flag == 0) {//已不在会员片库
                     LOGGER.info("已不在会员片库[{}]", attackPage.getAttr());
@@ -68,6 +68,27 @@ public class ScoreServiceImpl implements ScoreService {
                     videoSuggest.setOverallScore(getOverallScore(attr));
                     videoSuggestService.save(videoSuggest);
                 } else if (flag == 2) {
+                    videoSuggest.setScore(attr.getString("score"));
+                    videoSuggest.setOverallScore(getOverallScore(attr));
+                    videoSuggestService.update(videoSuggest);
+                }*/
+                if (videoSuggest == null) {
+                    videoSuggest = new VideoSuggest();
+                    videoSuggest.setStatus(1);
+                    videoSuggest.setDescription(attr.getString("desc"));
+                    videoSuggest.setScore(attr.getString("score"));
+                    videoSuggest.setPhoto(attr.getString("logo"));
+                    videoSuggest.setUrl(attackPage.getLink());
+                    videoSuggest.setTitle(attackPage.getTitle());
+                    videoSuggest.setSrcId(attackPage.getId());
+                    videoSuggest.setManual(0);
+                    if (attackPage.getCategory().contains("电影"))
+                        videoSuggest.setChannel(1);
+                    else if (attackPage.getCategory().contains("电视剧"))
+                        videoSuggest.setChannel(2);
+                    videoSuggest.setOverallScore(getOverallScore(attr));
+                    videoSuggestService.save(videoSuggest);
+                } else {
                     videoSuggest.setScore(attr.getString("score"));
                     videoSuggest.setOverallScore(getOverallScore(attr));
                     videoSuggestService.update(videoSuggest);

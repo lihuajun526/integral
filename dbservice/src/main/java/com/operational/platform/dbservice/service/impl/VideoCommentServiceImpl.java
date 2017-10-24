@@ -1,5 +1,6 @@
 package com.operational.platform.dbservice.service.impl;
 
+import com.operational.platform.dbservice.dao.UserMapper;
 import com.operational.platform.dbservice.dao.VideoCommentMapper;
 import com.operational.platform.dbservice.model.VideoComment;
 import com.operational.platform.dbservice.model.VideoCommentExample;
@@ -17,6 +18,8 @@ public class VideoCommentServiceImpl implements VideoCommentService {
 
     @Autowired
     private VideoCommentMapper videoCommentMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public List<VideoComment> listByVideo(Integer videoid) {
@@ -25,7 +28,11 @@ public class VideoCommentServiceImpl implements VideoCommentService {
         VideoCommentExample.Criteria criteria = example.createCriteria();
         criteria.andVideoidEqualTo(videoid);
 
-        return videoCommentMapper.selectByExample(example);
+        List<VideoComment> list = videoCommentMapper.selectByExample(example);
+        for (VideoComment videoComment : list) {
+            videoComment.setNick(userMapper.selectByPrimaryKey(videoComment.getUserid()).getNickname());
+        }
+        return list;
     }
 
     @Override
