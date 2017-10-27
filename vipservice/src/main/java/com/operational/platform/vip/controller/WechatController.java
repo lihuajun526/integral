@@ -205,14 +205,21 @@ public class WechatController {
                             reply.setContent("努力开发中，敬请期待");
                         } else {
                             List<Article> articles = new ArrayList<>();
+                            boolean isFirst = true;
                             for (VideoGood videoGood : list) {
                                 Article article = new Article();
                                 article.setTitle(videoGood.getTitle());
                                 article.setDescription(videoGood.getDescription().length() > 30 ? videoGood.getDescription().substring(0, 30) + "..." : videoGood.getDescription());
-                                article.setPicurl(videoGood.getImage());
+                                if (isFirst) {
+                                    article.setPicurl(videoGood.getTitleImage());
+                                    isFirst = false;
+                                } else {
+                                    article.setPicurl(videoGood.getImage());
+                                }
                                 article.setUrl("http://www.yka365.com/vipservice/video/good/get/" + videoGood.getId());
                                 articles.add(article);
                             }
+
                             reply.setArticles(articles);
                             reply.setArticleCount(articles.size());
                         }

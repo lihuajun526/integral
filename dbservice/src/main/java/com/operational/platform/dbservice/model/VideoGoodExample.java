@@ -165,6 +165,76 @@ public class VideoGoodExample {
             return (Criteria) this;
         }
 
+        public Criteria andUrlIsNull() {
+            addCriterion("url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlIsNotNull() {
+            addCriterion("url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlEqualTo(String value) {
+            addCriterion("url =", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlNotEqualTo(String value) {
+            addCriterion("url <>", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlGreaterThan(String value) {
+            addCriterion("url >", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("url >=", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlLessThan(String value) {
+            addCriterion("url <", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlLessThanOrEqualTo(String value) {
+            addCriterion("url <=", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlLike(String value) {
+            addCriterion("url like", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlNotLike(String value) {
+            addCriterion("url not like", value, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlIn(List<String> values) {
+            addCriterion("url in", values, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlNotIn(List<String> values) {
+            addCriterion("url not in", values, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlBetween(String value1, String value2) {
+            addCriterion("url between", value1, value2, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andUrlNotBetween(String value1, String value2) {
+            addCriterion("url not between", value1, value2, "url");
+            return (Criteria) this;
+        }
+
         public Criteria andSuggestidIsNull() {
             addCriterion("suggestid is null");
             return (Criteria) this;
@@ -572,6 +642,146 @@ public class VideoGoodExample {
 
         public Criteria andMetaNotBetween(String value1, String value2) {
             addCriterion("meta not between", value1, value2, "meta");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageIsNull() {
+            addCriterion("wimage is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageIsNotNull() {
+            addCriterion("wimage is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageEqualTo(String value) {
+            addCriterion("wimage =", value, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageNotEqualTo(String value) {
+            addCriterion("wimage <>", value, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageGreaterThan(String value) {
+            addCriterion("wimage >", value, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageGreaterThanOrEqualTo(String value) {
+            addCriterion("wimage >=", value, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageLessThan(String value) {
+            addCriterion("wimage <", value, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageLessThanOrEqualTo(String value) {
+            addCriterion("wimage <=", value, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageLike(String value) {
+            addCriterion("wimage like", value, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageNotLike(String value) {
+            addCriterion("wimage not like", value, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageIn(List<String> values) {
+            addCriterion("wimage in", values, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageNotIn(List<String> values) {
+            addCriterion("wimage not in", values, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageBetween(String value1, String value2) {
+            addCriterion("wimage between", value1, value2, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andWimageNotBetween(String value1, String value2) {
+            addCriterion("wimage not between", value1, value2, "wimage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageIsNull() {
+            addCriterion("title_image is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageIsNotNull() {
+            addCriterion("title_image is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageEqualTo(String value) {
+            addCriterion("title_image =", value, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageNotEqualTo(String value) {
+            addCriterion("title_image <>", value, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageGreaterThan(String value) {
+            addCriterion("title_image >", value, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageGreaterThanOrEqualTo(String value) {
+            addCriterion("title_image >=", value, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageLessThan(String value) {
+            addCriterion("title_image <", value, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageLessThanOrEqualTo(String value) {
+            addCriterion("title_image <=", value, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageLike(String value) {
+            addCriterion("title_image like", value, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageNotLike(String value) {
+            addCriterion("title_image not like", value, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageIn(List<String> values) {
+            addCriterion("title_image in", values, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageNotIn(List<String> values) {
+            addCriterion("title_image not in", values, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageBetween(String value1, String value2) {
+            addCriterion("title_image between", value1, value2, "titleImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleImageNotBetween(String value1, String value2) {
+            addCriterion("title_image not between", value1, value2, "titleImage");
             return (Criteria) this;
         }
 

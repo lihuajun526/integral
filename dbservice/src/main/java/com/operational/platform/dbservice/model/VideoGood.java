@@ -1,6 +1,7 @@
 package com.operational.platform.dbservice.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class VideoGood {
     private Integer id;
@@ -19,9 +20,79 @@ public class VideoGood {
 
     private String meta;
 
+    private String wimage;
+
+    private String titleImage;
+
     private Date createTime;
 
     private Date updateTime;
+
+    private List<DbVideoRelation> videoRelations;
+
+    private List<DbShortComment> shortComments;
+
+    private List<DbVideoImage> videoImages;
+
+    private List<DbVideoTag> videoTags;
+
+    private List<DbVideoPerson> videoPersons;
+
+    public String getTitleImage() {
+        return titleImage;
+    }
+
+    public void setTitleImage(String titleImage) {
+        this.titleImage = titleImage;
+    }
+
+    public String getWimage() {
+        return wimage;
+    }
+
+    public void setWimage(String wimage) {
+        this.wimage = wimage;
+    }
+
+    public List<DbVideoRelation> getVideoRelations() {
+        return videoRelations;
+    }
+
+    public void setVideoRelations(List<DbVideoRelation> videoRelations) {
+        this.videoRelations = videoRelations;
+    }
+
+    public List<DbShortComment> getShortComments() {
+        return shortComments;
+    }
+
+    public void setShortComments(List<DbShortComment> shortComments) {
+        this.shortComments = shortComments;
+    }
+
+    public List<DbVideoImage> getVideoImages() {
+        return videoImages;
+    }
+
+    public void setVideoImages(List<DbVideoImage> videoImages) {
+        this.videoImages = videoImages;
+    }
+
+    public List<DbVideoTag> getVideoTags() {
+        return videoTags;
+    }
+
+    public void setVideoTags(List<DbVideoTag> videoTags) {
+        this.videoTags = videoTags;
+    }
+
+    public List<DbVideoPerson> getVideoPersons() {
+        return videoPersons;
+    }
+
+    public void setVideoPersons(List<DbVideoPerson> videoPersons) {
+        this.videoPersons = videoPersons;
+    }
 
     public Integer getId() {
         return id;
