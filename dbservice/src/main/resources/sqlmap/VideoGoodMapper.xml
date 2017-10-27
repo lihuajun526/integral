@@ -316,7 +316,4 @@
         SELECT * FROM t_video_good ORDER BY update_time DESC LIMIT 0,3
     </select>
 
-    <select id="getLatest" resultMap="BaseResultMap">
-    SELECT * FROM t_video_good ORDER BY update_time DESC LIMIT 0,3
-  </select>
 </mapper>
