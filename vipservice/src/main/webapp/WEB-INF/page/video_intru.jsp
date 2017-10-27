@@ -28,7 +28,8 @@
     <!-- Wechat meta -->
     <meta property="weixin:timeline_title" content="<%=videoGood.getTitle()%> - 电影 - <%=appName%>">
     <meta property="weixin:chat_title" content="<%=videoGood.getTitle()%> - 电影 - <%=appName%>">
-    <meta property="weixin:description" content="<%=videoGood.getTitle()%>评分：7.2 简介：<%=videoGood.getDescription().length()>190?videoGood.getDescription().substring(0,190)+"...":videoGood.getDescription()%>">
+    <meta property="weixin:description"
+          content="<%=videoGood.getTitle()%>评分：7.2 简介：<%=videoGood.getDescription().length()>190?videoGood.getDescription().substring(0,190)+"...":videoGood.getDescription()%>">
     <meta property="weixin:image" content="<%=videoGood.getWimage()%>">
     <link rel="stylesheet" href="https://img3.doubanio.com/misc/mixed_static/413d55b342dcbe35.css">
     <link rel="icon" type="image/png" sizes="16x16"
@@ -67,10 +68,7 @@
         </h1>
         <section class="subject-info">
             <div class="right">
-                <a href="https://www.douban.com/doubanapp/card/get_app?client_uri=douban://douban.com/movie/1307463&amp;from=mdouban&amp;channel=card_movie_cover"
-                   rel="nofollow" onclick="ga('send', 'event', 'android', 'click', 'card more link')">
-                    <img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1130375661.webp" class="cover">
-                </a>
+                <a><img src="<%=videoGood.getImage()%>" class="cover"></a>
             </div>
             <div class="left">
                 <p class="rating"><%=videoGood.getScore()%>
@@ -127,7 +125,7 @@
                     for (DbVideoTag dbVideoTag : dbVideoTags) {
                 %>
                 <li>
-                    <a href="<%=dbVideoTag.getLink()%>"><%=dbVideoTag.getTitle()%>
+                    <a href="<%=rootPath+dbVideoTag.getLink()%>"><%=dbVideoTag.getTitle()%>
                     </a>
                 </li>
                 <%
@@ -150,7 +148,7 @@
                         for (DbVideoImage videoImage : dbVideoImages) {
                     %>
                     <li class="pic">
-                        <a href="<%=videoImage.getLink()%>">
+                        <a href="<%=rootPath+videoImage.getLink()%>">
                             <img src="<%=videoImage.getImage()%>">
                         </a>
                     </li>
@@ -228,7 +226,7 @@
                         for (DbVideoRelation videoRelation : dbVideoRelations) {
                     %>
                     <li>
-                        <a href="<%=videoRelation.getLink()%>">
+                        <a href="<%=rootPath+videoRelation.getLink()%>">
                             <div class="wp">
                                 <img alt="<%=videoRelation.getTitle()%>" data-type="cover"
                                      src="<%=videoRelation.getImage()%>">
@@ -251,8 +249,10 @@
     <div class="download-app">
         <div class="info">
             <img src="http://www.yka365.com/upload/supervip/logo.png" width="48">
+
             <div class="info-content">
                 <strong>影咖365</strong>
+
                 <div>免费观影，就是这么酷</div>
             </div>
         </div>
