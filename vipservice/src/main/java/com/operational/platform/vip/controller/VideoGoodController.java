@@ -33,4 +33,17 @@ public class VideoGoodController extends BaseController {
 
     }
 
+    @RequestMapping("/get/send/{id}")
+    @ResponseBody
+    public ModelAndView getSend(@PathVariable Integer id) {
+
+        ModelAndView mv = new ModelAndView("video_intru_send");
+
+        VideoGood videoGood = videoGoodService.get(id);
+        mv.addObject("videoGood",videoGood);
+
+        return mv;
+
+    }
+
 }

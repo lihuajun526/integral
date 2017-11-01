@@ -28,6 +28,7 @@
                     <td align="left">
                         <button type="button" onclick="crawl();">提取</button>
                         <button type="button" onclick="view();">预览</button>
+                        <button type="button" onclick="viewSend();">群发预览</button>
                         <button type="button" onclick="fix();">确定</button>
                     </td>
                 </tr>
@@ -146,6 +147,11 @@
         if (goodid == 0)
             return;
         window.open("http://www.yka365.com/vipservice/video/good/get/" + goodid);
+    }
+    function viewSend() {
+        if (goodid == 0)
+            return;
+        window.open("http://www.yka365.com/vipservice/video/good/get/send/" + goodid);
     }
     function fix() {
         $.ajax({
