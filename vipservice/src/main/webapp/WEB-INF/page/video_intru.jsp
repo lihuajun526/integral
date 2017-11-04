@@ -33,11 +33,11 @@
     <meta property="weixin:image" content="<%=videoGood.getWimage()%>">
     <link rel="stylesheet" href="https://img3.doubanio.com/misc/mixed_static/413d55b342dcbe35.css">
     <link rel="icon" type="image/png" sizes="16x16"
-          href="http://http://www.yka365.com/upload/supervip/logo54.png">
+          href="http://www.yka365.com/upload/supervip/logo54.png">
     <link rel="icon" type="image/png" sizes="32x32"
-          href="http://http://www.yka365.com/upload/supervip/logo54.png">
+          href="http://www.yka365.com/upload/supervip/logo54.png">
     <link rel="icon" type="image/png" sizes="48x48"
-          href="http://http://www.yka365.com/upload/supervip/logo54.png">
+          href="http://www.yka365.com/upload/supervip/logo54.png">
 </head>
 <body>
 <div class="page">

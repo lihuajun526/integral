@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<context:property-placeholder location="classpath:properties/db.properties" ignore-unresolvable="true"/>-->
+
+    <bean id="log_filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+        <property name="resultSetLogEnabled" value="false"/>
+        <property name="dataSourceLogEnabled" value="false"/>
+        <property name="connectionLogEnabled" value="false"/>
+        <property name="statementExecutableSqlLogEnable" value="true"/>
+    </bean>
+
+    <!-- data source -->
+    <bean id="dataSourceCommon" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="driverClassName" value="${filter.common.driver}"/>
+        <property name="url" value="${filter.common.url}"/>
+        <property name="username" value="${filter.common.username}"/>
+        <property name="password" value="${filter.common.password}"/>
+
+        <!-- Connection Pooling Info -->
+        <property name="maxWait" value="${filter.common.maxWait}"/>
+        <property name="initialSize" value="${filter.common.initialSize}"/>
+        <property name="maxActive" value="${filter.common.maxActive}"/>
+        <property name="minIdle" value="${filter.common.minIdle}"/>
+        <property name="defaultAutoCommit" value="${filter.common.defaultAutoCommit}"/>
+        <property name="timeBetweenEvictionRunsMillis"
+                  value="${filter.common.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${filter.common.minEvictableIdleTimeMillis}"/>
+        <property name="removeAbandoned" value="${filter.common.removeAbandoned}"/>
+        <property name="removeAbandonedTimeout" value="${filter.common.removeAbandonedTimeout}"/>
+        <property name="logAbandoned" value="${filter.common.logAbandoned}"/>
+        <property name="testWhileIdle" value="${filter.common.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${filter.common.testOnBorrow}"/>
+        <property name="testOnReturn" value="${filter.common.testOnReturn}"/>
+        <property name="validationQuery" value="${filter.common.validationQuery}"/>
+        <property name="proxyFilters">
+            <list>
+                <ref bean="log_filter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- session factory -->
+    <bean id="sqlSessionFactoryCommon" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceCommon"/>
+        <property name="mapperLocations" value="classpath*:sqlmap/**/*.xml"/>
+    </bean>
+
+    <!-- mapper interface -->
+    <!-- for user database -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.operational.platform.dbservice.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryCommon"/>
+    </bean>
+
+</beans>

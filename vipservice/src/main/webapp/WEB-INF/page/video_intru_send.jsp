@@ -4,7 +4,7 @@
 <%@ page import="com.operational.platform.dbservice.model.DbShortComment" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    String appPath = Config.get("app.name");
+    String appPath = "http://www.yka365.com/vipservice";
     VideoGood videoGood = (VideoGood) request.getAttribute("videoGood");
     String score = videoGood.getScore();
     score = score.substring(score.indexOf("<strong>"), score.indexOf("</strong>")).replaceAll("<strong>", "").trim();
@@ -73,14 +73,14 @@
                         <p style="padding:10px;">
                             <span style="font-family: 微软雅黑; font-size: 12px; line-height: 19.2px; text-align: justify; text-indent: 32px; white-space: pre-wrap;"><%=videoGood.getDescription()%></span>
                         </p>
-                        <section class="_135editor" style="border: 0px none; padding: 0px;">
+                        <%--<section class="_135editor" style="border: 0px none; padding: 0px;">
                             <section style="text-align:center;">
                                 <iframe class="video_iframe"
                                         style="position: relative;z-index:1;height:240px;width:320px;" scrolling="no"
                                         src="https://v.qq.com/iframe/preview.html?vid=j0025qw0y2g&auto=0"
                                         allowfullscreen="" frameborder="0"></iframe>
                             </section>
-                        </section>
+                        </section>--%>
                     </section>
                 </section>
             </section>
@@ -279,9 +279,6 @@
             </section>
         </section>
     </section>
-    <p>
-        <br/>
-    </p>
 </section>
 </body>
 </html>

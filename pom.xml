@@ -16,6 +16,7 @@
         <module>timertask</module>
         <module>taskbreak</module>
         <module>analyze</module>
+        <module>operate</module>
     </modules>
 
     <properties>
