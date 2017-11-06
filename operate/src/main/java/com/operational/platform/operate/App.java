@@ -16,8 +16,8 @@ public class App {
 
         SpringContext.init("classpath:spring/spring.xml");
 
-        TimerAddQQUser timerAddQQUser = (TimerAddQQUser) SpringContext.getContext().getBean("timerAddQQUser");
-        timerAddQQUser.execute();
+        /*TimerAddQQUser timerAddQQUser = (TimerAddQQUser) SpringContext.getContext().getBean("timerAddQQUser");
+        timerAddQQUser.execute();*/
 
     }
 

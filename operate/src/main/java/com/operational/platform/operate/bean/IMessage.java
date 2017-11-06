@@ -7,7 +7,7 @@ import com.operational.platform.dbservice.model.AttackerAttr;
  */
 public class IMessage {
     private String target;
-    private AttackerAttr attackerAttr;;
+    private AttackerAttr attackerAttr;
 
     public String getTarget() {
         return target;

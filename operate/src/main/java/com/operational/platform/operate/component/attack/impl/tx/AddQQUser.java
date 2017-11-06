@@ -9,6 +9,7 @@ import com.operational.platform.dbservice.model.AttackerAttr;
 import com.operational.platform.dbservice.service.AttackerAttrService;
 import com.operational.platform.operate.bean.IMessage;
 import com.operational.platform.operate.component.attack.Attacker;
+import com.operational.platform.operate.component.attack.bean.QZoneParam;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
@@ -25,26 +26,23 @@ import java.util.List;
 @Component
 public class AddQQUser extends Attacker {
 
-    @Autowired
-    private AttackerAttrService qqParamService;
-
     @Override
     public void exe(IMessage iMessage) throws CommonException {
         try {
-            Target target = JSON.parseObject(iMessage.getTarget(), Target.class);
             AttackerAttr attackerAttr = iMessage.getAttackerAttr();
             QZoneParam qZoneParam = JSON.parseObject(JSON.parseObject(attackerAttr.getData()).getString("qzone"), QZoneParam.class);
             httpPost.setURI(new URI("https://user.qzone.qq.com/proxy/domain/w.qzone.qq.com/cgi-bin/tfriend/friend_addfriend.cgi?qzonetoken=" + qZoneParam.getQzonetoken() + "&g_tk=" + qZoneParam.getgTk()));
-            httpPost.setHeader("Cookie", String.format(qZoneParam.getCookie(), attackerAttr.getName(), target.getQq(), target.getQq()));
-            httpPost.setHeader("Referer", "https://user.qzone.qq.com/" + target.getQq() + "/infocenter");
+            httpPost.setHeader("Cookie", qZoneParam.getCookie());
+            httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36");
+            httpPost.setHeader("Referer", "https://user.qzone.qq.com/" + iMessage.getTarget() + "/infocenter");
             List<NameValuePair> params = new ArrayList<NameValuePair>() {{
                 add(new BasicNameValuePair("sid", "0"));
-                add(new BasicNameValuePair("ouin", target.getQq()));
+                add(new BasicNameValuePair("ouin", iMessage.getTarget()));
                 add(new BasicNameValuePair("uin", attackerAttr.getName()));
-                add(new BasicNameValuePair("fuin", target.getQq()));
+                add(new BasicNameValuePair("fuin", iMessage.getTarget()));
                 add(new BasicNameValuePair("fupdate", "1"));
-                add(new BasicNameValuePair("qzreferrer", "https%3A%2F%2Fuser.qzone.qq.com%2F" + target.getQq() + "%2Finfocenter"));
-                add(new BasicNameValuePair("rd", "0.5785475992725166"));
+                add(new BasicNameValuePair("qzreferrer", "https%3A%2F%2Fuser.qzone.qq.com%2F" + iMessage.getTarget() + "%2Finfocenter"));
+                add(new BasicNameValuePair("rd", "0.08724932846711231"));
                 add(new BasicNameValuePair("strmsg", ""));
                 add(new BasicNameValuePair("groupId", "0"));
                 add(new BasicNameValuePair("realname", ""));
@@ -61,7 +59,7 @@ public class AddQQUser extends Attacker {
             response = response.substring(response.indexOf("frameElement.callback(") + 23, response.indexOf(");\n</script>"));
             JSONObject jsonObject = JSON.parseObject(response);
             if (jsonObject.getIntValue("code") != 0) {
-                LOGGER.error("攻击者[{}]添加好友[{}]失败[{}]", attackerAttr.getName(), target.getQq(), jsonObject.getString("message"));
+                LOGGER.error("攻击者[{}]添加好友[{}]失败[{}]", attackerAttr.getName(), iMessage.getTarget(), jsonObject.getString("message"));
                 throw new CommonException(ExceptionTypeEnum.Attack_ERROR);
             }
 
@@ -76,29 +74,5 @@ public class AddQQUser extends Attacker {
 
     }
 
-    class Target {
-        private String qq;
 
-        public String getQq() {
-            return qq;
-        }
-    }
-
-    class QZoneParam {
-        private String gTk;
-        private String qzonetoken;
-        private String cookie;
-
-        public String getgTk() {
-            return gTk;
-        }
-
-        public String getQzonetoken() {
-            return qzonetoken;
-        }
-
-        public String getCookie() {
-            return cookie;
-        }
-    }
 }

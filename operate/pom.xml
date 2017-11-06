@@ -41,9 +41,10 @@
     </dependencies>
 
     <build>
-        <finalName>analyze</finalName>
+        <finalName>operate</finalName>
         <filters>
             <filter>src/main/filters/${env}/properties/mq-config.properties</filter>
+            <filter>src/main/filters/${env}/properties/db.properties</filter>
         </filters>
         <resources>
             <resource>

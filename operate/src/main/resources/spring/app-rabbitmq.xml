@@ -5,13 +5,13 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="connectionFactory"
-          class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
-        <property name="addresses" value="${filter.schedule.mq.addresses}"/>
+          class="com.rabbitmq.client.ConnectionFactory">
+        <property name="host" value="${filter.schedule.mq.addresses}"/>
+        <property name="port" value="${filter.schedule.mq.port}"/>
         <property name="username" value="${filter.schedule.mq.username}"/>
         <property name="password" value="${filter.schedule.mq.password}"/>
         <property name="virtualHost" value="${filter.schedule.mq.virtualHost}"/>
         <property name="connectionTimeout" value="${filter.schedule.mq.connectionTimeout}"/>
-        <property name="connectionLimit" value="${filter.schedule.mq.connectionLimit}"/>
     </bean>
 
 </beans>

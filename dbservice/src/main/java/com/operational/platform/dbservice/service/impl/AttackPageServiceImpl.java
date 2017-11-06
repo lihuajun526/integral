@@ -82,6 +82,9 @@ public class AttackPageServiceImpl implements AttackPageService {
         AttackPageExample example = new AttackPageExample();
         AttackPageExample.Criteria criteria = example.createCriteria();
         criteria.andPointidIn(pointids);
+
+        example.setOrderByClause("create_time desc");
+
         return attackPageMapper.selectByExampleWithBLOBs(example);
     }
 

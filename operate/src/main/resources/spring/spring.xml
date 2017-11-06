@@ -11,6 +11,7 @@
     <import resource="classpath*:spring/app-config.xml"/>
     <import resource="classpath*:spring/app-datasource.xml"/>
     <import resource="classpath*:spring/app-rabbitmq.xml"/>
+    <import resource="classpath*:spring/app-quartz.xml"/>
 
     <!-- scan package -->
     <context:component-scan base-package="com.operational.platform.operate"/>

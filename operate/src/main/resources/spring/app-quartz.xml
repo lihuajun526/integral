@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 定时添加好友 -->
+    <bean id="addQQUserTask" class="com.operational.platform.operate.task.TimerAddQQUser">
+    </bean>
+    <bean id="addQQUserTaskQtzJobMethod"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="addQQUserTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="addQQUserTaskCronTriggerBean"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="addQQUserTaskQtzJobMethod"/>
+        <property name="cronExpression" value="0 0 0/1 * * ?"/>
+    </bean>
+
+    <!-- 定时刷新 -->
+    <bean id="refreshQzoneAndEmailTask" class="com.operational.platform.operate.task.TimerRefreshQzoneAndEmail">
+    </bean>
+    <bean id="refreshQzoneAndEmailTaskQtzJobMethod"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="refreshQzoneAndEmailTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="refreshQzoneAndEmailTaskCronTriggerBean"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="refreshQzoneAndEmailTaskQtzJobMethod"/>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+
+    <!-- 定时获取QQ用户 -->
+    <bean id="crawlQQUserTask" class="com.operational.platform.operate.task.TimerCrawlQQUser">
+    </bean>
+    <bean id="crawlQQUserTaskQtzJobMethod"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="crawlQQUserTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="crawlQQUserTaskCronTriggerBean"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="crawlQQUserTaskQtzJobMethod"/>
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+
+    <!-- 定时群发邮件 -->
+    <bean id="sendEmailTask" class="com.operational.platform.operate.task.TimerSendEmail">
+    </bean>
+    <bean id="sendEmailTaskQtzJobMethod"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="sendEmailTask"/>
+        <property name="targetMethod" value="execute"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+    <bean id="sendEmailTaskCronTriggerBean"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="sendEmailTaskQtzJobMethod"/>
+        <property name="cronExpression" value="0 0 0/1 * * ?"/>
+    </bean>
+
+    <!-- ======================== 调度工厂 ======================== -->
+    <bean id="SpringJobSchedulerFactoryBean" autowire="no" lazy-init="false"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="addQQUserTaskCronTriggerBean"/>
+                <ref bean="refreshQzoneAndEmailTaskCronTriggerBean"/>
+                <ref bean="crawlQQUserTaskCronTriggerBean"/>
+                <ref bean="sendEmailTaskCronTriggerBean"/>
+            </list>
+        </property>
+        <property name="taskExecutor" ref="executor"/>
+    </bean>
+    <!-- 线程执行器配置,用于任务注册 -->
+    <bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5"/>
+        <property name="maxPoolSize" value="20"/>
+        <property name="queueCapacity" value="500"/>
+    </bean>
+</beans>

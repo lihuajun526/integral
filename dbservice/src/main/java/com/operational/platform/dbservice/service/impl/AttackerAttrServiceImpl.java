@@ -35,6 +35,6 @@ public class AttackerAttrServiceImpl implements AttackerAttrService {
         AttackerAttrExample.Criteria criteria = example.createCriteria();
         criteria.andBelongEqualTo(belong);
 
-        return attackerAttrMapper.selectByExample(example);
+        return attackerAttrMapper.selectByExampleWithBLOBs(example);
     }
 }

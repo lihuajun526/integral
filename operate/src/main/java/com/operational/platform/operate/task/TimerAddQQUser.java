@@ -1,21 +1,17 @@
 package com.operational.platform.operate.task;
 
-import com.alibaba.fastjson.JSON;
-import com.operational.platform.common.util.Config;
+import com.operational.platform.dbservice.model.AttackTask;
 import com.operational.platform.dbservice.model.AttackerAttr;
+import com.operational.platform.dbservice.service.AttackTaskService;
 import com.operational.platform.dbservice.service.AttackerAttrService;
 import com.operational.platform.operate.bean.IMessage;
 import com.operational.platform.operate.component.attack.impl.tx.AddQQUser;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.QueueingConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,39 +25,29 @@ public class TimerAddQQUser {
     @Autowired
     private AddQQUser addQQUser;
     @Autowired
-    private CachingConnectionFactory connectionFactory;
-    @Autowired
     private AttackerAttrService attackerAttrService;
+    @Autowired
+    private AttackTaskService attackTaskService;
 
     public void execute() {
-        Channel channel = null;
-        QueueingConsumer consumer = null;
-        try {
-            channel = connectionFactory.createConnection().createChannel(true);
-            HashMap<String,Object> map = new HashMap<>();
-            map.put("x-dead-letter-exchange","job.exchange");
-            map.put("x-dead-letter-routing-key","qq.user.add.fail");
-            channel.queueDeclare(Config.get("queue.qq.user.add"), true, false, false, map);
-            consumer = new QueueingConsumer(channel);
-            channel.basicConsume(Config.get("queue.qq.user.add"), true, consumer);
 
-            QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-            String message = new String(delivery.getBody());
-            IMessage iMessage = JSON.parseObject(message, IMessage.class);
-            //iMessage.setAttackerAttr(attackerAttr);
-
-            List<AttackerAttr> list = attackerAttrService.listByBelong("qq");
-            for (AttackerAttr attackerAttr : list) {
-
-                //addQQUser.exe(iMessage);
-            }
-        } catch (Exception e) {
-            LOGGER.error("error:", e);
+        List<AttackerAttr> list = attackerAttrService.listByBelong("qq");
+        for (AttackerAttr attackerAttr : list) {
+            AttackTask task = attackTaskService.getOneByBelongAndStatus("addQQ", Arrays.asList(0));
+            if (task == null)
+                break;
             try {
-                channel.basicConsume(Config.get("queue.qq.user.add"), false, consumer);
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                LOGGER.info("添加{}",task.getData());
+                IMessage iMessage = new IMessage();
+                iMessage.setTarget(task.getData());
+                iMessage.setAttackerAttr(attackerAttr);
+                addQQUser.exe(iMessage);
+                task.setStatus(1);
+            } catch (Exception e) {
+                task.setStatus(2);
+                LOGGER.error("error:", e);
             }
+            attackTaskService.save(task);
         }
     }
 }
