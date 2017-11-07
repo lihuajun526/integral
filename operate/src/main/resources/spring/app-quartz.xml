@@ -69,10 +69,10 @@
           class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                <ref bean="addQQUserTaskCronTriggerBean"/>
+                <!--<ref bean="addQQUserTaskCronTriggerBean"/>-->
                 <ref bean="refreshQzoneAndEmailTaskCronTriggerBean"/>
-                <ref bean="crawlQQUserTaskCronTriggerBean"/>
                 <ref bean="sendEmailTaskCronTriggerBean"/>
+                <ref bean="crawlQQUserTaskCronTriggerBean"/>
             </list>
         </property>
         <property name="taskExecutor" ref="executor"/>

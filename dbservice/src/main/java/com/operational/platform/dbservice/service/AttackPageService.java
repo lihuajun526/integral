@@ -27,6 +27,8 @@ public interface AttackPageService {
 
     List<AttackPage> listByPoints(List<Integer> pointids);
 
+    List<AttackPage> listByPointsAndLimit(List<Integer> pointids,Integer limit);
+
     List<AttackPage> listByPointAndLink(AttackPage attackPage);
 
 }

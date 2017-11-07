@@ -30,7 +30,7 @@ public class AttackTaskServiceImpl implements AttackTaskService {
         if (list.size() > 0)
             return list.get(0);
         else{
-            List<AttackPage> l =  attackPageService.listByPoints(Arrays.asList(33));
+            List<AttackPage> l =  attackPageService.listByPointsAndLimit(Arrays.asList(33),1);
             AttackPage attackPage = l.get(0);
             AttackTask attackTask = new AttackTask();
             attackTask.setBelong("addQQ");

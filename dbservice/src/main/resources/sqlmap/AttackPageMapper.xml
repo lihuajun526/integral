@@ -409,4 +409,17 @@
       and link = #{link,jdbcType=VARCHAR}
     </if>
   </select>
+
+  <select id="listByPointsAndLimit" resultMap="BaseResultMap" parameterType="com.operational.platform.dbservice.model.AttackPage">
+    select
+    <include refid="Base_Column_List"/>
+    from t_attack_page
+    where pointid in
+    <foreach collection="pointids" item="s" index="index"
+             open="(" close=")" separator=",">
+      ${s}
+    </foreach>
+    ORDER BY create_time DESC
+    limit 0,${limit}
+  </select>
 </mapper>

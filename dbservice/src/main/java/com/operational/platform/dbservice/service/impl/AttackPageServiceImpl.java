@@ -7,7 +7,9 @@ import com.operational.platform.dbservice.service.AttackPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuajun on 16-7-27.
@@ -86,6 +88,16 @@ public class AttackPageServiceImpl implements AttackPageService {
         example.setOrderByClause("create_time desc");
 
         return attackPageMapper.selectByExampleWithBLOBs(example);
+    }
+
+    @Override
+    public List<AttackPage> listByPointsAndLimit(List<Integer> pointids, Integer limit) {
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("pointids",pointids);
+        map.put("limit",limit);
+
+        return attackPageMapper.listByPointsAndLimit(map);
     }
 
     @Override

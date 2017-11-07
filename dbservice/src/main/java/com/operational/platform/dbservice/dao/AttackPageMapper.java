@@ -3,6 +3,8 @@ package com.operational.platform.dbservice.dao;
 import com.operational.platform.dbservice.model.AttackPage;
 import com.operational.platform.dbservice.model.AttackPageExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AttackPageMapper {
@@ -37,4 +39,6 @@ public interface AttackPageMapper {
     List<AttackPage> listByBelong(String belong);
 
     List<AttackPage> listByCondition(AttackPage attackPage);
+
+    List<AttackPage> listByPointsAndLimit(Map<String,Object> map);
 }

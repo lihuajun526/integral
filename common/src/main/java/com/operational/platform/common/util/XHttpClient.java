@@ -3,6 +3,7 @@ package com.operational.platform.common.util;
 import com.operational.platform.common.bean.ReqSettings;
 import com.operational.platform.common.exception.RequestException;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -82,9 +83,9 @@ public class XHttpClient {
                 lock.unlock();
             }
 
-            //HttpHost proxy = new HttpHost("127.0.0.1", 8888, "http");
-            //RequestConfig backstage = RequestConfig.custom().setProxy(proxy).build();
-            RequestConfig config = RequestConfig.custom().build();
+            HttpHost proxy = new HttpHost("127.0.0.1", 7777, "http");
+            RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
+            //RequestConfig config = RequestConfig.custom().build();
 
             if (httpUriRequest instanceof HttpPost) {
                 ((HttpPost) httpUriRequest).setConfig(config);

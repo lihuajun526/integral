@@ -1,6 +1,8 @@
 package com.operational.platform.operate;
 
 import com.operational.platform.operate.task.TimerAddQQUser;
+import com.operational.platform.operate.task.TimerCrawlQQUser;
+import com.operational.platform.operate.task.TimerSendEmail;
 import com.operational.platform.operate.util.SpringContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +18,11 @@ public class App {
 
         SpringContext.init("classpath:spring/spring.xml");
 
-        /*TimerAddQQUser timerAddQQUser = (TimerAddQQUser) SpringContext.getContext().getBean("timerAddQQUser");
-        timerAddQQUser.execute();*/
+        /*TimerSendEmail timerSendEmail = (TimerSendEmail) SpringContext.getContext().getBean("timerSendEmail");
+        timerSendEmail.execute();*/
+
+        /*TimerCrawlQQUser timerCrawlQQUser = (TimerCrawlQQUser) SpringContext.getContext().getBean("timerCrawlQQUser");
+        timerCrawlQQUser.execute();*/
 
     }
 
