@@ -29,6 +29,8 @@ public class VideoSuggest {
 
     private String dbLink;
 
+    private String data;
+
     private Date createTime;
 
     private Date updateTime;
@@ -151,5 +153,13 @@ public class VideoSuggest {
 
     public void setSrcId(Integer srcId) {
         this.srcId = srcId;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

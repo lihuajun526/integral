@@ -17,6 +17,8 @@ public class Application {
         //初始化
         SpringContext.init("classpath:spring/spring.xml");
 
+        VideoUpdate.execute();
+
         LOGGER.info("======================>应用已启动");
     }
 

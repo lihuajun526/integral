@@ -16,9 +16,7 @@ import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by lihuajun on 2017/8/1.
@@ -87,10 +85,44 @@ public class ScoreServiceImpl implements ScoreService {
                     else if (attackPage.getCategory().contains("电视剧"))
                         videoSuggest.setChannel(2);
                     videoSuggest.setOverallScore(getOverallScore(attr));
+
+                    Map<String, String> data = new HashMap<>();
+                    if (!StringUtils.isEmpty(attr.getString("star")))
+                        data.put("star", attr.getString("star"));
+                    if (!StringUtils.isEmpty(attr.getString("playCount")))
+                        data.put("playCount", attr.getString("playCount"));
+                    if (!StringUtils.isEmpty(attr.getString("tvFocus")))
+                        data.put("tvFocus", attr.getString("tvFocus"));
+                    if (!StringUtils.isEmpty(attr.getString("timeLength")))
+                        data.put("timeLength", attr.getString("timeLength"));
+                    if (!StringUtils.isEmpty(attr.getString("directors")))
+                        data.put("directors", attr.getString("directors"));
+                    if (!StringUtils.isEmpty(attr.getString("actors")))
+                        data.put("actors", attr.getString("actors"));
+                    videoSuggest.setData(JSON.toJSONString(data));
+
                     videoSuggestService.save(videoSuggest);
                 } else {
                     videoSuggest.setScore(attr.getString("score"));
                     videoSuggest.setOverallScore(getOverallScore(attr));
+
+                    if (StringUtils.isEmpty(videoSuggest.getData())) {
+                        Map<String, String> data = new HashMap<>();
+                        if (!StringUtils.isEmpty(attr.getString("star")))
+                            data.put("star", attr.getString("star"));
+                        if (!StringUtils.isEmpty(attr.getString("playCount")))
+                            data.put("playCount", attr.getString("playCount"));
+                        if (!StringUtils.isEmpty(attr.getString("tvFocus")))
+                            data.put("tvFocus", attr.getString("tvFocus"));
+                        if (!StringUtils.isEmpty(attr.getString("timeLength")))
+                            data.put("timeLength", attr.getString("timeLength"));
+                        if (!StringUtils.isEmpty(attr.getString("directors")))
+                            data.put("directors", attr.getString("directors"));
+                        if (!StringUtils.isEmpty(attr.getString("actors")))
+                            data.put("actors", attr.getString("actors"));
+                        videoSuggest.setData(JSON.toJSONString(data));
+                    }
+
                     videoSuggestService.update(videoSuggest);
                 }
             } catch (Exception e) {

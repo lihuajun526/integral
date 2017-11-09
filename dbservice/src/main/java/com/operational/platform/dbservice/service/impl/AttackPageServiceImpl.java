@@ -109,4 +109,9 @@ public class AttackPageServiceImpl implements AttackPageService {
 
         return attackPageMapper.selectByExample(example);
     }
+
+    @Override
+    public AttackPage get(Integer id) {
+        return attackPageMapper.selectByPrimaryKey(id);
+    }
 }

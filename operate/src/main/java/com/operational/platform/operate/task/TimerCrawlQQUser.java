@@ -36,15 +36,15 @@ public class TimerCrawlQQUser {
         try {
             HttpPost httpPost = new HttpPost("http://cgi.find.qq.com/qqfind/buddy/search_v3");
             httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) QQ/8.9.5.22062 Chrome/43.0.2357.134 Safari/537.36 QBCore/3.43.716.400 QQBrowser/9.0.2524.400");
-            httpPost.setHeader("Cookie", "RK=gdnjqWhfmW; pt2gguin=o3198493143; ptcz=19c0c40506b2aa0e1ab5df02f2df887f141f7eaa41ac0bb92cc23abeeb29e5f9; _qpsvr_localtk=tk3866; pgv_pvid=4756510416; uin=o3198493143; skey=ZvTA1O2aJp; itkn=2061529490");
+            httpPost.setHeader("Cookie", "RK=gJVn4DwLuD; _qpsvr_localtk=tk55; pt2gguin=o2893085489; ptcz=0e9869ca8cafbe09a8f5d18d5f85646860888a033d1fd6a6aa14517f8463d493; pgv_pvid=1187321720; uin=o2893085489; skey=ZWwMHMdgoj; itkn=2061529490");
             httpPost.setHeader("Referer","http://find.qq.com/index.html?version=1&im_version=5545&width=910&height=610&search_target=0");
             List<NameValuePair> params = new ArrayList<NameValuePair>() {{
                 add(new BasicNameValuePair("num", "20"));
                 add(new BasicNameValuePair("page", "0"));
                 add(new BasicNameValuePair("sessionid", "0"));
                 add(new BasicNameValuePair("keyword", ""));
-                add(new BasicNameValuePair("agerg", "12"));
-                add(new BasicNameValuePair("sex", "1"));
+                add(new BasicNameValuePair("agerg", "11"));
+                add(new BasicNameValuePair("sex", "0"));
                 add(new BasicNameValuePair("firston", "1"));
                 add(new BasicNameValuePair("video", "0"));
                 add(new BasicNameValuePair("country", "1"));
@@ -56,7 +56,7 @@ public class TimerCrawlQQUser {
                 add(new BasicNameValuePair("hcity", "0"));
                 add(new BasicNameValuePair("hdistrict", "0"));
                 add(new BasicNameValuePair("online", "1"));
-                add(new BasicNameValuePair("ldw", "1541646935"));
+                add(new BasicNameValuePair("ldw", "1596648883"));
             }};
             httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));
             String result = XHttpClient.doRequest(httpPost);

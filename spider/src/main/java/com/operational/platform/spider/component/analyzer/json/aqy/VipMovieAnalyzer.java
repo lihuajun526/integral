@@ -1,5 +1,6 @@
 package com.operational.platform.spider.component.analyzer.json.aqy;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.operational.platform.spider.bean.ParseResult;
@@ -19,6 +20,17 @@ import java.util.Map;
  * Created by lihuajun on 2017/7/23.
  */
 public class VipMovieAnalyzer extends JsonAnalyzer {
+
+    public static void main(String[] args) {
+
+        String str = "网络大电影,27401,7 青春,130,2 喜剧,8,2 华语,1,1 内地,28996,1";
+
+        str = str.replaceAll("[^(\\u4e00-\\u9fa5) \\|,]", "");
+
+        System.out.println(str);
+    }
+
+
     @Override
     public List<ParseResult> parse(String jsonResponse) {
 
@@ -38,13 +50,38 @@ public class VipMovieAnalyzer extends JsonAnalyzer {
                 ParseResult parseResult = new ParseResult();
                 parseResult.setTitle(obj.getString("albumTitle"));
                 String link = obj.getString("albumLink");
-                if(StringUtils.isEmpty(link)){
+                if (StringUtils.isEmpty(link)) {
                     link = obj.getJSONObject("video_lib_meta").getString("link");
                 }
                 //parseResult.setLink(link.replaceFirst("www.", "m.").replaceFirst("vip.", "m."));
                 parseResult.setLink(link);
                 Map<String, String> attr = new HashMap<>();
                 attr.put("desc", obj.getJSONObject("video_lib_meta").getString("description"));
+
+                ///////////////////////////////
+                attr.put("star", obj.getString("star"));//明星
+                attr.put("playCount", obj.getString("playCount"));//播放次数
+                String[] sTags = obj.getString("threeCategory").replaceAll("[^(\\u4e00-\\u9fa5) \\|,]", "").split(",");
+                List<String> tags = new ArrayList<>();
+                for (int j = 0; j < sTags.length; j++) {
+                    if (!StringUtils.isEmpty(sTags[j].trim())) {
+                        tags.add(sTags[j].trim());
+                    }
+                }
+                attr.put("tags", JSON.toJSONString(tags));//标签
+                attr.put("tvFocus", obj.getString("tvFocus"));//看点
+                JSONArray videoInfos = obj.getJSONArray("videoinfos");
+                if (videoInfos != null && videoInfos.size() > 0) {
+                    JSONObject videoInfo = videoInfos.getJSONObject(0);
+                    attr.put("timeLength", videoInfo.getString("timeLength"));//时长
+                }
+                attr.put("directors", obj.getJSONObject("video_lib_meta").getString("director"));//导演
+                attr.put("actors", obj.getJSONObject("video_lib_meta").getString("actor"));//演员
+                attr.put("docid", obj.getString("albumId"));//docid
+
+
+                //////////////////////////////
+
                 String logo = obj.getString("albumVImage").replace(".jpg", "_195_260.jpg");
                 CloseableHttpResponse httpResponse = null;
                 CloseableHttpClient httpClient = HttpClients.custom()
@@ -78,6 +115,8 @@ public class VipMovieAnalyzer extends JsonAnalyzer {
                 if (homeMade != null && homeMade) {
                     attr.put("homeMade", homeMade.toString());
                 }
+
+
                 parseResult.setAttr(attr);
                 list.add(parseResult);
             } catch (Exception e) {

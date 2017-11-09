@@ -19,9 +19,9 @@ public class App {
         SpringContext.init("classpath:spring/spring.xml");
 
         /*TimerSendEmail timerSendEmail = (TimerSendEmail) SpringContext.getContext().getBean("timerSendEmail");
-        timerSendEmail.execute();*/
+        timerSendEmail.execute();
 
-        /*TimerCrawlQQUser timerCrawlQQUser = (TimerCrawlQQUser) SpringContext.getContext().getBean("timerCrawlQQUser");
+        TimerCrawlQQUser timerCrawlQQUser = (TimerCrawlQQUser) SpringContext.getContext().getBean("timerCrawlQQUser");
         timerCrawlQQUser.execute();*/
 
     }

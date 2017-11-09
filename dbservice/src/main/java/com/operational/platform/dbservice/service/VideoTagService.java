@@ -13,4 +13,6 @@ public interface VideoTagService {
 
     void save(VideoTag videoTag);
 
+    List<VideoTag> listByVideo(Integer videoid);
+
 }

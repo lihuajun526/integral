@@ -156,6 +156,7 @@ public class CrawlTask implements Runnable {
                 //LOGGER.info("有更新[{}]", attackPage.getAttr());
                 LOGGER.info("有更新[{}]", attackPageDb.getTitle());
             }
+            attackPageDb.setUpdateTime(new Date());
             attackPageService.save(attackPageDb);
             return;
         }

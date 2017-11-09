@@ -16,7 +16,7 @@
     <bean id="addQQUserTaskCronTriggerBean"
           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="addQQUserTaskQtzJobMethod"/>
-        <property name="cronExpression" value="0 0 0/1 * * ?"/>
+        <property name="cronExpression" value="0 0 0/2 * * ?"/>
     </bean>
 
     <!-- 定时刷新 -->
@@ -61,7 +61,7 @@
     <bean id="sendEmailTaskCronTriggerBean"
           class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="sendEmailTaskQtzJobMethod"/>
-        <property name="cronExpression" value="0 0 0/1 * * ?"/>
+        <property name="cronExpression" value="0 0/30 * * * ?"/>
     </bean>
 
     <!-- ======================== 调度工厂 ======================== -->

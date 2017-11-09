@@ -4,6 +4,7 @@ import com.operational.platform.dbservice.model.CrawlPoint;
 import com.operational.platform.dbservice.model.CrawlPointExample;
 import com.operational.platform.dbservice.service.CrawlPointService;
 import com.operational.platform.dbservice.service.ScoreService;
+import com.operational.platform.dbservice.service.VideoCommentsAndTagsService;
 import com.operational.platform.spider.CrawlTask;
 import com.operational.platform.spider.bean.CrawlPointAttr;
 import com.operational.platform.spider.bean.SpringContext;
@@ -57,7 +58,10 @@ public class VideoUpdate {
         LOGGER.info("=====================>所有爬取任务都已完成");
         LOGGER.info("=====================>开始执行评分任务");
         ScoreService scoreService = (ScoreService) SpringContext.getContext().getBean("scoreService");
+        VideoCommentsAndTagsService videoCommentsAndTagsService = (VideoCommentsAndTagsService) SpringContext.getContext().getBean("videoCommentsAndTagsService");
+
         scoreService.score(ids);
+        videoCommentsAndTagsService.add();
         LOGGER.info("=====================>评分结束");
     }
 

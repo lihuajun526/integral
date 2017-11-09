@@ -2,7 +2,6 @@ package com.operational.platform.dbservice.dao;
 
 import com.operational.platform.dbservice.model.VideoSuggest;
 import com.operational.platform.dbservice.model.VideoSuggestExample;
-
 import java.util.List;
 import java.util.Map;
 
@@ -19,15 +18,21 @@ public interface VideoSuggestMapper {
 
     int insertSelective(VideoSuggest record);
 
+    List<VideoSuggest> selectByExampleWithBLOBs(VideoSuggestExample example);
+
     List<VideoSuggest> selectByExample(VideoSuggestExample example);
 
     VideoSuggest selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") VideoSuggest record, @Param("example") VideoSuggestExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") VideoSuggest record, @Param("example") VideoSuggestExample example);
+
     int updateByExample(@Param("record") VideoSuggest record, @Param("example") VideoSuggestExample example);
 
     int updateByPrimaryKeySelective(VideoSuggest record);
+
+    int updateByPrimaryKeyWithBLOBs(VideoSuggest record);
 
     int updateByPrimaryKey(VideoSuggest record);
 

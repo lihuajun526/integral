@@ -32,4 +32,13 @@ public class VideoTagServiceImpl implements VideoTagService {
     public void save(VideoTag videoTag) {
         videoTagMapper.insert(videoTag);
     }
+
+    @Override
+    public List<VideoTag> listByVideo(Integer videoid) {
+        VideoTagExample example = new VideoTagExample();
+        VideoTagExample.Criteria criteria = example.createCriteria();
+        criteria.andVideoidEqualTo(videoid);
+
+        return videoTagMapper.selectByExample(example);
+    }
 }

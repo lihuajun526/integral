@@ -83,9 +83,9 @@ public class XHttpClient {
                 lock.unlock();
             }
 
-            HttpHost proxy = new HttpHost("127.0.0.1", 7777, "http");
-            RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
-            //RequestConfig config = RequestConfig.custom().build();
+            /*HttpHost proxy = new HttpHost("127.0.0.1", 7777, "http");
+            RequestConfig config = RequestConfig.custom().setProxy(proxy).build();*/
+            RequestConfig config = RequestConfig.custom().build();
 
             if (httpUriRequest instanceof HttpPost) {
                 ((HttpPost) httpUriRequest).setConfig(config);

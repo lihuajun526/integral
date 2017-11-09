@@ -11,6 +11,8 @@ public class VideoEvaluate {
 
     private Integer isLike;
 
+    private String tags;
+
     private Date createTime;
 
     private Date updateTime;
@@ -61,5 +63,13 @@ public class VideoEvaluate {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

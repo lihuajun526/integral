@@ -31,4 +31,6 @@ public interface AttackPageService {
 
     List<AttackPage> listByPointAndLink(AttackPage attackPage);
 
+    AttackPage get(Integer id);
+
 }
