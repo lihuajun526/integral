@@ -41,4 +41,14 @@ public class VideoTagServiceImpl implements VideoTagService {
 
         return videoTagMapper.selectByExample(example);
     }
+
+    @Override
+    public List<VideoTag> listByVideoAndTag(Integer videoid, String tag) {
+        VideoTagExample example = new VideoTagExample();
+        VideoTagExample.Criteria criteria = example.createCriteria();
+        criteria.andVideoidEqualTo(videoid);
+        criteria.andTagEqualTo(tag);
+
+        return videoTagMapper.selectByExample(example);
+    }
 }

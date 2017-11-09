@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -67,18 +68,21 @@ public class VideoCommentsAndTagsServiceImpl implements VideoCommentsAndTagsServ
                     Thread.sleep(1500);
                     String result = XHttpClient.doRequest(new HttpGet(commentUrl));
                     JSONArray jsonArray = JSON.parseObject(result).getJSONObject("data").getJSONArray("comments");
+                    if (jsonArray.size() == 0) {
+                        LOGGER.info("[{}]评论不存在", videoSuggest.getSrcId());
+                    }
                     for (int i = 0; jsonArray != null && i < jsonArray.size(); i++) {
                         JSONObject comment = jsonArray.getJSONObject(i);
                         VideoComment videoComment = new VideoComment();
-                        videoComment.setNick(comment.getJSONObject("userInfo").getString("uname"));
+                        videoComment.setNick(URLEncoder.encode(comment.getJSONObject("userInfo").getString("uname"), "utf-8"));
                         videoComment.setPhoto(comment.getJSONObject("userInfo").getString("icon"));
                         videoComment.setVideoid(videoSuggest.getId());
-                        videoComment.setContent(comment.getString("content"));
+                        videoComment.setContent(URLEncoder.encode(comment.getString("content"), "utf-8"));
                         videoCommentService.save(videoComment);
                     }
                 }
             } catch (Exception e) {
-                LOGGER.error("给[{}]添加评论和tag失败", videoSuggest.getId(), e);
+                LOGGER.error("给[{}]添加评论或tag失败", videoSuggest.getId(), e);
             }
         }
     }

@@ -29,7 +29,7 @@ public class VideoUpdate {
     public static void execute() {
 
         LOGGER.info("=====================>开始执行任务");
-        List<Integer> ids = new ArrayList<>(Arrays.asList(31, 32));
+        /*List<Integer> ids = new ArrayList<>(Arrays.asList(31, 32));
         List<CrawlPointAttr> list = listCrawlPointAttr(ids);
         //采集
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
@@ -56,11 +56,11 @@ public class VideoUpdate {
             e.printStackTrace();
         }
         LOGGER.info("=====================>所有爬取任务都已完成");
-        LOGGER.info("=====================>开始执行评分任务");
+        LOGGER.info("=====================>开始执行评分任务");*/
         ScoreService scoreService = (ScoreService) SpringContext.getContext().getBean("scoreService");
         VideoCommentsAndTagsService videoCommentsAndTagsService = (VideoCommentsAndTagsService) SpringContext.getContext().getBean("videoCommentsAndTagsService");
 
-        scoreService.score(ids);
+        //scoreService.score(ids);
         videoCommentsAndTagsService.add();
         LOGGER.info("=====================>评分结束");
     }

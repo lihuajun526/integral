@@ -31,9 +31,19 @@ public class VideoSuggest {
 
     private String data;
 
+    private Integer timeLength;
+
     private Date createTime;
 
     private Date updateTime;
+
+    public Integer getTimeLength() {
+        return timeLength;
+    }
+
+    public void setTimeLength(Integer timeLength) {
+        this.timeLength = timeLength;
+    }
 
     public String getDbLink() {
         return dbLink;

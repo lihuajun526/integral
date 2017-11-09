@@ -34,18 +34,10 @@ public class VideoEvaluateServiceImpl implements VideoEvaluateService {
 
     @Override
     public void save(VideoEvaluate videoEvaluate) {
-
-        VideoEvaluateExample example = new VideoEvaluateExample();
-        VideoEvaluateExample.Criteria criteria = example.createCriteria();
-        criteria.andUseridEqualTo(videoEvaluate.getUserid());
-        criteria.andVideoidEqualTo(videoEvaluate.getVideoid());
-
-        List<VideoEvaluate> list = videoEvaluateMapper.selectByExample(example);
-        if (list.size() > 0) {
-            videoEvaluate.setId(list.get(0).getId());
-            videoEvaluateMapper.updateByPrimaryKeySelective(videoEvaluate);
-        } else {
+        if (videoEvaluate.getId() == null) {
             videoEvaluateMapper.insert(videoEvaluate);
+        } else {
+            videoEvaluateMapper.updateByPrimaryKeySelective(videoEvaluate);
         }
     }
 }

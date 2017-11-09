@@ -13,6 +13,10 @@ public class VideoEvaluate {
 
     private String tags;
 
+    private String content;
+
+    private Integer level;
+
     private Date createTime;
 
     private Date updateTime;
@@ -71,5 +75,21 @@ public class VideoEvaluate {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

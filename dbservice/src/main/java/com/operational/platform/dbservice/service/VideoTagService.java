@@ -9,10 +9,12 @@ import java.util.List;
  */
 public interface VideoTagService {
 
-    List<VideoTag> listByVideoAndUser(Integer videoid,Integer userid);
+    List<VideoTag> listByVideoAndUser(Integer videoid, Integer userid);
 
     void save(VideoTag videoTag);
 
     List<VideoTag> listByVideo(Integer videoid);
+
+    List<VideoTag> listByVideoAndTag(Integer videoid, String tag);
 
 }
