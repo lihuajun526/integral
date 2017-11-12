@@ -147,8 +147,19 @@ public class VideoSuggestController extends BaseController {
         } catch (Exception e) {
             logger.error("error:", e);
         }
+
+        filterSearchResults(searchResults);
+
         result.setData(searchResults);
         return result.toString();
+    }
+
+    private void filterSearchResults(List<SearchResult> searchResults) {
+        for (SearchResult searchResult : searchResults) {
+            VideoSuggest videoSuggest = videoSuggestService.getByUrl(searchResult.getLink());
+            if (videoSuggest != null)
+                searchResult.setVideoid(videoSuggest.getId());
+        }
     }
 
     class IndexSuggest {
@@ -190,6 +201,7 @@ public class VideoSuggestController extends BaseController {
         private String actors;
         private String region;
         private String year;
+        private Integer videoid;
 
         public String getTitle() {
             return title;
@@ -253,6 +265,14 @@ public class VideoSuggestController extends BaseController {
 
         public void setYear(String year) {
             this.year = year;
+        }
+
+        public Integer getVideoid() {
+            return videoid;
+        }
+
+        public void setVideoid(Integer videoid) {
+            this.videoid = videoid;
         }
     }
 

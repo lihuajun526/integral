@@ -165,6 +165,66 @@ public class BannerExample {
             return (Criteria) this;
         }
 
+        public Criteria andVideoidIsNull() {
+            addCriterion("videoid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidIsNotNull() {
+            addCriterion("videoid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidEqualTo(Integer value) {
+            addCriterion("videoid =", value, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidNotEqualTo(Integer value) {
+            addCriterion("videoid <>", value, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidGreaterThan(Integer value) {
+            addCriterion("videoid >", value, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("videoid >=", value, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidLessThan(Integer value) {
+            addCriterion("videoid <", value, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidLessThanOrEqualTo(Integer value) {
+            addCriterion("videoid <=", value, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidIn(List<Integer> values) {
+            addCriterion("videoid in", values, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidNotIn(List<Integer> values) {
+            addCriterion("videoid not in", values, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidBetween(Integer value1, Integer value2) {
+            addCriterion("videoid between", value1, value2, "videoid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoidNotBetween(Integer value1, Integer value2) {
+            addCriterion("videoid not between", value1, value2, "videoid");
+            return (Criteria) this;
+        }
+
         public Criteria andUrlIsNull() {
             addCriterion("url is null");
             return (Criteria) this;

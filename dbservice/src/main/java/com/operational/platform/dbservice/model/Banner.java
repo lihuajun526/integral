@@ -5,6 +5,8 @@ import java.util.Date;
 public class Banner {
     private Integer id;
 
+    private Integer videoid;
+
     private String url;
 
     private Integer forum;
@@ -25,6 +27,14 @@ public class Banner {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getVideoid() {
+        return videoid;
+    }
+
+    public void setVideoid(Integer videoid) {
+        this.videoid = videoid;
     }
 
     public String getUrl() {
